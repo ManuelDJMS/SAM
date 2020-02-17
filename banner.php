@@ -111,7 +111,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="dashboards-sales.html">
+                                <a href="empresas.php">
                                     <i class="metismenu-icon">
                                     </i>Nuevo
                                 </a>
