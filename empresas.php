@@ -35,29 +35,73 @@
             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                 <div class="main-card mb-3 card">
                     <div class="card-body"><h5 class="card-title">Informacion General de la Empresa</h5>
-                        <form class="">
+                        <?php 
+                            extract($_POST, EXTR_PREFIX_ALL, '');
+                            if(isset($_RazonSocial))
+                            { 
+                                // echo $_email;
+                                $objUsuario='';
+                                $conexion=new Conexion();
+                                $conexion->conectar();
+                                $sql="INSERT INTO EmpresasOrdenadas (
+                                ,[RazonSocial]
+                                ,[RFC]
+                                ,[Credito]
+                                ,[ObservacionesEmpresa]
+                                ,[Ventas]
+                                ,[Cursos]
+                                ,[Gestoria]) VALUES (?,?)";
+                                $parametros array()
+                                $conexion->ejecutaQuery($sql);
+                                 if($conexion->getNum()>0)
+                                 {
+                                    $objUsuario = $conexion->getArreglo();
+                                  if ($objUsuario[2]!=$_password)
+                                  {
+                                    echo "Contraseña Incorrecta!";
+                                  }
+                                  else
+                                  {
+                                    $_SESSION['iduser']  = $objUsuario[0];
+                                    $_SESSION['nombre']  = $objUsuario[1];
+                                    $_SESSION['rol']  = $objUsuario[3];
+                                    echo "<<<_END
+                                    <script>
+                                    window.location.replace('index.php');
+                                    </script>
+                                    _END";
+                                  }
+                                }
+                                else
+                                {
+                                    echo "No existe la cuenta";
+                                 }
+
+                           }
+                        ?>
+                        <form class="" action="empresas.php" method="post">
                             <div class="form-row">
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
                                         <label for="exampleEmail11" class="">Razón Social</label>
-                                        <input name="email" id="exampleEmail11" type="email" class="form-control">
+                                        <input name="RazonSocial" id="exampleEmail11" type="email" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
                                         <label for="examplePassword11" class="">RFC</label>
-                                        <input name="password" id="examplePassword11" class="form-control">
+                                        <input name="RFC" id="examplePassword11" class="form-control">
                                     </div>
                                 </div>
                             </div>
                             <div class="position-relative form-group">
                                 <label for="exampleText" class="">Observaciones de la empresa</label>
-                                <textarea name="text" id="exampleText" class="form-control"></textarea>
+                                <textarea name="observaciones" id="exampleText" class="form-control"></textarea>
                             </div>
                             <div class="form-row">              
                                 <div class="position-relative form-group"> 
                                     <label for="exampleSelect" class="">Crédito</label>
-                                    <select name="select" id="exampleSelect" class="form-control">
+                                    <select name="Credito" id="exampleSelect" class="form-control">
                                         <option>CON CRÉDITO</option>
                                         <option>SIN CRÉDITO</option>
                                         <option>CRÉDITO SUSPENDIDO</option>
@@ -69,19 +113,19 @@
                             <div class="position-relative form-group"> 
                             <label for="exampleText" class="">Empresa en </label>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input">
+                                    <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" name="CVentas">
                                     <label class="custom-control-label" for="exampleCustomCheckbox1">Ventas</label>
                                 </div>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input">
+                                    <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input" name="CCursos">
                                         <label class="custom-control-label" for="exampleCustomCheckbox2">Cursos</label>
                                 </div>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+                                    <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input" name="CGestoria">
                                     <label class="custom-control-label" for="exampleCustomCheckbox3">Gestoría</label>
                                 </div>
                             </div>
-                            <button class="mt-2 btn btn-primary">Guardar</button>
+                            <input type="submit" class="mt-2 btn btn-primary" value="Guardar"></button>
                         </form>
                     </div>
                 </div>

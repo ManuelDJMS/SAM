@@ -16,36 +16,32 @@ class Conexion
     $user = "sa";
     $password = "Met99011578a";
     $dataBase = "SAM";
-
+    // ================== SE INICIALIZAN LAS VARIABLES PARA LA CONEXION ==============================================
     $this->serverName = $serverName;
     $this->user = $user;
     $this->password = $password;
     $this->dataBase = $dataBase;
+    // ===============================================================================================================
+    // ============================= SE CREA LA CADENA DE CONEXION ===================================================
     $this->connectionInfo = array("Database" => $this->dataBase, "UID" => $this->user, "PWD" => $this->password);
+    // ===============================================================================================================
+    // ============================= SE CONECTA A LA BASE DE DATOS ===================================================
     $this->conn = sqlsrv_connect($this->serverName, $this->connectionInfo);
-
-    if ($this->conn) {
+    
+    if ($this->conn) 
+    {
         return $this->conn;
     } else {
         echo "Conexión no se pudo establecer.<br />";
         die(print_r(sqlsrv_errors(), true));
     }
   }
-
-//   function SqlExec($query,$conn=null){
-//       if ($this->conn == null) {
-//           $this->conectar();
-//       }
-//       $this->res = sqlsrv_query($conn, $query, array(), array( "Scrollable" => 'static' ));
-//       if ($this->res === false) {
-//           die(print_r(sqlsrv_errors(), true));
-//       } else {
-//           return true;
-//       }
-//   }
-  
-  function ejecutaQuery($query, $conn = null) {
-      if ($this->conn == null) {
+    // ===============================================================================================================
+  //================================= METODO PARA HACER CONSULTAS ====================================================
+  function ejecutaQuery($query, $conn = null) 
+  {
+      if ($this->conn == null) 
+      {
           $this->conectar();
       }
       $this->res = sqlsrv_query($this->conn, $query, array(), array( "Scrollable" => 'static' ));
@@ -56,7 +52,23 @@ class Conexion
       }
     
   }
-
+// ===============================================================================================================
+  //================================= METODO PARA HACER QUERYS (INSERT, UPDATE, ETC) ====================================================
+  function ejecutaSQL($query, $conn = null, $params) 
+  {
+      if ($this->conn == null) 
+      {
+          $this->conectar();
+      }
+      $this->res = sqlsrv_query($this->conn, $query, $params);
+      if ($this->res === false) {
+          die(print_r(sqlsrv_errors(), true));
+      } else {
+          return true;
+      }
+    
+  }
+// ===============================================================================================================
   function getListaObjetos(){
     
       $array = array();
