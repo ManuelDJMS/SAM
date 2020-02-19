@@ -58,8 +58,22 @@
                                 $sql='INSERT INTO EmpresasOrdenadas (RazonSocial,RFC,Credito,ObservacionesEmpresa, Ventas, Cursos, Gestoria) VALUES (?,?,?,?,?,?,?)';
                                 $params2 = array(utf8_decode($tipo), $_RFC, utf8_decode($_Credito), utf8_decode($_Observaciones),$_CVentas, $_CCursos, $_CGestoria);
                                 $conexion->ejecutaSQLTransac($sql, $params2);
+                                // ================== CODIGO DE ALERTA DE GUARDADO =========================
+                                echo "<script>";
+                                echo "function alerta(){";
+                                echo "swal({";
+                                    echo "title: '¡Guardado!',";
+                                    echo "text: 'Empresa guardada correctamente',";
+                                    echo "type: 'success',";
+                                    echo "});";
+                                echo "}";
+                                echo "alerta();";              
+                                echo "</script>";
+                                // ==========================================================================
+                                
                            }
-                        ?>
+                               
+                        ?> 
                         <form class="" id="signupForm" action="empresas.php" method="post">
                             <div class="form-row">
 
@@ -134,7 +148,7 @@
                                     <label class="custom-control-label" for="exampleCustomCheckbox3">Gestoría</label>
                                 </div>
                             </div>
-                            <input type="submit" class="mt-2 btn btn-primary btn-show-swal" value="Guardar"></button>
+                            <input type="submit" class="mt-2 btn btn-primary" value="Guardar"></button>
                         </form>
                     </div>
                 </div>

@@ -2,7 +2,7 @@
 <?php 
     session_start();
     include_once("conexion.php");
-    header('Content-Type: text/html; charset=UTF-8');
+    // header('Content-Type: text/html; charset=UTF-8');
 ?>
 <!doctype html>
 <html lang="en">
@@ -18,9 +18,14 @@
         <!-- Disable tap highlight on IE -->
         <meta name="msapplication-tap-highlight" content="no">
         <!-- ================= ESTILO DE LA PAGINA ======================== -->
+        
         <link href="./main.8d288f825d8dffbbe55e.css" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/scripts/sweetalert2.css"/>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+             <script src="./assets/scripts/sweetalert2.js"></script>
         <!-- ============================================================== -->
     </head>
+  
     <body>
         <!--=============================================== DIV PRINCIPAL DE HEADER ==================================================== -->
         <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
