@@ -20,9 +20,9 @@
         <!-- ================= ESTILO DE LA PAGINA ======================== -->
         
         <link href="./main.8d288f825d8dffbbe55e.css" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/scripts/sweetalert2.css"/>
+        <link rel="stylesheet" href="./assets/scripts/2.css"/>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-             <script src="./assets/scripts/sweetalert2.js"></script>
+             <script src="./assets/scripts/s2.js"></script>
         <!-- ============================================================== -->
     </head>
   
