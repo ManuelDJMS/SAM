@@ -54,7 +54,7 @@ class Conexion
   }
 // ===============================================================================================================
   //================================= METODO PARA HACER QUERYS (INSERT, UPDATE, ETC) ====================================================
-  function ejecutaSQL($query, $conn = null, $params) 
+  function ejecutaSQL($query, $params, $conn = null) 
   {
       if ($this->conn == null) 
       {
@@ -66,6 +66,34 @@ class Conexion
       } else {
           return true;
       }
+    
+  }
+// ===============================================================================================================
+  //================================= METODO PARA HACER QUERYS CON TRANSACCION (INSERT, UPDATE, ETC) ====================================================
+  function ejecutaSQLTransac($query, $params, $conn = null) 
+  {
+      if ($this->conn == null) 
+      {
+          $this->conectar();
+      }
+      if ( sqlsrv_begin_transaction( $this->conn ) === false ) {
+        die( print_r( sqlsrv_errors(), true ));
+   }
+
+      $this->res = sqlsrv_query($this->conn, $query, $params);
+    //   if ($this->res === false) {
+    //       die(print_r(sqlsrv_errors(), true));
+    //   } else {
+    //       return true;
+    //   }
+    if( $this->res ) {
+        sqlsrv_commit( $this->conn );
+        // echo "Transaccion consolidada.<br />";
+        return true;
+   } else {
+        sqlsrv_rollback( $this->conn );
+        die(print_r(sqlsrv_errors(), true));
+   }
     
   }
 // ===============================================================================================================

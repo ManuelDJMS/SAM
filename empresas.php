@@ -39,64 +39,73 @@
                             extract($_POST, EXTR_PREFIX_ALL, '');
                             if(isset($_RazonSocial))
                             { 
-                                // echo $_email;
                                 $objUsuario='';
                                 $conexion=new Conexion();
                                 $conexion->conectar();
-                                $sql="INSERT INTO EmpresasOrdenadas (
-                                ,[RazonSocial]
-                                ,[RFC]
-                                ,[Credito]
-                                ,[ObservacionesEmpresa]
-                                ,[Ventas]
-                                ,[Cursos]
-                                ,[Gestoria]) VALUES (?,?)";
-                                $parametros array()
-                                $conexion->ejecutaQuery($sql);
-                                 if($conexion->getNum()>0)
-                                 {
-                                    $objUsuario = $conexion->getArreglo();
-                                  if ($objUsuario[2]!=$_password)
-                                  {
-                                    echo "Contraseña Incorrecta!";
-                                  }
-                                  else
-                                  {
-                                    $_SESSION['iduser']  = $objUsuario[0];
-                                    $_SESSION['nombre']  = $objUsuario[1];
-                                    $_SESSION['rol']  = $objUsuario[3];
-                                    echo "<<<_END
-                                    <script>
-                                    window.location.replace('index.php');
-                                    </script>
-                                    _END";
-                                  }
+                                $tipo=$_RazonSocial.', '.$_TipoEmpresa;
+                                if (!isset($_CVentas)) 
+	                            {
+                                    $_CVentas=0;
                                 }
-                                else
-                                {
-                                    echo "No existe la cuenta";
-                                 }
-
+                                if (!isset($_CCursos)) 
+	                            {
+                                    $_CCursos=0;
+                                }
+                                if (!isset($_CGestoria)) 
+	                            {
+                                    $_CGestoria=0;
+                                }
+                                $sql='INSERT INTO EmpresasOrdenadas (RazonSocial,RFC,Credito,ObservacionesEmpresa, Ventas, Cursos, Gestoria) VALUES (?,?,?,?,?,?,?)';
+                                $params2 = array(utf8_decode($tipo), $_RFC, utf8_decode($_Credito), utf8_decode($_Observaciones),$_CVentas, $_CCursos, $_CGestoria);
+                                $conexion->ejecutaSQLTransac($sql, $params2);
                            }
                         ?>
-                        <form class="" action="empresas.php" method="post">
+                        <form class="" id="signupForm" action="empresas.php" method="post">
                             <div class="form-row">
-                                <div class="col-md-6">
+
+                                <div class="col-md-5">
                                     <div class="position-relative form-group">
                                         <label for="exampleEmail11" class="">Razón Social</label>
-                                        <input name="RazonSocial" id="exampleEmail11" type="email" class="form-control">
+                                        <input type="text" class="form-control" id="RazonSocial" name="RazonSocial" placeholder=""/>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-2">
+                                <div class="position-relative form-group"><label for="exampleCustomSelect" class="">Tipo</label><select type="select" id="exampleCustomSelect" name="TipoEmpresa" class="custom-select">
+                                                            <option></option>
+                                                            <option>A.C.</option>
+                                                            <option>S.A.B.</option>
+                                                            <option>S.A.B. de C.V.</option>
+                                                            <option>S.A.S.</option>
+                                                            <option>S.A.</option>
+                                                            <option>SA. de CV.</option>
+                                                            <option>S.A.P.I.</option>
+                                                            <option>S.A.P.I. de C.V.</option>
+                                                            <option>S.A.P.I.B.</option>
+                                                            <option>S. de P.R. de R.L.</option>
+                                                            <option>S. de R.L.</option>
+                                                            <option>S. de R.L. de C.V.</option>
+                                                            <option>S. en N.C</option>
+                                                            <option>S. Coop.</option>
+                                                            <option>S.C.</option>
+                                                            <option>S.S.S.</option>
+                                                        </select></div></div>
+                                <div class="col-md-5">
                                     <div class="position-relative form-group">
                                         <label for="examplePassword11" class="">RFC</label>
                                         <input name="RFC" id="examplePassword11" class="form-control">
                                     </div>
                                 </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="position-relative form-group">
+                                        <label for="examplePassword11" class="">RFC</label>
+                                        <input name="RFC" id="examplePassword11" class="form-control">
+                                    </div>
+                                </div> -->
+                              
                             </div>
                             <div class="position-relative form-group">
                                 <label for="exampleText" class="">Observaciones de la empresa</label>
-                                <textarea name="observaciones" id="exampleText" class="form-control"></textarea>
+                                <textarea name="Observaciones" id="exampleText" class="form-control"></textarea>
                             </div>
                             <div class="form-row">              
                                 <div class="position-relative form-group"> 
@@ -113,19 +122,19 @@
                             <div class="position-relative form-group"> 
                             <label for="exampleText" class="">Empresa en </label>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" name="CVentas">
+                                    <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" name="CVentas" value="1">
                                     <label class="custom-control-label" for="exampleCustomCheckbox1">Ventas</label>
                                 </div>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input" name="CCursos">
+                                    <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input" name="CCursos" value="1">
                                         <label class="custom-control-label" for="exampleCustomCheckbox2">Cursos</label>
                                 </div>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input" name="CGestoria">
+                                    <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input" name="CGestoria" value="1">
                                     <label class="custom-control-label" for="exampleCustomCheckbox3">Gestoría</label>
                                 </div>
                             </div>
-                            <input type="submit" class="mt-2 btn btn-primary" value="Guardar"></button>
+                            <input type="submit" class="mt-2 btn btn-primary btn-show-swal" value="Guardar"></button>
                         </form>
                     </div>
                 </div>
