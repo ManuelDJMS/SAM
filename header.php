@@ -23,6 +23,8 @@
         <link rel="stylesheet" href="./assets/scripts/2.css"/>
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
              <script src="./assets/scripts/s2.js"></script>
+             <script type="text/javascript" src="./assets/scripts/jquery.min.js"></script>
+            <script type="text/javascript" src="./assets/scripts/busquedas.js"></script>
         <!-- ============================================================== -->
     </head>
   
