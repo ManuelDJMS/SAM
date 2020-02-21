@@ -88,8 +88,7 @@
 	                            {
                                     $_CGestoria=0;
                                 }
-                                $sql="UPDATE EmpresasOrdenadas SET RazonSocial=(RazonSocial - ?) WHERE ClaveEmpresa=?";
-                                echo $sql;
+                                $sql="UPDATE EmpresasOrdenadas SET RazonSocial=(?) WHERE ClaveEmpresa=?";
                                 $params2 = array($_RazonSocial, $_nempresa);
                                 $conexion->ejecutaSQLTransac($sql, $params2);
                                // ================== CODIGO DE ALERTA DE GUARDADO =========================
@@ -169,7 +168,7 @@
                                 </div>        
                             </div> 
                             <div class="position-relative form-group"> 
-                            <input type="text" name="nempresa" value="<?php if(isset($_Modificar))
+                            <input type="hidden" name="nempresa" value="<?php if(isset($_Modificar))
                             {echo  $_Modificar;}?>"></input>
                             <label for="exampleText" class="">Empresa en </label>
                                 <div class="custom-checkbox custom-control">
@@ -185,8 +184,7 @@
                                     <label class="custom-control-label" for="exampleCustomCheckbox3">Gestoría</label>
                                 </div>
                             </div>
-                            <input type="submit" class="mt-2 btn btn-primary" value="<?php  if(isset($_Modificar))
-                            { echo 'Modificar_Boton';}else {echo'Guardar';}?>" name="<?php  if(isset($_Modificar))
+                            <input type="submit" class="mt-2 btn btn-primary" value="Guardar" name="<?php  if(isset($_Modificar))
                             { echo 'Modificar_Boton';}else {echo'Guardar';}?>"></button>
                         </form>
                     </div>
