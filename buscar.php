@@ -1,5 +1,6 @@
 <?php
 	//=============== SE INCLUYE LA CONEXION Y SE CREA EL OBJETO =====================
+	session_start();
 	include_once("conexion.php");
 	include_once("validates.php");
 	$conexion=new Conexion();
@@ -32,14 +33,14 @@
 			</thead>
 			<tbody>";
 		//=============================================================================
-		//=================================SE CREA UN CICLO DEPENDIENDO DE LOS REGISTROS TRAIDOS DE LA ============================================
+		//=================================SE CREA UN CICLO DEPENDIENDO DE LOS REGISTROS TRAIDOS DE LA CONSULTA============================================
 		while ($fila = $conexion->getArreglo()) 
 		{
 			$salida.="<tr>
 					<td>
 					<form action='empresas.php' method='post'>\n
-					<input type='hidden' name='action' value='".$fila[0]."'></input>
-					<button type='submit' class='mb-2 mr-2 btn-icon btn-square btn btn-link'><i class='lnr-pencil btn-icon-wrapper'> ".$fila[0]."</i></button>
+					<input type='hidden' name='Modificar' value='".$fila[0]."'></input>
+					<button type='submit' class='mb-2 mr-2 btn-icon btn-square btn btn-link' name='idTarjeta_U'><i class='lnr-pencil btn-icon-wrapper'> ".$fila[0]."</i></button>
 					</form>
 					</td>
 					<td>".utf8_encode($fila[1])."</td>
