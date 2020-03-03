@@ -234,29 +234,32 @@ function limpia_formulario(){
       })
       
       swalWithBootstrapButtons.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
+        title: '¡Guardado!',
+        text: "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'?",
+        icon: 'success',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Si!',
+        cancelButtonText: 'No, salir!',
         reverseButtons: true
       }).then((result) => {
         if (result.value) {
-          swalWithBootstrapButtons.fire(
-            'Deleted!',
-            'Your file has been deleted.',
-            'success'
-          )
+          // swalWithBootstrapButtons.fire(
+          //   'Deleted!',
+          //   'Your file has been deleted.',
+          //   'success'
+          // )
+          location.reload();
         } else if (
           /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Your imaginary file is safe :)',
-            'error'
-          )
+          // swalWithBootstrapButtons.fire(
+          //   'Cancelled',
+          //   'Your imaginary file is safe :)',
+          //   'error'
+          // )
+          
+          window.location="http://localhost:8080/dashboard/SAM/index.php";
         }
       })
 			 
