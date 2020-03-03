@@ -119,7 +119,8 @@
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div  class="main-card mb-3 card">
                 <div id="div_registros" class="box-body">
-                  <table id="example" class="table table-bordered table-striped">
+                  <!-- <table id="example" class="table table-bordered table-striped"> -->
+                  <table id="example" class="table table-bordered table-striped dataTable">
                     <thead>
                       <tr>
                         <th>Clave Empresa</th>
