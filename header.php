@@ -10,7 +10,6 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <!-- <meta http-equiv="Content-Language" content="sp"> -->
-        <!-- <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>METLAB - SAM.</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
@@ -18,14 +17,22 @@
         <!-- Disable tap highlight on IE -->
         <meta name="msapplication-tap-highlight" content="no">
         <!-- ================= ESTILO DE LA PAGINA ======================== -->
-        
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
         <link href="./main.8d288f825d8dffbbe55e.css" rel="stylesheet">
-        <link rel="stylesheet" href="./assets/scripts/2.css"/>
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-             <script src="./assets/scripts/s2.js"></script>
-             <script type="text/javascript" src="./assets/scripts/jquery.min.js"></script>
-            <script type="text/javascript" src="./assets/scripts/busquedas.js"></script>
-        <!-- ============================================================== -->
+        
+        <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+             
+             <!-- <script type="text/javascript" src="./assets/scripts/jquery.min.js"></script> -->
+            <!-- <script type="text/javascript" src="./assets/scripts/busquedas.js"></script> -->
+            <!-- <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
+            <script src="plugins/jQuery/jQuery-3.2.1.min.js"></script>
+        <!-- ====================== MENSAJES DE GUARDADO ======================================== -->
+        <!-- <link rel="stylesheet" href="./assets/scripts/2.css"/>
+        <script src="./assets/scripts/s2.js"></script> -->
+        <link rel="stylesheet" href="./assets/scripts/sweetalert2.min.css"/>
+        <script src="./assets/scripts/sweetalert2.min.js"></script>
+
+        <!-- ====================================================================================== -->
     </head>
   
     <body>
