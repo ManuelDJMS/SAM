@@ -190,41 +190,8 @@ function limpia_formulario(){
 	$("#exampleCustomCheckbox2").removeAttr("checked");
 	$("#exampleCustomCheckbox3").removeAttr("checked");
 	
-	
-	// $("#Limpiar").html("");
 }
-	// echo "<script>";
 	function alerta(){
-	// swal({
-	// 	title: '¡Guardado!',
-	// 	text: 'Empresa guardada correctamente',
-	// 	type: 'success',
-	// 	});
-	
-    // Swal({
-    //     title: '¡Guardado!',
-    //     text: "Empresa guardada correctamente ¿desea seguir en 'Empresas'?",
-    //     type: 'success',
-    //     showCancelButton: true,
-    //     confirmButtonColor: '#3085d6',
-    //     cancelButtonColor: '#d33',
-    //     confirmButtonText: 'Si!'
-    //   }).then((result) => {
-    //     if (result.value) {
-
-    //     //   Swal.fire(
-    //     //     'Deleted!',
-    //     //     'Your file has been deleted.',
-    //     //     'success'
-    //     //   )
-    //     location.reload();
-    //     }
-    //     else
-    //     {
-    //         window.locationf="http://www.cristalab.com"
-    //     }
-
-    //   })
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success',
@@ -243,22 +210,10 @@ function limpia_formulario(){
         reverseButtons: true
       }).then((result) => {
         if (result.value) {
-          // swalWithBootstrapButtons.fire(
-          //   'Deleted!',
-          //   'Your file has been deleted.',
-          //   'success'
-          // )
           location.reload();
         } else if (
-          /* Read more about handling dismissals below */
           result.dismiss === Swal.DismissReason.cancel
         ) {
-          // swalWithBootstrapButtons.fire(
-          //   'Cancelled',
-          //   'Your imaginary file is safe :)',
-          //   'error'
-          // )
-          
           window.location="http://localhost:8080/dashboard/SAM/index.php";
         }
       })
