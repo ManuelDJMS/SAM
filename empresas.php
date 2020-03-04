@@ -4,8 +4,8 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-<!-- <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>  -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
 
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -120,7 +120,7 @@
                 <div  class="main-card mb-3 card">
                 <div id="div_registros" class="box-body">
                   <!-- <table id="example" class="table table-bordered table-striped"> -->
-                  <table id="example" class="table table-bordered table-striped dataTable">
+                  <table id="example1" class="table table-bordered table-striped dataTable">
                     <thead>
                       <tr>
                         <th>Clave Empresa</th>
@@ -129,7 +129,7 @@
                         <th>Crédito</th>
                         <th>Observaciones de la empresa</th>
                         <th>Editar</th>
-                        <th>Eliminar</th>
+                        <!-- <th>Eliminar</th> -->
                       </tr>
                     </thead>
                     <tbody>

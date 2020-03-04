@@ -3,6 +3,8 @@
      include_once("validates.php");
      include_once("banner.php");
 ?>
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">

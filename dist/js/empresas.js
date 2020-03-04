@@ -131,11 +131,11 @@ function obtener_registros(){
                 html += '<td>' + $.trim(data[i].Credito) + '</td>';
                 html += '<td>' + $.trim(data[i].ObservacionesEmpresa) + '</td>';
                 html += '<td class="btnEditar" id="edit_'+data[i].ClaveEmpresa+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
-                html += '<td class="btnBorrar" id="del_'+data[i].ClaveEmpresa+'"><span class="glyphicon glyphicon-trash" ></span></td>';
+                // html += '<td class="btnBorrar" id="del_'+data[i].ClaveEmpresa+'"><span class="glyphicon glyphicon-trash" ></span></td>';
                 html += '</tr>';                        
             }
-            $('#example tbody').html(html);
-            $('#example').DataTable({
+            $('#example1 tbody').html(html);
+            $('#example1').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
@@ -150,7 +150,7 @@ function obtener_registros(){
 function regenerar_tabla(){
     $('#div_registros').html("");
     var html = "";
-    html += '<table id="example" class="table table-bordered table-striped dataTable">';
+    html += '<table id="example1" class="table table-bordered table-striped dataTable">';
     html += '<thead>';
     html += '<tr>';
     html += '<th>Clave Empresa</th>';
@@ -159,7 +159,7 @@ function regenerar_tabla(){
 	html += '<th>Crédito</th>';
 	html += '<th>Observaciones de la empresa</th>';
 	html += '<th>Editar</th>';
-    html += '<th>Eliminar</th>';
+    // html += '<th>Eliminar</th>';
     html += '</tr>';
     html += '</thead>';
     html += '<tbody>';

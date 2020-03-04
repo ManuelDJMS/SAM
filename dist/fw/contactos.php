@@ -65,7 +65,7 @@ ini_set('display_errors', '0');
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT [ClaveContacto],[Nombre],[Apellidos],[Cargo],[Celular],[Tel],[Fax],[Ext],[Email]FROM Contactos";
+        $strQuery = "SELECT *FROM Contactos";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();

@@ -58,8 +58,8 @@ function obtener_registros(){
                 // html += '<td class="btnBorrar" id="del_'+data[i].ClaveContacto+'"><span class="glyphicon glyphicon-trash" ></span></td>';
                 html += '</tr>';                        
             }
-            $('#example tbody').html(html);
-            $('#example').DataTable({
+            $('#example1 tbody').html(html);
+            $('#example1').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
@@ -74,7 +74,7 @@ function obtener_registros(){
 function regenerar_tabla(){
     $('#div_registros').html("");
     var html = "";
-    html += '<table id="example" class="table table-bordered table-striped dataTable">';
+    html += '<table id="example1" class="table table-bordered table-striped dataTable">';
     html += '<thead>';
     html += '<tr>';
     html += '<th>Clave Contacto</th>';

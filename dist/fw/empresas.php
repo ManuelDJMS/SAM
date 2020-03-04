@@ -173,7 +173,7 @@ ini_set('display_errors', '0');
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM EmpresasOrdenadas";
+        $strQuery = "SELECT * FROM Empresas";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();
