@@ -84,7 +84,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="dashboards-sales.html">
+                                <a href="contactos.php">
                                     <i class="metismenu-icon">
                                     </i>Nuevo
                                 </a>

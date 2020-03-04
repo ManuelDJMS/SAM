@@ -35,37 +35,7 @@
             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                 <div class="main-card mb-3 card">
                     <div class="card-body"><h5 class="card-title">Informacion Personal</h5>
-                        <?php 
-                            extract($_POST, EXTR_PREFIX_ALL, '');
-                            $conexion=new Conexion();
-                            $conexion->conectar();
-                            
-                            if(isset($_Guardar))
-                            { 
-                                $objUsuario='';
-                                $fecha = date("d-m-Y");
-                                if (!isset($_CActivo)) 
-	                            {
-                                    $_CActivo=0;
-                                }
-                                $sql='INSERT INTO Contactos (IdDireccion,Nombre,Apellidos,Cargo,Celular,Tel,Fax,Ext,Email,CondicionesClienteAdmon,Descuento,Activo,FechaCreacion,CreadoPor,FechaModificacion,ModificadoPor) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
-                                $params2 = array(1,$_Nombre, $_Apellido,$_Cargo,$_Celular,$_Telefono,$_Fax,$_Ext,$_Email,$_Condiciones,$_Descuento,$_CActivo,$fecha,'IT',$fecha,'IT');
-                                $conexion->ejecutaSQL($sql, $params2);
-                                // ================== CODIGO DE ALERTA DE GUARDADO =========================
-                                echo "<script>";
-                                echo "function alerta(){";
-                                echo "swal({";
-                                    echo "title: '¡Guardado!',";
-                                    echo "text: 'Contacto guardado correctamente',";
-                                    echo "type: 'success',";
-                                    echo "});";
-                                echo "}";
-                                echo "alerta();";              
-                                echo "</script>";
-                                // ==========================================================================
-                                
-                           }    
-                        ?> 
+
                         <form class="" id="signupForm" action="contactos.php" method="post">
                             <div class="form-row">
                                 <div class="col-md-4">
@@ -77,7 +47,7 @@
                                 <div class="col-md-4">
                                     <div class="position-relative form-group">
                                         <label for="examplePassword11" class="">Apellido</label>
-                                        <input name="Apellido" id="Apellido" class="form-control">
+                                        <input name="Apellidos" id="Apellidos" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -97,7 +67,7 @@
                                 <div class="col-md-2">
                                     <div class="position-relative form-group">
                                             <label for="examplePassword11" class="">Telèfono</label>
-                                            <input name="Telefono" id="Telefono" class="form-control">
+                                            <input name="Tel" id="Tel" class="form-control">
                                         </div>
                                 </div>
                                 <div class="col-md-2">
@@ -152,41 +122,37 @@
                                         <button type="button" data-toggle="collapse" href="#collapseExample123" class="btn btn-primary">Agregar Dirección</button>
                                     </div>
                                 </div>                     
-                            <input type="submit" class="mt-2 btn btn-primary" value="Guardar" name="<?php  if(isset($_Modificar))
-                            { echo 'Modificar_Boton';}else {echo'Guardar';}?>"></button>
+                                <button type="button" class="mt-2 btn btn-primary" id="btnAgregaContacto">Guardar</button> 
                         </form>
                     </div>
                 </div>
             </div>
             
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
-            <!--  <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
-                <div class="main-card mb-3 card">
-                   
-                        <form class="form-inline">
-                            <div class="card-header">
-                                <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
-                                    <i class="header-icon pe-7s-search icon-gradient bg-plum-plate"> </i>Buscar por:
-                                </div>
-                                <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
-                                    <label for="exampleEmail22" class="mr-sm-2">Clave Cliente</label>
-                                    <input name="CveEmpresa" id="CveEmpresa" class="form-control">
-                                </div>
-                                <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
-                                    <label for="examplePassword22" class="mr-sm-2">Nombre</label>
-                                    <input name="RazonSocial" id="RazonSocial" class="form-control">
-                                </div>
-                                <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
-                                    <label for="examplePassword22" class="mr-sm-2">Correo</label>
-                                    <input name="RFC" id="RFC" class="form-control">
-                                </div>
-                            </div> 
-                        </form>
-                         <div class="divider"></div> 
-                         <div class="card-body" id="datos">
-                         </div> <!-- AQUI TERMINA EL DIV "CAR BODY"-->
-                </div> <!-- AQUI TERMINA EL DIV DEL MAIN DEL TAB -->
-                </div><!-- AQUI TERMINA EL DIV DEL TAB --> -->
-        </div>
+            <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+                <div  class="main-card mb-3 card">
+                <div id="div_registros" class="box-body">
+                  <table id="example1" class="table table-bordered table-striped dataTable">
+                    <thead>
+                      <tr>
+                        <th>Clave Contacto</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Cargo</th>
+                        <th>Celular</th>
+                        <th>Tel</th>
+                        <th>Fax</th>
+                        <th>Ext</th>
+                        <th>Email</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+            </div>  
+        </div><!-- AQUI TERMINA EL DIV DEL TAB -->
     </div>
-     <?php include_once("footer.php");?>
+    <script src="dist/js/contactos.js"></script>
+    <?php include_once("footer.php");?>
