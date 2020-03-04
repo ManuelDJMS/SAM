@@ -4,27 +4,42 @@ $(document).ready(function(){
 	limpia_formulario();
 	obtener_registros();
 
-	$('html').on('click', '#btnAgregaEmpresa', function(){
-        // var noEmpleado = $("#inputNoEmpleado option:selected").val();
-        var RazonSocial = $("#RazonSocial").val();
-        var RFC = $("#RFC").val();
-        var Credito = $("#Credito").val();
-        var Observaciones = $("#Observaciones").val();
-        var CVentas = $("#exampleCustomCheckbox1").val();
-        var CCursos = $("#exampleCustomCheckbox2").val();
-		var CGestoria = $("#exampleCustomCheckbox3").val();
-		
-        // var perfil = $("#inputPerfil option:selected").text();
-		 if(RazonSocial == "")
-		 {
+	$('html').on('click', '.btnGuardar', function(){
+    // ESTE CODIGO SI FUNCIONA
+    //     var RazonSocial = $("#RazonSocial").val();
+    //     var RFC = $("#RFC").val();
+    //     var Credito = $("#Credito").val();
+    //     var Observaciones = $("#Observaciones").val();
+    //     var CVentas = $("#exampleCustomCheckbox1").val();
+    //     var CCursos = $("#exampleCustomCheckbox2").val();
+		//     var CGestoria = $("#exampleCustomCheckbox3").val();
+		//  if(RazonSocial == "")
+		//  {
 
-		 }
-		 else
-		 {
-			registrar_usuario(RazonSocial,RFC,Credito,Observaciones,CVentas,CCursos,CGestoria);
-		 }
-       
+		//  }
+		//  else
+		//  {
+		// 	registrar_usuario(RazonSocial,RFC,Credito,Observaciones,CVentas,CCursos,CGestoria);
+    //  }
+    var obj = new Object();
+        obj.RazonSocial = $.trim($('#RazonSocial').val());
+        obj.RFC = $.trim($('#RFC').val());
+        obj.Credito = $.trim($('#Credito').val());
+        obj.Observaciones = $.trim($('#Observaciones').val());
+        obj.CVentas = $.trim($('#CVentas').val());
+        obj.CCursos = $.trim($('#CCursos').val());
+        obj.CGestoria = $.trim($('#CGestoria').val());
+        obj.accion = $(this).attr("id").split('_')[1];
+        obj.iIdMagnitud = $(this).attr("id").split('_')[2];
+        if(RazonSocial != ""){
+            guardar_empresa(obj);
+        }
+        // else{
+            
+        // }
     });
+
+   
 
 // 	$('html').on('click', '.cierraBoxEliminaUsuario', function(){
 // 		$("#boxEliminaUsuario").hide();
@@ -87,36 +102,23 @@ $(document).ready(function(){
 // 		}
 // 	}, 'json');
 // }
+// =================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ============================
+function guardar_empresa(obj){
+  var opc = "guardar_empresa";
+  // $('.loading').show();
+  $.post("dist/fw/empresas.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
+      if(data){
+          alerta("¡Guardado!", "La empresa de guardo correctamente, ¿desea seguir en 'Empresas'", "success");
+          obtener_registros();
+      }else{
+          alerta("¡Error!","Error al guardar registros", "danger");
+      }
+      $('.loading').hide();
+  },'json');
+}
 
-// function obtener_usuarios(){
-// 	var opc = 'obtener_usuarios';
-// 	$.post("dist/fw/usuarios.php",{opc:opc}, function(data){
-// 		if(data){
-// 			var html = '';
-//             for (var i = 0; i < data.length; i++){
-//                 html += '<tr>';
-//                     html += '<td>' + $.trim(data[i].vchEmpleado) + '</td>';
-// 	                html += '<td>' + $.trim(data[i].vchNombre) + '</td>';
-// 	                html += '<td>' + $.trim(data[i].vchPerfil) + '</td>';
-// 	                if(data[i].vchFoto){
-// 	                	html += '<td class="centrado"><span id="id_'+$.trim(data[i].id)+'_FotoAgregada" class="conFoto adjuntaFoto glyphicon glyphicon-ok-circle"></span> <span id="id_'+$.trim(data[i].id)+'_VistaImagen" vchImagen="'+$.trim(data[i].vchFoto)+'" vchNombre="'+$.trim(data[i].vchNombre)+'" class="verImagen glyphicon glyphicon-eye-open"></span> </td>';
-// 	                }
-// 	                else{
-// 	                	html += '<td class="centrado"><span id="id_'+$.trim(data[i].id)+'_SinFoto" class="sinFoto adjuntaFoto glyphicon glyphicon-remove-circle"></span></td>';
-// 	                }
-// 	                html += '<td class="centrado"><span id="id_'+$.trim(data[i].id)+'_eliminaFormato" class="elimina glyphicon glyphicon-remove"></span></td>';
-//                 html += '</tr>';                        
-//             }
-//             $('#table_usuarios tbody').html(html);
-// 		}
-// 	}, 'json');
-// }
 function obtener_registros(){
-    // var user = "admin";
     var opc = "obtener_registros";
-    // $('.nuevo_registro').hide();
-    // $('.listado').show();
-    // $('.loading').show();
     regenerar_tabla();
     $.post("dist/fw/empresas.php",{opc:opc},function(data){
         if(data){
@@ -128,7 +130,7 @@ function obtener_registros(){
                 html += '<td>' + $.trim(data[i].RFC) + '</td>';
                 html += '<td>' + $.trim(data[i].Credito) + '</td>';
                 html += '<td>' + $.trim(data[i].ObservacionesEmpresa) + '</td>';
-                html += '<td class="btnEditar" id="edit_'+data[i].ClaveEmpresa+'"><span class="glyphicon glyphicon-pencil" ></span></td>';
+                html += '<td class="btnEditar" id="edit_'+data[i].ClaveEmpresa+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
                 html += '<td class="btnBorrar" id="del_'+data[i].ClaveEmpresa+'"><span class="glyphicon glyphicon-trash" ></span></td>';
                 html += '</tr>';                        
             }
@@ -142,7 +144,6 @@ function obtener_registros(){
                 "autoWidth": true
             });
         }
-        // $('.loading').hide();
     },'json');
 }
     
@@ -166,19 +167,16 @@ function regenerar_tabla(){
     html += '</table>';
     $('#div_registros').html(html);
 }
-function registrar_usuario(RazonSocial,RFC,Credito,Observaciones,CVentas,CCursos,CGestoria){
-	var opc = 'registrar_empresa';
-	$.post("dist/fw/empresas.php",{opc:opc,RazonSocial:RazonSocial,RFC:RFC,Credito:Credito,Observaciones:Observaciones,CVentas:CVentas,CCursos:CCursos,CGestoria:CGestoria}, function(data){
-		if(data){
-			// alertModal("Usuario registrado de manera correcta.", "success");
+// function registrar_usuario(RazonSocial,RFC,Credito,Observaciones,CVentas,CCursos,CGestoria){
+// 	var opc = 'registrar_empresa';
+// 	$.post("dist/fw/empresas.php",{opc:opc,RazonSocial:RazonSocial,RFC:RFC,Credito:Credito,Observaciones:Observaciones,CVentas:CVentas,CCursos:CCursos,CGestoria:CGestoria}, function(data){
+// 		if(data){
+// 			alerta();
+// 			limpia_formulario();
 			
-			// obtener_usuarios();
-			alerta();
-			limpia_formulario();
-			
-		}
-	}, 'json');
-}
+// 		}
+// 	}, 'json');
+// }
 
 function limpia_formulario(){
     $("#RazonSocial").val("");
@@ -191,7 +189,7 @@ function limpia_formulario(){
 	$("#exampleCustomCheckbox3").removeAttr("checked");
 	
 }
-	function alerta(){
+	function alerta(titulo, mensaje, icono){
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success',
@@ -201,12 +199,12 @@ function limpia_formulario(){
       })
       
       swalWithBootstrapButtons.fire({
-        title: '¡Guardado!',
-        text: "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'?",
-        icon: 'success',
+        title: titulo,
+        text: mensaje,
+        icon: icono,
         showCancelButton: true,
-        confirmButtonText: 'Si!',
-        cancelButtonText: 'No, salir!',
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Salir',
         reverseButtons: true
       }).then((result) => {
         if (result.value) {

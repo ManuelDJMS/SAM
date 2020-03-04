@@ -109,7 +109,7 @@
                                     <label class="custom-control-label" for="exampleCustomCheckbox3">Gestoría</label>
                                 </div>
                             </div>
-                            <button type="button" class="mt-2 btn btn-primary" id="btnAgregaEmpresa">Guardar</button> 
+                            <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
                             <!-- <input type="submit" class="mt-2 btn btn-primary" value="Guardar" name=""></button> -->
                         </form>
                     </div>

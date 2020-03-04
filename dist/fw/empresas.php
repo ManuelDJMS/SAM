@@ -36,27 +36,47 @@ ini_set('display_errors', '0');
 	    $con->cerrar();
 	    echo json_encode($arrDocumentos);
 	}
-	elseif ($opc == 'registrar_empresa') {
-		$vchRazonSocial = $_POST["RazonSocial"];
-		$vchRFC = $_POST["RFC"];
-		$vchCredito = $_POST["Credito"];
-		$vchObservaciones = $_POST["Observaciones"];
-		$vchCVentas = $_POST["CVentas"];
-		$vchCCursos = $_POST["CCursos"];
-		$vchCGestoria = $_POST["CGestoria"];
-		$strQuery = "INSERT INTO EmpresasOrdenadas
-				           (RazonSocial,RFC,Credito,ObservacionesEmpresa,Ventas,Cursos
-				           ,Gestoria)
-				     VALUES
-				           ('".$vchRazonSocial."','".$vchRFC."','".$vchCredito."','".$vchObservaciones."','".$vchCVentas."','".$vchCCursos."'
-				           ,'".$vchCGestoria."')";
-		$con = new Conexion();
-	    $con->ejecutaQuery($strQuery);
-	    $arrRespuesta = array();
-		$arrRespuesta = array("respuesta" => 'ok');
+	elseif ($opc == 'guardar_empresa') {
+		// $vchRazonSocial = $_POST["RazonSocial"];
+		// $vchRFC = $_POST["RFC"];
+		// $vchCredito = $_POST["Credito"];
+		// $vchObservaciones = $_POST["Observaciones"];
+		// $vchCVentas = $_POST["CVentas"];
+		// $vchCCursos = $_POST["CCursos"];
+		// $vchCGestoria = $_POST["CGestoria"];
+		// $strQuery = "INSERT INTO EmpresasOrdenadas
+		// 		           (RazonSocial,RFC,Credito,ObservacionesEmpresa,Ventas,Cursos
+		// 		           ,Gestoria)
+		// 		     VALUES
+		// 		           ('".$vchRazonSocial."','".$vchRFC."','".$vchCredito."','".$vchObservaciones."','".$vchCVentas."','".$vchCCursos."'
+		// 		           ,'".$vchCGestoria."')";
+		// $con = new Conexion();
+	    // $con->ejecutaQuery($strQuery);
+	    // $arrRespuesta = array();
+		// $arrRespuesta = array("respuesta" => 'ok');
 	
-	    $con->cerrar();
-	    echo json_encode($arrRespuesta);
+	    // $con->cerrar();
+		// echo json_encode($arrRespuesta);
+		$obj = $_POST['obj'];
+        $datos = json_decode($obj); 
+        foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
+        $con = new Conexion();
+        $con->conectar();
+        if($datos->accion == 'nuevo'){
+            $strQuery = "INSERT INTO EmpresasOrdenadas (RazonSocial,RFC,Credito,ObservacionesEmpresa,Ventas,Cursos,Gestoria)
+                         VALUES ('".$datos->RazonSocial."','".$datos->RFC."','".$datos->Credito."','".$datos->Observaciones."','".$datos->CVentas."','".$datos->CCursos."'
+							 		           ,'".$datos->CGestoria."')";
+        }
+        else{
+            $strQuery = "UPDATE Magnitudes SET 
+                            vchCodigo = '".$datos->vchCodigo."',
+                            vchDescripcion = '".$datos->vchDescripcion."'
+                         WHERE id = '".$datos->iIdMagnitud."'";
+        }
+
+        $res = $con->ejecutaQuery($strQuery);
+        $con->cerrar();
+        echo json_encode($res);
 	}
 	// elseif ($opc == 'registrar_empresa') {
 	// 	$vchRazonSocial = "Empresa";
