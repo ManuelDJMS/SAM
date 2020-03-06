@@ -4,6 +4,7 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
+<link rel="stylesheet" href="dist/css/base.css">
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
 
@@ -138,6 +139,19 @@
                   </table>
                 </div><!-- /.box-body -->
             </div>  
+               <!-- Codigo para la animacion de cargado -->
+               <div class="loader-wrapper d-flex justify-content-center align-items-center">
+                                            <div class="loader">
+                                                <div class="line-scale-pulse-out">
+                                                    <!--cada div es una linea de la animacion-->
+                                                    <div></div>
+                                                    <div></div> 
+                                                    <div></div>
+                                                    <div></div>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                         </div>
         </div><!-- AQUI TERMINA EL DIV DEL TAB -->
     </div>
     <script src="dist/js/empresas.js"></script>

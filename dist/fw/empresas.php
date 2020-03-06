@@ -11,31 +11,6 @@ ini_set('display_errors', '0');
 	    echo json_encode(false);
 	    die();
 	}
-	
-	if($opc == 'obtener_numeros_empleado'){
-		$strQuery = "SELECT DISTINCT 
-						tP.vchEmpleado,
-						tP.vchNombre
-					FROM 
-						Personal tP
-					ORDER BY 
-						tP.vchNombre";
-		$con = new Conexion();
-	    $con->ejecutaQuery($strQuery);
-	    $arrDocumentos = array();
-	    //$arrDocumentos = $con->getListaObjectos();
-	    $arrRespuesta = $con->getListaObjectos();
-        foreach ($arrRespuesta as $objRespuesta){
-            foreach ($objRespuesta as $key => $value){
-                if(is_string($value)){
-                    $objRespuesta->$key = utf8_encode($value);    
-                }                
-            }
-            $arrDocumentos[] = $objRespuesta;
-        }
-	    $con->cerrar();
-	    echo json_encode($arrDocumentos);
-	}
 	elseif ($opc == 'guardar_empresa') {
 		$obj = $_POST['obj'];
         $datos = json_decode($obj); 

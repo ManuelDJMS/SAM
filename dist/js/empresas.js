@@ -1,8 +1,5 @@
 $(document).ready(function(){
   $('.btnEditarG').hide();
-  
- 
-  // document.getElementById("hola").checked(true);
   limpia_formulario();
   obtener_registros();
   // =================== EVENTOS DE SELECCION DE CHECKBOX ===================
@@ -33,6 +30,7 @@ $(document).ready(function(){
   // =======================================================================
   // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
 	$('html').on('click', '.btnGuardar', function(){
+     //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
       var obj = new Object();
       obj.RazonSocial = $.trim($('#RazonSocial').val());
       obj.Tipo = $.trim($('#exampleCustomSelect').val());
@@ -44,19 +42,24 @@ $(document).ready(function(){
       obj.CGestoria = $.trim($('#exampleCustomCheckbox3').val());
       obj.accion = $(this).attr("id").split('_')[1];
       obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
+      // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
       if(obj.RazonSocial != '' && obj.RazonSocial != ''){
         guardar_empresa(obj);
-    }
-    else{
-      alerta_error("Oops...","Faltan llenar algunos campos");
-    }
+      }
+      else{
+        alerta_error("Oops...","Faltan llenar algunos campos");
+      }
     });
   // =======================================================================
   // =========== EVENTO DE EDITAR EN LA TABLA ==============================
   $('html').on('click', '.btnEditar', function(){
+      //SE SIMULA EL CLICK DEL TAB 
       $("#tab-0").get(0).click();
+      //==================== SE MUESTRAN Y OCULTAN CIERTOS BOTONES =============================
       $('.btnEditarG').show();
       $('.btnGuardar').hide();
+      //=======================================================================================
+      // ================ SE ASIGNA ID A EDITAR ===============================================
       var id = $(this).attr('id').split('_')[1];
       $('.btnEditarG').attr('id',$(this).attr('id'));
       obtener_registro(id);
@@ -64,6 +67,7 @@ $(document).ready(function(){
   //========================================================================
   //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================
    $('html').on('click', '.btnEditarG', function(){
+    //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
     var obj = new Object();
     obj.RazonSocial = $.trim($('#RazonSocial').val());
     obj.Tipo = $.trim($('#exampleCustomSelect').val());
@@ -77,7 +81,6 @@ $(document).ready(function(){
     obj.ClaveEmpresa = $(this).attr("id").split('_')[1];
     if(obj.RazonSocial != '' && obj.RazonSocial != ''){
       guardar_empresa(obj);
-      // alert($(this).attr("id").split('_')[0]);
     }
     else{
       alerta_error("Oops...","Faltan llenar algunos campos");
@@ -100,6 +103,7 @@ function guardar_empresa(obj){
 // ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
 function obtener_registro(id){
   var opc = "obtener_registro";
+  $('.line-scale-pulse-out').show();
   $.post("dist/fw/empresas.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_formulario()
@@ -127,11 +131,13 @@ function obtener_registro(id){
       {
         alerta_error("Error", "Error al recibir los datos");
       }
+      $('.line-scale-pulse-out').hide();
   },'json');
 }
 // ============================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
+    $('.line-scale-pulse-out').show();
     regenerar_tabla();
     $.post("dist/fw/empresas.php",{opc:opc},function(data){
         if(data){
@@ -156,6 +162,7 @@ function obtener_registros(){
                 "autoWidth": true
             });
         }
+        $('.line-scale-pulse-out').hide();
     },'json');
 }
     
