@@ -1,10 +1,13 @@
 $(document).ready(function(){
   $('.btnEditarG').hide();
+  
+ 
+  // document.getElementById("hola").checked(true);
   limpia_formulario();
   obtener_registros();
   // =================== EVENTOS DE SELECCION DE CHECKBOX ===================
   $('html').on('click','#exampleCustomCheckbox1',function(){
-    if($(this).val()= 1){
+    if($(this).val()== 1){
       $(this).val(0);
     }
     else{
@@ -12,7 +15,7 @@ $(document).ready(function(){
     }
   });
   $('html').on('click','#exampleCustomCheckbox2',function(){
-    if($(this).val()= 1){
+    if($(this).val()== 1){
       $(this).val(0);
     }
     else{
@@ -20,7 +23,7 @@ $(document).ready(function(){
     }
   });
   $('html').on('click','#exampleCustomCheckbox3',function(){
-    if($(this).val()= 1){
+    if($(this).val()== 1){
       $(this).val(0);
     }
     else{
@@ -74,7 +77,7 @@ $(document).ready(function(){
     obj.ClaveEmpresa = $(this).attr("id").split('_')[1];
     if(obj.RazonSocial != '' && obj.RazonSocial != ''){
       guardar_empresa(obj);
-      alert($(this).attr("id").split('_')[0]);
+      // alert($(this).attr("id").split('_')[0]);
     }
     else{
       alerta_error("Oops...","Faltan llenar algunos campos");
@@ -101,18 +104,23 @@ function obtener_registro(id){
       if(data){
         limpia_formulario()
         $('#RazonSocial').val(data.RazonSocial.split(',')[0]);
-         if(data.RazonSocial.split(',').length > 1 )
-        {
+         if(data.RazonSocial.split(',').length > 1 ){
           $("#exampleCustomSelect option[value='"+ (data.RazonSocial.split(',')[1]).trim()+"']").attr("selected", true);
         }
         $('#RFC').val(data.RFC);
         $('#Observaciones').val(data.ObservacionesEmpresa);
         $("#Credito option[value='"+ data.Credito +"']").attr("selected", true);
-        if(data.Ventas=1){
-          // alert("hila");
-           $('#exampleCustomCheckbox1').val(1);
-        $("#exampleCustomCheckbox1").attr.checked() = true;
-
+        if(data.Ventas==1){
+          $('#exampleCustomCheckbox1').val(1);
+          $("#exampleCustomCheckbox1").attr('checked',true);
+        }
+        if(data.Cursos==1){
+          $('#exampleCustomCheckbox2').val(1);
+          $("#exampleCustomCheckbox2").attr('checked',true);
+        }
+        if(data.Gestoria==1){
+          $('#exampleCustomCheckbox3').val(1);
+          $("#exampleCustomCheckbox3").attr('checked',true);
         }
       }
       else
