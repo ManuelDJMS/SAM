@@ -156,11 +156,13 @@
                                 </div><!-- /.box-body -->
                                 
                             </div> 
+                            <!-- Codigo para la animacion de cargado -->
                             <div class="loader-wrapper d-flex justify-content-center align-items-center">
                                             <div class="loader">
                                                 <div class="line-scale-pulse-out">
+                                                    <!--cada div es una linea de la animacion-->
                                                     <div></div>
-                                                    <div></div>
+                                                    <div></div> 
                                                     <div></div>
                                                     <div></div>
                                                     <div></div>
