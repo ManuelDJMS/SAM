@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 	// obtener_numeros_empleado();
 	// obtener_usuarios();
@@ -39,7 +40,9 @@ $(document).ready(function(){
 
 function obtener_registros(){
     var opc = "obtener_registros";
-    regenerar_tabla();
+  
+    //regenerar_tabla();
+      $('.line-scale-pulse-out').show();
     $.post("dist/fw/contactos.php",{opc:opc},function(data){
         if(data){
             var html = '';
@@ -68,30 +71,33 @@ function obtener_registros(){
                 "autoWidth": true
             });
         }
+        $('.line-scale-pulse-out').hide();
     },'json');
 }
     
 function regenerar_tabla(){
-    $('#div_registros').html("");
-    var html = "";
-    html += '<table id="example1" class="table table-bordered table-striped dataTable">';
-    html += '<thead>';
-    html += '<tr>';
-    html += '<th>Clave Contacto</th>';
-    html += '<th>Nombre</th>';
-    html += '<th>Apellidos</th>';
-	html += '<th>Cargo</th>';
-	html += '<th>Celular</th>';
-	html += '<th>Tel</th>';
-    html += '<th>Fax</th>';
-    html += '<th>Ext</th>';
-    html += '<th>Email</th>';
-    html += '</tr>';
-    html += '</thead>';
-    html += '<tbody>';
-    html += '</tbody>';
-    html += '</table>';
-    $('#div_registros').html(html);
+  $('.line-scale-pulse-out').show();
+      $('#div_registros').html("");
+        var html = "";
+        html += '<table id="example1" class="table table-bordered table-striped dataTable">';
+        html += '<thead>';
+        html += '<tr>';
+        html += '<th>Clave Contacto</th>';
+        html += '<th>Nombre</th>';
+        html += '<th>Apellidos</th>';
+        html += '<th>Cargo</th>';
+        html += '<th>Celular</th>';
+        html += '<th>Tel</th>';
+        html += '<th>Fax</th>';
+        html += '<th>Ext</th>';
+        html += '<th>Email</th>';
+        html += '</tr>';
+        html += '</thead>';
+        html += '<tbody>';
+        html += '</tbody>';
+        html += '</table>';
+        $('#div_registros').html(html);
+      $('.line-scale-pulse-out').hide();
 }
 
 function registrar_C(Nombre,Apellidos,Cargo,Celular,Tel,Ext,Fax,Email,Descuento,Condiciones,Activo){
