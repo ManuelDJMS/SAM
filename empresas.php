@@ -44,7 +44,7 @@
                                 <div class="col-md-5">
                                     <div class="position-relative form-group">
                                         <label for="exampleEmail11" class="">Razón Social</label>
-                                        <input type="text" class="form-control" id="RazonSocial" name="RazonSocial" placeholder=""/>
+                                        <input type="text" class="form-control" id="RazonSocial" name="RazonSocial" required/>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -52,22 +52,22 @@
                                         <label for="exampleCustomSelect" class="">Tipo</label>
                                         <select type="select" id="exampleCustomSelect" name="TipoEmpresa" class="custom-select">
                                             <option></option>
-                                            <option>A.C.</option>
-                                            <option>S.A.B.</option>
-                                            <option>S.A.B. de C.V.</option>
-                                            <option>S.A.S.</option>
-                                            <option>S.A.</option>
-                                            <option>SA. de CV.</option>
-                                            <option>S.A.P.I.</option>
-                                            <option>S.A.P.I. de C.V.</option>
-                                            <option>S.A.P.I.B.</option>
-                                            <option>S. de P.R. de R.L.</option>
-                                            <option>S. de R.L.</option>
-                                            <option>S. de R.L. de C.V.</option>
-                                            <option>S. en N.C</option>
-                                            <option>S. Coop.</option>
-                                            <option>S.C.</option>
-                                            <option>S.S.S.</option>
+                                            <option value="A.C.">A.C.</option>
+                                            <option value="S.A.B.">S.A.B.</option>
+                                            <option value="S.A.B. de C.V.">S.A.B. de C.V.</option>
+                                            <option value="S.A.S.">S.A.S.</option>
+                                            <option value="S.A.">S.A.</option>
+                                            <option value="S.A. de C.V.">S.A. de C.V.</option>
+                                            <option value="S.A.P.I.">S.A.P.I.</option>
+                                            <option value="S.A.P.I. de C.V.">S.A.P.I. de C.V.</option>
+                                            <option value="S.A.P.I.B.">S.A.P.I.B.</option>
+                                            <option value="S. de P.R. de R.L.">S. de P.R. de R.L.</option>
+                                            <option value="S. de R.L.">S. de R.L.</option>
+                                            <option value="S. de R.L. de C.V.">S. de R.L. de C.V.</option>
+                                            <option value="S. en N.C">S. en N.C</option>
+                                            <option value="S. Coop.">S. Coop.</option>
+                                            <option value="S.C.">S.C.</option>
+                                            <option value="S.S.S.">S.S.S.</option>
                                         </select>
                                     </div>
                                 </div>
@@ -86,11 +86,11 @@
                                 <div class="position-relative form-group"> 
                                     <label for="exampleSelect" class="">Crédito</label>
                                     <select name="Credito" id="Credito" class="form-control">
-                                        <option>CON CRÉDITO</option>
-                                        <option>SIN CRÉDITO</option>
-                                        <option>CRÉDITO SUSPENDIDO</option>
-                                        <option>SUSPENDIDO</option>
-                                        <option>LISTA NEGRA</option>
+                                        <option value="CON CRÉDITO">CON CRÉDITO</option>
+                                        <option value="SIN CRÉDITO">SIN CRÉDITO</option>
+                                        <option value="CRÉDITO SUSPENDIDO">CRÉDITO SUSPENDIDO</option>
+                                        <option value="SUSPENDIDO">SUSPENDIDO</option>
+                                        <option value="LISTA NEGRA">LISTA NEGRA</option>
                                     </select>  
                                 </div>        
                             </div> 
@@ -110,7 +110,8 @@
                                 </div>
                             </div>
                             <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
-                            <!-- <input type="submit" class="mt-2 btn btn-primary" value="Guardar" name=""></button> -->
+                            <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
+                            
                         </form>
                     </div>
                 </div>
@@ -120,7 +121,7 @@
                 <div  class="main-card mb-3 card">
                 <div id="div_registros" class="box-body">
                   <!-- <table id="example" class="table table-bordered table-striped"> -->
-                  <table id="example1" class="table table-bordered table-striped dataTable">
+                  <table id="table_registros" class="table table-bordered table-striped dataTable">
                     <thead>
                       <tr>
                         <th>Clave Empresa</th>
@@ -129,7 +130,6 @@
                         <th>Crédito</th>
                         <th>Observaciones de la empresa</th>
                         <th>Editar</th>
-                        <!-- <th>Eliminar</th> -->
                       </tr>
                     </thead>
                     <tbody>

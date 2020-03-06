@@ -1,111 +1,51 @@
 $(document).ready(function(){
-	// obtener_numeros_empleado();
-	// obtener_usuarios();
-	limpia_formulario();
+  $('.btnEditarG').hide();
+  
+  limpia_formulario();
 	obtener_registros();
-
+  // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
 	$('html').on('click', '.btnGuardar', function(){
-    // ESTE CODIGO SI FUNCIONA
-    //     var RazonSocial = $("#RazonSocial").val();
-    //     var RFC = $("#RFC").val();
-    //     var Credito = $("#Credito").val();
-    //     var Observaciones = $("#Observaciones").val();
-    //     var CVentas = $("#exampleCustomCheckbox1").val();
-    //     var CCursos = $("#exampleCustomCheckbox2").val();
-		//     var CGestoria = $("#exampleCustomCheckbox3").val();
-		//  if(RazonSocial == "")
-		//  {
-
-		//  }
-		//  else
-		//  {
-		// 	registrar_usuario(RazonSocial,RFC,Credito,Observaciones,CVentas,CCursos,CGestoria);
-    //  }
-    var obj = new Object();
-        obj.RazonSocial = $.trim($('#RazonSocial').val());
-        obj.RFC = $.trim($('#RFC').val());
-        obj.Credito = $.trim($('#Credito').val());
-        obj.Observaciones = $.trim($('#Observaciones').val());
-        obj.CVentas = $.trim($('#CVentas').val());
-        obj.CCursos = $.trim($('#CCursos').val());
-        obj.CGestoria = $.trim($('#CGestoria').val());
-        obj.accion = $(this).attr("id").split('_')[1];
-        obj.iIdMagnitud = $(this).attr("id").split('_')[2];
-        if(RazonSocial != ""){
-            guardar_empresa(obj);
-        }
-        // else{
-            
-        // }
+      var obj = new Object();
+      obj.RazonSocial = $.trim($('#RazonSocial').val());
+      obj.Tipo = $.trim($('#exampleCustomSelect').val());
+      obj.RFC = $.trim($('#RFC').val());
+      obj.Credito = $.trim($('#Credito').val());
+      obj.Observaciones = $.trim($('#Observaciones').val());
+      obj.CVentas = $.trim($('#exampleCustomCheckbox1').val());
+      obj.CCursos = $.trim($('#exampleCustomCheckbox2').val());
+      obj.CGestoria = $.trim($('#exampleCustomCheckbox3').val());
+      obj.accion = $(this).attr("id").split('_')[1];
+      obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
+      if(obj.RazonSocial != '' && obj.RazonSocial != ''){
+        guardar_empresa(obj);
+    }
+    else{
+      alerta_error();
+    }
     });
-
-   
-
-// 	$('html').on('click', '.cierraBoxEliminaUsuario', function(){
-// 		$("#boxEliminaUsuario").hide();
-// 		$("#iIdUsuarioElimina").val("");
-// 	});
-
-// 	$('html').on('click', '.elimina', function(){
-// 		var id_registro = $(this).attr("id").split('_')[1];
-// 		$("#iIdUsuarioElimina").val(id_registro);
-// 		$("#boxEliminaUsuario").show();
-// 	});
-	
-// 	$('html').on('click', '.aceptarBoxEliminaUsuario', function(){
-// 		var id_registro = $("#iIdUsuarioElimina").val();
-// 		elimina_usuario(id_registro);
-// 	});
-
-// 	$('html').on('click', '.adjuntaFoto', function(){
-// 		var id_registro = $(this).attr("id").split('_')[1];
-// 		$("#iIdUsuarioFoto").val(id_registro);
-// 		$("#boxCargaFoto").show();
-// 	});
-	
-// 	$('html').on('click', '.cierraBoxCargaFoto', function(){
-// 		$("#boxCargaFoto").hide();
-// 		$("#iIdUsuarioFoto").val("");
-// 		Dropzone.forElement("div#cargaFoto").removeAllFiles(true);
-// 	});
-    
-//     $("div#cargaFoto").dropzone({
-// 		url: "dist/fw/uploadFoto.php",
-// 		success: function(file, data){
-// 			actualiza_foto(data);
-// 		}
-// 	});
-
-// 	$('html').on('click', '.verImagen', function(){
-// 		var vchImagen = $(this).attr("vchImagen");
-// 		var vchNombre = $(this).attr("vchNombre");
-
-// 		$("#imgImagenUsuario").attr("src","../../archivos/fotos/"+vchImagen);
-// 		$("#nombre_usuario").html(vchNombre);
-// 	});
-
+  // =======================================================================
+  // =========== EVENTO DE EDITAR EN LA TABLA ==============================
+  $('html').on('click', '.btnEditar', function(){
+      var id = $(this).attr('id').split('_')[1];
+      obtener_registro(id);
+      $('.btnEditarG').show();
+      $('.btnGuardar').hide();
+  });
+  //========================================================================
+  //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================
+  //  $('html').on('click', '.btnEditarG', function(){
+  //   $(this).attr('id', 'btn_nuevo_0');
+  //  });
+   //=======================================================================
+   //========================= EVENTO PARA MOVERSE EN TABS =================
+  //  $('html').on('click', '#tab-0',function(){
+  //   window.location="#tab-content-0";
+  //  });
+   //=======================================================================
 });
-
-// function obtener_numeros_empleado(){
-// 	var opc = 'obtener_numeros_empleado';
-// 	$.post("dist/fw/usuarios.php",{opc:opc}, function(data){
-// 		if(data){
-// 			var mySelect = $('#inputNoEmpleado');
-// 			mySelect.append(
-// 		        $('<option></option>').val("0").html("")
-// 		    );  
-//             for (var i = 0; i < data.length; i++){
-// 				mySelect.append(
-// 			        $('<option></option>').val(data[i].vchEmpleado).html(data[i].vchNombre)
-// 			    );                       
-//             }
-// 		}
-// 	}, 'json');
-// }
 // =================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ============================
 function guardar_empresa(obj){
   var opc = "guardar_empresa";
-  // $('.loading').show();
   $.post("dist/fw/empresas.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
       if(data){
           alerta("¡Guardado!", "La empresa de guardo correctamente, ¿desea seguir en 'Empresas'", "success");
@@ -113,10 +53,30 @@ function guardar_empresa(obj){
       }else{
           alerta("¡Error!","Error al guardar registros", "danger");
       }
-      $('.loading').hide();
   },'json');
 }
-
+// ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
+function obtener_registro(id){
+  var opc = "obtener_registro";
+  $.post("dist/fw/empresas.php",{'opc':opc, 'id':id},function(data){
+      if(data){
+        limpia_formulario()
+        $('#RazonSocial').val(data.RazonSocial.split(',')[0]);
+         if(data.RazonSocial.split(',').length > 1 )
+        {
+          $("#exampleCustomSelect option[value='"+ (data.RazonSocial.split(',')[1]).trim()+"']").attr("selected", true);
+        }
+        $('#RFC').val(data.RFC);
+        $('#Observaciones').val(data.ObservacionesEmpresa);
+        $("#Credito option[value='"+ data.Credito +"']").attr("selected", true);
+      }
+      else
+      {
+        alerta_error();
+      }
+  },'json');
+}
+// ============================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
     regenerar_tabla();
@@ -131,7 +91,6 @@ function obtener_registros(){
                 html += '<td>' + $.trim(data[i].Credito) + '</td>';
                 html += '<td>' + $.trim(data[i].ObservacionesEmpresa) + '</td>';
                 html += '<td class="btnEditar" id="edit_'+data[i].ClaveEmpresa+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
-                // html += '<td class="btnBorrar" id="del_'+data[i].ClaveEmpresa+'"><span class="glyphicon glyphicon-trash" ></span></td>';
                 html += '</tr>';                        
             }
             $('#example1 tbody').html(html);
@@ -156,10 +115,9 @@ function regenerar_tabla(){
     html += '<th>Clave Empresa</th>';
     html += '<th>Razón Social</th>';
     html += '<th>RFC</th>';
-	html += '<th>Crédito</th>';
-	html += '<th>Observaciones de la empresa</th>';
-	html += '<th>Editar</th>';
-    // html += '<th>Eliminar</th>';
+    html += '<th>Crédito</th>';
+    html += '<th>Observaciones de la empresa</th>';
+    html += '<th>Editar</th>';
     html += '</tr>';
     html += '</thead>';
     html += '<tbody>';
@@ -167,22 +125,13 @@ function regenerar_tabla(){
     html += '</table>';
     $('#div_registros').html(html);
 }
-// function registrar_usuario(RazonSocial,RFC,Credito,Observaciones,CVentas,CCursos,CGestoria){
-// 	var opc = 'registrar_empresa';
-// 	$.post("dist/fw/empresas.php",{opc:opc,RazonSocial:RazonSocial,RFC:RFC,Credito:Credito,Observaciones:Observaciones,CVentas:CVentas,CCursos:CCursos,CGestoria:CGestoria}, function(data){
-// 		if(data){
-// 			alerta();
-// 			limpia_formulario();
-			
-// 		}
-// 	}, 'json');
-// }
 
 function limpia_formulario(){
     $("#RazonSocial").val("");
 	$("#RFC").val("");
 	$("#Tipo").val("");
 	$("#Credito").val("");
+	$("#exampleCustomSelect").val("");
     $("#Observaciones").val("");
 	$("#exampleCustomCheckbox1").removeAttr("checked");
 	$("#exampleCustomCheckbox2").removeAttr("checked");
@@ -215,35 +164,13 @@ function limpia_formulario(){
           window.location="http://localhost:8080/dashboard/SAM/index.php";
         }
       })
-			 
-	}
-           
-
-// function elimina_usuario(id_registro){
-// 	var opc = 'elimina_usuario';
-// 	$.post("dist/fw/usuarios.php",{opc:opc, id_registro:id_registro}, function(data){
-// 		if(data.resultado == 'true'){
-// 			$("#boxEliminaUsuario").hide();
-// 			alertModal("Usuario eliminado de manera correcta", "success");
-// 			obtener_usuarios();
-// 			$("#imgImagenUsuario").attr("src","../../archivos/fotos/no_image.jpg");
-// 		}
-// 		else{
-// 			alertModal("No se pudo eliminar el usuario", "danger");
-// 		}
-// 	}, 'json');
-// }
-
-// function actualiza_foto(data) {
-// 	var obj = jQuery.parseJSON(data);
-// 	if(obj.ok){
-// 		var opc = 'actualiza_foto';
-// 		var vchFoto = obj.vchFoto;
-// 		var id = $("#iIdUsuarioFoto").val();
-// 		$.post("dist/fw/usuarios.php",{opc:opc, vchFoto:vchFoto, id:id}, function(data){
-// 			obtener_usuarios();
-// 			limpia_formulario();
-// 		}, 'json');
-// 	}
-// }
-
+  }
+  
+  function alerta_error(){
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Faltan llenar algunos campos!'
+      // footer: '<a href>Why do I have this issue?</a>'
+    })
+  }
