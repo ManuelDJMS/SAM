@@ -49,14 +49,10 @@ ini_set('display_errors', '0');
         }
         else{
             $strQuery = "UPDATE EmpresasOrdenadas SET 
-                            RazonSocial = '".$datos->RazonSocial."',
-                            RFC = '".$datos->RFC."'
-                            Credito = '".$datos->Credito."'
-                            Observaciones = '".$datos->Observaciones."'
-                            CVentas = '".$datos->CVentas."'
-                            CCursos = '".$datos->CCursos."'
-                            CGestoria = '".$datos->CGestoria."'
-                         WHERE id = '".$datos->ClaveEmpresa."'";
+            RazonSocial = '".$datos->RazonSocial."',
+            RFC = '".$datos->RFC."'
+         WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
+            // $strQuery = "UPDATE EmpresasOrdenadas SET RazonSocial = '".$datos->RazonSocial."', RFC = '".$datos->RFC."', Credito = '".$datos->Credito."', Observaciones = '".$datos->Observaciones."' WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
         }
 
         $res = $con->ejecutaQuery($strQuery);

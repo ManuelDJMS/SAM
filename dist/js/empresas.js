@@ -1,8 +1,33 @@
 $(document).ready(function(){
   $('.btnEditarG').hide();
-  
   limpia_formulario();
-	obtener_registros();
+  obtener_registros();
+  // =================== EVENTOS DE SELECCION DE CHECKBOX ===================
+  $('html').on('click','#exampleCustomCheckbox1',function(){
+    if($(this).val()= 1){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
+  $('html').on('click','#exampleCustomCheckbox2',function(){
+    if($(this).val()= 1){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
+  $('html').on('click','#exampleCustomCheckbox3',function(){
+    if($(this).val()= 1){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
+  // =======================================================================
   // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
 	$('html').on('click', '.btnGuardar', function(){
       var obj = new Object();
@@ -20,27 +45,41 @@ $(document).ready(function(){
         guardar_empresa(obj);
     }
     else{
-      alerta_error();
+      alerta_error("Oops...","Faltan llenar algunos campos");
     }
     });
   // =======================================================================
   // =========== EVENTO DE EDITAR EN LA TABLA ==============================
   $('html').on('click', '.btnEditar', function(){
-      var id = $(this).attr('id').split('_')[1];
-      obtener_registro(id);
+      $("#tab-0").get(0).click();
       $('.btnEditarG').show();
       $('.btnGuardar').hide();
+      var id = $(this).attr('id').split('_')[1];
+      $('.btnEditarG').attr('id',$(this).attr('id'));
+      obtener_registro(id);
   });
   //========================================================================
   //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================
-  //  $('html').on('click', '.btnEditarG', function(){
-  //   $(this).attr('id', 'btn_nuevo_0');
-  //  });
-   //=======================================================================
-   //========================= EVENTO PARA MOVERSE EN TABS =================
-  //  $('html').on('click', '#tab-0',function(){
-  //   window.location="#tab-content-0";
-  //  });
+   $('html').on('click', '.btnEditarG', function(){
+    var obj = new Object();
+    obj.RazonSocial = $.trim($('#RazonSocial').val());
+    obj.Tipo = $.trim($('#exampleCustomSelect').val());
+    obj.RFC = $.trim($('#RFC').val());
+    obj.Credito = $.trim($('#Credito').val());
+    obj.Observaciones = $.trim($('#Observaciones').val());
+    obj.CVentas = $.trim($('#exampleCustomCheckbox1').val());
+    obj.CCursos = $.trim($('#exampleCustomCheckbox2').val());
+    obj.CGestoria = $.trim($('#exampleCustomCheckbox3').val());
+    obj.accion = $(this).attr("id").split('_')[0];
+    obj.ClaveEmpresa = $(this).attr("id").split('_')[1];
+    if(obj.RazonSocial != '' && obj.RazonSocial != ''){
+      guardar_empresa(obj);
+      alert($(this).attr("id").split('_')[0]);
+    }
+    else{
+      alerta_error("Oops...","Faltan llenar algunos campos");
+    }
+   });
    //=======================================================================
 });
 // =================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ============================
@@ -51,7 +90,7 @@ function guardar_empresa(obj){
           alerta("¡Guardado!", "La empresa de guardo correctamente, ¿desea seguir en 'Empresas'", "success");
           obtener_registros();
       }else{
-          alerta("¡Error!","Error al guardar registros", "danger");
+          alerta_error("¡Error!","Error al guardar los datos");
       }
   },'json');
 }
@@ -69,10 +108,16 @@ function obtener_registro(id){
         $('#RFC').val(data.RFC);
         $('#Observaciones').val(data.ObservacionesEmpresa);
         $("#Credito option[value='"+ data.Credito +"']").attr("selected", true);
+        if(data.Ventas=1){
+          // alert("hila");
+           $('#exampleCustomCheckbox1').val(1);
+        $("#exampleCustomCheckbox1").attr.checked() = true;
+
+        }
       }
       else
       {
-        alerta_error();
+        alerta_error("Error", "Error al recibir los datos");
       }
   },'json');
 }
@@ -166,11 +211,11 @@ function limpia_formulario(){
       })
   }
   
-  function alerta_error(){
+  function alerta_error(titulo, texto){
     Swal.fire({
       icon: 'error',
-      title: 'Oops...',
-      text: 'Faltan llenar algunos campos!'
+      title: titulo,
+      text: texto
       // footer: '<a href>Why do I have this issue?</a>'
     })
   }

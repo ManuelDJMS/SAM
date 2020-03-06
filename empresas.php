@@ -97,15 +97,15 @@
                             <div class="position-relative form-group"> 
                             <label for="exampleText" class="">Empresa en </label>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" name="CVentas" value="1">
+                                    <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" name="CVentas" value="0">
                                     <label class="custom-control-label" for="exampleCustomCheckbox1">Ventas</label>
                                 </div>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input" name="CCursos" value="1">
+                                    <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input" name="CCursos" value="0">
                                         <label class="custom-control-label" for="exampleCustomCheckbox2">Cursos</label>
                                 </div>
                                 <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input" name="CGestoria" value="1">
+                                    <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input" name="CGestoria" value="0">
                                     <label class="custom-control-label" for="exampleCustomCheckbox3">Gestoría</label>
                                 </div>
                             </div>
