@@ -152,8 +152,8 @@ function obtener_registros(){
                 html += '<td class="btnEditar" id="edit_'+data[i].ClaveEmpresa+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
                 html += '</tr>';                        
             }
-            $('#example1 tbody').html(html);
-            $('#example1').DataTable({
+            $('#table_registros tbody').html(html);
+            $('#table_registros').DataTable({
                 "paging": true,
                 "lengthChange": true,
                 "searching": true,
@@ -169,7 +169,7 @@ function obtener_registros(){
 function regenerar_tabla(){
     $('#div_registros').html("");
     var html = "";
-    html += '<table id="example1" class="table table-bordered table-striped dataTable">';
+    html += '<table id="table_registros" class="table table-bordered table-striped dataTable">';
     html += '<thead>';
     html += '<tr>';
     html += '<th>Clave Empresa</th>';

@@ -54,23 +54,13 @@
                                 <textarea name="Notas" id="Notas" class="form-control"></textarea>
                             </div>
                             <div class="position-relative form-group"> 
-                            <!-- <label for="exampleText" class="">Activo </label> -->
                                 <div class="custom-checkbox custom-control">
                                     <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" name="CVentas" value="0">
                                     <label class="custom-control-label" for="exampleCustomCheckbox1">Activo</label>
                                 </div>
-                                <!-- <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input" name="CCursos" value="0">
-                                        <label class="custom-control-label" for="exampleCustomCheckbox2">Cursos</label>
-                                </div>
-                                <div class="custom-checkbox custom-control">
-                                    <input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input" name="CGestoria" value="0">
-                                    <label class="custom-control-label" for="exampleCustomCheckbox3">Gestoría</label>
-                                </div> -->
                             </div>
                             <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
                             <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
-                            
                         </form>
                     </div>
                 </div>
@@ -79,37 +69,34 @@
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div  class="main-card mb-3 card">
                 <div id="div_registros" class="box-body">
-                  <!-- <table id="example" class="table table-bordered table-striped"> -->
-                  <table id="table_registros" class="table table-bordered table-striped dataTable">
-                    <thead>
-                      <tr>
-                        <th>Clave Empresa</th>
-                        <th>Razón Social</th>
-                        <th>RFC</th>
-                        <th>Crédito</th>
-                        <th>Observaciones de la empresa</th>
-                        <th>Editar</th>
-                      </tr>
-                    </thead>
+                    <table id="table_registros" class="table table-bordered table-striped dataTable">
+                        <thead>
+                        <tr>
+                            <th>id Paqueteria</th>
+                            <th>Descripción</th>
+                            <th>Notas</th>
+                            <th>Editar</th>
+                        </tr>
+                        </thead>
                     <tbody>
 
                     </tbody>
                   </table>
                 </div><!-- /.box-body -->
             </div>  
-               <!-- Codigo para la animacion de cargado -->
-               <div class="loader-wrapper d-flex justify-content-center align-items-center">
-                                            <div class="loader">
-                                                <div class="line-scale-pulse-out">
-                                                    <!--cada div es una linea de la animacion-->
-                                                    <div></div>
-                                                    <div></div> 
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-                                         </div>
+            <!-- Codigo para la animacion de cargado -->
+            <div class="loader-wrapper d-flex justify-content-center align-items-center">
+                <div class="loader">
+                    <div class="line-scale-pulse-out">
+                        <!--cada div es una linea de la animacion-->
+                        <div></div>
+                        <div></div> 
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
         </div><!-- AQUI TERMINA EL DIV DEL TAB -->
     </div>
     <script src="dist/js/paqueterias.js"></script>

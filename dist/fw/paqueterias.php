@@ -1,9 +1,9 @@
 <?php
- session_start();
- error_reporting(E_ALL);
-ini_set('display_errors', '0');
-// 	include "config.php";
-	require_once "classes/Conexion.php";
+    session_start();
+    error_reporting(E_ALL);
+    ini_set('display_errors', '0');
+    // 	include "config.php";
+        require_once "classes/Conexion.php";
 
 	 $opc = $_POST['opc'];
 	// $opc = "registrar_empresa";
@@ -11,28 +11,24 @@ ini_set('display_errors', '0');
 	    echo json_encode(false);
 	    die();
 	}
-	elseif ($opc == 'guardar_empresa') {
+	elseif ($opc == 'guardar_paqueteria') {
 		$obj = $_POST['obj'];
         $datos = json_decode($obj); 
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
         $con->conectar();
         if($datos->accion == 'nuevo'){
-            $strQuery = "INSERT INTO EmpresasOrdenadas (cve,RazonSocial,RFC,Credito,ObservacionesEmpresa,Ventas,Cursos,Gestoria)
-                         VALUES (".$_SESSION['iduser'].",'".$datos->RazonSocial.", ".$datos->Tipo."','".$datos->RFC."','".$datos->Credito."','".$datos->Observaciones."','".$datos->CVentas."','".$datos->CCursos."'
-							 		           ,'".$datos->CGestoria."')";
+            $strQuery = "INSERT INTO Paqueterias (cve,Nombre,Notas,Activo)
+                         VALUES (".$_SESSION['iduser'].",'".$datos->Descripcion."','".$datos->Notas."','".$datos->Activo."')";
         }
         else{
-            $strQuery = "UPDATE EmpresasOrdenadas SET 
-            RazonSocial = '".$datos->RazonSocial.", ".$datos->Tipo."',
-            FechaModificacion = getdate(),
-            RFC = '".$datos->RFC."',
-            Credito = '".$datos->Credito."',
-            ObservacionesEmpresa = '".$datos->Observaciones."',
-            Ventas = '".$datos->CVentas."',
-            Cursos = '".$datos->CCursos."',
-            Gestoria = '".$datos->CGestoria."'
-         WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
+            $strQuery = "UPDATE Paqueterias SET 
+            Nombre = '".$datos->Descripcion."',
+            Notas = '".$datos->Notas."',
+            Activo = '".$datos->Activo."',
+            Modifico = '".$_SESSION['iduser']."',
+            FechaModificacion = getdate()
+         WHERE idPaqueteria = '".$datos->idPaqueteria."'";
          }
 
         $res = $con->ejecutaQuery($strQuery);
@@ -43,7 +39,7 @@ ini_set('display_errors', '0');
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM EmpresasOrdenadas";
+        $strQuery = "SELECT * FROM Paqueterias";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();
@@ -67,7 +63,7 @@ ini_set('display_errors', '0');
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM EmpresasOrdenadas WHERE ClaveEmpresa = $id";
+        $strQuery = "SELECT * FROM Paqueterias WHERE idPaqueteria = $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
