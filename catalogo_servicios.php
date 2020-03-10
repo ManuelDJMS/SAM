@@ -299,48 +299,34 @@
                                     </div> <!-- *************** AQUI TERMINA EL DIV DE LA SECCION ACREDITAMIENTO Y REFERENCIAS ****************************" -->
                                     <div id="step-444"> <!-- *************** AQUI INICIA EL DIV DE LA SECCION OBSERVACIONES Y COMENTARIOS ****************************" -->
                                         <div class="card-body">
-                                            <!-- =================================== AQUI INICIA EL PRIMER RENGLON DE "ACREDITAMINETO Y REFERENCIAS" ================================================== -->
-                                            <div class="form-row">    
-                                                <div class="col-md-12">
-                                                    <div class="position-relative form-group">
-                                                        <label for="exampleEmail11" class="">Acreditamiento</label>
-                                                        <input type="text" class="form-control" id="Acreditamiento"/>
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                            <!-- =================================== AQUI TERMINA EL PRIMER RENGLON DE "ACREDITAMIENTO Y REFERENCIAS" ================================================== -->
-                                            <!-- =================================== AQUI INICIA EL SEGUNDO RENGLON DE "ACREDITAMINETO Y REFERENCIAS" ================================================== -->
-                                            <div class="form-row">  
-                                                <div class="col-md-6">
-                                                    <div class="position-relative form-group">
-                                                        <label for="exampleText" class="">Método de Calibración</label>
-                                                        <textarea name="Observaciones" id="MetododeCalibracion" class="form-control" required></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="position-relative form-group">
-                                                        <label for="exampleText" class="">Resultados de Informe</label>
-                                                        <textarea name="Observaciones" id="ResultadosdeInforme" class="form-control" required></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- =================================== AQUI TERMINA EL SEGUNDO RENGLON DE "ACREDITAMIENTO Y REFERENCIAS" ================================================== -->
+                                            
                                             <!-- =================================== AQUI INICIA EL TERCER RENGLON DE "ACREDITAMINETO Y REFERENCIAS" ================================================== -->
                                             <div class="form-row">  
                                                 <div class="col-md-6">
                                                     <div class="position-relative form-group">
-                                                        <label for="exampleText" class="">Normas de Referencia</label>
-                                                        <textarea name="Observaciones" id="NormasdeReferencia" class="form-control"></textarea>
+                                                        <label for="exampleText" class="">Observación Temporal</label>
+                                                        <textarea name="Observaciones" id="ObservacionTemporal" class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="position-relative form-group">
-                                                        <label for="exampleText" class="">Patrones de Referencia</label>
-                                                        <textarea name="Observaciones" id="PatronesdeReferencia" class="form-control"></textarea>
+                                                        <label for="exampleText" class="">Comentarios</label>
+                                                        <textarea name="Observaciones" id="Comentarios" class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
                                             <!-- =================================== AQUI TERMINA EL TERCER RENGLON DE "OBSERVACIONES Y COMENTARIOS" ================================================== -->
+                                            <!-- =================================== AQUI INICIA EL PRIMER RENGLON DE "OBSERVACIONES Y COMENTARIOS" ================================================== -->
+                                            <div class="form-row">    
+                                                <div class="col-md-6">
+                                                <div class="position-relative form-group">
+                                                        <label for="exampleText" class="">Observaciones de los Modelos</label>
+                                                        <textarea name="Observaciones" id="Comentarios" class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                            <!-- =================================== AQUI TERMINA EL PRIMER RENGLON DE "ACREDITAMIENTO Y REFERENCIAS" ================================================== -->
+                                        
                                         </div><!-- DIV CARD BODY -->
                                     </div> <!-- *************** AQUI TERMINA EL DIV DE LA SECCION OBSERVACIONES Y COMENTARIOS ****************************" -->
                                     <div id="step-322"> <!-- *************** AQUI INICIA EL DIV DE LA SECCION DE GUARDADO  ****************************" -->
@@ -353,11 +339,12 @@
                                                 <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
                                                 <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
                                             </div>
-                                            <div class="results-subtitle mt-4">Finished!</div>
-                                            <div class="results-title">You arrived at the last form wizard step!</div>
+                                            <div class="results-subtitle mt-4">Casi Terminado!</div>
+                                            <div class="results-title">¿Deseas guardar los datos del servicio?</div>
                                             <div class="mt-3 mb-3"></div>
                                             <div class="text-center">
-                                                <button class="btn-shadow btn-wide btn btn-success btn-lg">Finish</button>
+                                                <button class="btn-shadow btn-wide btn btn-success btn-lg">Guardar</button>
+                                                <button class="btn-shadow btn-wide btn btn-success btn-lg">Editar</button>
                                             </div>
                                         </div>
                                     </div> <!-- *************** AQUI TERMINA EL DIV DE LA SECCION DE GUARDADO ****************************" -->
