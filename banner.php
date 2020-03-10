@@ -121,6 +121,27 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-note2"></i>
+                                    Servicios
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="index.html" class="mm-active">
+                                            <i class="metismenu-icon">
+                                            </i>Consultar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="catalogo_servicios.php">
+                                            <i class="metismenu-icon">
+                                            </i>Nuevo
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                         <li class="app-sidebar__heading">UI Components</li>
                     
                         <li>
