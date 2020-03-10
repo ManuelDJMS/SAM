@@ -17,7 +17,7 @@
                         <i class="lnr-apartment icon-gradient bg-sunny-morning">
                         </i>
                     </div>
-                    <div>Empresas
+                    <div>Empresas prueba
                         <div class="page-title-subheading">Crea y modifica las empresas relacionadas con Metas SA. de CV.
                         </div>
                     </div>

@@ -4,7 +4,7 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-    <!-- <link rel="stylesheet" href="dist/css/base.css"> -->
+    <link rel="stylesheet" href="dist/css/base.css">
     <!-- <link rel="stylesheet" href="dist/css/base.min.css"> -->
     <script src="plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
