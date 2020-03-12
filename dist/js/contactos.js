@@ -1,47 +1,110 @@
 
 $(document).ready(function(){
+  $('.btnEditarG').hide();
 	// obtener_numeros_empleado();
 	// obtener_usuarios();
 	limpia_formulario();
 	obtener_registros();
 
-	$('html').on('click', '#btnAgregarContacto', function(){
-        // var noEmpleado = $("#inputNoEmpleado option:selected").val();
-        var Nombre = $("#Nombre").val();
-        var Direccion = "1";
-        var Apellidos = $("#Apellidos").val();
-        var Cargo = $("#Cargo").val();
-        var Celular = $("#Celular").val();
-        var Tel = $("#Tel").val();
-        var Ext = $("#Ext").val();
-        var Fax = $("#Fax").val();
-        var Email = $("#Email").val();
-        var Descuento = $("#Descuento").val();
-        var Condiciones = $("#Condiciones").val();
-        var Activo = $("#Activo").val();
-        var fechaCreacion = getdate();
-        var creado = "TI";
-        var FechaModificacion = getdate();
-        var Modificado = "TI";
-		
-        // var perfil = $("#inputPerfil option:selected").text();
-		if(Nombre == "")
-		 {
-
-		 }
-		 else
-		 {
-			registrar_C(Direccion,Nombre,Apellidos,Cargo,Celular,Tel,Ext,Fax, Email,Descuento, Condiciones,Activo,fechaCreacion,creado,FechaModificacion,Modificado);
-		 }
-       
-    });
-
+  $('html').on('click','#exampleCustomCheckbox1',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
+	// =======================================================================
+  // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
+	$('html').on('click', '.btnGuardar', function(){
+    //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
+     var obj = new Object();
+     obj.Nombre = $.trim($('#Nombre').val());
+     obj.Apellidos  = $.trim($('#Apellidos').val());
+     obj.Cargo = $.trim($('#Cargo').val());
+     obj.Celular = $.trim($('#Celular').val());
+     obj.Tel = $.trim($('#Observaciones').val());
+     obj.Ext = $.trim($('#Ext').val());
+     obj.Fax = $.trim($('#Fax').val());
+     obj.Email = $.trim($('#Email').val());
+     obj.Condiciones = $.trim($('#Condiciones').val());
+     obj.Activo = $.trim($('#exampleCustomCheckbox1').val());
+     obj.accion = $(this).attr("id").split('_')[1];
+     obj.ClaveContacto = $(this).attr("id").split('_')[2];
+     // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
+     if(obj.Nombre != '' && obj.Nombre != ''){
+       guardar_contacto(obj);
+     }
+     else{
+       alerta_error("Oops...","Faltan llenar algunos campos");
+     }
+   });
+ // =======================================================================
 });
-
+// =======================================================================
+  // =========== EVENTO DE EDITAR EN LA TABLA ==============================
+  $('html').on('click', '.btnEditar', function(){
+    //SE SIMULA EL CLICK DEL TAB 
+    $("#tab-0").get(0).click();
+    //==================== SE MUESTRAN Y OCULTAN CIERTOS BOTONES =============================
+    $('.btnEditarG').show();
+    $('.btnGuardar').hide();
+    //=======================================================================================
+    // ================ SE ASIGNA ID A EDITAR ===============================================
+    var id = $(this).attr('id').split('_')[1];
+    $('.btnEditarG').attr('id',$(this).attr('id'));
+    obtener_registro(id);
+});
+//========================================================================
+// =================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ============================
+function guardar_contactos(obj){
+  var opc = "guardar_contactos";
+  $.post("dist/fw/contactos.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
+      if(data){
+          alerta("¡Guardado!", "El contacto se guardo correctamente, ¿desea seguir en 'Contactos'", "success");
+          obtener_contactos();
+      }else{
+          alerta_error("¡Error!","Error al guardar los datos");
+      }
+  },'json');
+}
+// ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
+function obtener_registro(id){
+  /* var opc = "obtener_registro";
+  $('.line-scale-pulse-out').show();
+  $.post("dist/fw/empresas.php",{'opc':opc, 'id':id},function(data){
+      if(data){
+        limpia_formulario()
+        $('#RazonSocial').val(data.RazonSocial.split(',')[0]);
+         if(data.RazonSocial.split(',').length > 1 ){
+          $("#exampleCustomSelect option[value='"+ (data.RazonSocial.split(',')[1]).trim()+"']").attr("selected", true);
+        }
+        $('#RFC').val(data.RFC);
+        $('#Observaciones').val(data.ObservacionesEmpresa);
+        $("#Credito option[value='"+ data.Credito +"']").attr("selected", true);
+        if(data.Ventas==1){
+          $('#exampleCustomCheckbox1').val(1);
+          $("#exampleCustomCheckbox1").attr('checked',true);
+        }
+        if(data.Cursos==1){
+          $('#exampleCustomCheckbox2').val(1);
+          $("#exampleCustomCheckbox2").attr('checked',true);
+        }
+        if(data.Gestoria==1){
+          $('#exampleCustomCheckbox3').val(1);
+          $("#exampleCustomCheckbox3").attr('checked',true);
+        }
+      }
+      else
+      {
+        alerta_error("Error", "Error al recibir los datos");
+      }
+      $('.line-scale-pulse-out').hide();
+  },'json'); */
+}
+// ============================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
-  
-    //regenerar_tabla();
       $('.line-scale-pulse-out').show();
     $.post("dist/fw/contactos.php",{opc:opc},function(data){
         if(data){

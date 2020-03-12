@@ -135,7 +135,8 @@
                                             </div>
                                     </div>              
                                 </div>                  
-                                    <button type="button" class="mt-2 btn btn-primary" id="btnAgregaContacto">Guardar</button> 
+                                <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
+                                <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
                             </form>
                         </div>
                     </div>
