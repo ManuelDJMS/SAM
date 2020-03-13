@@ -98,42 +98,42 @@
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div  class="main-card mb-3 card">
-                <div id="div_registros" class="box-body">
-                  <!-- <table id="example" class="table table-bordered table-striped"> -->
-                  <table id="table_registros" class="table table-bordered table-striped dataTable">
-                    <thead>
-                      <tr>
-                        <th>N° Catálogo</th>
-                        <th>Descripción del Servicio</th>
-                        <th>Referencia</th>
-                        <th>Unidad</th>
-                        <th>Precio Base</th>
-                        <th>Observaciones</th>
-                        <th>Editar</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <div id="div_registros" class="box-body">
+                        <!-- <table id="example" class="table table-bordered table-striped"> -->
+                        <table id="table_registros" class="table table-bordered table-striped dataTable">
+                            <thead>
+                            <tr>
+                                <th>N° Catálogo</th>
+                                <th>Descripción del Servicio</th>
+                                <th>Referencia</th>
+                                <th>Unidad</th>
+                                <th>Precio Base</th>
+                                <th>Observaciones</th>
+                                <th>Editar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                    </tbody>
-                  </table>
-                </div><!-- /.box-body -->
-            </div>  
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div>  
                <!-- Codigo para la animacion de cargado -->
                <div class="loader-wrapper d-flex justify-content-center align-items-center">
-                                            <div class="loader">
-                                                <div class="line-scale-pulse-out">
-                                                    <!--cada div es una linea de la animacion-->
-                                                    <div></div>
-                                                    <div></div> 
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-                                         </div>
+                    <div class="loader">
+                        <div class="line-scale-pulse-out">
+                            <!--cada div es una linea de la animacion-->
+                            <div></div>
+                            <div></div> 
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
             </div><!-- AQUI TERMINA EL DIV DEL TAB -->
         </div>
     </div>
 </div>
-    <script src="dist/js/empresas.js"></script>
+    <script src="dist/js/servicios_logistica.js"></script>
     <?php include_once("footer.php");?>
