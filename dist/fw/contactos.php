@@ -35,7 +35,7 @@ ini_set('display_errors', '0');
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM Contactos";
+        $strQuery = "SELECT * FROM [SAM].[dbo].[Contactos] where ClaveContacto < '1000' ";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();
@@ -69,26 +69,3 @@ ini_set('display_errors', '0');
         }
         echo json_encode($obj);
     }
-
-    elseif($opc == 'obtener_direcciones'){
-        $con = new Conexion();
-        $con->conectar();
-        $strQuery = "SELECT * FROM Direcciones where ClaveEmpresa = '1'";
-        $con->ejecutaQuery($strQuery);
-        if($con->getNum()>0){
-            $arrDatos = $con->getListaObjectos();
-            foreach ($arrDatos as $objDato) {
-                foreach ($objDato as $key => $value){
-                    if(is_string($value)){
-                        $objDato->$key = utf8_encode($value);
-                    }
-                }
-                $arrRespuesta[] = $objDato;
-            }
-            echo json_encode($arrRespuesta);
-        }
-        else{
-            echo json_encode(false);
-        }
-        $con->cerrar();
-	}
