@@ -6,8 +6,7 @@
     <link rel="stylesheet" href="dist/css/base.css">
     <script src="plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>   
+  
     <div class="app-main__outer">
         <div class="app-main__inner">
             <div class="app-page-title">
@@ -94,31 +93,31 @@
                                             </div>
                                     </div>
                                     <div class="dropdown d-inline-block">
-                                                <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-primary">Agregar empresa</button>
-                                                <div tabindex="-1"  aria-hidden="true" class="dropdown-menu-xl dropdown-menu">
-                                                    <div class="dropdown-menu-header">
-                                                        <div class="dropdown-menu-header-inner bg-happy-itmeo">
-                                                            <div class="menu-header-image" style="background-image: url('assets/images/dropdown-header/city2.jpg');"></div>
+                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-primary">Agregar empresa</button>
+                                            <div tabindex="-1"  aria-hidden="true" class="dropdown-menu-xl dropdown-menu">
+                                                <div class="dropdown-menu-header">
+                                                    <div class="dropdown-menu-header-inner bg-happy-itmeo">
+                                                        <div class="menu-header-image" style="background-image: url('assets/images/dropdown-header/city2.jpg');"></div>
                                                             <div class="menu-header-content text-dark"><h5 class="menu-header-title">Empresas</h5><h6 class="menu-header-subtitle">Seleccione la empresa a la que pertece este contacto</h6></div>
                                                         </div>
                                                     </div>
-                                                    <div id="div_empresas" class="box-body">
-                                                        <table id="example2" class="table table-bordered table-striped dataTable">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Clave</th>
-                                                                    <th>Razon Social</th>
-                                                                    <th>RFC</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                </tbody>
-                                                        </table>
-                                                    </div><!-- /.box-body -->
+                                                <div id="div_empresas" class="box-body">
+                                                    <table id="example2" class="table table-bordered table-striped dataTable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Clave</th>
+                                                                <th>Razon Social</th>
+                                                                <th>RFC</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        </tbody>
+                                                    </table>
+                                                </div><!-- /.box-body -->
                                                     <ul class="nav flex-column">
                                                         <li class="nav-item-divider nav-item"></li>
                                                         <li class="nav-item-btn text-center nav-item">
-                                                            <button class="btn-shadow btn btn-primary btn-sm">Submit</button>
+                                                        <button class="btn-shadow btn btn-primary btn-sm">Submit</button>
                                                         </li>
                                                     </ul>
                                                 </div>

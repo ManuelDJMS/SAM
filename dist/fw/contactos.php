@@ -101,4 +101,18 @@ ini_set('display_errors', '0');
             echo json_encode(false);
         }
         $con->cerrar();
-	}
+    }
+    elseif($opc=="obtener_empresa"){
+        $id = $_POST['id'];
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT * FROM Empresas WHERE ClaveEmpresa = $id";
+        $con->ejecutaQuery($strQuery);
+        $obj = $con->getObjeto();
+        foreach ($obj as $key => $value) {
+            if(is_string($value)){
+                $obj->$key = utf8_encode($value);    
+            }
+        }
+        echo json_encode($obj);
+    }

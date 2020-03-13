@@ -53,6 +53,16 @@ $(document).ready(function(){
     $('.btnEditarG').attr('id',$(this).attr('id'));
     obtener_registro(id);
 });
+
+ // =========== EVENTO DE ASIGNAR EN LA TABLA ==============================
+ $('html').on('click', '.btnSel', function(){
+  //SE SIMULA EL CLICK DEL TAB 
+  $("#tab-0").get(0).click();
+  // ================ SE ASIGNA ID A EDITAR ===============================================
+  var idE = $(this).attr('id').split('_')[1];
+  alert(idE)
+  obtener_empresa(idE);
+});
 //========================================================================
   //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================
   $('html').on('click', '.btnEditarG', function(){
@@ -165,6 +175,7 @@ function obtener_empresas(){
               html += '<td>' + $.trim(data[i].ClaveEmpresa) + '</td>';
               html += '<td>' + $.trim(data[i].RazonSocial) + '</td>';
               html += '<td>' + $.trim(data[i].RFC) + '</td>';
+              html += '<td class="btnSel" id="edit_'+data[i].ClaveEmpresa+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
               html += '</tr>';                        
           }
           $('#example2 tbody').html(html);
@@ -219,6 +230,20 @@ function limpia_formulario(){
     $("#Condiciones").val("");
     $("#exampleCustomCheckbox1").removeAttr("checked");
 	
+}
+// ========================= METODO PÁRA OBTENER EMPRESA ASIGNADA ======================
+function obtener_empresa(id){
+  var opc = "obtener_empresa";
+  $.post("dist/fw/contactos.php",{'opc':opc, 'id':id},function(data){
+      if(data){
+        $('#RazonSocial').val(data.RazonSocial);
+        $('#ClaveEmpresa').val(data.ClaveEmpresa);
+      }
+      else
+      {
+        alerta_error("Error", "Error al recibir los datos");
+      }
+  },'json');
 }
 	function alerta(){
     const swalWithBootstrapButtons = Swal.mixin({
