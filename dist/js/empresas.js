@@ -60,9 +60,12 @@ $(document).ready(function(){
       $('.btnGuardar').hide();
       //=======================================================================================
       // ================ SE ASIGNA ID A EDITAR ===============================================
+      alert("entra")
       var id = $(this).attr('id').split('_')[1];
       $('.btnEditarG').attr('id',$(this).attr('id'));
+      alert(id)
       obtener_registro(id);
+      
   });
   //========================================================================
   //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================

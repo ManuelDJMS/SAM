@@ -4,8 +4,9 @@ $(document).ready(function(){
 	// obtener_numeros_empleado();
 	// obtener_usuarios();
 	limpia_formulario();
-	obtener_registros();
-
+  obtener_registros();
+  obtener_empresas();
+ // =================== EVENTOS DE SELECCION DE CHECKBOX ===================
   $('html').on('click','#exampleCustomCheckbox1',function(){
     if($(this).val()== 1){
       $(this).val(0);
@@ -18,12 +19,12 @@ $(document).ready(function(){
   // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
 	$('html').on('click', '.btnGuardar', function(){
     //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
-     var obj = new Object();
+    var obj = new Object();
      obj.Nombre = $.trim($('#Nombre').val());
      obj.Apellidos  = $.trim($('#Apellidos').val());
      obj.Cargo = $.trim($('#Cargo').val());
      obj.Celular = $.trim($('#Celular').val());
-     obj.Tel = $.trim($('#Observaciones').val());
+     obj.Tel = $.trim($('#Tel').val());
      obj.Ext = $.trim($('#Ext').val());
      obj.Fax = $.trim($('#Fax').val());
      obj.Email = $.trim($('#Email').val());
@@ -38,10 +39,7 @@ $(document).ready(function(){
      else{
        alerta_error("Oops...","Faltan llenar algunos campos");
      }
-   });
- // =======================================================================
-});
-// =======================================================================
+   });// =======================================================================
   // =========== EVENTO DE EDITAR EN LA TABLA ==============================
   $('html').on('click', '.btnEditar', function(){
     //SE SIMULA EL CLICK DEL TAB 
@@ -56,13 +54,38 @@ $(document).ready(function(){
     obtener_registro(id);
 });
 //========================================================================
+  //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================
+  $('html').on('click', '.btnEditarG', function(){
+    //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
+    var obj = new Object();
+    obj.Nombre = $.trim($('#Nombre').val());
+    obj.Apellidos  = $.trim($('#Apellidos').val());
+    obj.Cargo = $.trim($('#Cargo').val());
+    obj.Celular = $.trim($('#Celular').val());
+    obj.Tel = $.trim($('#Tel').val());
+    obj.Ext = $.trim($('#Ext').val());
+    obj.Fax = $.trim($('#Fax').val());
+    obj.Email = $.trim($('#Email').val());
+    obj.Condiciones = $.trim($('#Condiciones').val());
+    obj.Activo = $.trim($('#exampleCustomCheckbox1').val());
+    obj.accion = $(this).attr("id").split('_')[0];
+    obj.ClaveContacto = $(this).attr("id").split('_')[1];
+    if(obj.Nombre != '' && obj.Nombre != ''){
+      guardar_contacto(obj);
+    }
+    else{
+      alerta_error("Oops...","Faltan llenar algunos campos");
+    }
+   });
+   //=======================================================================
+  });
 // =================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ============================
-function guardar_contactos(obj){
-  var opc = "guardar_contactos";
+function guardar_contacto(obj){
+  var opc = "guardar_contacto";
   $.post("dist/fw/contactos.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
       if(data){
           alerta("¡Guardado!", "El contacto se guardo correctamente, ¿desea seguir en 'Contactos'", "success");
-          obtener_contactos();
+          obtener_registros();
       }else{
           alerta_error("¡Error!","Error al guardar los datos");
       }
@@ -70,42 +93,35 @@ function guardar_contactos(obj){
 }
 // ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
 function obtener_registro(id){
-  /* var opc = "obtener_registro";
-  $('.line-scale-pulse-out').show();
-  $.post("dist/fw/empresas.php",{'opc':opc, 'id':id},function(data){
+  var opc = "obtener_registro";
+  $.post("dist/fw/contactos.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_formulario()
-        $('#RazonSocial').val(data.RazonSocial.split(',')[0]);
-         if(data.RazonSocial.split(',').length > 1 ){
-          $("#exampleCustomSelect option[value='"+ (data.RazonSocial.split(',')[1]).trim()+"']").attr("selected", true);
-        }
-        $('#RFC').val(data.RFC);
-        $('#Observaciones').val(data.ObservacionesEmpresa);
-        $("#Credito option[value='"+ data.Credito +"']").attr("selected", true);
-        if(data.Ventas==1){
+        $('#Nombre').val(data.Nombre);
+        $('#Apellidos').val(data.Apellidos);
+        $('#Cargo').val(data.Cargo);
+        $('#Celular').val(data.Celular);
+        $('#Tel').val(data.Tel);
+        $('#Ext').val(data.Ext);
+        $('#Fax').val(data.Fax);
+        $('#Email').val(data.Email);
+        $('#Condiciones').val(data.Condiciones);
+        if(data.Activo==1){
           $('#exampleCustomCheckbox1').val(1);
           $("#exampleCustomCheckbox1").attr('checked',true);
-        }
-        if(data.Cursos==1){
-          $('#exampleCustomCheckbox2').val(1);
-          $("#exampleCustomCheckbox2").attr('checked',true);
-        }
-        if(data.Gestoria==1){
-          $('#exampleCustomCheckbox3').val(1);
-          $("#exampleCustomCheckbox3").attr('checked',true);
         }
       }
       else
       {
         alerta_error("Error", "Error al recibir los datos");
       }
-      $('.line-scale-pulse-out').hide();
-  },'json'); */
+  },'json');
 }
 // ============================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
       $('.line-scale-pulse-out').show();
+      regenerar_tabla();
     $.post("dist/fw/contactos.php",{opc:opc},function(data){
         if(data){
             var html = '';
@@ -120,7 +136,7 @@ function obtener_registros(){
                 html += '<td>' + $.trim(data[i].Fax) + '</td>';
                 html += '<td>' + $.trim(data[i].Ext) + '</td>';
                 html += '<td>' + $.trim(data[i].Email) + '</td>';
-                // html += '<td class="btnEditar" id="edit_'+data[i].ClaveContacto+'"><span class="glyphicon glyphicon-pencil" ></span></td>';
+                html += '<td class="btnEditar" id="edit_'+data[i].ClaveContacto+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
                 // html += '<td class="btnBorrar" id="del_'+data[i].ClaveContacto+'"><span class="glyphicon glyphicon-trash" ></span></td>';
                 html += '</tr>';                        
             }
@@ -137,7 +153,34 @@ function obtener_registros(){
         $('.line-scale-pulse-out').hide();
     },'json');
 }
-    
+
+function obtener_empresas(){
+  var opc = "obtener_empresas";
+    $('.line-scale-pulse-out').show();
+  $.post("dist/fw/contactos.php",{opc:opc},function(data){
+      if(data){
+          var html = '';
+          for (var i = 0; i < data.length; i++){
+              html += '<tr class="edita_error" id="error_' + $.trim(data[i].ClaveEmpresa) + '">';
+              html += '<td>' + $.trim(data[i].ClaveEmpresa) + '</td>';
+              html += '<td>' + $.trim(data[i].RazonSocial) + '</td>';
+              html += '<td>' + $.trim(data[i].RFC) + '</td>';
+              html += '</tr>';                        
+          }
+          $('#example2 tbody').html(html);
+          $('#example2').DataTable({
+              "paging": true,
+              "lengthChange": true,
+              "searching": true,
+              "ordering": true,
+              "info": true,
+              "autoWidth": true
+          });
+      }
+      $('.line-scale-pulse-out').hide();
+  },'json');
+}
+
 function regenerar_tabla(){
   $('.line-scale-pulse-out').show();
       $('#div_registros').html("");
@@ -154,6 +197,7 @@ function regenerar_tabla(){
         html += '<th>Fax</th>';
         html += '<th>Ext</th>';
         html += '<th>Email</th>';
+        html += '<th>Editar</th>';
         html += '</tr>';
         html += '</thead>';
         html += '<tbody>';
@@ -161,16 +205,6 @@ function regenerar_tabla(){
         html += '</table>';
         $('#div_registros').html(html);
       $('.line-scale-pulse-out').hide();
-}
-
-function registrar_C(Nombre,Apellidos,Cargo,Celular,Tel,Ext,Fax,Email,Descuento,Condiciones,Activo){
-	var opc = 'registrar_contacto';
-	$.post("dist/fw/contacto.php",{opc:opc,Nombre:Nombre,Apellidos:Apellidos,Cargo:Cargo,Celular:Celular,Tel:Tel,Fax:Fax,Ext:Ext,Email:Email,Descuento:Descuento,Condiciones:Condiciones,Activo:Activo}, function(data){
-		if(data){
-			alerta();
-			limpia_formulario();
-		}
-	}, 'json');
 }
 
 function limpia_formulario(){
@@ -182,10 +216,8 @@ function limpia_formulario(){
     $("#Fax").val("");
     $("#Ext").val("");
     $("#Email").val("");
-/*     $("#Descuento").val("");
     $("#Condiciones").val("");
-    $("#Email").val("");
-    $("#Activo").removeAttr("checked");	 */
+    $("#exampleCustomCheckbox1").removeAttr("checked");
 	
 }
 	function alerta(){
@@ -215,4 +247,14 @@ function limpia_formulario(){
         }
       })
 			 
-	}
+  }
+
+  function alerta_error(titulo, texto){
+    Swal.fire({
+      icon: 'error',
+      title: titulo,
+      text: texto
+      // footer: '<a href>Why do I have this issue?</a>'
+    })
+  }
+
