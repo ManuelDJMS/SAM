@@ -61,7 +61,7 @@
                                     </div>                             
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <div class="position-relative form-group">
                                                 <label for="examplePassword11" class="">Celular</label>
                                                 <input name="Celular" id="Celular" class="form-control">
@@ -93,7 +93,7 @@
                                     </div>
                                     <div class="dropdown d-inline-block">
                                                 <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-primary">Agregar empresa</button>
-                                                <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl dropdown-menu">
+                                                <div tabindex="-1"  aria-hidden="true" class="dropdown-menu-xl dropdown-menu">
                                                     <div class="dropdown-menu-header">
                                                         <div class="dropdown-menu-header-inner bg-happy-itmeo">
                                                             <div class="menu-header-image" style="background-image: url('assets/images/dropdown-header/city2.jpg');"></div>
@@ -107,7 +107,7 @@
                                                                     <th>Clave</th>
                                                                     <th>Razon Social</th>
                                                                     <th>RFC</th>
-                                                                    </tr>
+                                                                </tr>
                                                             </thead>
                                                             <tbody>
                                                                 </tbody>
@@ -135,9 +135,10 @@
                                             </div>
                                     </div>              
                                 </div>                  
-                                <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
-                                <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
+                               
                             </form>
+                            <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
+                                <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
                         </div>
                     </div>
                 </div>
@@ -159,6 +160,7 @@
                                             <th>Fax</th>
                                             <th>Ext</th>
                                             <th>Email</th>
+                                            <th>Editar</th>
                                             </tr>
                                         </thead>
                                     <tbody>
@@ -169,7 +171,7 @@
                             </div> 
                             <div class="loader-wrapper d-flex justify-content-center align-items-center">
                                             <div class="loader">
-                                                <div class="line-scale-pulse-out">
+                                                <div class="line-scale-pulse-out"> 
                                                     <div></div>
                                                     <div></div>
                                                     <div></div>

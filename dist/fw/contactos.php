@@ -18,13 +18,24 @@ ini_set('display_errors', '0');
         if($datos->accion == 'nuevo'){
 
             $strQuery = "INSERT INTO Contactos (Nombre,Apellidos,Cargo,Celular,Tel,
-						Fax,Ext,Email,CondicionesClienteAdmon,Descuento,Activo)
-						VALUES('".$datos->Nombre."','".$datos->Apellidos."','".$datos->Cargo."','".$datos->Celular."','".$datos->Tel."','".$datos->Fax."','".$datos->Ext."','".$datos->Email."','".$datos->Condiciones."',".$datos->Descuento.",'".$datos->CActivo."')";
+						Fax,Ext,Email,CondicionesClienteAdmon,Activo,CreadorPor)
+						VALUES('".$datos->Nombre."','".$datos->Apellidos."','".$datos->Cargo."','".$datos->Celular."','".$datos->Tel."','".$datos->Fax."','".$datos->Ext."','".$datos->Email."','".$datos->Condiciones."','".$datos->Activo."',".$_SESSION['iduser'].")";
         }
         else{
 			$strQuery = "UPDATE Contactos SET 
-            Nombre = '".$datos->Nombre."'
-         WHERE ClaveEmpresa = '".$datos->ClaveContacto."'";
+            Nombre = '".$datos->Nombre."',
+            Apellidos = '".$datos->Apellidos."',
+            Cargo = '".$datos->Cargo."',
+            Celular = '".$datos->Celular."',
+            Tel = '".$datos->Tel."',
+            Ext = '".$datos->Ext."',
+            Fax = '".$datos->Fax."',
+            Email = '".$datos->Email."',
+            Condiciones = '".$datos->Condiciones."',
+            Activo = '".$datos->Activo."',
+            FechaModificacion = getdate(),
+            ModificadoPor = ".$_SESSION['iduser']."
+         WHERE ClaveContacto = '".$datos->ClaveContacto."'";
         }
 
         $res = $con->ejecutaQuery($strQuery);
@@ -59,7 +70,7 @@ ini_set('display_errors', '0');
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT [ClaveContacto],[Nombre],[Apellidos],[Cargo],[Celular],[Tel],[Fax],[Ext],[Email] FROM Contactos = $id";
+        $strQuery = "SELECT * FROM Contactos WHERE ClaveContacto = $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
@@ -69,3 +80,25 @@ ini_set('display_errors', '0');
         }
         echo json_encode($obj);
     }
+    elseif($opc == 'obtener_empresas'){
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT * FROM Empresas";
+        $con->ejecutaQuery($strQuery);
+        if($con->getNum()>0){
+            $arrDatos = $con->getListaObjectos();
+            foreach ($arrDatos as $objDato) {
+                foreach ($objDato as $key => $value){
+                    if(is_string($value)){
+                        $objDato->$key = utf8_encode($value);
+                    }
+                }
+                $arrRespuesta[] = $objDato;
+            }
+            echo json_encode($arrRespuesta);
+        }
+        else{
+            echo json_encode(false);
+        }
+        $con->cerrar();
+	}
