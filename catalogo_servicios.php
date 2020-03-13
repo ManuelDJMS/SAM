@@ -84,7 +84,7 @@
                                                 <div class="col-md-4">
                                                     <div class="position-relative form-group">
                                                         <label for="exampleCustomSelect" class="">Laboratorio</label>
-                                                        <select type="select" id="Laboratorio" name="TipoEmpresa" class="custom-select">
+                                                        <select type="select" id="Laboratorio" class="custom-select">
                                                             <option></option>
                                                             <option value="Densidad">Densidad</option>
                                                             <option value="Dimensional">Dimensional</option>
@@ -321,7 +321,7 @@
                                                 <div class="col-md-6">
                                                 <div class="position-relative form-group">
                                                         <label for="exampleText" class="">Observaciones de los Modelos</label>
-                                                        <textarea name="Observaciones" id="Comentarios" class="form-control"></textarea>
+                                                        <textarea name="Observaciones" id="ObservacionesModelos" class="form-control"></textarea>
                                                     </div>
                                                 </div>
                                             </div> 
@@ -343,8 +343,8 @@
                                             <div class="results-title">¿Deseas guardar los datos del servicio?</div>
                                             <div class="mt-3 mb-3"></div>
                                             <div class="text-center">
-                                                <button class="btn-shadow btn-wide btn btn-success btn-lg">Guardar</button>
-                                                <button class="btn-shadow btn-wide btn btn-success btn-lg">Editar</button>
+                                                <button class="btn-shadow btn-wide btn btn-success btn-lg " id="btn_nuevo_0">Guardar</button>
+                                                <button class="btn-shadow btn-wide btn btn-success btn-lg btnEditarG">Editar</button>
                                             </div>
                                         </div>
                                     </div> <!-- *************** AQUI TERMINA EL DIV DE LA SECCION DE GUARDADO ****************************" -->
@@ -369,11 +369,14 @@
                         <table id="table_registros" class="table table-bordered table-striped dataTable">
                             <thead>
                             <tr>
-                                <th>Clave Empresa</th>
-                                <th>Razón Social</th>
-                                <th>RFC</th>
-                                <th>Crédito</th>
-                                <th>Observaciones de la empresa</th>
+                                <th>N° Catálogo</th>
+                                <th>Instrumento</th>
+                                <th>Alcance</th>
+                                <th>Clase de Exactitud</th>
+                                <th>Puntos de Calibración</th>
+                                <th>Método de Calibración</th>
+                                <th>Patrones de Referencia</th>
+                                <th>Precio Base</th>
                                 <th>Editar</th>
                             </tr>
                             </thead>
@@ -401,5 +404,5 @@
         </div><!-- DIV DEL TAB PRICIPAL (TAB CONTENTD)-->
     </div> <!-- TERMINA EL DIV PAPP_INNER -->
 </div> <!-- DIV PRINCIPAL -->
-    <!-- <script src="dist/js/empresas.js"></script> -->
+    <script src="dist/js/servicios.js"></script>
     <?php include_once("footer.php");?>
