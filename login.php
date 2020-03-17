@@ -66,7 +66,7 @@ include("conexion.php");?>
                                         $objUsuario='';
                                         $conexion=new Conexion();
                                         $conexion->conectar();
-                                        $sql="SELECT cve, Nombre, password, Rol from Usuarios WHERE cve= '$_email'";
+                                        $sql="SELECT cve, Nombre +' '+Apellidos, password,Depto from Usuarios WHERE cve= '$_email'";
                                         $conexion->ejecutaQuery($sql);
                                          if($conexion->getNum()>0)
                                          {
@@ -79,7 +79,7 @@ include("conexion.php");?>
                                           {
                                             $_SESSION['iduser']  = $objUsuario[0];
                                             $_SESSION['nombre']  = $objUsuario[1];
-                                            $_SESSION['rol']  = $objUsuario[3];
+                                            $_SESSION['Depto']  = $objUsuario[3];
                                             echo "<<<_END
                                             <script>
                                             window.location.replace('index.php');

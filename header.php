@@ -674,7 +674,7 @@
                                         </div>
                                         <div class="widget-subheading">
                                         <?php  
-                                            echo $_SESSION['rol'];
+                                            echo $_SESSION['Depto'];
                                         
                                             ?> 
                                         </div>
