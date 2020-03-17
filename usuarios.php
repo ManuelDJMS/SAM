@@ -6,8 +6,7 @@
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
 <link rel="stylesheet" href="dist/css/base.css">
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-<!-- <script src="plugins/jQuery/3.2.10.min" type="text/javascript"></script> -->
+<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
 
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -43,19 +42,19 @@
                     <div class="card-body"><h5 class="card-title">Informacion General</h5>
                         <form id="signupForm">
                             <div class="form-row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="position-relative form-group">
-                                        <label for="exampleEmail11" class="">Nombre</label>
+                                    <label for="exampleEmail11" class="">Nombre</label>
                                         <input type="text" class="form-control" id="Nombre" name="Nombre" required/>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="position-relative form-group">
                                         <label for="exampleEmail11" class="">Apellidos</label>
                                         <input type="text" class="form-control" id="Apellidos" name="Apellidos" required/>
                                     </div>
                                 </div>   
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="position-relative form-group">
                                         <label for="examplePassword11" class="">Email</label>
                                         <input name="Email" id="Email" class="form-control">
@@ -64,7 +63,7 @@
                             </div>
                             <div class="form-row">              
                                 <div class="position-relative form-group"> 
-                                    <label for="exampleSelect" class="">Departamento</label>
+                                <label for="exampleSelect" class="">Departamento</label>
                                     <select name="Depto" id="Depto" class="form-control">
                                         <option value="VENTAS">Ventas</option>
                                         <option value="LOGISTICA">Logística</option>
@@ -79,30 +78,27 @@
                                         <input name="Ext" id="Ext" class="form-control">
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="position-relative form-group">
-                                        <label for="examplePassword11" class="">Clave</label>
-                                        <label for="examplePassword11" id="Clave" class="">Clave</label>
+                                        <label for="examplePassword11" class="">Contraseña</label>
+                                        <input type="password" name="password" id="password" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="position-relative form-group">
-                                        <label for="examplePassword11" class="">Contraseña</label>
-                                        <input type="password" name="Pass" id="Pass" class="form-control">
-                                        <!-- checkbox que nos permite activar o desactivar la opcion -->   
-                                        <input type="checkbox" id="mostrar_contrasena" title="clic para mostrar contraseña"/>
-                                        &nbsp;&nbsp;Mostrar Contraseña
+                                        <label for="examplePassword11" class="">clave</label>
+                                        <label for="examplePassword11" id="clave">clave</label>
                                     </div>
-                                </div>      
+                                </div>           
                             </div> 
                             <div class="position-relative form-group"> 
-                            <label for="exampleText" class="">Puesto(En caso de ser de Laboratorio)</label>
-                                <div>
-                                        <input type="radio" name="gender" id="R" value="1"> Responsable<br>
-                                        <input type="radio" name="gender" id="M" value="1"> Metrologo<br>
-                                        <input type="radio" name="gender" id="A" value="1"> Auxiliar
-                                </div>
-                            </div>
+                                <label for="exampleText" class="">Puesto(En caso de ser de Laboratorio)</label>
+                                    <div>
+                                            <input type="radio" name="gender" id="Responsable" value="1"> Responsable<br>
+                                            <input type="radio" name="gender" id="Metrologo" value="1"> Metrologo<br>
+                                            <input type="radio" name="gender" id="Auxiliar" value="1"> Auxiliar
+                                    </div>        
+                            </div>                             
                             <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
                             <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
                             
@@ -120,7 +116,7 @@
                       <tr>
                         <th>Nombre</th>
                         <th>Apellidos</th>
-                        <th>Departamento</th>
+                        <th>Depto</th>
                         <th>Email</th>
                         <th>Editar</th>
                       </tr>

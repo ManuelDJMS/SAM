@@ -17,8 +17,8 @@ ini_set('display_errors', '0');
         $con->conectar();
         if($datos->accion == 'nuevo'){
             $strQuery = "INSERT INTO Usuarios (Nombre,Apellidos,Email,Depto,Ext,password,Responsable,Metrologo,Auxiliar,Creo)
-                         VALUES ('".$datos->Nombre.", ".$datos->Apellidos."','".$datos->Email."','".$datos->Depto."','".$datos->Ext."','".$datos->pass."','".$datos->R."'
-							 		           ,'".$datos->M."','".$datos->A."',".$_SESSION['iduser'].",)";
+                         VALUES ('".$datos->Nombre."', '".$datos->Apellidos."','".$datos->Email."','".$datos->Depto."','".$datos->Ext."','".$datos->password."','".$datos->Responsable."'
+							 		           ,'".$datos->Metrologo."','".$datos->Auxiliar."',".$_SESSION['iduser'].")";
         }
         else{
             $strQuery = "UPDATE Usuarios SET 
@@ -54,11 +54,25 @@ ini_set('display_errors', '0');
         $con->cerrar();
 	}
 	
-	elseif($opc=="obtener_registro"){
+	elseif($opc=="obtener_usuario"){
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
         $strQuery = "SELECT * FROM Usuarios WHERE idUsuarioAdministrador = $id";
+        $con->ejecutaQuery($strQuery);
+        $obj = $con->getObjeto();
+        foreach ($obj as $key => $value) {
+            if(is_string($value)){
+                $obj->$key = utf8_encode($value);    
+            }
+        }
+        echo json_encode($obj);
+    }
+
+    elseif($opc=="obtener_cve"){
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT TOP(1) cve from Usuarios order by cve desc";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
