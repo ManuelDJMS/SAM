@@ -31,7 +31,7 @@ ini_set('display_errors', '0');
             Metrologo = '".$datos->Metrologo."',
             Auxiliar = '".$datos->Auxiliar."',
             FechaModificacion = getdate()
-            WHERE idUsuarioAdministrador = '".$datos->idUsuarioAdministrador."'";
+            WHERE idUsuario = '".$datos->idUsuario."'";
          }
 
         $res = $con->ejecutaQuery($strQuery);
@@ -66,7 +66,7 @@ ini_set('display_errors', '0');
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM Usuarios WHERE idUsuarioAdministrador = $id";
+        $strQuery = "SELECT * FROM Usuarios WHERE idUsuario = $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {

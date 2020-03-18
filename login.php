@@ -66,7 +66,7 @@ include("conexion.php");?>
                                         $objUsuario='';
                                         $conexion=new Conexion();
                                         $conexion->conectar();
-                                        $sql="SELECT idUsuarioAdministrador, Nombre +' '+Apellidos, password,Depto from Usuarios WHERE idUsuarioAdministrador= '$_email'";
+                                        $sql="SELECT idUsuario, Nombre +' '+Apellidos, password,Depto from Usuarios WHERE idUsuario= '$_email'";
                                         $conexion->ejecutaQuery($sql);
                                          if($conexion->getNum()>0)
                                          {

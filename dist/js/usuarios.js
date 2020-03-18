@@ -44,7 +44,7 @@ $(document).ready(function(){
         obj.Metrologo = $.trim($('#Metrologo').val());
         obj.Auxiliar = $.trim($('#Auxiliar').val());
         obj.accion = $(this).attr("id").split('_')[1];
-        obj.idUsuarioAdministrador = $(this).attr("id").split('_')[2];
+        obj.idUsuario = $(this).attr("id").split('_')[2];
         // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
         if(obj.Nombre != '' && obj.Nombre != ''){
             guardar_usuario(obj);
@@ -83,7 +83,7 @@ $(document).ready(function(){
         obj.Metrologo = $.trim($('#Metrologo').val());
         obj.Auxiliar = $.trim($('#Auxiliar').val());
         obj.accion = $(this).attr("id").split('_')[0];
-        obj.idUsuarioAdministrador = $(this).attr("id").split('_')[1];
+        obj.idUsuario = $(this).attr("id").split('_')[1];
       if(obj.Nombre != '' && obj.Nombre != ''){
         alerta_error(obj.accion);
         guardar_usuario(obj);
@@ -149,13 +149,13 @@ function obtener_registros(){
         if(data){
             var html = '';
             for (var i = 0; i < data.length; i++){
-              html += '<tr class="edita_error" id="error_' + $.trim(data[i].idUsuarioAdministrador) + '">';
-              html += '<td>' + $.trim(data[i].idUsuarioAdministrador) + '</td>';
+              html += '<tr class="edita_error" id="error_' + $.trim(data[i].idUsuario) + '">';
+              html += '<td>' + $.trim(data[i].idUsuario) + '</td>';
               html += '<td>' + $.trim(data[i].Nombre) + '</td>';
               html += '<td>' + $.trim(data[i].Apellidos) + '</td>';
               html += '<td>' + $.trim(data[i].Depto) + '</td>';
               html += '<td>' + $.trim(data[i].Email) + '</td>';
-              html += '<td class="btnEditar" id="edit_'+data[i].idUsuarioAdministrador+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
+              html += '<td class="btnEditar" id="edit_'+data[i].idUsuario+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
               html += '</tr>';                   
             }
             $('#example3 tbody').html(html);
