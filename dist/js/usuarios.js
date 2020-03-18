@@ -2,32 +2,32 @@ $(document).ready(function(){
   $('.btnEditarG').hide();
   limpia_formulario();
   obtener_registros();
-  obtener_cve();
   // =================== EVENTOS DE SELECCION DE CHECKBOX ===================
-  // $('html').on('click','#exampleCustomCheckbox1',function(){
-  //   if($(this).val()== 1){
-  //     $(this).val(0);
-  //   }
-  //   else{
-  //     $(this).val(1);
-  //   }
-  // });
-  // $('html').on('click','#exampleCustomCheckbox2',function(){
-  //   if($(this).val()== 1){
-  //     $(this).val(0);
-  //   }
-  //   else{
-  //     $(this).val(1);
-  //   }
-  // });
-  // $('html').on('click','#exampleCustomCheckbox3',function(){
-  //   if($(this).val()== 1){
-  //     $(this).val(0);
-  //   }
-  //   else{
-  //     $(this).val(1);
-  //   }
-  // });
+  $('html').on('click','#Responsable',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+ 
+  });
+  $('html').on('click','#Metrologo',function(){
+    if($(this).val()== 2){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
+  $('html').on('click','#Auxiliar',function(){
+    if($(this).val()== 3){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
   // =======================================================================
   // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
 	$('html').on('click', '.btnGuardar', function(){
@@ -39,7 +39,7 @@ $(document).ready(function(){
         obj.Depto = $.trim($('#Depto').val());
         obj.Ext = $.trim($('#Ext').val());
         obj.password = $.trim($('#password').val());
-        obj.clave = $.trim($('#clave').val());
+        obj.Firma = $.trim($('#Firma').val());
         obj.Responsable = $.trim($('#Responsable').val());
         obj.Metrologo = $.trim($('#Metrologo').val());
         obj.Auxiliar = $.trim($('#Auxiliar').val());
@@ -65,8 +65,7 @@ $(document).ready(function(){
       // ================ SE ASIGNA ID A EDITAR ===============================================
       var id = $(this).attr('id').split('_')[1];
       $('.btnEditarG').attr('id',$(this).attr('id'));
-      obtener_registro(id);
-      
+      obtener_usuario(id);
   });
   //========================================================================
   //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================
@@ -79,13 +78,14 @@ $(document).ready(function(){
         obj.Depto = $.trim($('#Depto').val());
         obj.Ext = $.trim($('#Ext').val());
         obj.password = $.trim($('#password').val());
-        obj.clave = $.trim($('#clave').val());
+        obj.Firma = $.trim($('#Firma').val());
         obj.Responsable = $.trim($('#Responsable').val());
         obj.Metrologo = $.trim($('#Metrologo').val());
         obj.Auxiliar = $.trim($('#Auxiliar').val());
         obj.accion = $(this).attr("id").split('_')[0];
         obj.idUsuarioAdministrador = $(this).attr("id").split('_')[1];
       if(obj.Nombre != '' && obj.Nombre != ''){
+        alerta_error(obj.accion);
         guardar_usuario(obj);
       }
       else{
@@ -116,7 +116,7 @@ function obtener_usuario(id){
         $('#Nombre').val(data.Nombre);
         $('#Apellidos').val(data.Apellidos);
         $('#Email').val(data.Email);
-        $('#Depto').val(data.Depto);
+        $("#Depto option[value='"+ data.Depto +"']").attr("selected", true);
         $('#Ext').val(data.Ext);
         $('#password').val(data.password);
         $('#clave').val(data.clave);
@@ -150,6 +150,7 @@ function obtener_registros(){
             var html = '';
             for (var i = 0; i < data.length; i++){
               html += '<tr class="edita_error" id="error_' + $.trim(data[i].idUsuarioAdministrador) + '">';
+              html += '<td>' + $.trim(data[i].idUsuarioAdministrador) + '</td>';
               html += '<td>' + $.trim(data[i].Nombre) + '</td>';
               html += '<td>' + $.trim(data[i].Apellidos) + '</td>';
               html += '<td>' + $.trim(data[i].Depto) + '</td>';
@@ -177,6 +178,7 @@ function regenerar_tabla(){
   html += '<table id="example3" class="table table-bordered table-striped dataTable">';
   html += '<thead>';
   html += '<tr>';
+  html += '<th>Clave</th>';
   html += '<th>Nombre</th>';
   html += '<th>Apellidos</th>';
   html += '<th>Depto</th>';
@@ -194,8 +196,7 @@ function obtener_cve(){
   var opc = "obtener_cve";
   $.post("dist/fw/usuarios.php",{'opc':opc},function(data){
       if(data){
-        alert(data.clave);
-        $('#clave').val(data.clave);
+        $('#clave').text(data);
       }
       else
       {
@@ -210,7 +211,7 @@ function limpia_formulario(){
   $("#Depto").val("");
   $("#Ext").val("");
   $("#password").val("");
-  $("#clave").text("");
+  $("#Firma").val("");
   $("#Responsable").removeAttr("checked");
   $("#Metrologo").removeAttr("checked");
   $("#Auxiliar").removeAttr("checked");

@@ -66,7 +66,7 @@ include("conexion.php");?>
                                         $objUsuario='';
                                         $conexion=new Conexion();
                                         $conexion->conectar();
-                                        $sql="SELECT cve, Nombre +' '+Apellidos, password,Depto from Usuarios WHERE cve= '$_email'";
+                                        $sql="SELECT idUsuarioAdministrador, Nombre +' '+Apellidos, password,Depto from Usuarios WHERE idUsuarioAdministrador= '$_email'";
                                         $conexion->ejecutaQuery($sql);
                                          if($conexion->getNum()>0)
                                          {

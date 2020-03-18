@@ -18,7 +18,7 @@
                         </i>
                     </div>
                     <div>Contactos
-                        <div class="page-title-subheading">Administra la información de usuario sque interactuan con el sistema SIIM
+                        <div class="page-title-subheading">Administra la información de usuarios que interactuan con el sistema SIIM
                         </div>
                     </div>
                 </div>
@@ -65,11 +65,21 @@
                                 <div class="position-relative form-group"> 
                                 <label for="exampleSelect" class="">Departamento</label>
                                     <select name="Depto" id="Depto" class="form-control">
-                                        <option value="VENTAS">Ventas</option>
-                                        <option value="LOGISTICA">Logística</option>
-                                        <option value="OPERADORES">Operadores</option>
-                                        <option value="MASA">Masa</option>
-                                        <option value="PRESION">Presión</option>
+                                        <option value="VENTAS">VENTAS</option>
+                                        <option value="LOGISTICA">LOGÍSTICA</option>
+                                        <option value="OPERADORES">OPERADORES</option>
+                                        <option value="MASA">MASA</option>
+                                        <option value="DENSIDAD">DENSIDAD</option>
+                                        <option value="VOLUMEN">VOLUMEN</option>
+                                        <option value="PRESION">MASA-CAMPO</option>
+                                        <option value="PRESION">PRESIÓN</option>
+                                        <option value="HUMEDAD">HUMEDAD</option>
+                                        <option value="TEMPERATURA DE CONTACTO">TEMPERATURA DE CONTACTO</option>
+                                        <option value="RADIANCIA">RADIANCIA</option>
+                                        <option value="ELECTRICA">ELÉCTRICA</option>
+                                        <option value="VIBRACIONES">VIBRACIONES</option>
+                                        <option value="MEDICIONES">MEDICIONES ESPECIALES</option>
+                                        <option value="SISTEMAS">SISTEMAS</option>
                                     </select>  
                                 </div>
                                 <div class="col-md-1">
@@ -86,8 +96,8 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="position-relative form-group">
-                                        <label for="examplePassword11" class="">clave</label>
-                                        <label for="examplePassword11" id="clave">clave</label>
+                                    <label for="examplePassword11" class="">Firma</label>
+                                    <input type="file" name="adjunto" id="Firma" accept=".pdf,.jpg,.png" multiple>
                                     </div>
                                 </div>           
                             </div> 
@@ -95,13 +105,12 @@
                                 <label for="exampleText" class="">Puesto(En caso de ser de Laboratorio)</label>
                                     <div>
                                             <input type="radio" name="gender" id="Responsable" value="1"> Responsable<br>
-                                            <input type="radio" name="gender" id="Metrologo" value="1"> Metrologo<br>
-                                            <input type="radio" name="gender" id="Auxiliar" value="1"> Auxiliar
+                                            <input type="radio" name="gender" id="Metrologo" value="2"> Metrologo<br>
+                                            <input type="radio" name="gender" id="Auxiliar" value="3"> Auxiliar
                                     </div>        
                             </div>                             
                             <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
-                            <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
-                            
+                            <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button>        
                         </form>
                     </div>
                 </div>
@@ -114,6 +123,7 @@
                   <table id="example3" class="table table-bordered table-striped dataTable">
                     <thead>
                       <tr>
+                        <th>Clave</th>
                         <th>Nombre</th>
                         <th>Apellidos</th>
                         <th>Depto</th>

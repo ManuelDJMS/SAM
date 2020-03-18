@@ -16,13 +16,21 @@ ini_set('display_errors', '0');
         $con = new Conexion();
         $con->conectar();
         if($datos->accion == 'nuevo'){
-            $strQuery = "INSERT INTO Usuarios (Nombre,Apellidos,Email,Depto,Ext,password,Responsable,Metrologo,Auxiliar,Creo)
-                         VALUES ('".$datos->Nombre."', '".$datos->Apellidos."','".$datos->Email."','".$datos->Depto."','".$datos->Ext."','".$datos->password."','".$datos->Responsable."'
-							 		           ,'".$datos->Metrologo."','".$datos->Auxiliar."',".$_SESSION['iduser'].")";
+            $strQuery = "INSERT INTO Usuarios (Nombre,Apellidos,Email,Depto,Ext,password,Firma,Responsable,Metrologo,Auxiliar,Creo)
+                         VALUES ('".$datos->Nombre."', '".$datos->Apellidos."','".$datos->Email."','".$datos->Depto."','".$datos->Ext."'
+                         ,'".$datos->password."','".$datos->Firma."','".$datos->Responsable."','".$datos->Metrologo."','".$datos->Auxiliar."',".$_SESSION['iduser'].")";
         }
         else{
             $strQuery = "UPDATE Usuarios SET 
-            Nombre = '".$datos->Nombre."
+            Nombre = '".$datos->Nombre."',
+            Apellidos = '".$datos->Apellidos."',
+            Depto = '".$datos->Depto."',
+            Ext = '".$datos->Ext."',
+            password = '".$datos->password."',
+            Responsable = '".$datos->Responsable."',
+            Metrologo = '".$datos->Metrologo."',
+            Auxiliar = '".$datos->Auxiliar."',
+            FechaModificacion = getdate()
             WHERE idUsuarioAdministrador = '".$datos->idUsuarioAdministrador."'";
          }
 
