@@ -18,9 +18,8 @@ ini_set('display_errors', '0');
         $con = new Conexion();
         $con->conectar();
         if($datos->accion == 'nuevo'){
-            $strQuery = "INSERT INTO EmpresasOrdenadas (cve,RazonSocial,RFC,Credito,ObservacionesEmpresa,Ventas,Cursos,Gestoria)
-                         VALUES (".$_SESSION['iduser'].",'".$datos->RazonSocial.", ".$datos->Tipo."','".$datos->RFC."','".$datos->Credito."','".$datos->Observaciones."','".$datos->CVentas."','".$datos->CCursos."'
-							 		           ,'".$datos->CGestoria."')";
+            $strQuery = "INSERT INTO EmpresasOrdenadas (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, CvaEmpresaAccess)
+                         VALUES (".$_SESSION['iduser'].",".$datos->Paqueteria.",'".$datos->RazonSocial.", ".$datos->Tipo."','".$datos->RFC."','".$datos->Credito."','".$datos->CuentaMensajeria."',".$datos->Descuento.",'".$datos->NoProveedor."','".$datos->AdminPaq."','".$datos->Observaciones."',".$datos->Access.")";
         }
         else{
             $strQuery = "UPDATE EmpresasOrdenadas SET 
@@ -28,10 +27,11 @@ ini_set('display_errors', '0');
             FechaModificacion = getdate(),
             RFC = '".$datos->RFC."',
             Credito = '".$datos->Credito."',
-            ObservacionesEmpresa = '".$datos->Observaciones."',
-            Ventas = '".$datos->CVentas."',
-            Cursos = '".$datos->CCursos."',
-            Gestoria = '".$datos->CGestoria."'
+            CuentaMensajeria = '".$datos->CuentaMensajeria."',
+            Descuento = '".$datos->Descuento."',
+            NumProvMetas = '".$datos->NoProveedor."',
+            AdminPaq = '".$datos->AdminPaq."',
+            ObservacionesEmpresa = '".$datos->Observaciones."'
          WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
          }
 
@@ -39,7 +39,30 @@ ini_set('display_errors', '0');
         $con->cerrar();
         echo json_encode($res);
 	}
-	
+	elseif ($opc == 'obtener_paqueterias'){
+		$strQuery = "SELECT DISTINCT 
+						idPaqueteria,
+						Descripcion
+					FROM 
+						Paqueterias
+					ORDER BY 
+						idPaqueteria";
+		$con = new Conexion();
+	    $con->ejecutaQuery($strQuery);
+	    $arrDocumentos = array();
+	    //$arrDocumentos = $con->getListaObjectos();
+	    $arrRespuesta = $con->getListaObjectos();
+        foreach ($arrRespuesta as $objRespuesta){
+            foreach ($objRespuesta as $key => $value){
+                if(is_string($value)){
+                    $objRespuesta->$key = utf8_encode($value);    
+                }                
+            }
+            $arrDocumentos[] = $objRespuesta;
+        }
+	    $con->cerrar();
+	    echo json_encode($arrDocumentos);
+	}
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();

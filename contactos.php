@@ -13,7 +13,7 @@
                 <div class="page-title-wrapper">
                     <div class="page-title-heading">
                         <div class="page-title-icon">
-                            <i class="lnr-user icon-gradient bg-sunny-morning">
+                            <i class="pe-7s-id icon-gradient bg-sunny-morning">
                             </i>
                         </div>
                         <div>Contactos
@@ -36,33 +36,37 @@
                 </li>
             </ul>
             <div class="tab-content">
+                <!-- **************************************************** AQUI EMPIEZA EL TAB 0  *************************************************************************-->
                 <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
-                    <div class="main-card mb-3 card">
-                        <div class="card-body"><h5 class="card-title">Informacion Personal</h5>
-
-                            <form class="" id="signupForm" action="contactos.php" method="post">
+                    <form id="signupForm">   
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <h5 class="card-title">Informacion General del Contacto</h5>
+                                <!-- ============================== EMPIEZA EL PRIMER RENGLON ===================================== -->
                                 <div class="form-row">
                                     <div class="col-md-4">
                                         <div class="position-relative form-group">
                                             <label for="exampleEmail11" class="">Nombre</label>
-                                            <input type="text" class="form-control" id="Nombre" name="Nombre" placeholder=""/>
+                                            <input type="text" class="form-control" id="Nombre" placeholder=""/>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-5">
                                         <div class="position-relative form-group">
-                                            <label for="examplePassword11" class="">Apellido</label>
-                                            <input name="Apellidos" id="Apellidos" class="form-control">
+                                            <label for="examplePassword11" class="">Apellido(S)</label>
+                                            <input type="text" id="Apellidos" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="position-relative form-group">
                                             <label for="examplePassword11" class="">Cargo</label>
-                                            <input name="Cargo" id="Cargo" class="form-control">
+                                            <input id="Cargo" class="form-control">
                                         </div>
                                     </div>                             
                                 </div>
+                                <!-- ============================== TERMINA EL PRIMER RENGLON ===================================== -->
+                                <!-- ============================== EMPIEZA EL SEGUNDO RENGLON ===================================== -->
                                 <div class="form-row">
-                                    <div class="col-md-2">
+                                    <div class="col-md-3">
                                         <div class="position-relative form-group">
                                                 <label for="examplePassword11" class="">Celular</label>
                                                 <input name="Celular" id="Celular" class="form-control">
@@ -70,121 +74,122 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="position-relative form-group">
-                                                <label for="examplePassword11" class="">Telèfono</label>
+                                                <label for="examplePassword11" class="">Teléfono</label>
                                                 <input name="Tel" id="Tel" class="form-control">
                                             </div>
                                     </div>
                                     <div class="col-md-1">
                                         <div class="position-relative form-group">
-                                                <label for="examplePassword11" class="">Extensiòn</label>
+                                                <label for="examplePassword11" class="">Ext</label>
                                                 <input name="Ext" id="Ext" class="form-control">
                                             </div>
                                     </div>
-                                    <div class="col-md-1">
+                                    <div class="col-md-2">
                                         <div class="position-relative form-group">
                                                 <label for="examplePassword11" class="">Fax</label>
                                                 <input name="Fax" id="Fax" class="form-control">
                                             </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-4">
                                         <div class="position-relative form-group">
                                                 <label for="examplePassword11" class="">Email</label>
                                                 <input name="Email" id="Email" class="form-control">
                                             </div>
                                     </div>
-                                    <div class="dropdown d-inline-block">
-                                        <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-primary">Agregar empresa</button>
-                                            <div tabindex="-1"  aria-hidden="true" class="dropdown-menu-xl dropdown-menu">
-                                                <div class="dropdown-menu-header">
-                                                    <div class="dropdown-menu-header-inner bg-happy-itmeo">
-                                                        <div class="menu-header-image" style="background-image: url('assets/images/dropdown-header/city2.jpg');"></div>
-                                                            <div class="menu-header-content text-dark"><h5 class="menu-header-title">Empresas</h5><h6 class="menu-header-subtitle">Seleccione la empresa a la que pertece este contacto</h6></div>
-                                                        </div>
-                                                    </div>
+                                </div>
+                                <!-- ============================== TERMINA EL SEGUNDO RENGLON ===================================== -->
+                                <!-- ============================== EMPIEZA EL TERCER RENGLON ===================================== -->
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleText" class="">Condiciones</label>
+                                            <textarea id="Condiciones" class="form-control"></textarea>
+                                        </div>
+                                    </div>    
+                                    <div class="col-md-2">
+                                        <label for="exampleText" class=""></label>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" name="CActivo" value="1">
+                                            <label class="custom-control-label" for="exampleCustomCheckbox1">Activo</label>
+                                        </div>
+                                    </div>              
+                                </div>                  
+                                <!-- ============================== TERMINA EL SEGUNDO RENGLON ===================================== -->
+                                <!-- <div class="card-body"><h5 class="card-title">Simple</h5> -->
+                                <div id="exampleAccordion" data-children=".item">
+                                    <!-- <div class="item"> -->
+                                        <button type="button" aria-expanded="true" aria-controls="exampleAccordion1" data-toggle="collapse" href="#collapseExample" class="m-0 p-0 btn btn-link SelectEmpresa" id="btn_cerrado">Seleccionar empresa</button>
+                                        <div data-parent="#exampleAccordion" id="collapseExample" class="collapse">
+                                            <!-- <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium lorem non vestibulum scelerisque. Proin a
+                                            vestibulum sem, eget tristique massa. Aliquam lacinia rhoncus nibh quis ornare.</p> -->
+                                            <!--  -->
+                                            <div class="main-card mb-3 card">
                                                 <div id="div_empresas" class="box-body">
                                                     <table id="example2" class="table table-bordered table-striped dataTable">
                                                         <thead>
                                                             <tr>
-                                                                <th>Clave</th>
-                                                                <th>Razon Social</th>
+                                                                <th>Clave Empresa</th>
+                                                                <th>Razón Social</th>
                                                                 <th>RFC</th>
-                                                            </tr>
-                                                        </thead>
+                                                                <th>Editar</th>
+                                                                </tr>
+                                                            </thead>
                                                         <tbody>
-                                                        </tbody>
+                                                            </tbody>
                                                     </table>
-                                                </div><!-- /.box-body -->
-                                                    <ul class="nav flex-column">
-                                                        <li class="nav-item-divider nav-item"></li>
-                                                        <li class="nav-item-btn text-center nav-item">
-                                                        <button class="btn-shadow btn btn-primary btn-sm">Submit</button>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                                </div><!-- /.box-body -->  
+                                            </div> 
+                                            <!--  -->
+                                        </div><!-- ========= TERMINA EL DIV DEL ACORDEON ================ -->
+                                    <!-- </div> -->
                                 </div>
-                                <div class="form-row">
-                                    <div class="position-relative form-group">
-                                        <label for="exampleText" class="">Condiciones del cliente</label>
-                                        <textarea name="Condiciones" id="Condiciones" class="form-control"></textarea>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <label for="exampleText" class=""></label>
-                                            <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" id="exampleCustomCheckbox1" class="custom-control-input" name="CActivo" value="1">
-                                                <label class="custom-control-label" for="exampleCustomCheckbox1">Activo</label>
-                                            </div>
-                                    </div>              
-                                </div>                  
-                               
-                            </form>
-                            <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
-                                <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
+                                <button type="button" class="mt-2 btn btn-primary float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
+                                <button type="button" class="mt-2 btn btn-primary btnEditarG float-right" >Editar</button> 
+                            </div><!-- DIV CARD BODY -->
+                        </div><!-- DIV class="main-card mb-3 card" --> 
+                    </form>
+                </div><!-- **************************************************** AQUI TERMINA EL TAB 0  *************************************************************************-->
+                    
+                <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
+                <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
+                    <div class="main-card mb-3 card">
+                        <div id="div_registros" class="box-body">
+                            <table id="example1" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Clave Contacto</th>
+                                        <th>Nombre</th>
+                                        <th>Apellidos</th>
+                                        <th>Cargo</th>
+                                        <th>Celular</th>
+                                        <th>Tel</th>
+                                        <th>Fax</th>
+                                        <th>Ext</th>
+                                        <th>Email</th>
+                                        <th>Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div><!-- /.box-body -->  
+                    </div> 
+                    <div class="loader-wrapper d-flex justify-content-center align-items-center">
+                        <div class="loader">
+                            <div class="line-scale-pulse-out"> 
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
-                <!-- <div class="spinner-border-sm" style="display:flex;">Cargando</div> -->
-                    <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
-                        <div  class="main-card mb-3 card">
-                            <div id="div_registros" class="box-body">
-                                <table id="example1" class="table table-bordered table-striped dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Clave Contacto</th>
-                                            <th>Nombre</th>
-                                            <th>Apellidos</th>
-                                            <th>Cargo</th>
-                                            <th>Celular</th>
-                                            <th>Tel</th>
-                                            <th>Fax</th>
-                                            <th>Ext</th>
-                                            <th>Email</th>
-                                            <th>Editar</th>
-                                            </tr>
-                                        </thead>
-                                    <tbody>
-                                        </tbody>
-                                    </table>
-                                </div><!-- /.box-body -->
-                                
-                            </div> 
-                            <div class="loader-wrapper d-flex justify-content-center align-items-center">
-                                            <div class="loader">
-                                                <div class="line-scale-pulse-out"> 
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-                                         </div>
-                        </div>  
-                    </div>
-                <!-- </div> -->
+                </div>  <!-- ===================== DIV DEL TABL DE LAS CONSIULTAS -->
             </div>
+        </div>
+    </div>
+        
         <script src="dist/js/contactos.js"></script>
         <!-- <div class="spinner-border-sm" style="display:flex;">Cargando</div> -->
         <?php include_once("footer.php");?>

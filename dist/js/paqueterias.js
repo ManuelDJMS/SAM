@@ -83,7 +83,7 @@ $(document).ready(function(){
     $.post("dist/fw/paqueterias.php",{'opc':opc, 'id':id},function(data){
         if(data){
           limpia_formulario()
-          $('#Descripcion').val(data.Nombre);
+          $('#Descripcion').val(data.Descripcion);
           $('#Notas').val(data.Notas);
           if(data.Activo==1){
             $('#exampleCustomCheckbox1').val(1);
@@ -108,7 +108,7 @@ $(document).ready(function(){
               for (var i = 0; i < data.length; i++){
                   html += '<tr class="edita_error" id="error_' + $.trim(data[i].idPaqueteria) + '">';
                   html += '<td>' + $.trim(data[i].idPaqueteria) + '</td>';
-                  html += '<td>' + $.trim(data[i].Nombre) + '</td>';
+                  html += '<td>' + $.trim(data[i].Descripcion) + '</td>';
                   html += '<td>' + $.trim(data[i].Notas) + '</td>';
                   html += '<td class="btnEditar" id="edit_'+data[i].idPaqueteria+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
                   html += '</tr>';                        

@@ -18,15 +18,15 @@
         $con = new Conexion();
         $con->conectar();
         if($datos->accion == 'nuevo'){
-            $strQuery = "INSERT INTO Paqueterias (cve,Nombre,Notas,Activo)
-                         VALUES (".$_SESSION['iduser'].",'".$datos->Descripcion."','".$datos->Notas."','".$datos->Activo."')";
+            $strQuery = "INSERT INTO Paqueterias (idUsuario,Activo,Descripcion,Notas)
+                         VALUES (".$_SESSION['iduser'].",'".$datos->Activo."','".$datos->Descripcion."','".$datos->Notas."')";
         }
         else{
             $strQuery = "UPDATE Paqueterias SET 
-            Nombre = '".$datos->Descripcion."',
+            Descripcion = '".$datos->Descripcion."',
             Notas = '".$datos->Notas."',
             Activo = '".$datos->Activo."',
-            Modifico = '".$_SESSION['iduser']."',
+            ModificadoPor = '".$_SESSION['iduser']."',
             FechaModificacion = getdate()
          WHERE idPaqueteria = '".$datos->idPaqueteria."'";
          }
@@ -39,7 +39,7 @@
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM Paqueterias";
+        $strQuery = "SELECT idPaqueteria, Descripcion, Notas FROM Paqueterias";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();

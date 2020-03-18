@@ -2,31 +2,7 @@ $(document).ready(function(){
   $('.btnEditarG').hide();
   limpia_formulario();
   obtener_registros();
-  // =================== EVENTOS DE SELECCION DE CHECKBOX ===================
-  $('html').on('click','#exampleCustomCheckbox1',function(){
-    if($(this).val()== 1){
-      $(this).val(0);
-    }
-    else{
-      $(this).val(1);
-    }
-  });
-  $('html').on('click','#exampleCustomCheckbox2',function(){
-    if($(this).val()== 1){
-      $(this).val(0);
-    }
-    else{
-      $(this).val(1);
-    }
-  });
-  $('html').on('click','#exampleCustomCheckbox3',function(){
-    if($(this).val()== 1){
-      $(this).val(0);
-    }
-    else{
-      $(this).val(1);
-    }
-  });
+  obtener_paqueterias();
   // =======================================================================
   // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
 	$('html').on('click', '.btnGuardar', function(){
@@ -36,14 +12,22 @@ $(document).ready(function(){
       obj.Tipo = $.trim($('#exampleCustomSelect').val());
       obj.RFC = $.trim($('#RFC').val());
       obj.Credito = $.trim($('#Credito').val());
+      obj.Descuento = $.trim($('#Descuento').val());
+      obj.NoProveedor = $.trim($('#NoProveedor').val());
+      obj.AdminPaq = $.trim($('#AdminPaq').val());
+      obj.Paqueteria = $("#Paqueteria option:selected").val();
+      obj.CuentaMensajeria = $.trim($('#CuentaMensajeria').val());
       obj.Observaciones = $.trim($('#Observaciones').val());
-      obj.CVentas = $.trim($('#exampleCustomCheckbox1').val());
-      obj.CCursos = $.trim($('#exampleCustomCheckbox2').val());
-      obj.CGestoria = $.trim($('#exampleCustomCheckbox3').val());
+      if ($('#Access').val()==''){
+        obj.Access = 0;
+      }
+      else{
+        obj.Access = $.trim($('#Access').val());
+      }
       obj.accion = $(this).attr("id").split('_')[1];
       obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
       // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
-      if(obj.RazonSocial != '' && obj.RazonSocial != ''){
+      if(obj.RazonSocial != ''){
         guardar_empresa(obj);
       }
       else{
@@ -76,13 +60,22 @@ $(document).ready(function(){
     obj.Tipo = $.trim($('#exampleCustomSelect').val());
     obj.RFC = $.trim($('#RFC').val());
     obj.Credito = $.trim($('#Credito').val());
+    obj.Descuento = $.trim($('#Descuento').val());
+    obj.NoProveedor = $.trim($('#NoProveedor').val());
+    obj.AdminPaq = $.trim($('#AdminPaq').val());
+    obj.Paqueteria = $("#Paqueteria option:selected").val();
+    obj.CuentaMensajeria = $.trim($('#CuentaMensajeria').val());
     obj.Observaciones = $.trim($('#Observaciones').val());
-    obj.CVentas = $.trim($('#exampleCustomCheckbox1').val());
-    obj.CCursos = $.trim($('#exampleCustomCheckbox2').val());
-    obj.CGestoria = $.trim($('#exampleCustomCheckbox3').val());
+    if ($('#Access').val()==''){
+      obj.Access = 0;
+    }
+    else{
+      obj.Access = $.trim($('#Access').val());
+    }
     obj.accion = $(this).attr("id").split('_')[0];
     obj.ClaveEmpresa = $(this).attr("id").split('_')[1];
-    if(obj.RazonSocial != '' && obj.RazonSocial != ''){
+    // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
+    if(obj.RazonSocial != ''){
       guardar_empresa(obj);
     }
     else{
@@ -103,6 +96,24 @@ function guardar_empresa(obj){
       }
   },'json');
 }
+// ========================= METODO PÁRA OBTENER lAS PAQUETERIAS ======================
+function obtener_paqueterias(){
+	var opc = 'obtener_paqueterias';
+	$.post("dist/fw/empresas.php",{opc:opc}, function(data){
+		if(data){
+			var mySelect = $('#Paqueteria');
+			mySelect.append(
+		        $('<option></option>').val("0").html("")
+		    );  
+            for (var i = 0; i < data.length; i++){
+				mySelect.append(
+			        $('<option></option>').val(data[i].idPaqueteria).html(data[i].Descripcion)
+			    );                       
+            }
+		}
+	}, 'json');
+}
+// ===================================================================================
 // ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
 function obtener_registro(id){
   var opc = "obtener_registro";
@@ -115,20 +126,13 @@ function obtener_registro(id){
           $("#exampleCustomSelect option[value='"+ (data.RazonSocial.split(',')[1]).trim()+"']").attr("selected", true);
         }
         $('#RFC').val(data.RFC);
+        $('#CuentaMensajeria').val(data.CuentaMensajeria);
+        $('#Descuento').val(data.Descuento);
+        $('#NoProveedor').val(data.NumProvMetas);
+        $('#AdminPaq').val(data.AdminPaq);
         $('#Observaciones').val(data.ObservacionesEmpresa);
         $("#Credito option[value='"+ data.Credito +"']").attr("selected", true);
-        if(data.Ventas==1){
-          $('#exampleCustomCheckbox1').val(1);
-          $("#exampleCustomCheckbox1").attr('checked',true);
-        }
-        if(data.Cursos==1){
-          $('#exampleCustomCheckbox2').val(1);
-          $("#exampleCustomCheckbox2").attr('checked',true);
-        }
-        if(data.Gestoria==1){
-          $('#exampleCustomCheckbox3').val(1);
-          $("#exampleCustomCheckbox3").attr('checked',true);
-        }
+        $("#Paqueteria option[value='"+ data.idPaqueteria +"']").attr("selected", true);
       }
       else
       {
@@ -151,6 +155,8 @@ function obtener_registros(){
                 html += '<td>' + $.trim(data[i].RazonSocial) + '</td>';
                 html += '<td>' + $.trim(data[i].RFC) + '</td>';
                 html += '<td>' + $.trim(data[i].Credito) + '</td>';
+                html += '<td>' + $.trim(data[i].NumProvMetas) + '</td>';
+                html += '<td>' + $.trim(data[i].AdminPaq) + '</td>';
                 html += '<td>' + $.trim(data[i].ObservacionesEmpresa) + '</td>';
                 html += '<td class="btnEditar" id="edit_'+data[i].ClaveEmpresa+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
                 html += '</tr>';                        
@@ -179,6 +185,8 @@ function regenerar_tabla(){
     html += '<th>Razón Social</th>';
     html += '<th>RFC</th>';
     html += '<th>Crédito</th>';
+    html += '<th>N° Proveedor</th>';
+    html += '<th>Clave de AdminPaq</th>';
     html += '<th>Observaciones de la empresa</th>';
     html += '<th>Editar</th>';
     html += '</tr>';
@@ -190,16 +198,17 @@ function regenerar_tabla(){
 }
 
 function limpia_formulario(){
-    $("#RazonSocial").val("");
+  $("#RazonSocial").val("");
 	$("#RFC").val("");
 	$("#Tipo").val("");
 	$("#Credito").val("");
+	$("#Descuento").val("");
+	$("#NoProveedor").val("");
+	$("#CuentaMensajeria").val("");
+	$("#AdminPaq").val("");
+	$("#Paqueteria").val("");
 	$("#exampleCustomSelect").val("");
-    $("#Observaciones").val("");
-	$("#exampleCustomCheckbox1").removeAttr("checked");
-	$("#exampleCustomCheckbox2").removeAttr("checked");
-	$("#exampleCustomCheckbox3").removeAttr("checked");
-	
+  $("#Observaciones").val("");
 }
 	function alerta(titulo, mensaje, icono){
     const swalWithBootstrapButtons = Swal.mixin({
