@@ -60,6 +60,15 @@
                                         <input name="Email" id="Email" class="form-control">
                                     </div>
                                 </div>
+                                <!-- <div class="col-md-2">
+                                    <div class="position-relative form-group">
+                                        <label for="exampleCustomSelect" class="">Tipo</label>
+                                        <select type="select" id="exampleCustomSelect" name="tipoEmail" class="custom-select">
+                                            <option value="@metas.com.mx">@metas.com.mx</option>
+                                            <option value="@metas.mx">@metas.mx</option>
+                                        </select>
+                                    </div>
+                                </div> -->
                             </div>
                             <div class="form-row">              
                                 <div class="position-relative form-group"> 
@@ -105,8 +114,8 @@
                                 <label for="exampleText" class="">Puesto(En caso de ser de Laboratorio)</label>
                                     <div>
                                             <input type="radio" name="gender" id="Responsable" value="1"> Responsable<br>
-                                            <input type="radio" name="gender" id="Metrologo" value="2"> Metrologo<br>
-                                            <input type="radio" name="gender" id="Auxiliar" value="3"> Auxiliar
+                                            <input type="radio" name="gender" id="Metrologo" value="1"> Metrologo<br>
+                                            <input type="radio" name="gender" id="Auxiliar" value="1"> Auxiliar
                                     </div>        
                             </div>                             
                             <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button> 
@@ -128,7 +137,7 @@
                         <th>Apellidos</th>
                         <th>Depto</th>
                         <th>Email</th>
-                        <th>Editar</th>
+                        <th>Seleccionar</th>
                       </tr>
                     </thead>
                     <tbody>

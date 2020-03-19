@@ -184,6 +184,34 @@
                                     </li>
                                 </ul>
                             </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon lnr-bold"></i>
+                                    Unidad de Negocio
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="index.html" class="mm-active">
+                                            <i class="metismenu-icon">
+                                            </i>Consultar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="unidadNegocio">
+                                            <i class="metismenu-icon">
+                                            </i>Nuevo
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="agregarSignatario.php">
+                                            <i class="metismenu-icon">
+                                            </i>Agregar signatarios
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
                         <li class="app-sidebar__heading">UI Components</li>
                     
                         <li>
