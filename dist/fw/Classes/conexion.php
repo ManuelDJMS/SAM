@@ -85,7 +85,8 @@ class Conexion {
         }
         $this->res = sqlsrv_query($this->conn, $query, array(), array( "Scrollable" => 'static' ));
         if ($this->res === false) {
-            die(print_r(sqlsrv_errors(), true));
+            // die(print_r(sqlsrv_errors(), true));
+            return false;
         } else {
             return true;
         }
