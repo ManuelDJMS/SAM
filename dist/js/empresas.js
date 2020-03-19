@@ -92,7 +92,7 @@ function guardar_empresa(obj){
           alerta("¡Guardado!", "La empresa de guardo correctamente, ¿desea seguir en 'Empresas'", "success");
           obtener_registros();
       }else{
-          alerta_error("¡Error!","Error al guardar los datos");
+          alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
       }
   },'json');
 }

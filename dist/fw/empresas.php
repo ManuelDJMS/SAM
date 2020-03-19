@@ -18,9 +18,18 @@ ini_set('display_errors', '0');
         $con = new Conexion();
         $con->conectar();
         if($datos->accion == 'nuevo'){
-            $strQuery = "if exists(select RazonSocial, RFC from EmpresasOrdenadas where RazonSocial='".$datos->RazonSocial.", ".$datos->Tipo."' or RFC='".$datos->RFC."') begin RETURN;
-            end else begin INSERT INTO EmpresasOrdenadas (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, CvaEmpresaAccess)
-                         VALUES (".$_SESSION['iduser'].",".$datos->Paqueteria.",'".$datos->RazonSocial.", ".$datos->Tipo."','".$datos->RFC."','".$datos->Credito."','".$datos->CuentaMensajeria."',".$datos->Descuento.",'".$datos->NoProveedor."','".$datos->AdminPaq."','".$datos->Observaciones."',".$datos->Access."); end;";
+            if($datos->Tipo=='' or $datos->Tipo==''){
+                $razon=$datos->RazonSocial;
+            }
+            else{
+                $razon=$datos->RazonSocial.", ".$datos->Tipo;
+            }
+            $strQuery = "if exists(select RazonSocial, RFC from EmpresasOrdenadas where RazonSocial='".$razon."' or RFC='".$datos->RFC."') begin INSERT INTO EmpresasOrdenadas 
+            (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, 
+            CvaEmpresaAccess) VALUES (1,355,'error','error','error','error','error','error','error','error','error');
+            end else begin INSERT INTO EmpresasOrdenadas (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, 
+            CvaEmpresaAccess) VALUES (".$_SESSION['iduser'].",".$datos->Paqueteria.",'".$razon."','".$datos->RFC."','".$datos->Credito."',
+            '".$datos->CuentaMensajeria."',".$datos->Descuento.",'".$datos->NoProveedor."','".$datos->AdminPaq."','".$datos->Observaciones."',".$datos->Access."); end;";
             // $strQuery="if exists(select RazonSocial, RFC from EmpresasOrdenadas where RazonSocial='A' or RFC='A') begin RETURN;
             // end else begin INSERT INTO EmpresasOrdenadas (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, CvaEmpresaAccess)
             //              VALUES (1,1,'B','B','C','C',0,'JSGG','H','OBS',0); end;";
