@@ -5,27 +5,27 @@ $(document).ready(function(){
   // =================== EVENTOS DE SELECCION DE CHECKBOX ===================
   $('html').on('click','#Responsable',function(){
     if($(this).val()== 1){
-      $(this).val(0);
+      $(this).val(1);
     }
     else{
-      $(this).val(1);
+      $(this).val(0);
     }
  
   });
   $('html').on('click','#Metrologo',function(){
-    if($(this).val()== 2){
-      $(this).val(0);
+    if($(this).val()== 1){
+      $(this).val(1);
     }
     else{
-      $(this).val(1);
+      $(this).val(0);
     }
   });
   $('html').on('click','#Auxiliar',function(){
-    if($(this).val()== 3){
-      $(this).val(0);
+    if($(this).val()== 1){
+      $(this).val(1);
     }
     else{
-      $(this).val(1);
+      $(this).val(0);
     }
   });
   // =======================================================================
