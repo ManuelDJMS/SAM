@@ -198,7 +198,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="unidadNegocio">
+                                        <a href="unidadNegocio.php">
                                             <i class="metismenu-icon">
                                             </i>Nuevo
                                         </a>

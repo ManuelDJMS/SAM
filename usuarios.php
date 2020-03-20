@@ -17,7 +17,7 @@
                         <i class="lnr-user icon-gradient bg-malibu-beach">
                         </i>
                     </div>
-                    <div>Contactos
+                    <div>Usuarios
                         <div class="page-title-subheading">Administra la información de usuarios que interactuan con el sistema SIIM
                         </div>
                     </div>
