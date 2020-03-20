@@ -53,7 +53,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="position-relative form-group"> 
-                                                    <label for="exampleSelect" class="">Departamento</label>
+                                                    <label for="exampleSelect" class="">Laboratorio</label>
                                                         <select name="Laboratorio" id="Laboratorio" class="form-control">
                                                             <option value="MASA">MASA</option>
                                                             <option value="DENSIDAD">DENSIDAD</option>
