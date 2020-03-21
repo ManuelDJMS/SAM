@@ -1,9 +1,193 @@
 $(document).ready(function(){
-  $('.btnEditarG').hide();
-  limpia_formulario();
+  // limpia_formulario();
   obtener_registros();
   obtener_paqueterias();
-  // =======================================================================
+  // ======================= EVENTO AL CHECK NACIONAL FISCAL================================================
+  $('html').on('click','#check',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+      $('#EstadoFiscalOM').show();
+      $('#PaisFiscalOM').show();
+      $('#EstadoSelectFiscal').hide();
+      $('#EstadoFiscal').val("");
+      $('#PaisFiscal').val("");
+    }
+    else{
+      $(this).val(1);
+      $('#EstadoFiscalOM').hide();
+      $('#PaisFiscalOM').hide();
+      $('#EstadoSelectFiscal').show();
+      $('#PaisFiscal').val("México");
+    }
+  });
+  // ========================================================================================================
+  // ======================= EVENTO AL CHECK NACIONAL CONSIGNACION================================================
+  $('html').on('click','#check2',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+      $('#EstadoConsigOM').show();
+      $('#PaisConsigOM').show();
+      $('#EstadoSelectConsig').hide();
+      $('#EstadoConsig').val("");
+      $('#PaisConsig').val("");
+    }
+    else{
+      $(this).val(1);
+      $('#EstadoConsigOM').hide();
+      $('#PaisConsigOM').hide();
+      $('#EstadoSelectConsig').show();
+      $('#PaisConsig').val("México");
+    }
+  });
+  // ========================================================================================================
+  // ======================= EVENTO AL CHECK NACIONAL ENVIO================================================
+  $('html').on('click','#check3',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+      $('#EstadoEnvioOM').show();
+      $('#PaisEnvioOM').show();
+      $('#EstadoSelectEnvio').hide();
+      $('#EstadoEnvio').val("");
+      $('#PaisEnvio').val("");
+    }
+    else{
+      $(this).val(1);
+      $('#EstadoEnvioOM').hide();
+      $('#PaisEnvioOM').hide();
+      $('#EstadoSelectEnvio').show();
+      $('#PaisEnvio').val("México");
+    }
+  });
+  // ========================================================================================================
+  // ======================= EVENTO AL CHECK Consignacion en fiscal================================================
+  $('html').on('click','#checkconsig',function(){
+    
+    if($(this).val() == "0"){
+      if ($('#check').val() == "1"){
+        $("#EstadoListConsig option[value='"+ $('#EstadoListFiscal').val() +"']").attr("selected", true);
+        $('#CompaniaConsig').val($('#CompaniaFiscal').val());
+        $('#DireccionConsig').val($('#DireccionFiscal').val());
+        $('#CPConsig').val($('#CPFiscal').val());
+        $('#CiudadConsig').val($('#CiudadFiscal').val());
+      }
+      else{
+        $("#check2").get(0).click();
+        $('#CompaniaConsig').val($('#CompaniaFiscal').val());
+        $('#DireccionConsig').val($('#DireccionFiscal').val());
+        $('#CPConsig').val($('#CPFiscal').val());
+        $('#CiudadConsig').val($('#CiudadFiscal').val());
+        $('#EstadoConsig').val($('#EstadoFiscal').val());
+        $('#PaisConsig').val($('#PaisFiscal').val());
+      }
+      $(this).val(1);
+    }
+    else{
+      $(this).val(0);
+      if ($('#check').val() == "1"){
+        $("#EstadoListConsig option[value='Aguascalientes']").attr("selected", true);
+        $('#CompaniaConsig').val("");
+        $('#DireccionConsig').val("");
+        $('#CPConsig').val("");
+        $('#CiudadConsig').val("");
+      }
+      else{
+        $("#check2").get(0).click();
+        $('#CompaniaConsig').val("");
+        $('#DireccionConsig').val("");
+        $('#CPConsig').val("");
+        $('#CiudadConsig').val("");
+        $('#EstadoConsig').val("");
+        $('#PaisConsig').val("México");
+      }
+    }
+  });
+  // ========================================================================================================
+  // ======================= EVENTO AL CHECK de envio en fiscal================================================
+  $('html').on('click','#checkenvio',function(){
+    
+    if($(this).val() == "0"){
+      if ($('#check').val() == "1"){
+        
+        $("#EstadoListEnvio option[value='"+ $('#EstadoListFiscal').val() +"']").attr("selected", true);
+        $('#CompaniaEnvio').val($('#CompaniaFiscal').val());
+        $('#DireccionEnvio').val($('#DireccionFiscal').val());
+        $('#CPEnvio').val($('#CPFiscal').val());
+        $('#CiudadEnvio').val($('#CiudadFiscal').val());      }
+      else{
+        $("#check3").get(0).click();
+        $('#CompaniaEnvio').val($('#CompaniaFiscal').val());
+        $('#DireccionEnvio').val($('#DireccionFiscal').val());
+        $('#CPEnvio').val($('#CPFiscal').val());
+        $('#CiudadEnvio').val($('#CiudadFiscal').val());
+        $('#EstadoEnvio').val($('#EstadoFiscal').val());
+        $('#PaisEnvio').val($('#PaisFiscal').val());
+      }
+      $(this).val(1);
+    }
+    else{
+      $(this).val(0);
+      if ($('#check').val() == "1"){
+        $("#EstadoListEnvio option[value='Aguascalientes']").attr("selected", true);
+        $('#CompaniaEnvio').val("");
+        $('#DireccionEnvio').val("");
+        $('#CPEnvio').val("");
+        $('#CiudadEnvio').val("");
+      }
+      else{
+        $("#check3").get(0).click();
+        $('#CompaniaEnvio').val("");
+        $('#DireccionEnvio').val("");
+        $('#CPEnvio').val("");
+        $('#CiudadEnvio').val("");
+        $('#EstadoEnvio').val("");
+        $('#PaisEnvio').val("México");
+      }
+    }
+  });
+  // ========================================================================================================
+  // ======================= EVENTO AL CHECK de envio en consig================================================
+  $('html').on('click','#checkenvioC',function(){
+    
+    if($(this).val() == "0"){
+      if ($('#check2').val() == "1"){
+        $("#EstadoListEnvio option[value='"+ $('#EstadoListConsig').val() +"']").attr("selected", true);
+        $('#CompaniaEnvio').val($('#CompaniaConsig').val());
+        $('#DireccionEnvio').val($('#DireccionConsig').val());
+        $('#CPEnvio').val($('#CPConsig').val());
+        $('#CiudadEnvio').val($('#CiudadConsig').val());
+      }
+      else{
+        $("#check3").get(0).click();
+        $('#CompaniaEnvio').val($('#CompaniaConsig').val());
+        $('#DireccionEnvio').val($('#DireccionConsig').val());
+        $('#CPEnvio').val($('#CPConsig').val());
+        $('#CiudadEnvio').val($('#CiudadConsig').val());
+        $('#EstadoEnvio').val($('#EstadoConsig').val());
+        $('#PaisEnvio').val($('#PaisConsig').val());
+      }
+      $(this).val(1);
+    }
+    else{
+      $(this).val(0);
+      if ($('#check2').val() == "1"){
+        $('#CompaniaEnvio').val("");
+        $('#DireccionEnvio').val("");
+        $('#CPEnvio').val("");
+        $('#CiudadEnvio').val("");
+        $("#EstadoListEnvio option[value='Aguascalientes']").attr("selected", true);
+      }
+      else{
+        $("#check3").get(0).click();
+        $('#CompaniaEnvio').val("");
+        $('#DireccionEnvio').val("");
+        $('#CPEnvio').val("");
+        $('#CiudadEnvio').val("");
+        $('#EstadoEnvio').val("");
+        $('#PaisEnvio').val("México");
+      }
+    }
+  });
+  // ========================================================================================================
   // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
 	$('html').on('click', '.btnGuardar', function(){
      //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
@@ -23,6 +207,31 @@ $(document).ready(function(){
       }
       else{
         obj.Access = $.trim($('#Access').val());
+      }
+      // ================== VALORES DE LAS DIRECCIONES ================================
+      obj.CompaniaFiscal = $.trim($('#CompaniaFiscal').val());
+      obj.DireccionFiscal = $.trim($('#DireccionFiscal').val());
+      obj.CPFiscal = $.trim($('#CPFiscal').val());
+      obj.EstadoListFiscal = $.trim($('#EstadoListFiscal').val());
+      obj.EstadoFiscal = $.trim($('#EstadoFiscal').val());
+      obj.PaisFiscal = $.trim($('#PaisFiscal').val());
+      if ($('#DireccionConsig').val()!="")
+      {
+        obj.CompaniaConsig = $.trim($('#CompaniaConsig').val());
+        obj.DireccionConsig = $.trim($('#DireccionConsig').val());
+        obj.CPConsig = $.trim($('#CPConsig').val());
+        obj.EstadoListConsig = $.trim($('#EstadoListConsig').val());
+        obj.EstadoConsig = $.trim($('#EstadoConsig').val());
+        obj.PaisConsig = $.trim($('#PaisConsig').val());
+      }
+      if ($('#DireccionEnvio').val()!="")
+      {
+        obj.CompaniaEnvio = $.trim($('#CompaniaEnvio').val());
+        obj.DireccionEnvio = $.trim($('#DireccionEnvio').val());
+        obj.CPEnvio = $.trim($('#CPEnvio').val());
+        obj.EstadoListEnvio = $.trim($('#EstadoListEnvio').val());
+        obj.EstadoEnvio = $.trim($('#EstadoEnvio').val());
+        obj.PaisEnvio = $.trim($('#PaisEnvio').val());
       }
       obj.accion = $(this).attr("id").split('_')[1];
       obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
@@ -207,7 +416,7 @@ function limpia_formulario(){
 	$("#CuentaMensajeria").val("");
 	$("#AdminPaq").val("");
 	$("#Paqueteria").val("");
-	$("#exampleCustomSelect").val("");
+	// $("#exampleCustomSelect").val("");
   $("#Observaciones").val("");
 }
 	function alerta(titulo, mensaje, icono){

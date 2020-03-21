@@ -131,6 +131,8 @@
                                                                 <th>Clave Empresa</th>
                                                                 <th>Razón Social</th>
                                                                 <th>RFC</th>
+                                                                <th></th>
+                                                                <th>RFC</th>
                                                                 <th>Editar</th>
                                                                 </tr>
                                                             </thead>

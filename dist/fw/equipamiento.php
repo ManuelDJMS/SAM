@@ -17,7 +17,6 @@ ini_set('display_errors', '0');
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
         $con->conectar();
-        // ========================== COSIGO PARA GUARDAR LA EMPRESA ========================================
         if($datos->accion == 'nuevo'){
             if($datos->Tipo=='' or $datos->Tipo==''){
                 $razon=$datos->RazonSocial;
@@ -26,7 +25,7 @@ ini_set('display_errors', '0');
                 $razon=$datos->RazonSocial.", ".$datos->Tipo;
             }
             $strQuery = "if exists(select RazonSocial, RFC from EmpresasOrdenadas where RazonSocial='".$razon."' or RFC='".$datos->RFC."') begin INSERT INTO EmpresasOrdenadas 
-            (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, 
+            (idEquipamiento, idArticulo,, 
             CvaEmpresaAccess) VALUES (1,355,'error','error','error','error','error','error','error','error','error');
             end else begin INSERT INTO EmpresasOrdenadas (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, 
             CvaEmpresaAccess) VALUES (".$_SESSION['iduser'].",".$datos->Paqueteria.",'".$razon."','".$datos->RFC."','".$datos->Credito."',
@@ -46,28 +45,11 @@ ini_set('display_errors', '0');
             NumProvMetas = '".$datos->NoProveedor."',
             AdminPaq = '".$datos->AdminPaq."',
             ObservacionesEmpresa = '".$datos->Observaciones."'
-            WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
+         WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
          }
-         $res = $con->ejecutaQuery($strQuery);
-        // echo json_encode($res);
-        //================================================================================================================= 
-        //============================================= CODIGO PARA GUARDAR LAS DIRECCIONES==================================================================== 
-        $strQuery = "SELECT * FROM EmpresasOrdenadas WHERE ClaveEmpresa = 2";
-        $con->ejecutaQuery($strQuery);
-        $obj = $con->getObjeto();
-        foreach ($obj as $key => $value) {
-            if(is_string($value)){
-                $obj->$key = utf8_encode($value);    
-            }
-        }
-        $strQuery="INSERT INTO DireccionesAcomodadas (Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais,Referencias) VALUES ('Hola ejmplo borrar a partir de aqui',".$obj->ClaveEmpresa.",'dom','ciu','estado','cp','pais','obs')";
-        $res = $con->ejecutaQuery($strQuery);
-        // echo json_encode($obj);
-        // $strQuery="INSERT INTO DireccionesAcomodadas (Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais,Referencias) VALUES (
-        //     'Hola ejmplo borrar a partir de aqui',".$obj->$key.",'dom','ciu','estado','cp','pais','obs')";
-        //     $res = $con->ejecutaQuery($strQuery);
-        $con->cerrar();
 
+        $res = $con->ejecutaQuery($strQuery);
+        $con->cerrar();
         echo json_encode($res);
 	}
 	elseif ($opc == 'obtener_paqueterias'){
