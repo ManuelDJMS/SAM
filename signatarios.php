@@ -63,6 +63,7 @@
                                     <div class="main-card mb-3 card">
                                         <div class="card-body"><h5 class="card-title" >AGREGAR NUEVO SIGNATARIO</h5>  
                                             <label for="Nombre" class="col-sm-4 control-label">Empleado</label>
+                                            <label for="Nombre" id="id" class="col-sm-4 control-label" style="display: none;">Empleado</label>
                                                 <div class="col-sm-8">
                                                     <select type="select" id="Nombre" name="Nombre" class="custom-select"></select>
                                                 </div>

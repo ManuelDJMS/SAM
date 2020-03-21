@@ -56,9 +56,10 @@ $(document).ready(function(){
     obj.Nombre = $.trim($('#NombreE').val());
     obj.Laboratorio = $.trim($('#Lab').val());
     obj.accion = $(this).attr("id").split('_')[0];
-    obj.idUsuario = $(this).attr("id").split('_')[1];
+    obj.idUsuario = $.trim($('#id').text());
        if(Lab != '')
            {
+
              registrar_signatario(obj);
            }
     
@@ -150,6 +151,7 @@ function registrar_signatario(obj){
   alert(obj.Nombre);
   alert(obj.Laboratorio);
   alert(obj.accion);
+  alert(obj.idUsuario);
   var opc = "registrar_signatario";
   $.post("dist/fw/signatarios.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
 		if(data){
@@ -169,8 +171,9 @@ function obtener_signatario(id){
     var opc = "obtener_signatario";
     $.post("dist/fw/signatarios.php",{'opc':opc, 'id':id},function(data){
         if(data){
-          $('#NombreE').val(data.idUsuario);
+          $('#NombreE').val(data.Nombre);
           $('#Lab').val(data.idUnidadNegocio);
+          $('#id').text(data.idUsuario);
         }
         else
         {
@@ -182,6 +185,7 @@ function obtener_signatario(id){
 function limpia_formulario(){
   $("#Nombre").val("");
   $("#Lab").val("");
+  $("#id").text("");
 } 
 
 
