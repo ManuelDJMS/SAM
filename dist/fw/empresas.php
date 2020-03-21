@@ -19,7 +19,7 @@ ini_set('display_errors', '0');
         $con->conectar();
         // ========================== COSIGO PARA GUARDAR LA EMPRESA ========================================
         if($datos->accion == 'nuevo'){
-            if($datos->Tipo=='' or $datos->Tipo==''){
+            if($datos->Tipo==''){
                 $razon=$datos->RazonSocial;
             }
             else{
@@ -29,11 +29,8 @@ ini_set('display_errors', '0');
             (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, 
             CvaEmpresaAccess) VALUES (1,355,'error','error','error','error','error','error','error','error','error');
             end else begin INSERT INTO EmpresasOrdenadas (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, 
-            CvaEmpresaAccess) VALUES (".$_SESSION['iduser'].",".$datos->Paqueteria.",'".$razon."','".$datos->RFC."','".$datos->Credito."',
+            CvaEmpresaAccess) VALUES (".$_SESSION['iduser'].",1,'".$razon."','".$datos->RFC."','".$datos->Credito."',
             '".$datos->CuentaMensajeria."',".$datos->Descuento.",'".$datos->NoProveedor."','".$datos->AdminPaq."','".$datos->Observaciones."',".$datos->Access."); end;";
-            // $strQuery="if exists(select RazonSocial, RFC from EmpresasOrdenadas where RazonSocial='A' or RFC='A') begin RETURN;
-            // end else begin INSERT INTO EmpresasOrdenadas (idUsuario,idPaqueteria,RazonSocial,RFC,Credito,CuentaMensajeria, Descuento, NumProvMetas, AdminPaq, ObservacionesEmpresa, CvaEmpresaAccess)
-            //              VALUES (1,1,'B','B','C','C',0,'JSGG','H','OBS',0); end;";
         }
         else{
             $strQuery = "UPDATE EmpresasOrdenadas SET 
@@ -48,24 +45,21 @@ ini_set('display_errors', '0');
             ObservacionesEmpresa = '".$datos->Observaciones."'
             WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
          }
-         $res = $con->ejecutaQuery($strQuery);
-        // echo json_encode($res);
+        //  $res = $con->ejecutaQuery($strQuery);
         //================================================================================================================= 
-        //============================================= CODIGO PARA GUARDAR LAS DIRECCIONES==================================================================== 
-        $strQuery = "SELECT * FROM EmpresasOrdenadas WHERE ClaveEmpresa = 2";
-        $con->ejecutaQuery($strQuery);
-        $obj = $con->getObjeto();
-        foreach ($obj as $key => $value) {
-            if(is_string($value)){
-                $obj->$key = utf8_encode($value);    
-            }
-        }
-        $strQuery="INSERT INTO DireccionesAcomodadas (Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais,Referencias) VALUES ('Hola ejmplo borrar a partir de aqui',".$obj->ClaveEmpresa.",'dom','ciu','estado','cp','pais','obs')";
-        $res = $con->ejecutaQuery($strQuery);
-        // echo json_encode($obj);
-        // $strQuery="INSERT INTO DireccionesAcomodadas (Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais,Referencias) VALUES (
-        //     'Hola ejmplo borrar a partir de aqui',".$obj->$key.",'dom','ciu','estado','cp','pais','obs')";
-        //     $res = $con->ejecutaQuery($strQuery);
+        //========================================================== INSERTAR LAS DIRECCIONES ==========================================================================
+        // if ($datos->Facturacion != '' || $datos->Facturacion != 'undefined' || $datos->Facturacion != null)
+        // {
+            $strQuery2="if exists(SELECT Compania, ClaveEmpresa, Domicilio, Ciudad from DireccionesAcomodadas WHERE Compania='".$datos->DireccionFiscal."' and
+             ClaveEmpresa=1 and Domicilio='".$datos->DireccionFiscal."' and Ciudad='".$datos->CiudadFiscal."') begin UPDATE DireccionesAcomodadas
+              SET Facturacion=".$datos->Facturacion." WHERE Compania='".$datos->CompaniaFiscal."' and ClaveEmpresa=1 and Domicilio='".$datos->DireccionFiscal."' and Ciudad='".$datos->CiudadFiscal."'; end else begin INSERT INTO DireccionesAcomodadas 
+              (Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais,Referencias) VALUES 
+            ('".$datos->CompaniaFiscal."',(Select MAX(ClaveEmpresa) from EmpresasOrdenadas),'".$datos->DireccionFiscal."','".$datos->CiudadFiscal."','".$datos->EstadoListFiscal."','".$datos->CPFiscal."',
+            '".$datos->PaisFiscal."','-'); end;";
+
+        
+        // }
+        $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
         $con->cerrar();
 
         echo json_encode($res);

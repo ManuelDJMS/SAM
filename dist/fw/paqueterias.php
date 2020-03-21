@@ -31,7 +31,7 @@
          WHERE idPaqueteria = '".$datos->idPaqueteria."'";
          }
 
-        $res = $con->ejecutaQuery($strQuery);
+        $res = $con->ejecutaSQLTransac($strQuery);
         $con->cerrar();
         echo json_encode($res);
 	}

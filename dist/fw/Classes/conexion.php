@@ -92,7 +92,61 @@ class Conexion {
         }
       }
     }
+    function ejecutaSQLTransac($query, $conn = null) 
+  {
+      if ($this->conn == null) 
+      {
+          $this->conectar();
+      }
+      if ( sqlsrv_begin_transaction( $this->conn ) === false ) {
+        die( print_r( sqlsrv_errors(), true ));
+   }
 
+      $this->res = sqlsrv_query($this->conn, $query);
+    //   if ($this->res === false) {
+    //       die(print_r(sqlsrv_errors(), true));
+    //   } else {
+    //       return true;
+    //   }
+    if( $this->res ) {
+        sqlsrv_commit( $this->conn );
+        // echo "Transaccion consolidada.<br />";
+        return true;
+   } else {
+        sqlsrv_rollback( $this->conn );
+        // die(print_r(sqlsrv_errors(), true));
+        return false;
+   }
+    
+  }
+    function ejecutaSQLTransacEmpresas($query, $query2, $conn = null) 
+    {
+          if ($this->conn == null) 
+          {
+              $this->conectar();
+          }
+          if ( sqlsrv_begin_transaction( $this->conn ) === false ) {
+            die( print_r( sqlsrv_errors(), true ));
+      }
+
+          $this->res = sqlsrv_query($this->conn, $query);
+          $this->res2 = sqlsrv_query($this->conn, $query2);
+        //   if ($this->res === false) {
+        //       die(print_r(sqlsrv_errors(), true));
+        //   } else {
+        //       return true;
+        //   }
+        if( $this->res && $this->res2) {
+            sqlsrv_commit( $this->conn );
+            // echo "Transaccion consolidada.<br />";
+            return true;
+      } else {
+            sqlsrv_rollback( $this->conn );
+            // die(print_r(sqlsrv_errors(), true));
+            return false;
+      }
+    
+    }
     function getListaObjetos(){
       if($this->motor == "mysql"){
         $array = array();

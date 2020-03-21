@@ -208,14 +208,19 @@ $(document).ready(function(){
       else{
         obj.Access = $.trim($('#Access').val());
       }
+
       // ================== VALORES DE LAS DIRECCIONES ================================
-      obj.CompaniaFiscal = $.trim($('#CompaniaFiscal').val());
-      obj.DireccionFiscal = $.trim($('#DireccionFiscal').val());
-      obj.CPFiscal = $.trim($('#CPFiscal').val());
-      obj.EstadoListFiscal = $.trim($('#EstadoListFiscal').val());
-      obj.EstadoFiscal = $.trim($('#EstadoFiscal').val());
-      obj.PaisFiscal = $.trim($('#PaisFiscal').val());
-      if ($('#DireccionConsig').val()!="")
+      if ($('#DireccionFiscal').val()!="" && ($('#DireccionFiscal').val()!= $('#DireccionEnvio').val()) && ($('#DireccionFiscal').val()!= $('#DireccionConsig').val()))
+      {
+        obj.CompaniaFiscal = $.trim($('#CompaniaFiscal').val());
+        obj.DireccionFiscal = $.trim($('#DireccionFiscal').val());
+        obj.CPFiscal = $.trim($('#CPFiscal').val());
+        obj.EstadoListFiscal = $.trim($('#EstadoListFiscal').val());
+        obj.EstadoFiscal = $.trim($('#EstadoFiscal').val());
+        obj.PaisFiscal = $.trim($('#PaisFiscal').val());
+        obj.Facturacion = 1;
+      }
+      if ($('#DireccionConsig').val()!="" && ($('#DireccionConsig').val()!= $('#DireccionFiscal').val()) && ($('#DireccionConsig').val()!= $('#DireccionEnvio').val()))
       {
         obj.CompaniaConsig = $.trim($('#CompaniaConsig').val());
         obj.DireccionConsig = $.trim($('#DireccionConsig').val());
@@ -223,8 +228,9 @@ $(document).ready(function(){
         obj.EstadoListConsig = $.trim($('#EstadoListConsig').val());
         obj.EstadoConsig = $.trim($('#EstadoConsig').val());
         obj.PaisConsig = $.trim($('#PaisConsig').val());
+        obj.Consignacion = 1;
       }
-      if ($('#DireccionEnvio').val()!="")
+      if ($('#DireccionEnvio').val()!="" && ($('#DireccionEnvio').val()!= $('#DireccionFiscal').val()) && ($('#DireccionEnvio').val()!= $('#DireccionConsig').val()))
       {
         obj.CompaniaEnvio = $.trim($('#CompaniaEnvio').val());
         obj.DireccionEnvio = $.trim($('#DireccionEnvio').val());
@@ -232,6 +238,7 @@ $(document).ready(function(){
         obj.EstadoListEnvio = $.trim($('#EstadoListEnvio').val());
         obj.EstadoEnvio = $.trim($('#EstadoEnvio').val());
         obj.PaisEnvio = $.trim($('#PaisEnvio').val());
+        obj.Envio = 1;
       }
       obj.accion = $(this).attr("id").split('_')[1];
       obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
