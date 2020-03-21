@@ -204,7 +204,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="agregarSignatario.php">
+                                        <a href="signatarios.php">
                                             <i class="metismenu-icon">
                                             </i>Agregar signatarios
                                         </a>
