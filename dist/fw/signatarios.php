@@ -97,7 +97,7 @@ ini_set('display_errors', '0');
         else{
             $strQuery = "UPDATE [RelacionaU-UN] SET 
             idUnidadNegocio = '".$datos->Laboratorio."'
-            WHERE idUsuario = '".$datos->Nombre."'";
+            WHERE idUsuario = '".$datos->idUsuario."'";
          }
 
         $res = $con->ejecutaQuery($strQuery);
