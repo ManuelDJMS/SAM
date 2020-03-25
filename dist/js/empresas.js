@@ -218,6 +218,7 @@ $(document).ready(function(){
         obj.EstadoListFiscal = $.trim($('#EstadoListFiscal').val());
         obj.EstadoFiscal = $.trim($('#EstadoFiscal').val());
         obj.PaisFiscal = $.trim($('#PaisFiscal').val());
+
         obj.Facturacion = 1;
       }
       if ($('#DireccionConsig').val()!="" && ($('#DireccionConsig').val()!= $('#DireccionFiscal').val()) && ($('#DireccionConsig').val()!= $('#DireccionEnvio').val()))
@@ -240,6 +241,42 @@ $(document).ready(function(){
         obj.PaisEnvio = $.trim($('#PaisEnvio').val());
         obj.Envio = 1;
       }
+      // ==================================== SI SE REPITE LAS DIRECCIONES ======================================================
+   
+        if (($('#DireccionFiscal').val() == $('DireccionConsig').val()))
+        {
+          obj.CompaniaCombi = $.trim($('#CompaniaFiscal').val());
+          obj.DireccionCombi = $.trim($('#DireccionFiscal').val());
+          obj.CPCombi = $.trim($('#CPFiscal').val());
+          obj.EstadoListCombi = $.trim($('#EstadoListFiscal').val());
+          obj.EstadoCombi = $.trim($('#EstadoFiscal').val());
+          obj.PaisCombi = $.trim($('#PaisFiscal').val());
+          obj.Facturacion = 1;
+          obj.Consignacion = 1;
+        }
+        else if($('#DireccionFiscal').val() == $('DireccionEnvio').val()){
+          obj.CompaniaCombi = $.trim($('#CompaniaFiscal').val());
+          obj.DireccionCombi = $.trim($('#DireccionFiscal').val());
+          obj.CPCombi = $.trim($('#CPFiscal').val());
+          obj.EstadoListCombi = $.trim($('#EstadoListFiscal').val());
+          obj.EstadoCombi = $.trim($('#EstadoFiscal').val());
+          obj.PaisCombi = $.trim($('#PaisFiscal').val());
+          obj.Facturacion = 1;
+          obj.Envio = 1;
+        }
+        else{
+          obj.CompaniaCombi = $.trim($('#CompaniaConsig').val());
+          obj.DireccionCombi = $.trim($('#DireccionConsig').val());
+          obj.CPCombi = $.trim($('#CPConsig').val());
+          obj.EstadoListCombi = $.trim($('#EstadoListConsig').val());
+          obj.EstadoCombi = $.trim($('#EstadoConsig').val());
+          obj.PaisCombi = $.trim($('#PaisConsig').val());
+          obj.Envio = 1;
+          obj.Consignacion = 1;
+        }
+       
+    
+      // ==================================== TERMINA EL CODIGO SI SE REPITE LAS DIRECCIONES ======================================================
       obj.accion = $(this).attr("id").split('_')[1];
       obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
       // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================

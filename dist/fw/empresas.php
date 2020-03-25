@@ -48,8 +48,8 @@ ini_set('display_errors', '0');
         //  $res = $con->ejecutaQuery($strQuery);
         //================================================================================================================= 
         //========================================================== INSERTAR LAS DIRECCIONES ==========================================================================
-        // if ($datos->Facturacion != '' || $datos->Facturacion != 'undefined' || $datos->Facturacion != null)
-        // {
+        if ($datos->Facturacion ==1)
+        {
             $strQuery2="if exists(SELECT Compania, ClaveEmpresa, Domicilio, Ciudad from DireccionesAcomodadas WHERE Compania='".$datos->DireccionFiscal."' and
              ClaveEmpresa=1 and Domicilio='".$datos->DireccionFiscal."' and Ciudad='".$datos->CiudadFiscal."') begin UPDATE DireccionesAcomodadas
               SET Facturacion=".$datos->Facturacion." WHERE Compania='".$datos->CompaniaFiscal."' and ClaveEmpresa=1 and Domicilio='".$datos->DireccionFiscal."' and Ciudad='".$datos->CiudadFiscal."'; end else begin INSERT INTO DireccionesAcomodadas 
@@ -58,7 +58,7 @@ ini_set('display_errors', '0');
             '".$datos->PaisFiscal."','-'); end;";
 
         
-        // }
+        }
         $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
         $con->cerrar();
 
