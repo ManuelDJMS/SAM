@@ -77,7 +77,7 @@ $(document).ready(function(){
     obj.Status = $.trim($('#Status').val());
     obj.accion = $(this).attr("id").split('_')[0];
     obj.idPatron = $(this).attr("id").split('_')[1];
-    if(obj.Descripcion != '' && obj.Descripcion != ''){
+    if(obj.Descripcion != '' && obj.Status != ''){
       guardar_patron(obj);
     }
     else{
@@ -98,11 +98,6 @@ function guardar_patron(obj){
     obj.ProximaCalibracion=fecha1[2]+'-'+fecha1[0]+'-'+fecha1[1];
     //---------------------------------------
    var opc = "guardar_patron";
-   alert(obj.Status);
-   alert(obj.UltimaCalibracion);
-   alert(obj.ProximaCalibracion);
-     alert(obj.EquipoAuxiliar);
-   alert(obj.accion);
   $.post("dist/fw/equiposyPatrones.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
       if(data){
           alerta("¡Guardado!", "El patrón de guardo correctamente, ¿Desea seguir en 'Equipos y Patrones'", "success");
