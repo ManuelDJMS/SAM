@@ -24,7 +24,11 @@
             Descripcion = '".$datos->Descripcion."',
             Referencia = '".$datos->Referencia."',
             Trabajo = '".$datos->Trabajo."',
-            EquipoAuxiliar = '".$datos->EquipoAuxiliar."'
+            EquipoAuxiliar = '".$datos->EquipoAuxiliar."',
+            UltimaCalibracion = '".$datos->UltimaCalibracion."',
+            ProximaCalibracion = '".$datos->ProximaCalibracion."',
+            Status = '".$datos->Status."',
+            FechaModificacion = getdate()
          WHERE idPatron = '".$datos->idPatron."'";
          }
 
