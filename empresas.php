@@ -141,335 +141,343 @@
                             </div> 
                             <!-- ===================================== TERMINA EL TERCER RENGLON =========================================== -->
                         </div>
-                    </div>
-                    <!-- ================================================ AQUI INICIA EL CODIGO DE LAS DIRECCIONES =============================================================== -->
-                    <div class="main-card mb-3 card">
-                        <div class="card-body"><h5 class="card-title">Direcciones de la Empresa</h5>
-                            <div class="card-header card-header-tab-animation">
-                                <ul class="nav nav-justified">
-                                    <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-0" class="active nav-link">Datos Fiscales</a></li>
-                                    <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-1" class="nav-link">Datos de Consignación</a></li>
-                                    <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link">Datos de Envío</a></li>
-                                </ul>
+                    </div> <!-- TERMINA EL DIV main-card mb-3 card QUE CONTIENE TODO EL FORM DE EMPRESAS  -->
+                    <!-- ================================================== AQUI INICIA EL CODIGO DE LAS DIRECCIONES ========================================================== -->
+                    <div id="accordion" class="accordion-wrapper mb-3">
+                        <div class="card">
+                            <div id="headingThree" class="card-header">
+                                <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block">
+                                    <h5 class="m-0 p-0">Direcciones</h5>
+                                </button>
                             </div>
-                            <div class="card-body">
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="tab-eg115-0" role="tabpanel"><!-- AQUI INICIA EL DIV DEL DATOS FISCALES -->
-                                        <!-- ============================== INICIA EL PRIMER RENGLON ====================================================== -->
-                                        <div class="form-row">
-                                            <div class="col-md-3">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Compañía</label>
-                                                    <input type="text" class="form-control" id="CompaniaFiscal"/>
+                            <div data-parent="#accordion" id="collapseOne3" class="collapse">
+                                <div class="card-body">
+                                    <div class="card-header card-header-tab-animation">
+                                        <ul class="nav nav-justified">
+                                            <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-0" class="active nav-link">Datos Fiscales</a></li>
+                                            <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-1" class="nav-link">Datos de Consignación</a></li>
+                                            <li class="nav-item"><a data-toggle="tab" href="#tab-eg115-2" class="nav-link">Datos de Envío</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab-eg115-0" role="tabpanel"><!-- AQUI INICIA EL DIV DEL DATOS FISCALES -->
+                                                <!-- ============================== INICIA EL PRIMER RENGLON ====================================================== -->
+                                                <div class="form-row">
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Compañía</label>
+                                                            <input type="text" class="form-control" id="CompaniaFiscal"/>
+                                                        </div>
+                                                    </div>  
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Dirección</label>
+                                                            <input type="text" class="form-control" id="DireccionFiscal"/>
+                                                        </div>
+                                                    </div>    
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Código Postal</label>
+                                                            <input type="text" class="form-control" id="CPFiscal"/>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Ciudad</label>
+                                                            <input type="text" class="form-control" id="CiudadFiscal"/>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>  
-                                            <div class="col-md-4">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Dirección</label>
-                                                    <input type="text" class="form-control" id="DireccionFiscal"/>
+                                                <!-- ============================== TERMINA EL PRIMER RENGLON ====================================================== -->
+                                                <!-- ============================== INICIA EL SEGUNFO RENGLON ====================================================== -->
+                                                <div class="form-row">
+                                                    <div class="col-md-2" id="EstadoSelectFiscal">
+                                                        <div class="position-relative form-group"> 
+                                                            <label for="exampleSelect" class="">Estado</label>  
+                                                            <select name="Estado" id="EstadoListFiscal" class="form-control">
+                                                                <option value="Aguascalientes">Aguascalientes</option>
+                                                                <option value="Baja California">Baja California</option>
+                                                                <option value="Baja California Sur">Baja California Sur</option>
+                                                                <option value="Campeche">Campeche</option>
+                                                                <option value="Chiapas">Chiapas</option>
+                                                                <option value="Chihuahua">Chihuahua</option>
+                                                                <option value="Ciudad de México">Ciudad de México</option>
+                                                                <option value="Coahuila">Coahuila</option>
+                                                                <option value="Colima">Colima</option>
+                                                                <option value="Durango">Durango</option>
+                                                                <option value="Estado de México">Estado de México</option>
+                                                                <option value="Guanajuato">Guanajuato</option>
+                                                                <option value="Guerrero">Guerrero</option>
+                                                                <option value="Hidalgo">Hidalgo</option>
+                                                                <option value="Jalisco">Jalisco</option>
+                                                                <option value="Michoacán">Michoacán</option>
+                                                                <option value="Morelos">Morelos</option>
+                                                                <option value="Nayarit">Nayarit</option>
+                                                                <option value="Nuevo León">Nuevo León</option>
+                                                                <option value="Oaxaca">Oaxaca</option>
+                                                                <option value="Puebla">Puebla</option>
+                                                                <option value="Querétaro">Querétaro</option>
+                                                                <option value="Quintana Roo">Quintana Roo</option>
+                                                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                                                <option value="Sinaloa">Sinaloa</option>
+                                                                <option value="Sonora">Sonora</option>
+                                                                <option value="Tabasco">Tabasco</option>
+                                                                <option value="Tamaulipas">Tamaulipas</option>
+                                                                <option value="Tlaxcala">Tlaxcala</option>
+                                                                <option value="Veracruz">Veracruz</option>
+                                                                <option value="Yucatán">Yucatán</option>
+                                                                <option value="Zacatecas">Zacatecas</option>
+                                                            </select> 
+                                                        </div> 
+                                                    </div>  
+                                                    <div class="col-md-2" style="display: none;" id="EstadoFiscalOM">
+                                                        <div class="position-relative form-group" >
+                                                            <label for="exampleEmail11" class="">Estado</label>
+                                                            <input type="text" class="form-control" id="EstadoFiscal"/>
+                                                        </div>
+                                                    </div>                                                            
+                                                
+                                                    <div class="col-md-2" style="display: none;" id="PaisFiscalOM">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">País</label>
+                                                            <input type="text" class="form-control" id="PaisFiscal" value="México"/>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <div class="custom-checkbox custom-control">                            
+                                                                <input type="checkbox" id="check" value="1"  class="custom-control-input" checked/>
+                                                                <label class="custom-control-label" for="check">NACIONAL</label>
+                                                            </div>   
+                                                        </div>   
+                                                    </div>                 
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <div class="custom-checkbox custom-control">                            
+                                                                <input type="checkbox" id="checkconsig" value="0"  class="custom-control-input"/>
+                                                                <label class="custom-control-label" for="checkconsig">Consignación</label>
+                                                            </div>   
+                                                        </div>   
+                                                    </div>                 
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <div class="custom-checkbox custom-control">                            
+                                                                <input type="checkbox" id="checkenvio" value="0"  class="custom-control-input"/>
+                                                                <label class="custom-control-label" for="checkenvio">Envío</label>
+                                                            </div>   
+                                                        </div>   
+                                                    </div>      
+                                                </div>   
+                                                <!-- ============================== TERMINA EL SEGUNDO RENGLON ====================================================== -->    
+                                            </div><!-- AQUI TERMINA EL DIV DEL DATOS FISCALES -->
+                                            <div class="tab-pane" id="tab-eg115-1" role="tabpanel"><!-- AQUI INICIA EL DIV DEL DATOS DE CONSIGNACION -->
+                                                <!-- ============================== INICIA EL PRIMER RENGLON ====================================================== -->
+                                                <div class="form-row">
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Compañía</label>
+                                                            <input type="text" class="form-control" id="CompaniaConsig"/>
+                                                        </div>
+                                                    </div>  
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Dirección</label>
+                                                            <input type="text" class="form-control" id="DireccionConsig"/>
+                                                        </div>
+                                                    </div>    
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Código Postal</label>
+                                                            <input type="text" class="form-control" id="CPConsig"/>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Ciudad</label>
+                                                            <input type="text" class="form-control" id="CiudadConsig"/>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>    
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Código Postal</label>
-                                                    <input type="text" class="form-control" id="CPFiscal"/>
+                                                <!-- ============================== TERMINA EL PRIMER RENGLON ====================================================== -->
+                                                <!-- ============================== INICIA EL SEGUNFO RENGLON ====================================================== -->
+                                                <div class="form-row">
+                                                    <div class="col-md-2" id="EstadoSelectConsig">
+                                                        <div class="position-relative form-group"> 
+                                                            <label for="exampleSelect" class="">Estado</label>  
+                                                            <select name="Estado" id="EstadoListConsig" class="form-control">
+                                                                <option value="Aguascalientes">Aguascalientes</option>
+                                                                <option value="Baja California">Baja California</option>
+                                                                <option value="Baja California Sur">Baja California Sur</option>
+                                                                <option value="Campeche">Campeche</option>
+                                                                <option value="Chiapas">Chiapas</option>
+                                                                <option value="Chihuahua">Chihuahua</option>
+                                                                <option value="Ciudad de México">Ciudad de México</option>
+                                                                <option value="Coahuila">Coahuila</option>
+                                                                <option value="Colima">Colima</option>
+                                                                <option value="Durango">Durango</option>
+                                                                <option value="Estado de México">Estado de México</option>
+                                                                <option value="Guanajuato">Guanajuato</option>
+                                                                <option value="Guerrero">Guerrero</option>
+                                                                <option value="Hidalgo">Hidalgo</option>
+                                                                <option value="Jalisco">Jalisco</option>
+                                                                <option value="Michoacán">Michoacán</option>
+                                                                <option value="Morelos">Morelos</option>
+                                                                <option value="Nayarit">Nayarit</option>
+                                                                <option value="Nuevo León">Nuevo León</option>
+                                                                <option value="Oaxaca">Oaxaca</option>
+                                                                <option value="Puebla">Puebla</option>
+                                                                <option value="Querétaro">Querétaro</option>
+                                                                <option value="Quintana Roo">Quintana Roo</option>
+                                                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                                                <option value="Sinaloa">Sinaloa</option>
+                                                                <option value="Sonora">Sonora</option>
+                                                                <option value="Tabasco">Tabasco</option>
+                                                                <option value="Tamaulipas">Tamaulipas</option>
+                                                                <option value="Tlaxcala">Tlaxcala</option>
+                                                                <option value="Veracruz">Veracruz</option>
+                                                                <option value="Yucatán">Yucatán</option>
+                                                                <option value="Zacatecas">Zacatecas</option>
+                                                            </select> 
+                                                        </div> 
+                                                    </div>  
+                                                    <div class="col-md-2" style="display: none;" id="EstadoConsigOM">
+                                                        <div class="position-relative form-group" >
+                                                            <label for="exampleEmail11" class="">Estado</label>
+                                                            <input type="text" class="form-control" id="EstadoConsig"/>
+                                                        </div>
+                                                    </div>                                                            
+                                                
+                                                    <div class="col-md-2" style="display: none;" id="PaisConsigOM">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">País</label>
+                                                            <input type="text" class="form-control" id="PaisConsig" value="México"/>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <div class="custom-checkbox custom-control">                            
+                                                                <input type="checkbox" id="check2" value="1"  class="custom-control-input" checked/>
+                                                                <label class="custom-control-label" for="check2">NACIONAL</label>
+                                                            </div>   
+                                                        </div>   
+                                                    </div>                 
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <div class="custom-checkbox custom-control">                            
+                                                                <input type="checkbox" id="checkenvioC" value="0"  class="custom-control-input"/>
+                                                                <label class="custom-control-label" for="checkenvioC">Envío</label>
+                                                            </div>   
+                                                        </div>   
+                                                    </div>      
+                                                </div>   
+                                                <!-- ============================== TERMINA EL SEGUNDO RENGLON ====================================================== -->  
+                                            </div><!-- AQUI TERMINA EL DIV DEL DATOS FISCALES -->
+                                            <div class="tab-pane" id="tab-eg115-2" role="tabpanel"><!-- AQUI INICIA EL DIV DEL DATOS DE envio -->
+                                                <!-- ============================== INICIA EL PRIMER RENGLON ====================================================== -->
+                                                <div class="form-row">
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Compañía</label>
+                                                            <input type="text" class="form-control" id="CompaniaEnvio"/>
+                                                        </div>
+                                                    </div>    
+                                                    <div class="col-md-4">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Dirección</label>
+                                                            <input type="text" class="form-control" id="DireccionEnvio"/>
+                                                        </div>
+                                                    </div>    
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Código Postal</label>
+                                                            <input type="text" class="form-control" id="CPEnvio"/>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-md-3">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">Ciudad</label>
+                                                            <input type="text" class="form-control" id="CiudadEnvio"/>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div> 
-                                            <div class="col-md-3">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Ciudad</label>
-                                                    <input type="text" class="form-control" id="CiudadFiscal"/>
-                                                </div>
-                                            </div>
+                                                <!-- ============================== TERMINA EL PRIMER RENGLON ====================================================== -->
+                                                <!-- ============================== INICIA EL SEGUNFO RENGLON ====================================================== -->
+                                                <div class="form-row">
+                                                    <div class="col-md-2" id="EstadoSelectEnvio">
+                                                        <div class="position-relative form-group"> 
+                                                            <label for="exampleSelect" class="">Estado</label>  
+                                                            <select name="Estado" id="EstadoListEnvio" class="form-control">
+                                                                <option value="Aguascalientes">Aguascalientes</option>
+                                                                <option value="Baja California">Baja California</option>
+                                                                <option value="Baja California Sur">Baja California Sur</option>
+                                                                <option value="Campeche">Campeche</option>
+                                                                <option value="Chiapas">Chiapas</option>
+                                                                <option value="Chihuahua">Chihuahua</option>
+                                                                <option value="Ciudad de México">Ciudad de México</option>
+                                                                <option value="Coahuila">Coahuila</option>
+                                                                <option value="Colima">Colima</option>
+                                                                <option value="Durango">Durango</option>
+                                                                <option value="Estado de México">Estado de México</option>
+                                                                <option value="Guanajuato">Guanajuato</option>
+                                                                <option value="Guerrero">Guerrero</option>
+                                                                <option value="Hidalgo">Hidalgo</option>
+                                                                <option value="Jalisco">Jalisco</option>
+                                                                <option value="Michoacán">Michoacán</option>
+                                                                <option value="Morelos">Morelos</option>
+                                                                <option value="Nayarit">Nayarit</option>
+                                                                <option value="Nuevo León">Nuevo León</option>
+                                                                <option value="Oaxaca">Oaxaca</option>
+                                                                <option value="Puebla">Puebla</option>
+                                                                <option value="Querétaro">Querétaro</option>
+                                                                <option value="Quintana Roo">Quintana Roo</option>
+                                                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                                                <option value="Sinaloa">Sinaloa</option>
+                                                                <option value="Sonora">Sonora</option>
+                                                                <option value="Tabasco">Tabasco</option>
+                                                                <option value="Tamaulipas">Tamaulipas</option>
+                                                                <option value="Tlaxcala">Tlaxcala</option>
+                                                                <option value="Veracruz">Veracruz</option>
+                                                                <option value="Yucatán">Yucatán</option>
+                                                                <option value="Zacatecas">Zacatecas</option>
+                                                            </select> 
+                                                        </div> 
+                                                    </div>  
+                                                    <div class="col-md-2" style="display: none;" id="EstadoEnvioOM">
+                                                        <div class="position-relative form-group" >
+                                                            <label for="exampleEmail11" class="">Estado</label>
+                                                            <input type="text" class="form-control" id="EstadoEnvio"/>
+                                                        </div>
+                                                    </div>                                                            
+                                                
+                                                    <div class="col-md-2" style="display: none;" id="PaisEnvioOM">
+                                                        <div class="position-relative form-group">
+                                                            <label for="exampleEmail11" class="">País</label>
+                                                            <input type="text" class="form-control" id="PaisEnvio" value="México"/>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group">
+                                                            <div class="custom-checkbox custom-control">                            
+                                                                <input type="checkbox" id="check3" value="1"  class="custom-control-input" checked/>
+                                                                <label class="custom-control-label" for="check3">NACIONAL</label>
+                                                            </div>   
+                                                        </div>   
+                                                    </div>     
+                                                </div>   
+                                                <!-- ============================== TERMINA EL SEGUNDO RENGLON ====================================================== -->
+                                            </div><!-- AQUI TERMINA EL DIV DEL DATOS DE ENVIO -->
                                         </div>
-                                        <!-- ============================== TERMINA EL PRIMER RENGLON ====================================================== -->
-                                        <!-- ============================== INICIA EL SEGUNFO RENGLON ====================================================== -->
-                                        <div class="form-row">
-                                            <div class="col-md-2" id="EstadoSelectFiscal">
-                                                <div class="position-relative form-group"> 
-                                                    <label for="exampleSelect" class="">Estado</label>  
-                                                    <select name="Estado" id="EstadoListFiscal" class="form-control">
-                                                        <option value="Aguascalientes">Aguascalientes</option>
-                                                        <option value="Baja California">Baja California</option>
-                                                        <option value="Baja California Sur">Baja California Sur</option>
-                                                        <option value="Campeche">Campeche</option>
-                                                        <option value="Chiapas">Chiapas</option>
-                                                        <option value="Chihuahua">Chihuahua</option>
-                                                        <option value="Ciudad de México">Ciudad de México</option>
-                                                        <option value="Coahuila">Coahuila</option>
-                                                        <option value="Colima">Colima</option>
-                                                        <option value="Durango">Durango</option>
-                                                        <option value="Estado de México">Estado de México</option>
-                                                        <option value="Guanajuato">Guanajuato</option>
-                                                        <option value="Guerrero">Guerrero</option>
-                                                        <option value="Hidalgo">Hidalgo</option>
-                                                        <option value="Jalisco">Jalisco</option>
-                                                        <option value="Michoacán">Michoacán</option>
-                                                        <option value="Morelos">Morelos</option>
-                                                        <option value="Nayarit">Nayarit</option>
-                                                        <option value="Nuevo León">Nuevo León</option>
-                                                        <option value="Oaxaca">Oaxaca</option>
-                                                        <option value="Puebla">Puebla</option>
-                                                        <option value="Querétaro">Querétaro</option>
-                                                        <option value="Quintana Roo">Quintana Roo</option>
-                                                        <option value="San Luis Potosí">San Luis Potosí</option>
-                                                        <option value="Sinaloa">Sinaloa</option>
-                                                        <option value="Sonora">Sonora</option>
-                                                        <option value="Tabasco">Tabasco</option>
-                                                        <option value="Tamaulipas">Tamaulipas</option>
-                                                        <option value="Tlaxcala">Tlaxcala</option>
-                                                        <option value="Veracruz">Veracruz</option>
-                                                        <option value="Yucatán">Yucatán</option>
-                                                        <option value="Zacatecas">Zacatecas</option>
-                                                    </select> 
-                                                </div> 
-                                            </div>  
-                                            <div class="col-md-2" style="display: none;" id="EstadoFiscalOM">
-                                                <div class="position-relative form-group" >
-                                                    <label for="exampleEmail11" class="">Estado</label>
-                                                    <input type="text" class="form-control" id="EstadoFiscal"/>
-                                                </div>
-                                            </div>                                                            
-                                          
-                                            <div class="col-md-2" style="display: none;" id="PaisFiscalOM">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">País</label>
-                                                    <input type="text" class="form-control" id="PaisFiscal" value="México"/>
-                                                </div>
-                                            </div> 
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <div class="custom-checkbox custom-control">                            
-                                                        <input type="checkbox" id="check" value="1"  class="custom-control-input" checked/>
-                                                        <label class="custom-control-label" for="check">NACIONAL</label>
-                                                    </div>   
-                                                </div>   
-                                            </div>                 
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <div class="custom-checkbox custom-control">                            
-                                                        <input type="checkbox" id="checkconsig" value="0"  class="custom-control-input"/>
-                                                        <label class="custom-control-label" for="checkconsig">Consignación</label>
-                                                    </div>   
-                                                </div>   
-                                            </div>                 
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <div class="custom-checkbox custom-control">                            
-                                                        <input type="checkbox" id="checkenvio" value="0"  class="custom-control-input"/>
-                                                        <label class="custom-control-label" for="checkenvio">Envío</label>
-                                                    </div>   
-                                                </div>   
-                                            </div>      
-                                        </div>   
-                                        <!-- ============================== TERMINA EL SEGUNDO RENGLON ====================================================== -->    
-                                    </div><!-- AQUI TERMINA EL DIV DEL DATOS FISCALES -->
-                                    <div class="tab-pane" id="tab-eg115-1" role="tabpanel"><!-- AQUI INICIA EL DIV DEL DATOS DE CONSIGNACION -->
-                                        <!-- ============================== INICIA EL PRIMER RENGLON ====================================================== -->
-                                        <div class="form-row">
-                                            <div class="col-md-3">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Compañía</label>
-                                                    <input type="text" class="form-control" id="CompaniaConsig"/>
-                                                </div>
-                                            </div>  
-                                            <div class="col-md-4">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Dirección</label>
-                                                    <input type="text" class="form-control" id="DireccionConsig"/>
-                                                </div>
-                                            </div>    
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Código Postal</label>
-                                                    <input type="text" class="form-control" id="CPConsig"/>
-                                                </div>
-                                            </div> 
-                                            <div class="col-md-3">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Ciudad</label>
-                                                    <input type="text" class="form-control" id="CiudadConsig"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ============================== TERMINA EL PRIMER RENGLON ====================================================== -->
-                                        <!-- ============================== INICIA EL SEGUNFO RENGLON ====================================================== -->
-                                        <div class="form-row">
-                                            <div class="col-md-2" id="EstadoSelectConsig">
-                                                <div class="position-relative form-group"> 
-                                                    <label for="exampleSelect" class="">Estado</label>  
-                                                    <select name="Estado" id="EstadoListConsig" class="form-control">
-                                                        <option value="Aguascalientes">Aguascalientes</option>
-                                                        <option value="Baja California">Baja California</option>
-                                                        <option value="Baja California Sur">Baja California Sur</option>
-                                                        <option value="Campeche">Campeche</option>
-                                                        <option value="Chiapas">Chiapas</option>
-                                                        <option value="Chihuahua">Chihuahua</option>
-                                                        <option value="Ciudad de México">Ciudad de México</option>
-                                                        <option value="Coahuila">Coahuila</option>
-                                                        <option value="Colima">Colima</option>
-                                                        <option value="Durango">Durango</option>
-                                                        <option value="Estado de México">Estado de México</option>
-                                                        <option value="Guanajuato">Guanajuato</option>
-                                                        <option value="Guerrero">Guerrero</option>
-                                                        <option value="Hidalgo">Hidalgo</option>
-                                                        <option value="Jalisco">Jalisco</option>
-                                                        <option value="Michoacán">Michoacán</option>
-                                                        <option value="Morelos">Morelos</option>
-                                                        <option value="Nayarit">Nayarit</option>
-                                                        <option value="Nuevo León">Nuevo León</option>
-                                                        <option value="Oaxaca">Oaxaca</option>
-                                                        <option value="Puebla">Puebla</option>
-                                                        <option value="Querétaro">Querétaro</option>
-                                                        <option value="Quintana Roo">Quintana Roo</option>
-                                                        <option value="San Luis Potosí">San Luis Potosí</option>
-                                                        <option value="Sinaloa">Sinaloa</option>
-                                                        <option value="Sonora">Sonora</option>
-                                                        <option value="Tabasco">Tabasco</option>
-                                                        <option value="Tamaulipas">Tamaulipas</option>
-                                                        <option value="Tlaxcala">Tlaxcala</option>
-                                                        <option value="Veracruz">Veracruz</option>
-                                                        <option value="Yucatán">Yucatán</option>
-                                                        <option value="Zacatecas">Zacatecas</option>
-                                                    </select> 
-                                                </div> 
-                                            </div>  
-                                            <div class="col-md-2" style="display: none;" id="EstadoConsigOM">
-                                                <div class="position-relative form-group" >
-                                                    <label for="exampleEmail11" class="">Estado</label>
-                                                    <input type="text" class="form-control" id="EstadoConsig"/>
-                                                </div>
-                                            </div>                                                            
-                                          
-                                            <div class="col-md-2" style="display: none;" id="PaisConsigOM">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">País</label>
-                                                    <input type="text" class="form-control" id="PaisConsig" value="México"/>
-                                                </div>
-                                            </div> 
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <div class="custom-checkbox custom-control">                            
-                                                        <input type="checkbox" id="check2" value="1"  class="custom-control-input" checked/>
-                                                        <label class="custom-control-label" for="check2">NACIONAL</label>
-                                                    </div>   
-                                                </div>   
-                                            </div>                 
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <div class="custom-checkbox custom-control">                            
-                                                        <input type="checkbox" id="checkenvioC" value="0"  class="custom-control-input"/>
-                                                        <label class="custom-control-label" for="checkenvioC">Envío</label>
-                                                    </div>   
-                                                </div>   
-                                            </div>      
-                                        </div>   
-                                        <!-- ============================== TERMINA EL SEGUNDO RENGLON ====================================================== -->  
-                                    </div><!-- AQUI TERMINA EL DIV DEL DATOS FISCALES -->
-                                    <div class="tab-pane" id="tab-eg115-2" role="tabpanel"><!-- AQUI INICIA EL DIV DEL DATOS DE envio -->
-                                        <!-- ============================== INICIA EL PRIMER RENGLON ====================================================== -->
-                                        <div class="form-row">
-                                            <div class="col-md-3">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Compañía</label>
-                                                    <input type="text" class="form-control" id="CompaniaEnvio"/>
-                                                </div>
-                                            </div>    
-                                            <div class="col-md-4">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Dirección</label>
-                                                    <input type="text" class="form-control" id="DireccionEnvio"/>
-                                                </div>
-                                            </div>    
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Código Postal</label>
-                                                    <input type="text" class="form-control" id="CPEnvio"/>
-                                                </div>
-                                            </div> 
-                                            <div class="col-md-3">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">Ciudad</label>
-                                                    <input type="text" class="form-control" id="CiudadEnvio"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- ============================== TERMINA EL PRIMER RENGLON ====================================================== -->
-                                        <!-- ============================== INICIA EL SEGUNFO RENGLON ====================================================== -->
-                                        <div class="form-row">
-                                            <div class="col-md-2" id="EstadoSelectEnvio">
-                                                <div class="position-relative form-group"> 
-                                                    <label for="exampleSelect" class="">Estado</label>  
-                                                    <select name="Estado" id="EstadoListEnvio" class="form-control">
-                                                        <option value="Aguascalientes">Aguascalientes</option>
-                                                        <option value="Baja California">Baja California</option>
-                                                        <option value="Baja California Sur">Baja California Sur</option>
-                                                        <option value="Campeche">Campeche</option>
-                                                        <option value="Chiapas">Chiapas</option>
-                                                        <option value="Chihuahua">Chihuahua</option>
-                                                        <option value="Ciudad de México">Ciudad de México</option>
-                                                        <option value="Coahuila">Coahuila</option>
-                                                        <option value="Colima">Colima</option>
-                                                        <option value="Durango">Durango</option>
-                                                        <option value="Estado de México">Estado de México</option>
-                                                        <option value="Guanajuato">Guanajuato</option>
-                                                        <option value="Guerrero">Guerrero</option>
-                                                        <option value="Hidalgo">Hidalgo</option>
-                                                        <option value="Jalisco">Jalisco</option>
-                                                        <option value="Michoacán">Michoacán</option>
-                                                        <option value="Morelos">Morelos</option>
-                                                        <option value="Nayarit">Nayarit</option>
-                                                        <option value="Nuevo León">Nuevo León</option>
-                                                        <option value="Oaxaca">Oaxaca</option>
-                                                        <option value="Puebla">Puebla</option>
-                                                        <option value="Querétaro">Querétaro</option>
-                                                        <option value="Quintana Roo">Quintana Roo</option>
-                                                        <option value="San Luis Potosí">San Luis Potosí</option>
-                                                        <option value="Sinaloa">Sinaloa</option>
-                                                        <option value="Sonora">Sonora</option>
-                                                        <option value="Tabasco">Tabasco</option>
-                                                        <option value="Tamaulipas">Tamaulipas</option>
-                                                        <option value="Tlaxcala">Tlaxcala</option>
-                                                        <option value="Veracruz">Veracruz</option>
-                                                        <option value="Yucatán">Yucatán</option>
-                                                        <option value="Zacatecas">Zacatecas</option>
-                                                    </select> 
-                                                </div> 
-                                            </div>  
-                                            <div class="col-md-2" style="display: none;" id="EstadoEnvioOM">
-                                                <div class="position-relative form-group" >
-                                                    <label for="exampleEmail11" class="">Estado</label>
-                                                    <input type="text" class="form-control" id="EstadoEnvio"/>
-                                                </div>
-                                            </div>                                                            
-                                          
-                                            <div class="col-md-2" style="display: none;" id="PaisEnvioOM">
-                                                <div class="position-relative form-group">
-                                                    <label for="exampleEmail11" class="">País</label>
-                                                    <input type="text" class="form-control" id="PaisEnvio" value="México"/>
-                                                </div>
-                                            </div> 
-                                            <div class="col-md-2">
-                                                <div class="position-relative form-group">
-                                                    <div class="custom-checkbox custom-control">                            
-                                                        <input type="checkbox" id="check3" value="1"  class="custom-control-input" checked/>
-                                                        <label class="custom-control-label" for="check3">NACIONAL</label>
-                                                    </div>   
-                                                </div>   
-                                            </div>     
-                                        </div>   
-                                        <!-- ============================== TERMINA EL SEGUNDO RENGLON ====================================================== -->
-                                    </div><!-- AQUI TERMINA EL DIV DEL DATOS DE ENVIO -->
+                                    </div>
+                                    <button type="button" class="mt-2 btn btn-primary float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
+                                    <button type="button" class="mt-2 btn btn-primary float-right btnEditarG" style="display: none;">Editar</button> 
                                 </div>
                             </div>
-                            <button type="button" class="mt-2 btn btn-primary float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
-                            <button type="button" class="mt-2 btn btn-primary float-right btnEditarG" style="display: none;">Editar</button> 
                         </div>
-                        
-                    </div>          
+                    </div>  
+                    <!-- ================================================== AQUI TERMINA EL CODIGO DE LAS DIRECCIONES ========================================================== -->     
                 </form>
-                <!-- ================================================ AQUI TERMINA EL CODIGO DE LAS DIRECCIONES =============================================================== -->
-            </div> 
+            </div><!-- TERMINA EL DIV tab-pane tabs-animation fade show active QUE CONTIENE LOS DOS TABS -->
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div  class="main-card mb-3 card">
