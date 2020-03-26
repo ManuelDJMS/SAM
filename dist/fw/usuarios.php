@@ -16,9 +16,9 @@ ini_set('display_errors', '0');
         $con = new Conexion();
         $con->conectar();
         if($datos->accion == 'nuevo'){
-            $strQuery = "INSERT INTO Usuarios (Nombre,Apellidos,Email,Depto,Ext,password,Firma,Responsable,Metrologo,Auxiliar,Creo)
+            $strQuery = "INSERT INTO Usuarios (Nombre,Apellidos,Email,Depto,Ext,password,Firma,Responsable,Metrologo,Auxiliar)
                          VALUES ('".$datos->Nombre."', '".$datos->Apellidos."','".$datos->Email."','".$datos->Depto."','".$datos->Ext."'
-                         ,'".$datos->password."','".$datos->Firma."','".$datos->Responsable."','".$datos->Metrologo."','".$datos->Auxiliar."',".$_SESSION['iduser'].")";
+                         ,'".$datos->password."','".$datos->Firma."','".$datos->Responsable."','".$datos->Metrologo."','".$datos->Auxiliar."')";
         }
         else{
             $strQuery = "UPDATE Usuarios SET 
