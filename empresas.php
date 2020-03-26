@@ -125,25 +125,21 @@
                                         </select>  
                                     </div>   
                                 </div>  
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="position-relative form-group">
                                         <label for="examplePassword11" class="">Cuenta Mensajería</label>
                                         <input id="CuentaMensajeria" class="form-control">
                                     </div>
                                 </div>     
                                 <input type="hidden" id="Access" class="form-control">
-                                        
-                            </div> 
-                            <!-- ===================================== TERMINA EL TERCER RENGLON =========================================== -->
-                            <!-- ===================================== INICIA EL CUARTO RENGLON =========================================== -->
-                            <div class="form-row">   
-                                <div class="col-md-6">           
+                                <div class="col-md-5">           
                                     <div class="position-relative form-group">
                                         <label for="exampleText" class="">Observaciones de la empresa</label>
-                                        <textarea name="Observaciones" id="Observaciones" class="form-control"></textarea>
+                                        <textarea rows=1 name="Observaciones" id="Observaciones" class="form-control"></textarea>
                                     </div>  
-                                </div>     
+                                </div>          
                             </div> 
+                            <!-- ===================================== TERMINA EL TERCER RENGLON =========================================== -->
                         </div>
                     </div>
                     <!-- ================================================ AQUI INICIA EL CODIGO DE LAS DIRECCIONES =============================================================== -->

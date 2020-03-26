@@ -112,7 +112,8 @@ $(document).ready(function(){
         $('#CompaniaEnvio').val($('#CompaniaFiscal').val());
         $('#DireccionEnvio').val($('#DireccionFiscal').val());
         $('#CPEnvio').val($('#CPFiscal').val());
-        $('#CiudadEnvio').val($('#CiudadFiscal').val());      }
+        $('#CiudadEnvio').val($('#CiudadFiscal').val());      
+      }
       else{
         $("#check3").get(0).click();
         $('#CompaniaEnvio').val($('#CompaniaFiscal').val());
@@ -242,12 +243,13 @@ $(document).ready(function(){
         obj.EstadoEnvio = $.trim($('#EstadoEnvio').val());
         obj.PaisEnvio = $.trim($('#PaisEnvio').val());
         obj.Envio = 1;
-        alert("solo la tercera");
+        // alert("solo la tercera");
       }
       // ==================================== SI SE REPITE LAS DIRECCIONES ======================================================
    
-        if (($('#DireccionFiscal').val() == $('DireccionConsig').val()))
+        if (($('#DireccionFiscal').val() == $('#DireccionConsig').val()))
         {
+          if (($('#DireccionFiscal').val() != "") && ($('#DireccionConsig').val() != "")){
           obj.CompaniaCombi = $.trim($('#CompaniaFiscal').val());
           obj.DireccionCombi = $.trim($('#DireccionFiscal').val());
           obj.CPCombi = $.trim($('#CPFiscal').val());
@@ -257,8 +259,15 @@ $(document).ready(function(){
           obj.Facturacion = 1;
           obj.Consignacion = 1;
           alert("solo la primera y la segunsa");
+          }
+          else{
+          //   obj.Consignacion = 0;
+          // obj.Facturacion= 0;
+          alert("solo la primera t la segunda pero sin nada");
+          }
         }
-        else if($('#DireccionFiscal').val() == $('DireccionEnvio').val()){
+        else if($('#DireccionFiscal').val() == $('#DireccionEnvio').val()){
+          if (($('#DireccionFiscal').val() != "") && ($('#DireccionEnvio').val() != "")){
           obj.CompaniaCombi = $.trim($('#CompaniaFiscal').val());
           obj.DireccionCombi = $.trim($('#DireccionFiscal').val());
           obj.CPCombi = $.trim($('#CPFiscal').val());
@@ -268,14 +277,15 @@ $(document).ready(function(){
           obj.Facturacion = 1;
           obj.Envio = 1;
           alert("solo la primera y la tercera");
-        }
-        else if ($('#DireccionConsignacion').val() == $('DireccionEnvio').val()){
-          if ($('#DireccionConsignacion').val() == "" && $('DireccionEnvio').val()==""){
-            obj.Envio = 0;
-          obj.Consignacion = 0;
-          alert("solo la segunda t la tercera pero sin nada");
           }
           else{
+            obj.Envio = 0;
+          obj.Facturacion= 0;
+          alert("solo la primera t la tercera pero sin nada");
+          }
+        }
+        else if ($('#DireccionConsig').val() == $('#DireccionEnvio').val()){
+          if (($('#DireccionConsig').val() != "") && ($('#DireccionEnvio').val()!="")){
             obj.CompaniaCombi = $.trim($('#CompaniaConsig').val());
             obj.DireccionCombi = $.trim($('#DireccionConsig').val());
             obj.CPCombi = $.trim($('#CPConsig').val());
@@ -284,7 +294,12 @@ $(document).ready(function(){
             obj.PaisCombi = $.trim($('#PaisConsig').val());
             obj.Envio = 1;
             obj.Consignacion = 1;
-            alert("solo la segunda t la tercera");
+            alert("solo la segunda y la tercera");
+          }
+          else{
+            obj.Envio = 0;
+          obj.Consignacion = 0;
+          alert("solo la segunda t la tercera pero sin nada");
           }
         
         }
