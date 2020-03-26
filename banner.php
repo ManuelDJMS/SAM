@@ -236,7 +236,28 @@
                                             </i>Agregar Patrones
                                         </a>
                                     </li>
-                                </ul>
+                                </ul>                             
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon lnr-license"></i>
+                                    Servicios
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="index.html" class="mm-active">
+                                            <i class="metismenu-icon">
+                                            </i>Consultar
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="servicios.php">
+                                            <i class="metismenu-icon">
+                                            </i>Nuevo
+                                        </a>
+                                    </li>
+                                </ul>                             
                             </li>
                             <li>
                         <li class="app-sidebar__heading">UI Components</li>
