@@ -21,7 +21,7 @@ class Conexion {
         }
       }
       else{
-        $serverName = "10.10.10.254\COMPAC2";
+        $serverName = "IRONMAN2";
         $user = "sa";
         $password = "Met99011578a";
         $dataBase = "SAM";

@@ -48,20 +48,29 @@ ini_set('display_errors', '0');
         //  $res = $con->ejecutaQuery($strQuery);
         //================================================================================================================= 
         //========================================================== INSERTAR LAS DIRECCIONES ==========================================================================
-        if ($datos->Facturacion ==1)
+        if ($datos->Facturacion ==1 && $datos->Consignacion==1 && $datos->Envio==1)
         {
             $strQuery2="if exists(SELECT Compania, ClaveEmpresa, Domicilio, Ciudad from DireccionesAcomodadas WHERE Compania='".$datos->DireccionFiscal."' and
              ClaveEmpresa=1 and Domicilio='".$datos->DireccionFiscal."' and Ciudad='".$datos->CiudadFiscal."') begin UPDATE DireccionesAcomodadas
               SET Facturacion=".$datos->Facturacion." WHERE Compania='".$datos->CompaniaFiscal."' and ClaveEmpresa=1 and Domicilio='".$datos->DireccionFiscal."' and Ciudad='".$datos->CiudadFiscal."'; end else begin INSERT INTO DireccionesAcomodadas 
-              (Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais,Referencias) VALUES 
+              (Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais, Facturacion, Consignacion, Envio, Referencias) VALUES 
             ('".$datos->CompaniaFiscal."',(Select MAX(ClaveEmpresa) from EmpresasOrdenadas),'".$datos->DireccionFiscal."','".$datos->CiudadFiscal."','".$datos->EstadoListFiscal."','".$datos->CPFiscal."',
-            '".$datos->PaisFiscal."','-'); end;";
-
-        
+            '".$datos->PaisFiscal."',".$datos->Facturacion.",0,0,'-'),
+            ('".$datos->CompaniaConsig."',(Select MAX(ClaveEmpresa) from EmpresasOrdenadas),'".$datos->DireccionConsig."','".$datos->CiudadConsig."','".$datos->EstadoListConsig."','".$datos->CPConsig."',
+            '".$datos->PaisConsig."',0,".$datos->Consignacion.",0,'-'),
+            ('".$datos->CompaniaEnvio."',(Select MAX(ClaveEmpresa) from EmpresasOrdenadas),'".$datos->DireccionEnvio."','".$datos->CiudadEnvio."','".$datos->EstadoListEnvio."','".$datos->CPEnvio."',
+            '".$datos->PaisEnvio."',0,0,".$datos->Envio.",'-'); end;";
+        }
+        else if($datos->Facturacion==1 && $datos->Consignacion==0 && $datos->Envio==0){
+            $strQuery2="if exists(SELECT Compania, ClaveEmpresa, Domicilio, Ciudad from DireccionesAcomodadas WHERE Compania='".$datos->DireccionFiscal."' and
+             ClaveEmpresa=1 and Domicilio='".$datos->DireccionFiscal."' and Ciudad='".$datos->CiudadFiscal."') begin UPDATE DireccionesAcomodadas
+              SET Facturacion=".$datos->Facturacion." WHERE Compania='".$datos->CompaniaFiscal."' and ClaveEmpresa=1 and Domicilio='".$datos->DireccionFiscal."' and Ciudad='".$datos->CiudadFiscal."'; end else begin INSERT INTO DireccionesAcomodadas 
+              (Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais, Facturacion, Consignacion, Envio, Referencias) VALUES 
+            ('".$datos->CompaniaEnvio."',(Select MAX(ClaveEmpresa) from EmpresasOrdenadas),'".$datos->DireccionEnvio."','".$datos->CiudadEnvio."','".$datos->EstadoListEnvio."','".$datos->CPEnvio."',
+            '".$datos->PaisEnvio."',1,0,0,'-'); end;";
         }
         $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
         $con->cerrar();
-
         echo json_encode($res);
 	}
 	elseif ($opc == 'obtener_paqueterias'){

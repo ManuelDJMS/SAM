@@ -220,6 +220,7 @@ $(document).ready(function(){
         obj.PaisFiscal = $.trim($('#PaisFiscal').val());
 
         obj.Facturacion = 1;
+        alert("solo la primera");
       }
       if ($('#DireccionConsig').val()!="" && ($('#DireccionConsig').val()!= $('#DireccionFiscal').val()) && ($('#DireccionConsig').val()!= $('#DireccionEnvio').val()))
       {
@@ -230,6 +231,7 @@ $(document).ready(function(){
         obj.EstadoConsig = $.trim($('#EstadoConsig').val());
         obj.PaisConsig = $.trim($('#PaisConsig').val());
         obj.Consignacion = 1;
+        alert("solo la segunta");
       }
       if ($('#DireccionEnvio').val()!="" && ($('#DireccionEnvio').val()!= $('#DireccionFiscal').val()) && ($('#DireccionEnvio').val()!= $('#DireccionConsig').val()))
       {
@@ -240,6 +242,7 @@ $(document).ready(function(){
         obj.EstadoEnvio = $.trim($('#EstadoEnvio').val());
         obj.PaisEnvio = $.trim($('#PaisEnvio').val());
         obj.Envio = 1;
+        alert("solo la tercera");
       }
       // ==================================== SI SE REPITE LAS DIRECCIONES ======================================================
    
@@ -253,6 +256,7 @@ $(document).ready(function(){
           obj.PaisCombi = $.trim($('#PaisFiscal').val());
           obj.Facturacion = 1;
           obj.Consignacion = 1;
+          alert("solo la primera y la segunsa");
         }
         else if($('#DireccionFiscal').val() == $('DireccionEnvio').val()){
           obj.CompaniaCombi = $.trim($('#CompaniaFiscal').val());
@@ -263,16 +267,26 @@ $(document).ready(function(){
           obj.PaisCombi = $.trim($('#PaisFiscal').val());
           obj.Facturacion = 1;
           obj.Envio = 1;
+          alert("solo la primera y la tercera");
         }
-        else{
-          obj.CompaniaCombi = $.trim($('#CompaniaConsig').val());
-          obj.DireccionCombi = $.trim($('#DireccionConsig').val());
-          obj.CPCombi = $.trim($('#CPConsig').val());
-          obj.EstadoListCombi = $.trim($('#EstadoListConsig').val());
-          obj.EstadoCombi = $.trim($('#EstadoConsig').val());
-          obj.PaisCombi = $.trim($('#PaisConsig').val());
-          obj.Envio = 1;
-          obj.Consignacion = 1;
+        else if ($('#DireccionConsignacion').val() == $('DireccionEnvio').val()){
+          if ($('#DireccionConsignacion').val() == "" && $('DireccionEnvio').val()==""){
+            obj.Envio = 0;
+          obj.Consignacion = 0;
+          alert("solo la segunda t la tercera pero sin nada");
+          }
+          else{
+            obj.CompaniaCombi = $.trim($('#CompaniaConsig').val());
+            obj.DireccionCombi = $.trim($('#DireccionConsig').val());
+            obj.CPCombi = $.trim($('#CPConsig').val());
+            obj.EstadoListCombi = $.trim($('#EstadoListConsig').val());
+            obj.EstadoCombi = $.trim($('#EstadoConsig').val());
+            obj.PaisCombi = $.trim($('#PaisConsig').val());
+            obj.Envio = 1;
+            obj.Consignacion = 1;
+            alert("solo la segunda t la tercera");
+          }
+        
         }
        
     
