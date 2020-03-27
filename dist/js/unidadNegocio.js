@@ -1,6 +1,6 @@
 $(document).ready(function(){
     $('.btnEditarG').hide();
-    limpia_formulario();
+    // limpia_formulario();
     obtener_registros();
     // obtener_usuarios();
     // =======================================================================
