@@ -6,7 +6,8 @@
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
 <link rel="stylesheet" href="dist/css/base.css">
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
+<!-- <script src="plugins/datatables/dataTables.bootstrap.js"></script> -->
+<!-- <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>  -->
 <script src="dist/js/empresas.js"></script>
 
 <div class="app-main__outer">
@@ -483,7 +484,7 @@
                 <div  class="main-card mb-3 card">
                     <div id="div_registros" class="card-body">
                         <!-- <table id="example" class="table table-bordered table-striped"> -->
-                        <table id="table_registros" class="table table-bordered table-striped dataTable">
+                        <table id="table_registros" class="table table-hover table-bordered table-striped dataTable1">
                             <thead>
                             <tr>
                                 <th>Clave Empresa</th>

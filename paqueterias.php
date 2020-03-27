@@ -6,7 +6,7 @@
 <!-- ===================SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO ========================-->
 <link rel="stylesheet" href="dist/css/base.css">
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap.min.js"></script> 
+<!-- <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>  -->
 <!-- =================================================================== -->
 <div class="app-main__outer">
     <div class="app-main__inner">

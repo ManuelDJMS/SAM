@@ -19,13 +19,9 @@
         <!-- ================= ESTILO DE LA PAGINA ======================== -->
         <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
         <link href="./main.8d288f825d8dffbbe55e.css" rel="stylesheet">
+        <link href="plugins/datatables/jquery.dataTables.css" rel="stylesheet">
         
-        <!-- <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
-             
-             <!-- <script type="text/javascript" src="./assets/scripts/jquery.min.js"></script> -->
-            <!-- <script type="text/javascript" src="./assets/scripts/busquedas.js"></script> -->
-            <!-- <script src="plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
-            <script src="plugins/jQuery/jQuery-3.2.1.min.js"></script>
+        <script src="plugins/jQuery/jQuery-3.2.1.min.js"></script>
         <!-- ====================== MENSAJES DE GUARDADO ======================================== -->
         <!-- <link rel="stylesheet" href="./assets/scripts/2.css"/>
         <script src="./assets/scripts/s2.js"></script> -->

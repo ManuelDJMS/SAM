@@ -460,7 +460,7 @@ function obtener_registros(){
 function regenerar_tabla(){
     $('#div_registros').html("");
     var html = "";
-    html += '<table id="table_registros" class="table table-bordered table-striped dataTable">';
+    html += '<table id="table_registros" class="table table-hover table-bordered table-striped dataTable">';
     html += '<thead>';
     html += '<tr>';
     html += '<th>Clave Empresa</th>';
