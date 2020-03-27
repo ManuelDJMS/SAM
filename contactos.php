@@ -155,7 +155,7 @@
                 <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
                 <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                     <div class="main-card mb-3 card">
-                        <div id="div_registros" class="box-body">
+                        <div id="div_registros" class="card-body">
                             <table id="example1" class="table table-bordered table-striped dataTable">
                                 <thead>
                                     <tr>

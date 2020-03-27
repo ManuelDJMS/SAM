@@ -23,6 +23,7 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
         </div>            
         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
@@ -47,7 +48,7 @@
                                 <div class="col-md-5">
                                     <div class="position-relative form-group">
                                         <label for="exampleEmail11" class="">Razón Social</label>
-                                        <input type="text" class="form-control" id="RazonSocial" name="RazonSocial" required/>
+                                        <input type="text" class="form-control" id="RazonSocial" name="RazonSocial" required>
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -147,7 +148,11 @@
                         <div class="card">
                             <div id="headingThree" class="card-header">
                                 <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block">
-                                    <h5 class="m-0 p-0">Direcciones</h5>
+                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                            <i class="header-icon lnr-map-marker icon-gradient bg-amy-crisp"> </i>
+                                            Direcciones
+                                        </div>
+                                    
                                 </button>
                             </div>
                             <div data-parent="#accordion" id="collapseOne3" class="collapse">
@@ -469,10 +474,12 @@
                                             </div><!-- AQUI TERMINA EL DIV DEL DATOS DE ENVIO -->
                                         </div>
                                     </div>
-                                    <button type="button" class="mt-2 btn btn-primary float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
+                                    <button type="button" class="mb-2 btn-hover-shine btn btn-shadow btn-success float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
                                     <button type="button" class="mt-2 btn btn-primary float-right btnEditarG" style="display: none;">Editar</button> 
+                                    <button class="mt-2 btn btn-primary float-right btnValidar" style="display: none;">Guardar y validar</button> 
                                 </div>
                             </div>
+                            
                         </div>
                     </div>  
                     <!-- ================================================== AQUI TERMINA EL CODIGO DE LAS DIRECCIONES ========================================================== -->     
@@ -480,21 +487,20 @@
             </div><!-- TERMINA EL DIV tab-pane tabs-animation fade show active QUE CONTIENE LOS DOS TABS -->
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
-                <div  class="main-card mb-3 card">
+                <div class="main-card mb-3 card">
                     <div id="div_registros" class="card-body">
-                        <!-- <table id="example" class="table table-bordered table-striped"> -->
                         <table id="table_registros" class="table table-hover table-bordered table-striped dataTable">
                             <thead>
-                            <tr>
-                                <th>Clave Empresa</th>
-                                <th>Razón Social</th>
-                                <th>RFC</th>
-                                <th>Crédito</th>
-                                <th>N° Proveedor</th>
-                                <th>Clave de AdminPaq</th>
-                                <th>Observaciones de la empresa</th>
-                                <th>Editar</th>
-                            </tr>
+                                <tr>
+                                    <th>Clave Empresa</th>
+                                    <th>Razón Social</th>
+                                    <th>RFC</th>
+                                    <th>Crédito</th>
+                                    <th>N° Proveedor</th>
+                                    <th>Clave de AdminPaq</th>
+                                    <th>Observaciones de la empresa</th>
+                                    <th>Editar</th>
+                                </tr>
                             </thead>
                             <tbody>
 
@@ -502,20 +508,21 @@
                         </table>
                     </div><!-- /.box-body -->
                 </div>  
-            </div>  
-            <!-- Codigo para la animacion de cargado -->
-            <div class="loader-wrapper d-flex justify-content-center align-items-center">
-                <div class="loader">
-                    <div class="line-scale-pulse-out">
-                        <!--cada div es una linea de la animacion-->
-                        <div></div>
-                        <div></div> 
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                <!-- Codigo para la animacion de cargado -->
+                <div class="loader-wrapper d-flex justify-content-center align-items-center">
+                    <div class="loader">
+                        <div class="line-scale-pulse-out">
+                            <!--cada div es una linea de la animacion-->
+                            <div></div>
+                            <div></div> 
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </div>  
+            <!-- ===================================AQUI TERMINA EL CODIGO DE LAS COSULTAS ====================================================================== -->
         </div><!-- AQUI TERMINA EL DIV DEL TAB -->
     </div>
 </div>

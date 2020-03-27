@@ -221,7 +221,7 @@ $(document).ready(function(){
         obj.PaisFiscal = $.trim($('#PaisFiscal').val());
 
         obj.Facturacion = 1;
-        alert("solo la primera");
+        // alert("solo la primera");
       }
       if ($('#DireccionConsig').val()!="" && ($('#DireccionConsig').val()!= $('#DireccionFiscal').val()) && ($('#DireccionConsig').val()!= $('#DireccionEnvio').val()))
       {
@@ -232,7 +232,7 @@ $(document).ready(function(){
         obj.EstadoConsig = $.trim($('#EstadoConsig').val());
         obj.PaisConsig = $.trim($('#PaisConsig').val());
         obj.Consignacion = 1;
-        alert("solo la segunta");
+        // alert("solo la segunta");
       }
       if ($('#DireccionEnvio').val()!="" && ($('#DireccionEnvio').val()!= $('#DireccionFiscal').val()) && ($('#DireccionEnvio').val()!= $('#DireccionConsig').val()))
       {
@@ -258,13 +258,13 @@ $(document).ready(function(){
           obj.PaisCombi = $.trim($('#PaisFiscal').val());
           obj.Facturacion = 1;
           obj.Consignacion = 1;
-          alert("solo la primera y la segunsa");
+          // alert("solo la primera y la segunsa");
           }
-          else{
+          // else{
           //   obj.Consignacion = 0;
           // obj.Facturacion= 0;
-          alert("solo la primera t la segunda pero sin nada");
-          }
+          // alert("solo la primera t la segunda pero sin nada");
+          // }
         }
         else if($('#DireccionFiscal').val() == $('#DireccionEnvio').val()){
           if (($('#DireccionFiscal').val() != "") && ($('#DireccionEnvio').val() != "")){
@@ -276,12 +276,12 @@ $(document).ready(function(){
           obj.PaisCombi = $.trim($('#PaisFiscal').val());
           obj.Facturacion = 1;
           obj.Envio = 1;
-          alert("solo la primera y la tercera");
+          // alert("solo la primera y la tercera");
           }
           else{
             obj.Envio = 0;
           obj.Facturacion= 0;
-          alert("solo la primera t la tercera pero sin nada");
+          // alert("solo la primera t la tercera pero sin nada");
           }
         }
         else if ($('#DireccionConsig').val() == $('#DireccionEnvio').val()){
@@ -294,12 +294,12 @@ $(document).ready(function(){
             obj.PaisCombi = $.trim($('#PaisConsig').val());
             obj.Envio = 1;
             obj.Consignacion = 1;
-            alert("solo la segunda y la tercera");
+            // alert("solo la segunda y la tercera");
           }
           else{
             obj.Envio = 0;
           obj.Consignacion = 0;
-          alert("solo la segunda t la tercera pero sin nada");
+          // alert("solo la segunda t la tercera pero sin nada");
           }
         
         }
@@ -313,6 +313,7 @@ $(document).ready(function(){
         guardar_empresa(obj);
       }
       else{
+        $(".btnValidar").get(0).click();
         alerta_error("Oops...","Faltan llenar algunos campos");
       }
     });
