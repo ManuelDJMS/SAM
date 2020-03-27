@@ -16,12 +16,13 @@
         <meta name="description" content="Sistema para el control de Metas, SA. de CV.">
         <!-- Disable tap highlight on IE -->
         <meta name="msapplication-tap-highlight" content="no">
+        <script type="text/javascript" src="./assets/scripts/main.8d288f825d8dffbbe55e.js"></script>
         <!-- ================= ESTILO DE LA PAGINA ======================== -->
-        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script> -->
         <link href="./main.8d288f825d8dffbbe55e.css" rel="stylesheet">
-        <link href="plugins/datatables/jquery.dataTables.css" rel="stylesheet">
-        
-        <script src="plugins/jQuery/jQuery-3.2.1.min.js"></script>
+        <link href="plugins/datatables/bootstrap.css" rel="stylesheet">
+        <link href="plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <!-- <script src="plugins/jQuery/jQuery-3.2.1.min.js"></script> esperar-->
+        <script src="plugins/jQuery/jquery-3.3.1.js"></script> 
         <!-- ====================== MENSAJES DE GUARDADO ======================================== -->
         <!-- <link rel="stylesheet" href="./assets/scripts/2.css"/>
         <script src="./assets/scripts/s2.js"></script> -->
