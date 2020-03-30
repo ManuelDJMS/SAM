@@ -160,6 +160,54 @@ ini_set('display_errors', '0');
             echo json_encode(null);
         $con->cerrar();
     }
+    
+    elseif ($opc == 'registrar_equipamiento') {
+        $obj = $_POST['obj'];
+        $datos = json_decode($obj); 
+        foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
+        $con = new Conexion();
+        $con->conectar();
+        if($datos->accion == 'nuevo'){
+            $strQuery = "INSERT INTO Equipamiento (ClaveContacto,idArticulo,MetasId,Serie,id,idUnidadNegocio,Notas,Puntos,Creo)
+                         VALUES ('".$datos->ClaveContacto."', '".$datos->idArticulo."','".$datos->MetasId."','".$datos->Serie."','".$datos->id."','".$datos->Lab."','".$datos->Notas."','".$datos->Puntos."',".$_SESSION['iduser'].")";
+        }
+        // else{
+        //     $strQuery = "UPDATE [RelacionaU-UN] SET 
+        //     idUnidadNegocio = '".$datos->Laboratorio."'
+        //     WHERE idUsuario = '".$datos->idUsuario."'";
+        //  }
+
+        $res = $con->ejecutaQuery($strQuery);
+        $con->cerrar();
+        echo json_encode($res);
+    }
+    elseif($opc == 'obtener_equipamiento'){
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT eq.idEquipamiento,e.RazonSocial,c.Nombre, c.Apellidos,eq.MetasId,ap.Descripcion,ap.Marca,ap.Modelo,eq.id,eq.Serie FROM Empresas e INNER JOIN Direcciones d ON e.ClaveEmpresa = d.ClaveEmpresa
+        INNER JOIN Contactos c on c.IdDireccion =  d.IdDireccion
+        INNER JOIN Equipamiento eq on c.ClaveContacto = eq.ClaveContacto
+        INNER JOIN [articulos-prueba] ap on eq.idArticulo =ap.idArticulo";
+        $con->ejecutaQuery($strQuery);
+        if($con->getNum()>0){
+            $arrDatos = $con->getListaObjectos();
+            foreach ($arrDatos as $objDato) {
+                foreach ($objDato as $key => $value){
+                    if(is_string($value)){
+                        $objDato->$key = utf8_encode($value);
+                    }
+                }
+                $arrRespuesta[] = $objDato;
+            }
+            echo json_encode($arrRespuesta);
+        }
+        else{
+            echo json_encode(false);
+        }
+        $con->cerrar();
+    }
+    
+    
 
 
 	
