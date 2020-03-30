@@ -34,7 +34,7 @@
   
     <body>
         <!--=============================================== DIV PRINCIPAL DE HEADER ==================================================== -->
-        <div class="app-container app-theme-white body-tabs-shadow fixed-header fixed-sidebar">
+        <div class="app-container app-theme-white body-tabs-line fixed-header fixed-sidebar">
             <div class="app-header header-shadow">
                 <div class="app-header__logo">
                     <div class="logo-src"></div>

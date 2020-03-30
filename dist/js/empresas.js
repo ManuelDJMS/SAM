@@ -69,6 +69,7 @@ $(document).ready(function(){
         $('#DireccionConsig').val($('#DireccionFiscal').val());
         $('#CPConsig').val($('#CPFiscal').val());
         $('#CiudadConsig').val($('#CiudadFiscal').val());
+        $('#ReferenciasConsig').val($('#ReferenciasFiscal').val());
       }
       else{
         $("#check2").get(0).click();
@@ -78,6 +79,7 @@ $(document).ready(function(){
         $('#CiudadConsig').val($('#CiudadFiscal').val());
         $('#EstadoConsig').val($('#EstadoFiscal').val());
         $('#PaisConsig').val($('#PaisFiscal').val());
+        $('#ReferenciasConsig').val($('#ReferenciasFiscal').val());
       }
       $(this).val(1);
     }
@@ -89,6 +91,7 @@ $(document).ready(function(){
         $('#DireccionConsig').val("");
         $('#CPConsig').val("");
         $('#CiudadConsig').val("");
+        $('#ReferenciasConsig').val("");
       }
       else{
         $("#check2").get(0).click();
@@ -98,6 +101,7 @@ $(document).ready(function(){
         $('#CiudadConsig').val("");
         $('#EstadoConsig').val("");
         $('#PaisConsig').val("México");
+        $('#ReferenciasConsig').val("");
       }
     }
   });
@@ -113,6 +117,7 @@ $(document).ready(function(){
         $('#DireccionEnvio').val($('#DireccionFiscal').val());
         $('#CPEnvio').val($('#CPFiscal').val());
         $('#CiudadEnvio').val($('#CiudadFiscal').val());      
+        $('#ReferenciasEnvio').val($('#ReferenciasFiscal').val());      
       }
       else{
         $("#check3").get(0).click();
@@ -122,6 +127,7 @@ $(document).ready(function(){
         $('#CiudadEnvio').val($('#CiudadFiscal').val());
         $('#EstadoEnvio').val($('#EstadoFiscal').val());
         $('#PaisEnvio').val($('#PaisFiscal').val());
+        $('#ReferenciasEnvio').val($('#ReferenciasFiscal').val());
       }
       $(this).val(1);
     }
@@ -133,6 +139,7 @@ $(document).ready(function(){
         $('#DireccionEnvio').val("");
         $('#CPEnvio').val("");
         $('#CiudadEnvio').val("");
+        $('#ReferenciasEnvio').val("");
       }
       else{
         $("#check3").get(0).click();
@@ -142,6 +149,7 @@ $(document).ready(function(){
         $('#CiudadEnvio').val("");
         $('#EstadoEnvio').val("");
         $('#PaisEnvio').val("México");
+        $('#ReferenciasEnvio').val("");
       }
     }
   });
@@ -156,6 +164,7 @@ $(document).ready(function(){
         $('#DireccionEnvio').val($('#DireccionConsig').val());
         $('#CPEnvio').val($('#CPConsig').val());
         $('#CiudadEnvio').val($('#CiudadConsig').val());
+        $('#ReferenciasEnvio').val($('#ReferenciasConsig').val());
       }
       else{
         $("#check3").get(0).click();
@@ -165,6 +174,7 @@ $(document).ready(function(){
         $('#CiudadEnvio').val($('#CiudadConsig').val());
         $('#EstadoEnvio').val($('#EstadoConsig').val());
         $('#PaisEnvio').val($('#PaisConsig').val());
+        $('#ReferenciasEnvio').val($('#ReferenciasConsig').val());
       }
       $(this).val(1);
     }
@@ -175,6 +185,7 @@ $(document).ready(function(){
         $('#DireccionEnvio').val("");
         $('#CPEnvio').val("");
         $('#CiudadEnvio').val("");
+        $('#ReferenciasEnvio').val("");
         $("#EstadoListEnvio option[value='Aguascalientes']").attr("selected", true);
       }
       else{
@@ -184,10 +195,24 @@ $(document).ready(function(){
         $('#CPEnvio').val("");
         $('#CiudadEnvio').val("");
         $('#EstadoEnvio').val("");
+        $('#ReferenciasEnvio').val("");
         $('#PaisEnvio').val("México");
       }
     }
   });
+  $('html').on('change', '#EstadoListFiscal', function(){
+    // alert("hola");
+    // $('#EstadoFiscal').val()=$(this).val();
+    // alert($(this).val());
+    $('#EstadoFiscal').val($(this).val());
+  });
+  $('html').on('change', '#EstadoListConsig', function(){
+    $('#EstadoConsig').val($(this).val());
+  });
+  $('html').on('change', '#EstadoListEnvio', function(){
+    $('#EstadoEnvio').val($(this).val());
+  });
+   
   // ========================================================================================================
   // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
 	$('html').on('click', '.btnGuardar', function(){
@@ -203,33 +228,36 @@ $(document).ready(function(){
       obj.Paqueteria = $("#Paqueteria option:selected").val();
       obj.CuentaMensajeria = $.trim($('#CuentaMensajeria').val());
       obj.Observaciones = $.trim($('#Observaciones').val());
+      // Access en caso de realizar el codigo para recuperar empresas de access
       if ($('#Access').val()==''){
         obj.Access = 0;
       }
       else{
         obj.Access = $.trim($('#Access').val());
       }
-
       // ================== VALORES DE LAS DIRECCIONES ================================
       if ($('#DireccionFiscal').val()!="" && ($('#DireccionFiscal').val()!= $('#DireccionEnvio').val()) && ($('#DireccionFiscal').val()!= $('#DireccionConsig').val()))
       {
         obj.CompaniaFiscal = $.trim($('#CompaniaFiscal').val());
         obj.DireccionFiscal = $.trim($('#DireccionFiscal').val());
         obj.CPFiscal = $.trim($('#CPFiscal').val());
-        obj.EstadoListFiscal = $.trim($('#EstadoListFiscal').val());
+        obj.CiudadFiscal=$.trim($('#CiudadFiscal').val());
+        // obj.EstadoListFiscal = $.trim($('#EstadoListFiscal').val());
+        obj.ReferenciasFiscal = $.trim($('#ReferenciasFiscal').val());
         obj.EstadoFiscal = $.trim($('#EstadoFiscal').val());
         obj.PaisFiscal = $.trim($('#PaisFiscal').val());
-
         obj.Facturacion = 1;
-        // alert("solo la primera");
+        // alert(obj.EstadoFiscal);
       }
       if ($('#DireccionConsig').val()!="" && ($('#DireccionConsig').val()!= $('#DireccionFiscal').val()) && ($('#DireccionConsig').val()!= $('#DireccionEnvio').val()))
       {
         obj.CompaniaConsig = $.trim($('#CompaniaConsig').val());
         obj.DireccionConsig = $.trim($('#DireccionConsig').val());
         obj.CPConsig = $.trim($('#CPConsig').val());
-        obj.EstadoListConsig = $.trim($('#EstadoListConsig').val());
+        obj.CiudadConsig=$.trim($('#CiudadConsig').val());
+        // obj.EstadoListConsig = $.trim($('#EstadoListConsig').val());
         obj.EstadoConsig = $.trim($('#EstadoConsig').val());
+        obj.ReferenciasConsig = $.trim($('#ReferenciasConsig').val());
         obj.PaisConsig = $.trim($('#PaisConsig').val());
         obj.Consignacion = 1;
         // alert("solo la segunta");
@@ -239,8 +267,10 @@ $(document).ready(function(){
         obj.CompaniaEnvio = $.trim($('#CompaniaEnvio').val());
         obj.DireccionEnvio = $.trim($('#DireccionEnvio').val());
         obj.CPEnvio = $.trim($('#CPEnvio').val());
-        obj.EstadoListEnvio = $.trim($('#EstadoListEnvio').val());
+        obj.CiudadEnvio=$.trim($('#CiudadEnvio').val());
+        // obj.EstadoListEnvio = $.trim($('#EstadoListEnvio').val());
         obj.EstadoEnvio = $.trim($('#EstadoEnvio').val());
+        obj.ReferenciasEnvio = $.trim($('#ReferenciasEnvio').val());
         obj.PaisEnvio = $.trim($('#PaisEnvio').val());
         obj.Envio = 1;
         // alert("solo la tercera");
@@ -253,35 +283,29 @@ $(document).ready(function(){
           obj.CompaniaCombi = $.trim($('#CompaniaFiscal').val());
           obj.DireccionCombi = $.trim($('#DireccionFiscal').val());
           obj.CPCombi = $.trim($('#CPFiscal').val());
-          obj.EstadoListCombi = $.trim($('#EstadoListFiscal').val());
+          obj.CiudadCombi=$.trim($('#CiudadFiscal').val());
+          obj.ReferenciasCombi = $.trim($('#ReferenciasFiscal').val());
           obj.EstadoCombi = $.trim($('#EstadoFiscal').val());
           obj.PaisCombi = $.trim($('#PaisFiscal').val());
           obj.Facturacion = 1;
           obj.Consignacion = 1;
-          // alert("solo la primera y la segunsa");
           }
-          // else{
-          //   obj.Consignacion = 0;
-          // obj.Facturacion= 0;
-          // alert("solo la primera t la segunda pero sin nada");
-          // }
         }
         else if($('#DireccionFiscal').val() == $('#DireccionEnvio').val()){
           if (($('#DireccionFiscal').val() != "") && ($('#DireccionEnvio').val() != "")){
           obj.CompaniaCombi = $.trim($('#CompaniaFiscal').val());
           obj.DireccionCombi = $.trim($('#DireccionFiscal').val());
           obj.CPCombi = $.trim($('#CPFiscal').val());
-          obj.EstadoListCombi = $.trim($('#EstadoListFiscal').val());
+          obj.CiudadCombi=$.trim($('#CiudadFiscal').val());
+          obj.ReferenciasCombi = $.trim($('#ReferenciasFiscal').val());
           obj.EstadoCombi = $.trim($('#EstadoFiscal').val());
           obj.PaisCombi = $.trim($('#PaisFiscal').val());
           obj.Facturacion = 1;
           obj.Envio = 1;
-          // alert("solo la primera y la tercera");
           }
           else{
             obj.Envio = 0;
           obj.Facturacion= 0;
-          // alert("solo la primera t la tercera pero sin nada");
           }
         }
         else if ($('#DireccionConsig').val() == $('#DireccionEnvio').val()){
@@ -289,17 +313,16 @@ $(document).ready(function(){
             obj.CompaniaCombi = $.trim($('#CompaniaConsig').val());
             obj.DireccionCombi = $.trim($('#DireccionConsig').val());
             obj.CPCombi = $.trim($('#CPConsig').val());
-            obj.EstadoListCombi = $.trim($('#EstadoListConsig').val());
+            obj.CiudadCombi=$.trim($('#CiudadConsig').val());
+            obj.ReferenciasCombi = $.trim($('#ReferenciasConsig').val());
             obj.EstadoCombi = $.trim($('#EstadoConsig').val());
             obj.PaisCombi = $.trim($('#PaisConsig').val());
             obj.Envio = 1;
             obj.Consignacion = 1;
-            // alert("solo la segunda y la tercera");
           }
           else{
             obj.Envio = 0;
           obj.Consignacion = 0;
-          // alert("solo la segunda t la tercera pero sin nada");
           }
         
         }

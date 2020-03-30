@@ -15,7 +15,7 @@
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
                     <div class="page-title-icon">
-                        <i class="lnr-apartment icon-gradient bg-sunny-morning">
+                        <i class="lnr-apartment icon-gradient bg-arielle-smile">
                         </i>
                     </div>
                     <div>Empresas
@@ -25,7 +25,7 @@
                 </div>
                 
             </div>
-        </div>            
+        </div>   
         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
             <li class="nav-item">
                 <a role="tab" class="nav-link active" id="tab-0" data-toggle="tab" href="#tab-content-0">
@@ -38,6 +38,7 @@
                 </a>
             </li>
         </ul>
+        <!-- <div class="divider"></div> -->
         <div class="tab-content">
             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                 <form id="signupForm">
@@ -148,11 +149,10 @@
                         <div class="card">
                             <div id="headingThree" class="card-header">
                                 <button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block">
-                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                            <i class="header-icon lnr-map-marker icon-gradient bg-amy-crisp"> </i>
-                                            Direcciones
-                                        </div>
-                                    
+                                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                        <i class="header-icon lnr-map-marker icon-gradient bg-amy-crisp"> </i>
+                                        Direcciones
+                                    </div>
                                 </button>
                             </div>
                             <div data-parent="#accordion" id="collapseOne3" class="collapse">
@@ -236,10 +236,16 @@
                                                             </select> 
                                                         </div> 
                                                     </div>  
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group" >
+                                                            <label for="exampleEmail11" class="">Referencias</label>
+                                                            <input type="text" class="form-control" id="ReferenciasFiscal"/>
+                                                        </div>
+                                                    </div>                                                            
                                                     <div class="col-md-2" style="display: none;" id="EstadoFiscalOM">
                                                         <div class="position-relative form-group" >
                                                             <label for="exampleEmail11" class="">Estado</label>
-                                                            <input type="text" class="form-control" id="EstadoFiscal"/>
+                                                            <input type="text" class="form-control" id="EstadoFiscal" value="Aguascalientes"/>
                                                         </div>
                                                     </div>                                                            
                                                 
@@ -346,10 +352,16 @@
                                                             </select> 
                                                         </div> 
                                                     </div>  
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group" >
+                                                            <label for="exampleEmail11" class="">Referencias</label>
+                                                            <input type="text" class="form-control" id="ReferenciasConsig"/>
+                                                        </div>
+                                                    </div>  
                                                     <div class="col-md-2" style="display: none;" id="EstadoConsigOM">
                                                         <div class="position-relative form-group" >
                                                             <label for="exampleEmail11" class="">Estado</label>
-                                                            <input type="text" class="form-control" id="EstadoConsig"/>
+                                                            <input type="text" class="form-control" id="EstadoConsig" value="Aguascalientes"/>
                                                         </div>
                                                     </div>                                                            
                                                 
@@ -448,10 +460,16 @@
                                                             </select> 
                                                         </div> 
                                                     </div>  
+                                                    <div class="col-md-2">
+                                                        <div class="position-relative form-group" >
+                                                            <label for="exampleEmail11" class="">Referencias</label>
+                                                            <input type="text" class="form-control" id="ReferenciasEnvio"/>
+                                                        </div>
+                                                    </div>  
                                                     <div class="col-md-2" style="display: none;" id="EstadoEnvioOM">
                                                         <div class="position-relative form-group" >
                                                             <label for="exampleEmail11" class="">Estado</label>
-                                                            <input type="text" class="form-control" id="EstadoEnvio"/>
+                                                            <input type="text" class="form-control" id="EstadoEnvio" value="Aguascalientes"/>
                                                         </div>
                                                     </div>                                                            
                                                 
