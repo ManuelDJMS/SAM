@@ -158,7 +158,8 @@ ini_set('display_errors', '0');
 						idPaqueteria,
 						Descripcion
 					FROM 
-						Paqueterias
+			
+            			Paqueterias
 					ORDER BY 
 						idPaqueteria";
 		$con = new Conexion();

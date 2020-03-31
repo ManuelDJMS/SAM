@@ -5,6 +5,7 @@ $(document).ready(function(){
     obtener_laboratorio();
     // obtener_articulos();
     obtener_registros();
+    obtener_servicios();
     // obtener_equipamiento();
     $('html').on('click','#check3',function(){
         if($(this).val() == 1){
@@ -104,6 +105,15 @@ $(document).ready(function(){
          }
    });
    //=======================================================================
+ // =========== EVENTO DE Seleccionar servicio ==============================
+         $('html').on('click', '.btnSeleccionar', function(){
+          //SE SIMULA EL CLICK DEL TAB 
+          $("#tab-0").get(0).click();
+          // ================ SE ASIGNA ID A EDITAR ===============================================
+          var id = $(this).attr('id').split('_')[1];
+          agregar_servicio(id);
+      });
+//========================================================================
 });
 
 // =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS===================
@@ -246,6 +256,99 @@ function obtener_laboratorio(){
     $('#Notas').val("");
     $("#exampleCustomCheckbox1").removeAttr("checked");
   }
+// ============================================================================================
+// =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS===================
+function obtener_servicios(){
+  var opc = "obtener_servicios";
+  $('.line-scale-pulse-out').show();
+  regenerar_tablaServicios();
+  $.post("dist/fw/articulos.php",{opc:opc},function(data){
+      if(data){
+          var html = '';
+          for (var i = 0; i < data.length; i++){
+            html += '<tr class="edita_error" id="error_' + $.trim(data[i].IdServicio) + '">';
+            html += '<td>' + $.trim(data[i].NoCatalogo) + '</td>';
+            html += '<td>' + $.trim(data[i].Servicio) + '</td>';
+            html += '<td>' + $.trim(data[i].PrecioBase) + '</td>';
+            html += '<td class="btnSeleccionar" id="edit_'+ data[i].IdServicio +'"><span class="font-icon-wrapper ion-android-add-circle" ></span></td>';
+            html += '</tr>';                   
+          }
+          $('#tablaServicios tbody').html(html);
+          $('#tablaServicios').DataTable({
+              "paging": true,
+              "lengthChange": true,
+              "searching": true,
+              "ordering": true,
+              "info": true,
+              "autoWidth": true
+          });
+      }
+      $('.line-scale-pulse-out').hide();
+  },'json');
+}
+ 
+function regenerar_tablaServicios(){
+  $('#div_registros2').html("");
+  var html = "";
+  html += '<table id="tablaServicios" class="table table-bordered table-striped dataTable">';
+  html += '<thead>';
+  html += '<tr>';
+  html += '<th>No. Catálogo</th>';
+  html += '<th>Servicio</th>';
+  html += '<th>Precio</th>';
+  html += '<th>Agregar</th>';
+  html += '</tr>';
+  html += '</thead>';
+  html += '<tbody>';
+  html += '</tbody>';
+  html += '</table>';
+  $('#div_registros2').html(html);
+}
+// =========================================================================
+// ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
+function agregar_servicio(id){
+  var opc = "agregar_servicio";
+  $('.line-scale-pulse-out').show();
+  $.post("dist/fw/articulos.php",{'opc':opc, 'id':id},function(data){
+      if(data){
+        // limpia_formulario()
+        $('#NoCatalogo').val(data.NoCatalogo);
+        $('#Servicio').val(data.Servicio);
+        $('#Unidad').val(data.Unidad);
+        $('#Observaciones').val(data.Observaciones);
+        $('#Comentarios').val(data.Comentarios);
+        $('#PrecioBase').val(data.PrecioBase);
+      }
+      else
+      {
+        alerta_error("Error", "Error al recibir los datos");
+      }
+      $('.line-scale-pulse-out').hide();
+  },'json');
+}
+// function limpia_formulario(){
+//   $('#itemNumber').val("");
+//   $('#Nombre').val("");
+//   $('#Marca').val("");
+//   $('#Modelo').val("");
+//   $('#Serie').val("");
+//   $('#Exactitud').val("");
+//   $('#Rango').val("");
+//   $('#DiasCalibracion').val("");
+//   $('#PesoAproximado').val("");
+//   $('#Intervalo').val("");
+//   $('#Ciclo').val("");
+//   $('#Lab').val("");
+//   $('#Descripcion').val("");
+//   $('#Metodo').val("");
+//   $('#Estandarizacion').val("");
+//   $('#Acreditacion').val("");
+//   $('#Acreditacion').val("");
+//   $('#Relacion').val("");
+//   $('#Especificaciones').val("");
+//   $('#Notas').val("");
+//   $("#exampleCustomCheckbox1").removeAttr("checked");
+// }
 // ============================================================================================
 // =========== ALERTAS================================
     function alerta(titulo, mensaje, icono){

@@ -62,9 +62,9 @@ ini_set('display_errors', '0');
                                                 ,[RelationItemNo],[CalibrationMethod],[Standardization],[Accreditation],[ServiceDescription],[Uncertainity],[Creo])
                          VALUES ('".$datos->Nombre."', '".$datos->Modelo."','".$datos->Exactitud."','".$datos->Marca."','".$datos->Serie."',
                                 '".$datos->Lab."','".$datos->Intervalo."','".$datos->Ciclo."','".$datos->DiasCalibracion."',
-                                    '".$datos->Notas."','".$datos->CActivo."','".$datos->itemNumber."','".$datos->Especificaciones."',
-                                    '".$datos->DiasCalibracion."','".$datos->PesoAproximado."','".$datos->Relacion."','".$datos->Metodo."',
-                                    '".$datos->Estandarizacion."','".$datos->Acreditacion."','".$datos->Descripcion."','".$datos->Rango."',".$_SESSION['iduser'].")";
+                                '".$datos->Notas."','".$datos->CActivo."','".$datos->itemNumber."','".$datos->Especificaciones."',
+                                '".$datos->DiasCalibracion."','".$datos->PesoAproximado."','".$datos->Relacion."','".$datos->Metodo."',
+                                '".$datos->Estandarizacion."','".$datos->Acreditacion."','".$datos->Descripcion."','".$datos->Rango."',".$_SESSION['iduser'].")";
         }
         else{
             $strQuery = "UPDATE Articulos SET 
@@ -97,6 +97,45 @@ ini_set('display_errors', '0');
         $con->cerrar();
         echo json_encode($res);
     }
+
+    elseif($opc=="obtener_servicios"){
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT * FROM [Catalogo-Servicios]";
+        $con->ejecutaQuery($strQuery);
+        if($con->getNum()>0){
+            $arrDatos = $con->getListaObjectos();
+            foreach ($arrDatos as $objDato) {
+                foreach ($objDato as $key => $value){
+                    if(is_string($value)){
+                        $objDato->$key = utf8_encode($value);
+                    }
+                }
+                $arrRespuesta[] = $objDato;
+            }
+            echo json_encode($arrRespuesta);
+        }
+        else{
+            echo json_encode(false);
+        }
+        $con->cerrar();
+    }
+
+    elseif($opc=="agregar_servicio"){
+        $id = $_POST['id'];
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT * FROM [Catalogo-Servicios] WHERE IdServicio = $id";
+        $con->ejecutaQuery($strQuery);
+        $obj = $con->getObjeto();
+        foreach ($obj as $key => $value) {
+            if(is_string($value)){
+                $obj->$key = utf8_encode($value);    
+            }
+        }
+        echo json_encode($obj);
+    }
+
    
     
 
