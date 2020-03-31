@@ -63,12 +63,14 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
+                                                                        
                                                                     </tbody>
                                                                 </table>
                                                             </div>
+                                                            
                                                         </div> 
-                                                        <!--animacion DE CARGANDO-->
-                                                        <div class="loader-wrapper d-flex justify-content-center align-items-center">
+                                                       <!--animacion DE CARGANDO-->
+                                                       <div class="loader-wrapper d-flex justify-content-center align-items-center">
                                                             <div class="loader">
                                                                 <div class="line-scale-pulse-out">
                                                                     <!--cada div es una linea de la animacion-->
@@ -80,11 +82,11 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!-------------------------------------->
+                                                        <!--------------------------------------> 
                                                     </div>
                                                 </div>
                                         </div>
-                                    </div>
+                                    </div>           
                                 </div>
                                 <div class="col-md-4">
                                     <div class="main-card mb-3 card">
@@ -105,10 +107,16 @@
                     </div>
                 </div>        
                 <!-- TERMINA CODIGO PARA SELECCIONAR EMPRESA Y CONTACTO -->
-                <div class="row">
+                <div class="row">  
                     <div class="col-md-6"> 
+                        <div class="card-header-tab card-header">
+                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                <i class="header-icon lnr-list icon-gradient bg-happy-itmeo"> </i>
+                                    Lista de Artículos
+                            </div>
+                        </div>
                         <div class="main-card mb-8 card">
-                            <div class="card-body"><h5 class="card-title" >Lista de Artículos</h5> 
+                            <div class="card-body">
                                 <div id="div_registros2" class="box-body">
                                     <table id="example2" class="table table-bordered table-striped dataTable">
                                         <thead>
@@ -128,7 +136,13 @@
                     </div>
                     <div class="col-md-6"> 
                         <div class="main-card mb-8 card">
-                            <div class="card-body"><h5 class="card-title" >Información de Equipamiento</h5>  
+                            <div class="card-header-tab card-header">
+                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                    <i class="header-icon pe-7s-note2 icon-gradient bg-happy-itmeo"> </i>
+                                    Información de Equipamiento
+                                </div>
+                            </div>
+                            <div class="card-body">
                                 <div class="form-row">
                                     <div class="col-md-8">
                                         <div class="position-relative form-group">

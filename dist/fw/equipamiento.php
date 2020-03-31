@@ -103,7 +103,7 @@ ini_set('display_errors', '0');
     elseif($opc == 'obtener_articulos'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM [articulos-prueba]";
+        $strQuery = "SELECT * FROM Articulos";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();
@@ -126,7 +126,7 @@ ini_set('display_errors', '0');
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM [articulos-prueba] WHERE idArticulo = $id";
+        $strQuery = "SELECT * FROM Articulos WHERE EquipId = $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
@@ -184,10 +184,10 @@ ini_set('display_errors', '0');
     elseif($opc == 'obtener_equipamiento'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT eq.idEquipamiento,e.RazonSocial,c.Nombre, c.Apellidos,eq.MetasId,ap.Descripcion,ap.Marca,ap.Modelo,eq.id,eq.Serie FROM Empresas e INNER JOIN Direcciones d ON e.ClaveEmpresa = d.ClaveEmpresa
+        $strQuery = "SELECT eq.idEquipamiento,e.RazonSocial,c.Nombre, c.Apellidos,eq.MetasId,ap.EquipmentName,ap.Mfr,ap.Model,eq.id,eq.Serie FROM Empresas e INNER JOIN Direcciones d ON e.ClaveEmpresa = d.ClaveEmpresa
         INNER JOIN Contactos c on c.IdDireccion =  d.IdDireccion
         INNER JOIN Equipamiento eq on c.ClaveContacto = eq.ClaveContacto
-        INNER JOIN [articulos-prueba] ap on eq.idArticulo =ap.idArticulo";
+        INNER JOIN Articulos ap on eq.idArticulo =ap.EquipId";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();

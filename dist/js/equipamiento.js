@@ -68,11 +68,11 @@ function obtener_articulos(){
         if(data){
             var html = '';
             for (var i = 0; i < data.length; i++){
-              html += '<tr class="edita_error" id="error_' + $.trim(data[i].idArticulo) + '">';
-              html += '<td>' + $.trim(data[i].Descripcion) + '</td>';
-              html += '<td>' + $.trim(data[i].Marca) + '</td>';
-              html += '<td>' + $.trim(data[i].Modelo) + '</td>';
-              html += '<td class="btnSeleccionar" id="edit_'+data[i].idArticulo+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
+              html += '<tr class="edita_error" id="error_' + $.trim(data[i].EquipId) + '">';
+              html += '<td>' + $.trim(data[i].EquipmentName) + '</td>';
+              html += '<td>' + $.trim(data[i].Mfr) + '</td>';
+              html += '<td>' + $.trim(data[i].Model) + '</td>';
+              html += '<td class="btnSeleccionar" id="edit_'+data[i].EquipId+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
               html += '</tr>';                   
             }
             $('#example2 tbody').html(html);
@@ -89,7 +89,7 @@ function obtener_articulos(){
     },'json');
   }
 
-function regenerar_tablaArticulos(){
+function regenerar_tablaArticulos(){                                                                                                                                           
   $('#div_registros2').html("");
   var html = "";
   html += '<table id="example2" class="table table-bordered table-striped dataTable">';
@@ -133,6 +133,7 @@ function obtener_registros(){
               "info": true,
               "autoWidth": true
           });
+          
       }
       $('.line-scale-pulse-out').hide();
   },'json');
@@ -203,10 +204,10 @@ function obtener_articulo(id){
   $.post("dist/fw/equipamiento.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_formularioArticulo()
-        $('#Articulo').val(data.Descripcion);
-        $('#idArt').text(data.idArticulo);
-        $('#Marca').val(data.Marca);
-        $('#Modelo').val(data.Modelo);
+        $('#Articulo').val(data.EquipmentName);
+        $('#idArt').text(data.EquipId);
+        $('#Marca').val(data.Mfr);
+        $('#Modelo').val(data.Model);
       }
       else
       {
@@ -267,12 +268,11 @@ function obtener_equipamiento(){
             html += '<td>' + $.trim(data[i].RazonSocial) + '</td>';
             html += '<td>' + $.trim(data[i].Nombre) + '</td>';
             html += '<td>' + $.trim(data[i].MetasId) + '</td>';
-            html += '<td>' + $.trim(data[i].Descripcion) + '</td>';
-            html += '<td>' + $.trim(data[i].Marca) + '</td>';
-            html += '<td>' + $.trim(data[i].Modelo) + '</td>';
+            html += '<td>' + $.trim(data[i].EquipmentName) + '</td>';
+            html += '<td>' + $.trim(data[i].Mfr) + '</td>';
+            html += '<td>' + $.trim(data[i].Model) + '</td>';
             html += '<td>' + $.trim(data[i].id) + '</td>';
-            html += '<td>' + $.trim(data[i].Serie) + '</td>';
-       
+            html += '<td>' + $.trim(data[i].Serie) + '</td>';      
             html += '</tr>';                   
           }
           $('#example3 tbody').html(html);

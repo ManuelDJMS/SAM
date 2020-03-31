@@ -77,6 +77,12 @@
                                             </i>Nuevo
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="equipamiento.php">
+                                            <i class="metismenu-icon">
+                                            </i>Agregar Equipamiento
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li>

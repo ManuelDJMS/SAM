@@ -197,6 +197,7 @@
                                     </div>   
                                 </div>       
                                 <button type="button" class="mt-2 btn btn-primary btnGuardar" id="btn_nuevo_0">Guardar</button>
+                                <button type="button" class="mt-2 btn btn-primary btnEditarG" >Editar</button> 
                             </div>     
                         </div>
                     </div>     
@@ -206,10 +207,24 @@
             <!-- ===================================INICIA PESTAÑA DE CONSULTAR============================================ -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div  class="main-card mb-3 card">
-                    <div class="card-body"><h5 class="card-title" >Lista de Artículos</h5> 
-                        <div id="div_registros3" class="box-body">
-                            
-                           
+                    <div class="card-body"><h5 class="card-title">Lista de Artículos</h5> 
+                        <div id="div_registros" class="box-body">
+                            <table id="tablaArticulos" class="table table-bordered table-striped dataTable">
+                                <thead>
+                                <tr>
+                                    <th>Num. Artículo</th>
+                                    <th>Descripción</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Exactitud</th>
+                                    <th>Rango</th>
+                                    <th>Seleccionar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>  
                         </div>    
                     </div><!-- /.box-body -->
                 </div>    

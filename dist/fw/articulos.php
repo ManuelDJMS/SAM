@@ -14,7 +14,7 @@ ini_set('display_errors', '0');
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM Empresas e INNER JOIN Direcciones d ON e.ClaveEmpresa = d.ClaveEmpresa";
+        $strQuery = "SELECT * FROM Articulos";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();
@@ -34,11 +34,11 @@ ini_set('display_errors', '0');
         $con->cerrar();
     }
 
-    elseif($opc=="obtener_articulo"){
+    elseif($opc=="obtener_registro"){
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM [articulos-prueba] WHERE idArticulo = $id";
+        $strQuery = "SELECT * FROM Articulos WHERE EquipId = $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
@@ -59,18 +59,39 @@ ini_set('display_errors', '0');
         if($datos->accion == 'nuevo'){
             $strQuery = "INSERT INTO Articulos ([EquipmentName],[Model],[Accuracy],[Mfr],[SrlNo],[Dept],[CALInterval],[CALCycle],[CALDue]
                                                 ,[ShortNotes],[IsActive],[ItemNumber],[AdditionalSepcification],[TurnAroundTime],[ApproxWeight]
-                                                ,[RelationItemNo],[CalibrationMethod],[Standardization],[Accreditation],[ServiceDescription],[Creo])
+                                                ,[RelationItemNo],[CalibrationMethod],[Standardization],[Accreditation],[ServiceDescription],[Uncertainity],[Creo])
                          VALUES ('".$datos->Nombre."', '".$datos->Modelo."','".$datos->Exactitud."','".$datos->Marca."','".$datos->Serie."',
                                 '".$datos->Lab."','".$datos->Intervalo."','".$datos->Ciclo."','".$datos->DiasCalibracion."',
                                     '".$datos->Notas."','".$datos->CActivo."','".$datos->itemNumber."','".$datos->Especificaciones."',
                                     '".$datos->DiasCalibracion."','".$datos->PesoAproximado."','".$datos->Relacion."','".$datos->Metodo."',
-                                    '".$datos->Estandarizacion."','".$datos->Acreditacion."','".$datos->Descripcion."',".$_SESSION['iduser'].")";
+                                    '".$datos->Estandarizacion."','".$datos->Acreditacion."','".$datos->Descripcion."','".$datos->Rango."',".$_SESSION['iduser'].")";
         }
-        // else{
-        //     $strQuery = "UPDATE [RelacionaU-UN] SET 
-        //     idUnidadNegocio = '".$datos->Laboratorio."'
-        //     WHERE idUsuario = '".$datos->idUsuario."'";
-        //  }
+        else{
+            $strQuery = "UPDATE Articulos SET 
+            [EquipmentName]	=	'".$datos->Nombre."', 
+            [Model]	=	'".$datos->Modelo."',
+            [Accuracy]	=	'".$datos->Exactitud."',
+            [Mfr]	=	'".$datos->Marca."',
+            [SrlNo]	=	'".$datos->Serie."',
+            [Dept]	=	'".$datos->Lab."',
+            [CALInterval]	=	'".$datos->Intervalo."',
+            [CALCycle]	=	'".$datos->Ciclo."',
+            [CALDue]	=	'".$datos->DiasCalibracion."',
+            [ShortNotes]	=	'".$datos->Notas."',
+            [IsActive]	=	'".$datos->CActivo."',
+            [ItemNumber]	=	'".$datos->itemNumber."',
+            [AdditionalSepcification]	=	'".$datos->Especificaciones."',
+            [TurnAroundTime]	=	'".$datos->DiasCalibracion."',
+            [ApproxWeight]	=	'".$datos->PesoAproximado."',
+            [RelationItemNo]	=	'".$datos->Relacion."',
+            [CalibrationMethod]	=	'".$datos->Metodo."',
+            [Standardization]	=	'".$datos->Estandarizacion."',
+            [Accreditation]	=	'".$datos->Acreditacion."',
+            [ServiceDescription]	=	'".$datos->Descripcion."',
+            [Uncertainity]	=	'".$datos->Rango."',
+            [FechaModificacion]	=	getdate()
+            WHERE EquipId = '".$datos->EquipId."'";
+         }
 
         $res = $con->ejecutaQuery($strQuery);
         $con->cerrar();
