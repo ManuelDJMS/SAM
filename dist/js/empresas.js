@@ -350,11 +350,10 @@ $(document).ready(function(){
       $('.btnGuardar').hide();
       //=======================================================================================
       // ================ SE ASIGNA ID A EDITAR ===============================================
-      alert("entra")
       var id = $(this).attr('id').split('_')[1];
       $('.btnEditarG').attr('id',$(this).attr('id'));
-      alert(id)
       obtener_registro(id);
+      obtener_direcciones(id);
       
   });
   //========================================================================
@@ -389,6 +388,11 @@ $(document).ready(function(){
     }
    });
    //=======================================================================
+    // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
+	$('html').on('click', '.btnEditarDir', function(){
+    
+   });
+ // =======================================================================
 });
 // =================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ============================
 function guardar_empresa(obj){
@@ -437,8 +441,11 @@ function obtener_registro(id){
         $('#NoProveedor').val(data.NumProvMetas);
         $('#AdminPaq').val(data.AdminPaq);
         $('#Observaciones').val(data.ObservacionesEmpresa);
+        // alert(data.Credito);
         $("#Credito option[value='"+ data.Credito +"']").attr("selected", true);
+        // alert(data.idPaqueteria);
         $("#Paqueteria option[value='"+ data.idPaqueteria +"']").attr("selected", true);
+
       }
       else
       {
@@ -480,6 +487,36 @@ function obtener_registros(){
         $('.line-scale-pulse-out').hide();
     },'json');
 }
+// =================================== CODIGO PARA OBTENER LAS DIRECCIONES DE LA EMPRESA SELECCIONADA=========================================================
+function obtener_direcciones(id){
+    var opc = "obtener_direcciones";
+    $('.line-scale-pulse-out').show();
+    regenerar_tabla_direcciones();
+    $.post("dist/fw/empresas.php",{opc:opc,'id':id},function(data){
+        if(data){
+            var html = '';
+            for (var i = 0; i < data.length; i++){
+                html += '<tr>';
+                html += '<td>' + $.trim(data[i].Compania) + '</td>';
+                html += '<td>' + $.trim(data[i].Domicilio) + '</td>';
+                html += '<td>' + $.trim(data[i].Ciudad) + '</td>';
+                html += '<td>' + $.trim(data[i].Estado) + '</td>';
+                html += '<td class="btnEditarDir" id="edit_'+data[i].idDireccion+'"><span class="font-icon-wrapper lnr-pencil" ></span></td>';
+                html += '</tr>';                        
+            }
+            $('#table_direcciones tbody').html(html);
+            $('#table_direcciones').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true
+            });
+        }
+        $('.line-scale-pulse-out').hide();
+    },'json');
+}
     
 function regenerar_tabla(){
     $('#div_registros').html("");
@@ -502,6 +539,24 @@ function regenerar_tabla(){
     html += '</table>';
     $('#div_registros').html(html);
 }
+function regenerar_tabla_direcciones(){
+    $('#div_registros_direcciones').html("");
+    var html = "";
+    html += '<table id="table_direcciones" class="table table-hover table-bordered table-striped dataTable">';
+    html += '<thead>';
+    html += '<tr>';
+    html += '<th>Compañia</th>';
+    html += '<th>Domicilio</th>';
+    html += '<th>Ciudad</th>';
+    html += '<th>Estado</th>';
+    html += '<th>Editar</th>';
+    html += '</tr>';
+    html += '</thead>';
+    html += '<tbody>';
+    html += '</tbody>';
+    html += '</table>';
+    $('#div_registros_direcciones').html(html);
+}
 
 function limpia_formulario(){
   $("#RazonSocial").val("");
@@ -513,8 +568,31 @@ function limpia_formulario(){
 	$("#CuentaMensajeria").val("");
 	$("#AdminPaq").val("");
 	$("#Paqueteria").val("");
-	// $("#exampleCustomSelect").val("");
   $("#Observaciones").val("");
+  // =================  DIRECCIONES ========================
+  $("#CompaniaFiscal").val("");
+  $("#DireccionFiscal").val("");
+  $("#CPFiscal").val("");
+  $("#CiudadFiscal").val("");
+  $("#ReferenciasFiscal").val("");
+  $("#PaisFiscal").val("México");
+  $("#EstadoFiscal").val("Aguascalientes");
+
+  $("#CompaniaConsig").val("");
+  $("#DireccionConsig").val("");
+  $("#CPConsig").val("");
+  $("#CiudadConsig").val("");
+  $("#ReferenciasConsig").val("");
+  $("#PaisConsig").val("México");
+  $("#EstadoConsig").val("Aguascalientes");
+
+  $("#CompaniaEnvio").val("");
+  $("#DireccionEnvio").val("");
+  $("#CPEnvio").val("");
+  $("#CiudadEnvio").val("");
+  $("#ReferenciasEnvio").val("");
+  $("#PaisEnvio").val("México");
+  $("#EstadoEnvio").val("Aguascalientes");
 }
 	function alerta(titulo, mensaje, icono){
     const swalWithBootstrapButtons = Swal.mixin({

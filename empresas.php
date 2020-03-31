@@ -502,6 +502,190 @@
                     </div>  
                     <!-- ================================================== AQUI TERMINA EL CODIGO DE LAS DIRECCIONES ========================================================== -->     
                 </form>
+                <!--  -->
+                <div class="row" id="EditarDirecciones">
+                    <div class="col-md-12 col-lg-6 col-xl-4">
+                        <div class="mb-3 card">
+                            <div class="card-header-tab card-header">
+                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                    <i class="header-icon lnr-spell-check icon-gradient bg-happy-itmeo"> </i>
+                                    Agregar Dirección
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <!-- ============================== INICIA EL PRIMER RENGLON ====================================================== -->
+                                <div class="form-row">
+                                    <div class="col-md-5">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail11" class="">Compañía</label>
+                                            <input type="text" class="form-control" id="CompaniaEditar"/>
+                                        </div>
+                                    </div>  
+                                    <div class="col-md-7">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail11" class="">Dirección</label>
+                                            <input type="text" class="form-control" id="DireccionEditar"/>
+                                        </div>
+                                    </div>    
+                                </div>
+                                <!-- ============================== TERMINA EL PRIMER RENGLON ====================================================== -->
+                                <!-- ============================== INICIA EL SEGUNDO RENGLON ====================================================== -->
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail11" class="">Código Postal</label>
+                                            <input type="text" class="form-control" id="CPEditar"/>
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-8">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail11" class="">Ciudad</label>
+                                            <input type="text" class="form-control" id="CiudadEditar"/>
+                                        </div>
+                                    </div>  
+                                </div>
+                                <!-- ============================== TERMINA EL SEGUNDO RENGLON ====================================================== -->
+                                <!-- ============================== INICIA EL TERCER RENGLON ====================================================== -->
+                                <div class="form-row">
+                                    <div class="col-md-5" id="EstadoSelectFiscal">
+                                        <div class="position-relative form-group"> 
+                                            <label for="exampleSelect" class="">Estado</label>  
+                                            <select name="Estado" id="EstadoListEditar" class="form-control">
+                                                <option value="Aguascalientes">Aguascalientes</option>
+                                                <option value="Baja California">Baja California</option>
+                                                <option value="Baja California Sur">Baja California Sur</option>
+                                                <option value="Campeche">Campeche</option>
+                                                <option value="Chiapas">Chiapas</option>
+                                                <option value="Chihuahua">Chihuahua</option>
+                                                <option value="Ciudad de México">Ciudad de México</option>
+                                                <option value="Coahuila">Coahuila</option>
+                                                <option value="Colima">Colima</option>
+                                                <option value="Durango">Durango</option>
+                                                <option value="Estado de México">Estado de México</option>
+                                                <option value="Guanajuato">Guanajuato</option>
+                                                <option value="Guerrero">Guerrero</option>
+                                                <option value="Hidalgo">Hidalgo</option>
+                                                <option value="Jalisco">Jalisco</option>
+                                                <option value="Michoacán">Michoacán</option>
+                                                <option value="Morelos">Morelos</option>
+                                                <option value="Nayarit">Nayarit</option>
+                                                <option value="Nuevo León">Nuevo León</option>
+                                                <option value="Oaxaca">Oaxaca</option>
+                                                <option value="Puebla">Puebla</option>
+                                                <option value="Querétaro">Querétaro</option>
+                                                <option value="Quintana Roo">Quintana Roo</option>
+                                                <option value="San Luis Potosí">San Luis Potosí</option>
+                                                <option value="Sinaloa">Sinaloa</option>
+                                                <option value="Sonora">Sonora</option>
+                                                <option value="Tabasco">Tabasco</option>
+                                                <option value="Tamaulipas">Tamaulipas</option>
+                                                <option value="Tlaxcala">Tlaxcala</option>
+                                                <option value="Veracruz">Veracruz</option>
+                                                <option value="Yucatán">Yucatán</option>
+                                                <option value="Zacatecas">Zacatecas</option>
+                                            </select> 
+                                        </div> 
+                                    </div>  
+                                    <div class="col-md-7">
+                                        <div class="position-relative form-group" >
+                                            <label for="exampleEmail11" class="">Referencias</label>
+                                            <input type="text" class="form-control" id="ReferenciasEditar"/>
+                                        </div>
+                                    </div>  
+                                </div>  
+                                <!-- ============================== TERMINA EL TERCER RENGLON ====================================================== -->
+                                <!-- ============================== INICIA EL CUARTO RENGLON ====================================================== --> 
+                                <div class="form-row" style="display: none;">                                                       
+                                    <div class="col-md-2" id="EstadoFiscalOM">
+                                        <div class="position-relative form-group" >
+                                            <label for="exampleEmail11" class="">Estado</label>
+                                            <input type="text" class="form-control" id="EstadoEditar" value="Aguascalientes"/>
+                                        </div>
+                                    </div>                                                            
+                                
+                                    <div class="col-md-2" id="PaisFiscalOM">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleEmail11" class="">País</label>
+                                            <input type="text" class="form-control" id="PaisEditar" value="México"/>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <!-- ============================== TERMINA EL CUARTO RENGLON ====================================================== -->
+                                <!-- ============================== INICIA EL QUINTO RENGLON ====================================================== -->
+                                <div class="form-row">
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group">
+                                            <div class="custom-checkbox custom-control">                            
+                                                <input type="checkbox" id="check" value="1"  class="custom-control-input" checked/>
+                                                <label class="custom-control-label" for="checkEditar">NACIONAL</label>
+                                            </div>   
+                                        </div>   
+                                    </div>  
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group">
+                                            <div class="custom-checkbox custom-control">                            
+                                                <input type="checkbox" id="checkenvio" value="0"  class="custom-control-input"/>
+                                                <label class="custom-control-label" for="checkenvioEditar">Envío</label>
+                                            </div>   
+                                        </div>   
+                                    </div>               
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group">
+                                            <div class="custom-checkbox custom-control">                            
+                                                <input type="checkbox" id="checkconsig" value="0"  class="custom-control-input"/>
+                                                <label class="custom-control-label" for="checkconsigEditar">Consignación</label>
+                                            </div>   
+                                        </div>   
+                                    </div>                 
+                                    <div class="col-md-3">
+                                        <div class="position-relative form-group">
+                                            <div class="custom-checkbox custom-control">                            
+                                                <input type="checkbox" id="checkenvio" value="0"  class="custom-control-input"/>
+                                                <label class="custom-control-label" for="checkenvioEditar">Envío</label>
+                                            </div>   
+                                        </div>   
+                                    </div>     
+                                </div>   
+                                <!-- ============================== TERMINA EL QUINTO RENGLON ====================================================== -->    
+                            </div>
+                            <ul class="nav flex-column">
+                                <li class="nav-item-btn text-center pt-4 pb-3 nav-item">
+                                    <button class="mb-2 mr-2 btn-pill btn btn-outline-2x btn-outline-success active">
+                                        <!-- <span class="mb-2 mr-2 btn-pill btn btn-outline-2x btn-outline-success active ">pulse</span> -->
+                                        Agregar Nueva Dirección
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 col-xl-8">
+                        <div class="mb-3 card">
+                            <div class="card-header-tab card-header">
+                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                    <i class="header-icon lnr-map-marker mr-3 icon-gradient bg-happy-itmeo"> </i>
+                                    Direcciones de la Empresa
+                                </div>
+                            </div>
+                            <div id="div_registros_direcciones" class="card-body">
+                                <table id="table_direcciones" class="table table-hover table-bordered table-striped dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Compañia</th>
+                                            <th>Domicilio</th>
+                                            <th>Ciudad</th>
+                                            <th>Estado</th>
+                                            <th>Editar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div><!-- /.card-body -->
+                        </div>
+                    </div>
+                </div>
+                <!--  -->
             </div><!-- TERMINA EL DIV tab-pane tabs-animation fade show active QUE CONTIENE LOS DOS TABS -->
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
@@ -524,7 +708,7 @@
 
                             </tbody>
                         </table>
-                    </div><!-- /.box-body -->
+                    </div><!-- /.card-body -->
                 </div>  
                 <!-- Codigo para la animacion de cargado -->
                 <div class="loader-wrapper d-flex justify-content-center align-items-center">
