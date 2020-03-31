@@ -51,7 +51,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="empresas.php">
+                                        <a href="articulos.php">
                                             <i class="metismenu-icon">
                                             </i>Nuevo
                                         </a>
