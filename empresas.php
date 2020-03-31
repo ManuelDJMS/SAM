@@ -142,6 +142,9 @@
                                 </div>          
                             </div> 
                             <!-- ===================================== TERMINA EL TERCER RENGLON =========================================== -->
+                            <button type="button" class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
+                                    <button type="button" class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info float-right btnEditarG" style="display: none;">Guardar Empresa</button> 
+                                    <button class="mt-2 btn btn-primary float-right btnValidar" style="display: none;">Guardar y validar</button> 
                         </div>
                     </div> <!-- TERMINA EL DIV main-card mb-3 card QUE CONTIENE TODO EL FORM DE EMPRESAS  -->
                     <!-- ================================================== AQUI INICIA EL CODIGO DE LAS DIRECCIONES ========================================================== -->
@@ -492,9 +495,6 @@
                                             </div><!-- AQUI TERMINA EL DIV DEL DATOS DE ENVIO -->
                                         </div>
                                     </div>
-                                    <button type="button" class="mb-2 btn-hover-shine btn btn-shadow btn-success float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
-                                    <button type="button" class="mt-2 btn btn-primary float-right btnEditarG" style="display: none;">Editar</button> 
-                                    <button class="mt-2 btn btn-primary float-right btnValidar" style="display: none;">Guardar y validar</button> 
                                 </div>
                             </div>
                             
@@ -502,8 +502,8 @@
                     </div>  
                     <!-- ================================================== AQUI TERMINA EL CODIGO DE LAS DIRECCIONES ========================================================== -->     
                 </form>
-                <!--  -->
-                <div class="row" id="EditarDirecciones">
+                <!-- ==========================================     INICIA EL CODIGO PARA MODIFICAR Y CREAR DIRECCIONES EN EMPRESAS ESPECIFICAS ================================ -->
+                <div class="row" id="EditarDirecciones" style="display: none;">
                     <div class="col-md-12 col-lg-6 col-xl-4">
                         <div class="mb-3 card">
                             <div class="card-header-tab card-header">
@@ -515,13 +515,39 @@
                             <div class="card-body">
                                 <!-- ============================== INICIA EL PRIMER RENGLON ====================================================== -->
                                 <div class="form-row">
-                                    <div class="col-md-5">
+                                    <div class="col-md-7">
                                         <div class="position-relative form-group">
                                             <label for="exampleEmail11" class="">Compañía</label>
                                             <input type="text" class="form-control" id="CompaniaEditar"/>
                                         </div>
                                     </div>  
-                                    <div class="col-md-7">
+                                    <div class="col-md-5">
+                                        <div class="position-relative form-group">
+                                            <label for="exampleCustomSelect" class="">Tipo</label>
+                                            <select type="select" id="ListEmpresas" class="custom-select">
+                                                <option></option>
+                                                <option value="A.C.">A.C.</option>
+                                                <option value="S.A.B.">S.A.B.</option>
+                                                <option value="S.A.B. de C.V.">S.A.B. de C.V.</option>
+                                                <option value="S.A.S.">S.A.S.</option>
+                                                <option value="S.A.">S.A.</option>
+                                                <option value="S.A. de C.V.">S.A. de C.V.</option>
+                                                <option value="S.A.P.I.">S.A.P.I.</option>
+                                                <option value="S.A.P.I. de C.V.">S.A.P.I. de C.V.</option>
+                                                <option value="S.A.P.I.B.">S.A.P.I.B.</option>
+                                                <option value="S. de P.R. de R.L.">S. de P.R. de R.L.</option>
+                                                <option value="S. de R.L.">S. de R.L.</option>
+                                                <option value="S. de R.L. de C.V.">S. de R.L. de C.V.</option>
+                                                <option value="S. en N.C">S. en N.C</option>
+                                                <option value="S. Coop.">S. Coop.</option>
+                                                <option value="S.C.">S.C.</option>
+                                                <option value="S.S.S.">S.S.S.</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-12">
                                         <div class="position-relative form-group">
                                             <label for="exampleEmail11" class="">Dirección</label>
                                             <input type="text" class="form-control" id="DireccionEditar"/>
@@ -547,11 +573,10 @@
                                 <!-- ============================== TERMINA EL SEGUNDO RENGLON ====================================================== -->
                                 <!-- ============================== INICIA EL TERCER RENGLON ====================================================== -->
                                 <div class="form-row">
-                                    <div class="col-md-5" id="EstadoSelectFiscal">
-                                        <div class="position-relative form-group"> 
-                                            <label for="exampleSelect" class="">Estado</label>  
-                                            <select name="Estado" id="EstadoListEditar" class="form-control">
-                                                <option value="Aguascalientes">Aguascalientes</option>
+                                    <div class="col-md-5" id="EstadoSelectEditar">
+                                        <label for="exampleCustomSelect1" class="">Tipo</label>
+                                        <select id="Paqueteria2" class="form-control">
+                                        <option value="Aguascalientes">Aguascalientes</option>
                                                 <option value="Baja California">Baja California</option>
                                                 <option value="Baja California Sur">Baja California Sur</option>
                                                 <option value="Campeche">Campeche</option>
@@ -583,8 +608,11 @@
                                                 <option value="Veracruz">Veracruz</option>
                                                 <option value="Yucatán">Yucatán</option>
                                                 <option value="Zacatecas">Zacatecas</option>
-                                            </select> 
-                                        </div> 
+                                        </select>  
+                                        <!-- <select type="select" id="List" class="form-control">
+                                            <option></option>
+                                            
+                                        </select> -->
                                     </div>  
                                     <div class="col-md-7">
                                         <div class="position-relative form-group" >
@@ -595,15 +623,15 @@
                                 </div>  
                                 <!-- ============================== TERMINA EL TERCER RENGLON ====================================================== -->
                                 <!-- ============================== INICIA EL CUARTO RENGLON ====================================================== --> 
-                                <div class="form-row" style="display: none;">                                                       
-                                    <div class="col-md-2" id="EstadoFiscalOM">
+                                <div class="form-row" style="display: none;" id="EstadosEditar">                                                       
+                                    <div class="col-md-6">
                                         <div class="position-relative form-group" >
                                             <label for="exampleEmail11" class="">Estado</label>
                                             <input type="text" class="form-control" id="EstadoEditar" value="Aguascalientes"/>
                                         </div>
                                     </div>                                                            
                                 
-                                    <div class="col-md-2" id="PaisFiscalOM">
+                                    <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="exampleEmail11" class="">País</label>
                                             <input type="text" class="form-control" id="PaisEditar" value="México"/>
@@ -613,51 +641,58 @@
                                 <!-- ============================== TERMINA EL CUARTO RENGLON ====================================================== -->
                                 <!-- ============================== INICIA EL QUINTO RENGLON ====================================================== -->
                                 <div class="form-row">
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <div class="custom-checkbox custom-control">                            
-                                                <input type="checkbox" id="check" value="1"  class="custom-control-input" checked/>
-                                                <label class="custom-control-label" for="checkEditar">NACIONAL</label>
+                                                <input type="checkbox" id="checkEditar" value="1"  class="custom-control-input" checked/>
+                                                <label class="custom-control-label" for="checkEditar">Nacional</label>
                                             </div>   
                                         </div>   
                                     </div>  
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <div class="custom-checkbox custom-control">                            
-                                                <input type="checkbox" id="checkenvio" value="0"  class="custom-control-input"/>
-                                                <label class="custom-control-label" for="checkenvioEditar">Envío</label>
+                                                <input type="checkbox" id="checkFiscalEditar" value="0"  class="custom-control-input"/>
+                                                <label class="custom-control-label" for="checkFiscalEditar">Facturación</label>
                                             </div>   
                                         </div>   
-                                    </div>               
-                                    <div class="col-md-3">
+                                    </div>    
+                                </div>   
+                                <!-- ============================== TERMINA EL QUINTO RENGLON ====================================================== -->    
+                                <!-- ============================== INICIA EL sexto RENGLON ====================================================== -->
+                                <div class="form-row">             
+                                    <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <div class="custom-checkbox custom-control">                            
-                                                <input type="checkbox" id="checkconsig" value="0"  class="custom-control-input"/>
-                                                <label class="custom-control-label" for="checkconsigEditar">Consignación</label>
+                                                <input type="checkbox" id="checkConsigEditar" value="0"  class="custom-control-input"/>
+                                                <label class="custom-control-label" for="checkConsigEditar">Consignación</label>
                                             </div>   
                                         </div>   
                                     </div>                 
-                                    <div class="col-md-3">
+                                    <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <div class="custom-checkbox custom-control">                            
-                                                <input type="checkbox" id="checkenvio" value="0"  class="custom-control-input"/>
-                                                <label class="custom-control-label" for="checkenvioEditar">Envío</label>
+                                                <input type="checkbox" id="checkEnvio" value="0"  class="custom-control-input"/>
+                                                <label class="custom-control-label" for="checkEnvioEditar">Envío</label>
                                             </div>   
                                         </div>   
                                     </div>     
                                 </div>   
-                                <!-- ============================== TERMINA EL QUINTO RENGLON ====================================================== -->    
+                                <!-- ============================== TERMINA EL sexto RENGLON ====================================================== -->    
                             </div>
                             <ul class="nav flex-column">
                                 <li class="nav-item-btn text-center pt-4 pb-3 nav-item">
-                                    <button class="mb-2 mr-2 btn-pill btn btn-outline-2x btn-outline-success active">
-                                        <!-- <span class="mb-2 mr-2 btn-pill btn btn-outline-2x btn-outline-success active ">pulse</span> -->
+                                    <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success btnGuardarD" id="btn_nuevo_0">
                                         Agregar Nueva Dirección
+                                    </button>
+                                    <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info btnGuardarGD" style="display: none;">
+                                        Guardar
                                     </button>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                    <!-- ============================ CONSULTA DE DIRECCIONES DE UNA EMPRESA ESPECIFICA ========================= -->
                     <div class="col-md-12 col-lg-6 col-xl-8">
                         <div class="mb-3 card">
                             <div class="card-header-tab card-header">
@@ -674,6 +709,9 @@
                                             <th>Domicilio</th>
                                             <th>Ciudad</th>
                                             <th>Estado</th>
+                                            <th>Facturación</th>
+                                            <th>Consignación</th>
+                                            <th>Envio</th>
                                             <th>Editar</th>
                                         </tr>
                                     </thead>
@@ -684,6 +722,7 @@
                             </div><!-- /.card-body -->
                         </div>
                     </div>
+                    <!-- ======================================================================================================== -->
                 </div>
                 <!--  -->
             </div><!-- TERMINA EL DIV tab-pane tabs-animation fade show active QUE CONTIENE LOS DOS TABS -->

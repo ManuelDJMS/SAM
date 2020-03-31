@@ -2,7 +2,7 @@ $(document).ready(function(){
   // limpia_formulario();
   obtener_registros();
   obtener_paqueterias();
-  // ======================= EVENTO AL CHECK NACIONAL FISCAL================================================
+  // ======================= EVENTO AL CHECK NACIONAL FISCAL===============================================
   $('html').on('click','#check',function(){
     if($(this).val()== 1){
       $(this).val(0);
@@ -20,8 +20,8 @@ $(document).ready(function(){
       $('#PaisFiscal').val("México");
     }
   });
-  // ========================================================================================================
-  // ======================= EVENTO AL CHECK NACIONAL CONSIGNACION================================================
+  // ======================================================================================================
+  // ======================= EVENTO AL CHECK NACIONAL CONSIGNACION=========================================
   $('html').on('click','#check2',function(){
     if($(this).val()== 1){
       $(this).val(0);
@@ -39,7 +39,7 @@ $(document).ready(function(){
       $('#PaisConsig').val("México");
     }
   });
-  // ========================================================================================================
+  // ======================================================================================================
   // ======================= EVENTO AL CHECK NACIONAL ENVIO================================================
   $('html').on('click','#check3',function(){
     if($(this).val()== 1){
@@ -58,8 +58,25 @@ $(document).ready(function(){
       $('#PaisEnvio').val("México");
     }
   });
-  // ========================================================================================================
-  // ======================= EVENTO AL CHECK Consignacion en fiscal================================================
+  // ======================================================================================================
+  // ======================= EVENTO AL CHECK NACIONAL EDITAR===============================================
+  $('html').on('click','#checkEditar',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+      $('#EstadosEditar').show();
+      $('#EstadoSelectEditar').hide();
+      $('#EstadoEditar').val("");
+      $('#PaisEditar').val("");
+    }
+    else{
+      $(this).val(1);
+      $('#EstadosEditar').hide();
+      $('#EstadoSelectEditar').show();
+      $('#PaisEditar').val("México");
+    }
+  });
+  // ======================================================================================================
+  // ======================= EVENTO AL CHECK Consignacion en fiscal========================================
   $('html').on('click','#checkconsig',function(){
     
     if($(this).val() == "0"){
@@ -105,8 +122,8 @@ $(document).ready(function(){
       }
     }
   });
-  // ========================================================================================================
-  // ======================= EVENTO AL CHECK de envio en fiscal================================================
+  // ======================================================================================================
+  // ======================= EVENTO AL CHECK de envio en fiscal============================================
   $('html').on('click','#checkenvio',function(){
     
     if($(this).val() == "0"){
@@ -153,8 +170,8 @@ $(document).ready(function(){
       }
     }
   });
-  // ========================================================================================================
-  // ======================= EVENTO AL CHECK de envio en consig================================================
+  // ======================================================================================================
+  // ======================= EVENTO AL CHECK de envio en consig============================================
   $('html').on('click','#checkenvioC',function(){
     
     if($(this).val() == "0"){
@@ -200,10 +217,8 @@ $(document).ready(function(){
       }
     }
   });
+  // ======================= CAMBIO EN SELECT PARA TEXT ===================================================
   $('html').on('change', '#EstadoListFiscal', function(){
-    // alert("hola");
-    // $('#EstadoFiscal').val()=$(this).val();
-    // alert($(this).val());
     $('#EstadoFiscal').val($(this).val());
   });
   $('html').on('change', '#EstadoListConsig', function(){
@@ -212,9 +227,11 @@ $(document).ready(function(){
   $('html').on('change', '#EstadoListEnvio', function(){
     $('#EstadoEnvio').val($(this).val());
   });
-   
-  // ========================================================================================================
-  // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
+  $('html').on('change', '#EstadoListEditar', function(){
+    $('#EstadoEditar').val($(this).val());
+  });
+  //  =====================================================================================================
+  // ============================ EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================================
 	$('html').on('click', '.btnGuardar', function(){
      //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
       var obj = new Object();
@@ -340,14 +357,16 @@ $(document).ready(function(){
         alerta_error("Oops...","Faltan llenar algunos campos");
       }
     });
-  // =======================================================================
-  // =========== EVENTO DE EDITAR EN LA TABLA ==============================
+  // ======================================================================================================
+  // ======================== EVENTO DE EDITAR EN LA TABLA DE EMPRESAS ====================================
   $('html').on('click', '.btnEditar', function(){
       //SE SIMULA EL CLICK DEL TAB 
       $("#tab-0").get(0).click();
       //==================== SE MUESTRAN Y OCULTAN CIERTOS BOTONES =============================
       $('.btnEditarG').show();
       $('.btnGuardar').hide();
+      $('#accordion').hide();
+      $('#EditarDirecciones').show();
       //=======================================================================================
       // ================ SE ASIGNA ID A EDITAR ===============================================
       var id = $(this).attr('id').split('_')[1];
@@ -356,45 +375,56 @@ $(document).ready(function(){
       obtener_direcciones(id);
       
   });
-  //========================================================================
-  //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================
+  //=======================================================================================================
+  // ======================== EVENTO DE EDITAR EN LA TABLA DE DIRECCIONES =================================
+  $('html').on('click', '.btnEditarDir', function(){
+      //==================== SE MUESTRAN Y OCULTAN CIERTOS BOTONES =============================
+      $('.btnGuardarGD').show();
+      $('.btnGuardarD').hide();
+      $('#accordion').hide();
+      $('#EditarDirecciones').show();
+      //=======================================================================================
+      // ================ SE ASIGNA ID A EDITAR ===============================================
+      var id = $(this).attr('id').split('_')[1];
+      $('.btnGuardarGD').attr('id',$(this).attr('id'));
+      // alert(id);
+      obtener_direccion(id);
+      
+  });
+  //=======================================================================================================
+  //=============================== EVENTO DEL BOTON DE EDITAR Y GUARDAR ==================================
    $('html').on('click', '.btnEditarG', function(){
-    //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
-    var obj = new Object();
-    obj.RazonSocial = $.trim($('#RazonSocial').val());
-    obj.Tipo = $.trim($('#exampleCustomSelect').val());
-    obj.RFC = $.trim($('#RFC').val());
-    obj.Credito = $.trim($('#Credito').val());
-    obj.Descuento = $.trim($('#Descuento').val());
-    obj.NoProveedor = $.trim($('#NoProveedor').val());
-    obj.AdminPaq = $.trim($('#AdminPaq').val());
-    obj.Paqueteria = $("#Paqueteria option:selected").val();
-    obj.CuentaMensajeria = $.trim($('#CuentaMensajeria').val());
-    obj.Observaciones = $.trim($('#Observaciones').val());
-    if ($('#Access').val()==''){
-      obj.Access = 0;
-    }
-    else{
-      obj.Access = $.trim($('#Access').val());
-    }
-    obj.accion = $(this).attr("id").split('_')[0];
-    obj.ClaveEmpresa = $(this).attr("id").split('_')[1];
-    // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
-    if(obj.RazonSocial != ''){
-      guardar_empresa(obj);
-    }
-    else{
-      alerta_error("Oops...","Faltan llenar algunos campos");
-    }
+      //======= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO ========= 
+      var obj = new Object();
+      obj.RazonSocial = $.trim($('#RazonSocial').val());
+      obj.Tipo = $.trim($('#exampleCustomSelect').val());
+      obj.RFC = $.trim($('#RFC').val());
+      obj.Credito = $.trim($('#Credito').val());
+      obj.Descuento = $.trim($('#Descuento').val());
+      obj.NoProveedor = $.trim($('#NoProveedor').val());
+      obj.AdminPaq = $.trim($('#AdminPaq').val());
+      obj.Paqueteria = $("#Paqueteria option:selected").val();
+      obj.CuentaMensajeria = $.trim($('#CuentaMensajeria').val());
+      obj.Observaciones = $.trim($('#Observaciones').val());
+      if ($('#Access').val()==''){
+        obj.Access = 0;
+      }
+      else{
+        obj.Access = $.trim($('#Access').val());
+      }
+      obj.accion = $(this).attr("id").split('_')[0];
+      obj.ClaveEmpresa = $(this).attr("id").split('_')[1];
+      // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
+      if(obj.RazonSocial != ''){
+        guardar_empresa(obj);
+      }
+      else{
+        alerta_error("Oops...","Faltan llenar algunos campos");
+      }
    });
-   //=======================================================================
-    // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
-	$('html').on('click', '.btnEditarDir', function(){
-    
-   });
- // =======================================================================
+  //=======================================================================================================
 });
-// =================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ============================
+// =========================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ==================================
 function guardar_empresa(obj){
   var opc = "guardar_empresa";
   $.post("dist/fw/empresas.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
@@ -406,7 +436,8 @@ function guardar_empresa(obj){
       }
   },'json');
 }
-// ========================= METODO PÁRA OBTENER lAS PAQUETERIAS ======================
+//=========================================================================================================
+// ============================== METODO PÁRA OBTENER lAS PAQUETERIAS =====================================
 function obtener_paqueterias(){
 	var opc = 'obtener_paqueterias';
 	$.post("dist/fw/empresas.php",{opc:opc}, function(data){
@@ -423,8 +454,8 @@ function obtener_paqueterias(){
 		}
 	}, 'json');
 }
-// ===================================================================================
-// ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
+// ========================================================================================================
+// ============================== METODO PÁRA OBTENER UN REGISTRO PARA EDITAR =============================
 function obtener_registro(id){
   var opc = "obtener_registro";
   $('.line-scale-pulse-out').show();
@@ -454,7 +485,55 @@ function obtener_registro(id){
       $('.line-scale-pulse-out').hide();
   },'json');
 }
-// ============================================================================================
+// ========================================================================================================
+// ========================== METODO PÁRA OBTENER UNA DIRECCIONES PARA EDITAR =============================
+function obtener_direccion(id){
+  var opc = "obtener_direccion";
+  // $('.line-scale-pulse-out').show();
+  $.post("dist/fw/empresas.php",{'opc':opc, 'id':id},function(data){
+      if(data){
+        limpia_direcciones();
+        $('#CompaniaEditar').val(data.Compania.split(',')[0]);
+         if(data.Compania.split(',').length > 1 ){
+          $("#ListEmpresas option[value='"+ (data.Compania.split(',')[1]).trim()+"']").attr("selected", true);
+        }
+        $('#DireccionEditar').val(data.Domicilio);
+        $('#CPEditar').val(data.CP);
+        $('#CiudadEditar').val(data.Ciudad);
+        if(data.Pais == 'México'){
+            alert(data.Pais);
+          // alert( $('#EstadoListEditar').val());
+          // $("#EstadoListEditar option[value='"+ data.Credito +"']").attr("selected", true);
+          $("#Paqueteria2 option[value='"+ (data.Estado.trim()) +"']").attr("selected", true);
+        }
+        else{
+          $('#EstadosEditar').show();
+          $('#EstadoSelectEditar').hide();
+          $('#EstadoEditar').val(data.Estado);
+          $('#PaisEditar').val(data.Pais);
+        }
+        // $('#Referencias').val(data.Referencias);
+        // if(data.Facturacion==1){
+        //   $('#checkFiscalEditar').val(1);
+        //   $("#checkFiscalEditar").attr('checked',true);
+        // }
+        // if(data.Consignacion==1){
+        //   $('#checkConsigEditar').val(1);
+        //   $("#checkConsigEditar").attr('checked',true);
+        // }
+        // if(data.Envio==1){
+        //   $('#checkEnvioEditar').val(1);
+        //   $("#checkEnvioEditar").attr('checked',true);
+        // }
+      }
+      else
+      {
+        alerta_error("Error", "Error al recibir los datos");
+      }
+      $('.line-scale-pulse-out').hide();
+  },'json');
+}
+// ========================================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
     $('.line-scale-pulse-out').show();
@@ -487,7 +566,7 @@ function obtener_registros(){
         $('.line-scale-pulse-out').hide();
     },'json');
 }
-// =================================== CODIGO PARA OBTENER LAS DIRECCIONES DE LA EMPRESA SELECCIONADA=========================================================
+// ==================== CODIGO PARA OBTENER LAS DIRECCIONES DE LA EMPRESA SELECCIONADA=====================
 function obtener_direcciones(id){
     var opc = "obtener_direcciones";
     $('.line-scale-pulse-out').show();
@@ -517,7 +596,7 @@ function obtener_direcciones(id){
         $('.line-scale-pulse-out').hide();
     },'json');
 }
-    
+// ========================================================================================================
 function regenerar_tabla(){
     $('#div_registros').html("");
     var html = "";
@@ -593,6 +672,18 @@ function limpia_formulario(){
   $("#ReferenciasEnvio").val("");
   $("#PaisEnvio").val("México");
   $("#EstadoEnvio").val("Aguascalientes");
+}
+
+function limpia_direcciones(){
+  $("#CompaniaEditar").val("");
+  $("#DireccionEditar").val("");
+  $("#CPEditar").val("");
+  $("#CiudadEditar").val("");
+  $("#ReferenciasEditar").val("");
+  $("#PaisEditar").val("México");
+  $("#EstadoEditar").val("Aguascalientes");
+  // $("#EstadoListEditar option[value='Aguascalientes']").attr("selected", true);
+  $("#Paqueteria2").val("");
 }
 	function alerta(titulo, mensaje, icono){
     const swalWithBootstrapButtons = Swal.mixin({
