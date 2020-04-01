@@ -500,11 +500,8 @@ function obtener_direccion(id){
         $('#DireccionEditar').val(data.Domicilio);
         $('#CPEditar').val(data.CP);
         $('#CiudadEditar').val(data.Ciudad);
-        if(data.Pais == 'México'){
-            alert(data.Pais);
-          // alert( $('#EstadoListEditar').val());
-          // $("#EstadoListEditar option[value='"+ data.Credito +"']").attr("selected", true);
-          $("#Paqueteria2 option[value='"+ (data.Estado.trim()) +"']").attr("selected", true);
+        if(data.Pais === 'México'){
+          $("#EstadoListEditar").val(data.Estado);
         }
         else{
           $('#EstadosEditar').show();
@@ -512,19 +509,19 @@ function obtener_direccion(id){
           $('#EstadoEditar').val(data.Estado);
           $('#PaisEditar').val(data.Pais);
         }
-        // $('#Referencias').val(data.Referencias);
-        // if(data.Facturacion==1){
-        //   $('#checkFiscalEditar').val(1);
-        //   $("#checkFiscalEditar").attr('checked',true);
-        // }
-        // if(data.Consignacion==1){
-        //   $('#checkConsigEditar').val(1);
-        //   $("#checkConsigEditar").attr('checked',true);
-        // }
-        // if(data.Envio==1){
-        //   $('#checkEnvioEditar').val(1);
-        //   $("#checkEnvioEditar").attr('checked',true);
-        // }
+        $('#ReferenciasEditar').val(data.Referencias);
+        if(data.Facturacion==1){
+          $('#checkFiscalEditar').val(1);
+          $("#checkFiscalEditar").attr('checked',true);
+        }
+        if(data.Consignacion==1){
+          $('#checkConsigEditar').val(1);
+          $("#checkConsigEditar").attr('checked',true);
+        }
+        if(data.Envio==1){
+          $('#checkEnvioEditar').val(1);
+          $("#checkEnvioEditar").attr('checked',true);
+        }
       }
       else
       {
@@ -682,8 +679,13 @@ function limpia_direcciones(){
   $("#ReferenciasEditar").val("");
   $("#PaisEditar").val("México");
   $("#EstadoEditar").val("Aguascalientes");
-  // $("#EstadoListEditar option[value='Aguascalientes']").attr("selected", true);
-  $("#Paqueteria2").val("");
+  $("#EstadoListEditar").val("");
+  $('#checkFiscalEditar').val(0);
+  $("#checkFiscalEditar").attr('checked',false);
+  $('#checkConsigEditar').val(0);
+  $("#checkConsigEditar").attr('checked',false);
+  $('#checkEnvioEditar').val(0);
+  $("#checkEnvioEditar").attr('checked',false);
 }
 	function alerta(titulo, mensaje, icono){
     const swalWithBootstrapButtons = Swal.mixin({
