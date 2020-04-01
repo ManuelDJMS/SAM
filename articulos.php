@@ -205,10 +205,7 @@
                                     </div>   
                                 </div>                                  
                             </div>
-                            
                         </div>   
-                        <button type="button" class="mt-2 btn btn-primary btnGuardar float-right"  id="btn_nuevo_0">Guardar</button>
-                        <button type="button" class="mt-2 btn btn-primary btnEditarG float-right" >Editar</button>  
                     </div>
                 </div>
 
@@ -227,32 +224,42 @@
                         <div data-parent="#accordion" id="collapseOne4" class="collapse">
                             <div class="card-body">
                                 <div class="row">  
-                                    <div class="col-md-6"> 
-                                        <div class="card-header-tab card-header">
-                                            <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                                <!-- <i class="header-icon lnr-list icon-gradient bg-happy-itmeo"> </i> -->
-                                                Lista de Servicios
+                                    <div class="col-md-6">
+                                        <div id="accordion" class="accordion-wrapper mb-3">
+                                            <div class="card">
+                                                <button type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block">
+                                                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                                        <i class="header-icon pe-7s-tools icon-gradient bg-amy-crisp"> </i>
+                                                                    Servicios Disponibles
+                                                    </div>
+                                                </button>
+                                                <div data-parent="#accordion" id="collapseOne5" class="collapse">
+                                                    <div class="card-body">
+                                                        <div class="main-card mb-8 card">    
+                                                            <div class="main-card mb-6 card">
+                                                                <div class="card-body">
+                                                                    <div id="div_registros2" class="box-body">
+                                                                        <table id="tablaServicios" class="table table-bordered table-striped dataTable">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>No. Catálogo</th>
+                                                                                    <th>Servicio</th>
+                                                                                    <th>Precio</th>
+                                                                                    <th>Agregar</th>                                                            
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>   
+                                                </div>                                  
                                             </div>
-                                        </div>
-                                        <div class="main-card mb-6 card">
-                                            <div class="card-body">
-                                                <div id="div_registros2" class="box-body">
-                                                    <table id="tablaServicios" class="table table-bordered table-striped dataTable">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>No. Catálogo</th>
-                                                                <th>Servicio</th>
-                                                                <th>Precio</th>
-                                                                <th>Agregar</th>                                                            
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        </div>  
+                                    </div>    
                                     <div class="col-md-6"> 
                                         <div class="main-card mb-8 card">
                                             <div class="card-header-tab card-header">
@@ -265,7 +272,7 @@
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <div class="position-relative form-group">
-                                                            <label for="exampleEmail11" name="idServicio" id="idServicio" class="">No.Catálogo</label>
+                                                            <label for="exampleEmail11" name="idServicio" id="idServicio" class="">0</label>
                                                             <label for="exampleEmail11" class="">No.Catálogo</label>
                                                             <input type="text" class="form-control" id="NoCatalogo" name="NoCatalogo" readonly="" required/>   
                                                         </div>
@@ -315,16 +322,19 @@
                                                         </div>
                                                     </div>
                                                 </div>              
-                                                <button type="button" class="mt-2 btn btn-primary float-right btnGuardar" id="btn_nuevo_0">Agregar</button>
+                                                <button type="button" class="mt-2 btn btn-primary float-right btnAgregar" id="btn_nuevo_0">Agregar</button>
                                             </div>
                                         </div>
                                     </div>     
-                                </div>                  
+                                </div>       
                             </div>
                         </div>   
                     </div>
+               
+                <button type="button" class="mt-2 btn btn-primary btnGuardar float-right"  id="btn_nuevo_0">Guardar</button>
+                <button type="button" class="mt-2 btn btn-primary btnEditarG float-right" >Editar</button>    
                 </div>
-            </div>    
+            </div>  
             <!-- ===================================TERMINA AGREGAR SERVICIOS============================================ -->   
             <!-- ===================================INICIA PESTAÑA DE CONSULTAR============================================ -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">

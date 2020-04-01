@@ -254,4 +254,33 @@ class Conexion {
         return sqlsrv_num_rows($this->res);
       }
     }
+
+    function ejecutaSQLTransacaArticulos($query1, $query2, $conn = null) 
+    {
+          if ($this->conn == null) 
+          {
+              $this->conectar();
+          }
+          if ( sqlsrv_begin_transaction( $this->conn ) === false ) {
+            die( print_r( sqlsrv_errors(), true ));
+      }
+
+          $this->res = sqlsrv_query($this->conn, $query1);
+          $this->res2 = sqlsrv_query($this->conn, $query2);
+        //   if ($this->res === false) {
+        //       die(print_r(sqlsrv_errors(), true));
+        //   } else {
+        //       return true;
+        //   }
+        if( $this->res && $this->res2) {
+            sqlsrv_commit( $this->conn );
+            // echo "Transaccion consolidada.<br />";
+            return true;
+      } else {
+            sqlsrv_rollback( $this->conn );
+            // die(print_r(sqlsrv_errors(), true));
+            return false;
+      }
+    
+    }
 }
