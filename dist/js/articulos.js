@@ -1,5 +1,7 @@
 $(document).ready(function(){
     $('.btnEditarG').hide();
+    $('.btnAgregar').hide();
+    $('.divServicios').hide();
     // $('#Empresa').hide();
     // limpia_formulario();
     obtener_laboratorio();
@@ -24,6 +26,7 @@ $(document).ready(function(){
       //==================== SE MUESTRAN Y OCULTAN CIERTOS BOTONES =============================
       $('.btnEditarG').show();
       $('.btnGuardar').hide();
+      $('.divServicios').show();
       //=======================================================================================
       // ================ SE ASIGNA ID A EDITAR ===============================================
       var id = $(this).attr('id').split('_')[1];
@@ -55,17 +58,19 @@ $(document).ready(function(){
        obj.Especificaciones = $.trim($('#Especificaciones').val());
        obj.Notas = $.trim($('#Notas').val());      
        obj.CActivo = $.trim($('#check3').val());
+       obj.IdServicio = $.trim($('#idServicio').text());
+       obj.Precio = $.trim($('#Precio').val());    
        obj.accion = $(this).attr("id").split('_')[1];
        obj.EquipId = $(this).attr("id").split('_')[2];
        // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
-       if(obj.itemNumber != '')
-       {
-            registrar_articulo(obj);
-          }
-        else
+          if(obj.itemNumber != '')
           {
-            alerta_error("INFORMACIÓN FALTANTE","Debe seleccionar un contacto");
-          }
+                registrar_articulo(obj);
+              }
+            else
+              {
+                alerta_error("INFORMACIÓN FALTANTE","Debe Ingresar información de artículo");
+              }       
     });
   // =======================================================================
   //============== EVENTO DEL BOTON DE EDITAR Y GUARDAR =====================
@@ -101,7 +106,7 @@ $(document).ready(function(){
          }
        else
          {
-           alerta_error("INFORMACIÓN FALTANTE","Debe seleccionar un contacto");
+           alerta_error("INFORMACIÓN FALTANTE","Debe Ingresar información de artículo");
          }
    });
    //=======================================================================
@@ -173,7 +178,12 @@ function regenerar_tabla(){
 
 // =========== FUNCIONES DE OBTENER ARTICULO================================
 function registrar_articulo(obj){
-  var opc = "registrar_articulo";
+  if (obj.IdServicio != '0'){
+    var opc = "registrar_articulo_servicio";
+  }else{
+    var opc = "registrar_articulo";
+  }
+  alert(opc);
   $.post("dist/fw/articulos.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
 		if(data){
       alerta("¡Guardado!", "Artículo registrado, ¿Desea seguir en agregando artículos", "success");
@@ -318,6 +328,8 @@ function agregar_servicio(id){
         $('#Observaciones').val(data.Observaciones);
         $('#Comentarios').val(data.Comentarios);
         $('#PrecioBase').val(data.PrecioBase);
+        $('#idServicio').text(data.IdServicio);
+        var idSer = data.IdServicio;
       }
       else
       {
