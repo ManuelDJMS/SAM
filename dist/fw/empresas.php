@@ -151,8 +151,17 @@
             $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
         }
         else{
+            if($datos->Tipo=='')
+            {
+                $razon=$datos->RazonSocial;
+            }
+            else
+            {
+                $razon=$datos->RazonSocial.", ".$datos->Tipo;
+            }
             $strQuery = "UPDATE EmpresasOrdenadas SET 
-            RazonSocial = '".$datos->RazonSocial.", ".$datos->Tipo."',
+            RazonSocial = '".$razon."',
+            idPaqueteria = ".$datos->Paqueteria.",
             FechaModificacion = getdate(),
             RFC = '".$datos->RFC."',
             Credito = '".$datos->Credito."',
@@ -170,7 +179,7 @@
         
     }
     // =======================================  CODIGO PARA GUARADAR LAS DIRECCIONES ===========================================================================
-    elseif ($opc == 'guardar_direcciones') {
+    elseif ($opc == 'guardar_direccion') {
         $obj = $_POST['obj'];
         $datos = json_decode($obj); 
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
@@ -178,32 +187,42 @@
         $con->conectar();
         // ========================== COSIGO PARA GUARDAR  ========================================
         if($datos->accion == 'nuevo'){
-            $strQuery2="if exists(SELECT Compania, ClaveEmpresa, Domicilio, Ciudad from DireccionesAcomodadas WHERE Compania='".$datos->DireccionEditar."' and
-            Domicilio='".$datos->DireccionEditar."' and Ciudad='".$datos->CiudadEditar."') begin UPDATE DireccionesAcomodadas
-            SET Facturacion=1 WHERE Compania='".$datos->CompaniaEditar."' and Domicilio='".$datos->DireccionEditar."' and Ciudad='".$datos->CiudadEditar."'; end else begin INSERT INTO DireccionesAcomodadas 
+            $strQuery="if exists(SELECT Compania, ClaveEmpresa, Domicilio, Ciudad from DireccionesAcomodadas WHERE Compania='".$datos->Direccion."' and
+            Domicilio='".$datos->Direccion."' and Ciudad='".$datos->Ciudad."') begin UPDATE DireccionesAcomodadas
+            SET Facturacion=1 WHERE Compania='".$datos->Compania."' and Domicilio='".$datos->Direccion."' and Ciudad='".$datos->Ciudad."'; end else begin INSERT INTO DireccionesAcomodadas 
             (idUsuario, Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais, Facturacion, Consignacion, Envio, Referencias) VALUES 
-            (".$_SESSION['iduser'].",'".$datos->CompaniaEditar."',(Select MAX(ClaveEmpresa) from EmpresasOrdenadas),'".$datos->DireccionEditar."','".$datos->CiudadEditar."','".$datos->EstadoEditar."','".$datos->CPEditar."',
-            '".$datos->PaisEditar."',1,0,0,'".$datos->ReferenciasEditar."') end;";
+            (".$_SESSION['iduser'].",'".$datos->Compania."',".$datos->ClaveEmpresa.",'".$datos->Direccion."','".$datos->Ciudad."','".$datos->Estado."','".$datos->CP."',
+            '".$datos->Pais."',1,0,0,'".$datos->Referencias."') end;";
             
             //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-            $res = $con->ejecutaSQLTransac($strQuery);
+            // $res = $con->ejecutaSQLTransac($strQuery);
         }
         // =========================================================================================================================================================
         // ========================= CODIGO PARA EDITAr ==========================================
         else{
-            $strQuery = "UPDATE EmpresasOrdenadas SET 
-            RazonSocial = '".$datos->RazonSocial.", ".$datos->Tipo."',
+            if($datos->Tipo=='')
+            {
+                $razon=$datos->Compania;
+            }
+            else
+            {
+                $razon=$datos->Compania.", ".$datos->Tipo;
+            }
+            $strQuery = "UPDATE DireccionesAcomodadas SET 
+            Compania = '".$razon."',
             FechaModificacion = getdate(),
-            RFC = '".$datos->RFC."',
-            Credito = '".$datos->Credito."',
-            CuentaMensajeria = '".$datos->CuentaMensajeria."',
-            Descuento = '".$datos->Descuento."',
-            NumProvMetas = '".$datos->NoProveedor."',
-            AdminPaq = '".$datos->AdminPaq."',
-            ObservacionesEmpresa = '".$datos->Observaciones."'
-            WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
-            $res = $con->ejecutaSQLTransac($strQuery);
+            Domicilio = '".$datos->Direccion."',
+            Ciudad = '".$datos->Ciudad."',
+            Estado = '".$datos->Estado."',
+            CP = '".$datos->CP."',
+            Facturacion = ".$datos->Facturacion.",
+            Consignacion = ".$datos->Consig.",
+            Envio = ".$datos->Envio.",
+            Referencias = '".$datos->Referencias."'
+            WHERE idDireccion = '".$datos->idDireccion."'";
+           
         }
+        $res = $con->ejecutaSQLTransac($strQuery);
         $con->cerrar();
         echo json_encode($res);
     }

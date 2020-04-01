@@ -8,8 +8,17 @@
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
 <script src="dist/js/empresas.js"></script>
-
+    <!-- <div class="sk-chase">
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+        <div class="sk-chase-dot"></div>
+    </div> -->
 <div class="app-main__outer">
+    <!-- <div class="loading" style="display:none;">Loading&#8230;</div> -->
+   
     <div class="app-main__inner">
         <div class="app-page-title">
             <div class="page-title-wrapper">
@@ -618,6 +627,7 @@
                                         <div class="position-relative form-group" >
                                             <label for="exampleEmail11" class="">Referencias</label>
                                             <input type="text" class="form-control" id="ReferenciasEditar"/>
+                                            <input type="text" class="form-control" id="ClaveEmpresa" style="display: none;"/>
                                         </div>
                                     </div>  
                                 </div>  
@@ -628,6 +638,7 @@
                                         <div class="position-relative form-group" >
                                             <label for="exampleEmail11" class="">Estado</label>
                                             <input type="text" class="form-control" id="EstadoEditar" value="Aguascalientes"/>
+                                            
                                         </div>
                                     </div>                                                            
                                 
@@ -672,7 +683,7 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <div class="custom-checkbox custom-control">                            
-                                                <input type="checkbox" id="checkEnvio" value="0"  class="custom-control-input"/>
+                                                <input type="checkbox" id="checkEnvioEditar" value="0"  class="custom-control-input"/>
                                                 <label class="custom-control-label" for="checkEnvioEditar">Envío</label>
                                             </div>   
                                         </div>   
@@ -750,10 +761,9 @@
                     </div><!-- /.card-body -->
                 </div>  
                 <!-- Codigo para la animacion de cargado -->
-                <div class="loader-wrapper d-flex justify-content-center align-items-center">
+                <!-- <div class="loader-wrapper d-flex justify-content-center align-items-center">
                     <div class="loader">
                         <div class="line-scale-pulse-out">
-                            <!--cada div es una linea de la animacion-->
                             <div></div>
                             <div></div> 
                             <div></div>
@@ -761,6 +771,11 @@
                             <div></div>
                         </div>
                     </div>
+                </div> -->
+                <div class="spinner-square" style="display: none;">
+                    <div class="square-1 square"></div>
+                    <div class="square-2 square"></div>
+                    <div class="square-3 square"></div>
                 </div>
             </div>  
             <!-- ===================================AQUI TERMINA EL CODIGO DE LAS COSULTAS ====================================================================== -->

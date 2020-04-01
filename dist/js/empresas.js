@@ -59,6 +59,36 @@ $(document).ready(function(){
     }
   });
   // ======================================================================================================
+  // ========================== EVENTO AL CHECK FACTURACION================================================
+  $('html').on('click','#checkFiscalEditar',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
+  // ======================================================================================================
+  // ========================== EVENTO AL CHECK CONSIGNACUI================================================
+  $('html').on('click','#checkConsigEditar',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
+  // ======================================================================================================
+  // ================================ EVENTO AL CHECK ENVIO================================================
+  $('html').on('click','#checkEnvioEditar',function(){
+    if($(this).val()== 1){
+      $(this).val(0);
+    }
+    else{
+      $(this).val(1);
+    }
+  });
+  // ======================================================================================================
   // ======================= EVENTO AL CHECK NACIONAL EDITAR===============================================
   $('html').on('click','#checkEditar',function(){
     if($(this).val()== 1){
@@ -343,8 +373,6 @@ $(document).ready(function(){
           }
         
         }
-       
-    
       // ==================================== TERMINA EL CODIGO SI SE REPITE LAS DIRECCIONES ======================================================
       obj.accion = $(this).attr("id").split('_')[1];
       obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
@@ -356,6 +384,34 @@ $(document).ready(function(){
         $(".btnValidar").get(0).click();
         alerta_error("Oops...","Faltan llenar algunos campos");
       }
+    });
+  // ======================================================================================================
+  // ============================ EVENTO DE EL BOTON GUARDAR (MANDAR dir)==================================
+	$('html').on('click', '.btnGuardarD', function(){
+     //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO ==============
+     var obj = new Object();
+     obj.Compania=$.trim($('#CompaniaEditar').val());
+     obj.Tipo=$.trim($('#ListEmpresas').val());
+     obj.Direccion=$.trim($('#DireccionEditar').val());
+     obj.CP=$.trim($('#CPEditar').val());
+     obj.Ciudad=$.trim($('#CiudadEditar').val());
+     obj.Referencias=$.trim($('#ReferenciasEditar').val());
+     obj.Estado=$.trim($('#EstadoEditar').val());
+     obj.Pais=$.trim($('#PaisEditar').val());
+     obj.Facturacion=$.trim($('#checkFiscalEditar').val());
+     obj.Consig=$.trim($('#checkConsigEditar').val());
+     obj.Envio=$.trim($('#checkEnvioEditar').val());
+     obj.ClaveEmpresa=$.trim($('#ClaveEmpresa').val());
+     obj.accion = $(this).attr("id").split('_')[1];
+     alert(obj.accion);
+     obj.idDireccion = $(this).attr("id").split('_')[2];
+     // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
+     if(obj.Compania != '' && obj.Direccion != ''){
+       guardar_direccion(obj);
+     }
+     else{
+       alerta_error("Oops...","Faltan llenar algunos campos");
+     }
     });
   // ======================================================================================================
   // ======================== EVENTO DE EDITAR EN LA TABLA DE EMPRESAS ====================================
@@ -379,17 +435,15 @@ $(document).ready(function(){
   // ======================== EVENTO DE EDITAR EN LA TABLA DE DIRECCIONES =================================
   $('html').on('click', '.btnEditarDir', function(){
       //==================== SE MUESTRAN Y OCULTAN CIERTOS BOTONES =============================
-      $('.btnGuardarGD').show();
-      $('.btnGuardarD').hide();
-      $('#accordion').hide();
-      $('#EditarDirecciones').show();
+      $('.btnGuardarGD').hide();
+      $('.btnGuardarD').show();
+      // $('#accordion').hide();
+      // $('#EditarDirecciones').show();
       //=======================================================================================
       // ================ SE ASIGNA ID A EDITAR ===============================================
       var id = $(this).attr('id').split('_')[1];
       $('.btnGuardarGD').attr('id',$(this).attr('id'));
-      // alert(id);
       obtener_direccion(id);
-      
   });
   //=======================================================================================================
   //=============================== EVENTO DEL BOTON DE EDITAR Y GUARDAR ==================================
@@ -423,16 +477,55 @@ $(document).ready(function(){
       }
    });
   //=======================================================================================================
+  //========================== EVENTO DEL BOTON DE EDITAR Y GUARDAR DIRECCION =============================
+  $('html').on('click', '.btnGuardarGD', function(){
+    var obj=new Object();
+    obj.Compania=$.trim($('#CompaniaEditar').val());
+    obj.Tipo=$.trim($('#ListEmpresas').val());
+    obj.Direccion=$.trim($('#DireccionEditar').val());
+    obj.CP=$.trim($('#CPEditar').val());
+    obj.Ciudad=$.trim($('#CiudadEditar').val());
+    obj.Referencias=$.trim($('#ReferenciasEditar').val());
+    obj.Estado=$.trim($('#EstadoEditar').val());
+    obj.Pais=$.trim($('#PaisEditar').val());
+    obj.Facturacion=$.trim($('#checkFiscalEditar').val());
+    obj.Consig=$.trim($('#checkConsigEditar').val());
+    obj.Envio=$.trim($('#checkEnvioEditar').val());
+    obj.accion = $(this).attr("id").split('_')[0];
+      obj.idDireccion = $(this).attr("id").split('_')[1];
+      // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
+      if(obj.Direccion != '' || obj.Compania !=''){
+        guardar_direccion(obj);
+      }
+      else{
+        alerta_error("Oops...","Faltan llenar algunos campos");
+      }
+  });
+  //=======================================================================================================
 });
 // =========================== METODO PARA EDITAR Y GUARDAR LAS EMPRESAS ==================================
 function guardar_empresa(obj){
   var opc = "guardar_empresa";
   $.post("dist/fw/empresas.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
       if(data){
-          alerta("¡Guardado!", "La empresa de guardo correctamente, ¿desea seguir en 'Empresas'", "success");
+          alerta("¡Guardado!", "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'", "success");
           obtener_registros();
       }else{
           alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
+      }
+  },'json');
+}
+//=========================================================================================================
+// =========================== METODO PARA EDITAR Y GUARDAR LAS DIRECCIONES ==================================
+function guardar_direccion(obj){
+  var opc = "guardar_direccion";
+  $.post("dist/fw/empresas.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
+      if(data){
+          limpia_direcciones();
+          alerta_success("¡Guardado!", "La dirección se guardó correctamente");
+          obtener_direcciones($('#ClaveEmpresa').val());
+      }else{
+          alerta_error("¡Error!","Error al guardar los datos o la dirección ya esta registrada");
       }
   },'json');
 }
@@ -464,7 +557,7 @@ function obtener_registro(id){
         limpia_formulario()
         $('#RazonSocial').val(data.RazonSocial.split(',')[0]);
          if(data.RazonSocial.split(',').length > 1 ){
-          $("#exampleCustomSelect option[value='"+ (data.RazonSocial.split(',')[1]).trim()+"']").attr("selected", true);
+          $('#exampleCustomSelect').val((data.RazonSocial.split(',')[1]).trim());
         }
         $('#RFC').val(data.RFC);
         $('#CuentaMensajeria').val(data.CuentaMensajeria);
@@ -472,10 +565,9 @@ function obtener_registro(id){
         $('#NoProveedor').val(data.NumProvMetas);
         $('#AdminPaq').val(data.AdminPaq);
         $('#Observaciones').val(data.ObservacionesEmpresa);
-        // alert(data.Credito);
-        $("#Credito option[value='"+ data.Credito +"']").attr("selected", true);
-        // alert(data.idPaqueteria);
-        $("#Paqueteria option[value='"+ data.idPaqueteria +"']").attr("selected", true);
+        $('#Credito').val(data.Credito);
+        $('#Paqueteria').val(data.idPaqueteria);
+        $('#ClaveEmpresa').val(data.ClaveEmpresa);
 
       }
       else
@@ -489,18 +581,19 @@ function obtener_registro(id){
 // ========================== METODO PÁRA OBTENER UNA DIRECCIONES PARA EDITAR =============================
 function obtener_direccion(id){
   var opc = "obtener_direccion";
-  // $('.line-scale-pulse-out').show();
   $.post("dist/fw/empresas.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_direcciones();
         $('#CompaniaEditar').val(data.Compania.split(',')[0]);
          if(data.Compania.split(',').length > 1 ){
-          $("#ListEmpresas option[value='"+ (data.Compania.split(',')[1]).trim()+"']").attr("selected", true);
+          $('#ListEmpresas').val((data.Compania.split(',')[1]).trim());
         }
         $('#DireccionEditar').val(data.Domicilio);
         $('#CPEditar').val(data.CP);
         $('#CiudadEditar').val(data.Ciudad);
         if(data.Pais === 'México'){
+          $('#EstadosEditar').hide();
+          $('#EstadoSelectEditar').show();
           $("#EstadoListEditar").val(data.Estado);
         }
         else{
@@ -533,7 +626,7 @@ function obtener_direccion(id){
 // ========================================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
-    $('.line-scale-pulse-out').show();
+    $('.sk-chase').show();
     regenerar_tabla();
     $.post("dist/fw/empresas.php",{opc:opc},function(data){
         if(data){
@@ -560,7 +653,7 @@ function obtener_registros(){
                 "autoWidth": true
             });
         }
-        $('.line-scale-pulse-out').hide();
+        $('.sk-chase').hide();
     },'json');
 }
 // ==================== CODIGO PARA OBTENER LAS DIRECCIONES DE LA EMPRESA SELECCIONADA=====================
@@ -680,12 +773,13 @@ function limpia_direcciones(){
   $("#PaisEditar").val("México");
   $("#EstadoEditar").val("Aguascalientes");
   $("#EstadoListEditar").val("");
+  $("#ListEmpresas").val("");
   $('#checkFiscalEditar').val(0);
-  $("#checkFiscalEditar").attr('checked',false);
+  $("#checkFiscalEditar").removeAttr('checked');
   $('#checkConsigEditar').val(0);
-  $("#checkConsigEditar").attr('checked',false);
+  $("#checkConsigEditar").removeAttr('checked');
   $('#checkEnvioEditar').val(0);
-  $("#checkEnvioEditar").attr('checked',false);
+  $("#checkEnvioEditar").removeAttr('checked');
 }
 	function alerta(titulo, mensaje, icono){
     const swalWithBootstrapButtons = Swal.mixin({
@@ -718,6 +812,14 @@ function limpia_direcciones(){
   function alerta_error(titulo, texto){
     Swal.fire({
       icon: 'error',
+      title: titulo,
+      text: texto
+      // footer: '<a href>Why do I have this issue?</a>'
+    })
+  }
+  function alerta_success(titulo, texto){
+    Swal.fire({
+      icon: 'success',
       title: titulo,
       text: texto
       // footer: '<a href>Why do I have this issue?</a>'
