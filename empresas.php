@@ -5,6 +5,7 @@
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
 <link rel="stylesheet" href="dist/css/base.css">
+<link rel="stylesheet" href="dist/css/base1.css">
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
 <script src="dist/js/empresas.js"></script>
@@ -751,9 +752,9 @@
                     </div><!-- /.card-body -->
                 </div>  
                 <!-- Codigo para la animacion de cargado -->
-                <!-- <div class="loader-wrapper d-flex justify-content-center align-items-center">
+                <!-- <div class="loader-wrapper d-flex justify-content-center align-items-center" >
                     <div class="loader">
-                        <div class="line-scale-pulse-out">
+                        <div class="line-scale-pulse-out" style="display:none;">
                             <div></div>
                             <div></div> 
                             <div></div>
@@ -762,11 +763,6 @@
                         </div>
                     </div>
                 </div> -->
-                <div class="spinner-square" style="display: none;">
-                    <div class="square-1 square"></div>
-                    <div class="square-2 square"></div>
-                    <div class="square-3 square"></div>
-                </div>
             </div>  
             <!-- ===================================AQUI TERMINA EL CODIGO DE LAS COSULTAS ====================================================================== -->
         </div><!-- AQUI TERMINA EL DIV DEL TAB -->
