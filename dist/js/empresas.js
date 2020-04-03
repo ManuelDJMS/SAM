@@ -435,10 +435,9 @@ $(document).ready(function(){
   // ======================== EVENTO DE EDITAR EN LA TABLA DE DIRECCIONES =================================
   $('html').on('click', '.btnEditarDir', function(){
       //==================== SE MUESTRAN Y OCULTAN CIERTOS BOTONES =============================
-      $('.btnGuardarGD').hide();
-      $('.btnGuardarD').show();
-      // $('#accordion').hide();
-      // $('#EditarDirecciones').show();
+      $('.btnGuardarGD').show();
+      alert("sd");
+      $('.btnGuardarD').hide();
       //=======================================================================================
       // ================ SE ASIGNA ID A EDITAR ===============================================
       var id = $(this).attr('id').split('_')[1];
