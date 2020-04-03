@@ -768,5 +768,13 @@
         </div><!-- AQUI TERMINA EL DIV DEL TAB -->
     </div>
 </div>
-   
+<div class="preloader" style="display: none;">
+    <span class="loader"></span>
+    <div class="loader2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
     <?php include_once("footer.php");?>
