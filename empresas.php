@@ -8,17 +8,7 @@
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
 <script src="dist/js/empresas.js"></script>
-    <!-- <div class="sk-chase">
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-        <div class="sk-chase-dot"></div>
-    </div> -->
 <div class="app-main__outer">
-    <!-- <div class="loading" style="display:none;">Loading&#8230;</div> -->
-   
     <div class="app-main__inner">
         <div class="app-page-title">
             <div class="page-title-wrapper">
