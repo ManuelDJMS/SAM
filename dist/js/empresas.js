@@ -625,7 +625,7 @@ function obtener_direccion(id){
 // ========================================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
-    $('.preloader').show();
+    // $('.preloader').show();
     regenerar_tabla();
     $.post("dist/fw/empresas.php",{opc:opc},function(data){
         if(data){
@@ -652,7 +652,7 @@ function obtener_registros(){
                 "autoWidth": true
             });
         }
-        $('.preloader').hide();
+        // $('.preloader').hide();
     },'json');
 }
 // ==================== CODIGO PARA OBTENER LAS DIRECCIONES DE LA EMPRESA SELECCIONADA=====================
