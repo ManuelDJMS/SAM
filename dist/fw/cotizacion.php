@@ -227,21 +227,117 @@
         echo json_encode($res);
     }
     // ======================================
-    // ======== OPTENER PAQUETERIAS =============
-    elseif ($opc == 'obtener_paqueterias')
+    // ======== OPTENER LUGARSERVICIO =============
+    elseif ($opc == 'obtener_lugarServicio')
     {
 		$strQuery = "SELECT DISTINCT 
-						idPaqueteria,
+						idLugarServicio,
 						Descripcion
 					FROM 
-			
-            			Paqueterias
+                        LugarServicio
 					ORDER BY 
-						idPaqueteria";
+						idLugarServicio";
 		$con = new Conexion();
 	    $con->ejecutaQuery($strQuery);
 	    $arrDocumentos = array();
-	    //$arrDocumentos = $con->getListaObjectos();
+	    $arrRespuesta = $con->getListaObjectos();
+        foreach ($arrRespuesta as $objRespuesta){
+            foreach ($objRespuesta as $key => $value){
+                if(is_string($value)){
+                    $objRespuesta->$key = utf8_encode($value);    
+                }                
+            }
+            $arrDocumentos[] = $objRespuesta;
+        }
+	    $con->cerrar();
+	    echo json_encode($arrDocumentos);
+    }
+    // =====================================
+    // ======== OPTENER LUGARSERVICIO =============
+    elseif ($opc == 'obtener_tiempoEntrega')
+    {
+		$strQuery = "SELECT DISTINCT 
+						idTiempoEntrega,
+						Descripcion
+					FROM 
+                        TiempoEntrega
+					ORDER BY 
+						idTiempoEntrega";
+		$con = new Conexion();
+	    $con->ejecutaQuery($strQuery);
+	    $arrDocumentos = array();
+	    $arrRespuesta = $con->getListaObjectos();
+        foreach ($arrRespuesta as $objRespuesta){
+            foreach ($objRespuesta as $key => $value){
+                if(is_string($value)){
+                    $objRespuesta->$key = utf8_encode($value);    
+                }                
+            }
+            $arrDocumentos[] = $objRespuesta;
+        }
+	    $con->cerrar();
+	    echo json_encode($arrDocumentos);
+    }
+    // =====================================
+    // ======== OPTENER LUGARSERVICIO =============
+    elseif ($opc == 'obtener_terminosPago')
+    {
+		$strQuery = "SELECT DISTINCT 
+						idTerminoPago,
+						Descripcion
+					FROM 
+                        TerminosPago";
+		$con = new Conexion();
+	    $con->ejecutaQuery($strQuery);
+	    $arrDocumentos = array();
+	    $arrRespuesta = $con->getListaObjectos();
+        foreach ($arrRespuesta as $objRespuesta){
+            foreach ($objRespuesta as $key => $value){
+                if(is_string($value)){
+                    $objRespuesta->$key = utf8_encode($value);    
+                }                
+            }
+            $arrDocumentos[] = $objRespuesta;
+        }
+	    $con->cerrar();
+	    echo json_encode($arrDocumentos);
+    }
+    // =====================================
+    // ======== OPTENER LUGARSERVICIO =============
+    elseif ($opc == 'obtener_modalidad')
+    {
+		$strQuery = "SELECT DISTINCT 
+						idModalidad,
+						Descripcion
+					FROM 
+                        Modalidad";
+		$con = new Conexion();
+	    $con->ejecutaQuery($strQuery);
+	    $arrDocumentos = array();
+	    $arrRespuesta = $con->getListaObjectos();
+        foreach ($arrRespuesta as $objRespuesta){
+            foreach ($objRespuesta as $key => $value){
+                if(is_string($value)){
+                    $objRespuesta->$key = utf8_encode($value);    
+                }                
+            }
+            $arrDocumentos[] = $objRespuesta;
+        }
+	    $con->cerrar();
+	    echo json_encode($arrDocumentos);
+    }
+    // =====================================
+    // ======== OPTENER LUGARSERVICIO =============
+    elseif ($opc == 'obtener_precios')
+    {
+		$strQuery = "SELECT DISTINCT 
+						idPrecios,
+						Descripcion
+					FROM 
+                        Precios";
+		$con = new Conexion();
+	    $con->ejecutaQuery($strQuery);
+	    $arrDocumentos = array();
 	    $arrRespuesta = $con->getListaObjectos();
         foreach ($arrRespuesta as $objRespuesta){
             foreach ($objRespuesta as $key => $value){

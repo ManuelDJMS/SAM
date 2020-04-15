@@ -1,18 +1,6 @@
+'use strict';
 $(document).ready(function(){
     obtener_contactos();
-    // ======================= CAMBIO EN SELECT PARA TEXT ===================================================
-    $('html').on('change', '#EstadoListFiscal', function(){
-      $('#EstadoFiscal').val($(this).val());
-    });
-    $('html').on('change', '#EstadoListConsig', function(){
-      $('#EstadoConsig').val($(this).val());
-    });
-    $('html').on('change', '#EstadoListEnvio', function(){
-      $('#EstadoEnvio').val($(this).val());
-    });
-    $('html').on('change', '#EstadoListEditar', function(){
-      $('#EstadoEditar').val($(this).val());
-    });
     //  =====================================================================================================
     $('html').on('click', '#ObtenerArticulos', function(){
         obtener_articulos();
@@ -188,6 +176,15 @@ $(document).ready(function(){
         // limpia_formulario_contactos();
         obtener_contacto(id);
     });
+    $('html').on('click', '.btnCotizacion', function(){
+      $("#tab-1").show();
+      $("#tab-1").get(0).click();
+      obtener_lugarServicio();
+      obtener_tiempoEntrega();
+      obtener_terminosPago();
+      obtener_modalidad();
+      obtener_precios();
+    });
     //=======================================================================================================
     // ======================== EVENTO PARA SELECCIONAR ARTICULOS ===========================================
     $('html').on('click', '.btnArticulos', function(){
@@ -284,20 +281,93 @@ $(document).ready(function(){
     },'json');
   }
   //=========================================================================================================
-  // ============================== METODO PÁRA OBTENER lAS PAQUETERIAS =====================================
-  function obtener_paqueterias(){
-      var opc = 'obtener_paqueterias';
-      $.post("dist/fw/empresas.php",{opc:opc}, function(data){
+  // ============================== METODO PÁRA OBTENER LUGAR CONDICION =====================================
+  function obtener_lugarServicio(){
+      var opc = 'obtener_lugarServicio';
+      $.post("dist/fw/cotizacion.php",{opc:opc}, function(data){
           if(data){
-              var mySelect = $('#Paqueteria');
-              mySelect.append(
-                  $('<option></option>').val("0").html("")
-              );  
+              var mySelect = $('#LugarServicio');
+              
               for (var i = 0; i < data.length; i++){
                   mySelect.append(
-                      $('<option></option>').val(data[i].idPaqueteria).html(data[i].Descripcion)
+                      $('<option></option>').val(data[i].idLugarServicio).html(data[i].Descripcion)
                   );                       
               }
+              mySelect.append(
+                $('<option></option>').val("1").html("")
+            );  
+          }
+      }, 'json');
+  }
+  // ========================================================================================================
+  // ============================== METODO PÁRA OBTENER TIEMPO D ENTREGA ====================================
+  function obtener_tiempoEntrega(){
+      var opc = 'obtener_tiempoEntrega';
+      $.post("dist/fw/cotizacion.php",{opc:opc}, function(data){
+          if(data){
+              var mySelect = $('#TiempoEntrega');
+              for (var i = 0; i < data.length; i++){
+                  mySelect.append(
+                      $('<option></option>').val(data[i].idTiempoEntrega).html(data[i].Descripcion)
+                  );                       
+              }
+              mySelect.append(
+                $('<option></option>').val("2").html("")
+            );  
+          }
+      }, 'json');
+  }
+  // ========================================================================================================
+  // ============================== METODO PÁRA OBTENER TERMINOS DE PAGO ====================================
+  function obtener_terminosPago(){
+      var opc = 'obtener_terminosPago';
+      $.post("dist/fw/cotizacion.php",{opc:opc}, function(data){
+          if(data){
+              var mySelect = $('#TerminosPago');
+              for (var i = 0; i < data.length; i++){
+                  mySelect.append(
+                      $('<option></option>').val(data[i].idTerminoPago).html(data[i].Descripcion)
+                  );                       
+              }
+              mySelect.append(
+                $('<option></option>').val("1").html("")
+            );  
+          }
+      }, 'json');
+  }
+  // ========================================================================================================
+  // ============================== METODO PÁRA OBTENER TERMINOS DE PAGO ====================================
+  function obtener_modalidad(){
+      var opc = 'obtener_modalidad';
+      $.post("dist/fw/cotizacion.php",{opc:opc}, function(data){
+          if(data){
+              var mySelect = $('#Modalidad');
+              for (var i = 0; i < data.length; i++){
+                  mySelect.append(
+                      $('<option></option>').val(data[i].idModalidad).html(data[i].Descripcion)
+                  );                       
+              }
+              mySelect.append(
+                $('<option></option>').val("1").html("")
+            );  
+          }
+      }, 'json');
+  }
+  // ========================================================================================================
+  // ============================== METODO PÁRA OBTENER TERMINOS DE PAGO ====================================
+  function obtener_precios(){
+      var opc = 'obtener_precios';
+      $.post("dist/fw/cotizacion.php",{opc:opc}, function(data){
+          if(data){
+              var mySelect = $('#Precios');
+              for (var i = 0; i < data.length; i++){
+                  mySelect.append(
+                      $('<option></option>').val(data[i].idPrecio).html(data[i].Descripcion)
+                  );                       
+              }
+              mySelect.append(
+                $('<option></option>').val("1").html("")
+            );  
           }
       }, 'json');
   }
@@ -523,6 +593,35 @@ $(document).ready(function(){
           }
         })
     }
+
+
+      function alerta_borrar(titulo, mensaje, icono){
+      const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+        
+        swalWithBootstrapButtons.fire({
+          title: titulo,
+          text: mensaje,
+          icon: icono,
+          showCancelButton: true,
+          confirmButtonText: 'Aceptar',
+          cancelButtonText: 'Salir',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.value) {
+            location.reload();
+          } else if (
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            window.location="http://localhost:8080/dashboard/SAM/index.php";
+          }
+        })
+    }
     
     function alerta_error(titulo, texto){
       Swal.fire({
@@ -540,4 +639,48 @@ $(document).ready(function(){
         // footer: '<a href>Why do I have this issue?</a>'
       })
     }
+    //======================================= AQUI EMPIEZA EL CODIGO PARA MODIFICAR LA TABLA ===============================================
+    var app = angular.module('TablaDemo', []);
+    app.controller('TablaCtrl', ['$scope', function($scope) {
+    $scope.lista = [];
+
+    $scope.eliminar = function(row) {
+      if (confirm("¿Seguro que desea eliminar?")) {
+        $scope.lista.splice(row, 1);
+      }
+    };
+
+  $scope.agregar = function() {
+    $scope.lista.push({
+      sku: '',
+      descripcion: '',
+      marca: '',
+      modelo: '',
+      descripcion_servicio: ''
+    })
+  };
+
+  $scope.recuperarValores = function() {
+    console.log($scope.lista);
+    $("#JSON").text(JSON.stringify($scope.lista));
+  };
+}]);
+
+app.directive('editableTd', [function() {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+      element.css("cursor", "pointer");
+      element.attr('contenteditable', 'true');
+
+      element.bind('blur keyup change', function() {
+        scope.lista[attrs.row][attrs.field] = element.text();
+      });
+
+      element.bind('click', function() {
+        document.execCommand('selectAll', false, null)
+      });
+    }
+  };
+}]);
   

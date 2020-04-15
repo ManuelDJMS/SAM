@@ -9,6 +9,7 @@
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
 <script src="dist/js/cotizacion.js"></script>
+<!-- <script src="dist/js/tablacot.js"></script> -->
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -33,7 +34,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
+                <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1" style="display: none;">
                     <span>Información Específica</span>
                 </a>
             </li>
@@ -221,106 +222,61 @@
                                             <div class="menu-header-content">
                                                 <div>
                                                     <h5 class="menu-header-title" id="EmpresaContactoCot">
-                                                        <!-- Manuel de Jesús Morales Sánchez -->
+                                                        Manuel de Jesús Morales Sánchez
                                                     </h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                                <div class="widget-subheading opacity-10">
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            Contacto:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                </div>
-                                                 <!-- <div class="divider"></div> -->
-                                                <div class="widget-subheading opacity-10">
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            RFC:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                </div>
-                                                <div class="divider"></div>
-
-                                                <div class="widget-subheading opacity-10">
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            Domicilio:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                </div>
-                                                <div class="divider"></div>
-                                                <div class="widget-subheading opacity-10">
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            Código Postal:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            Código Postal33:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                </div>
-                                                <div class="divider"></div>
-                                                <div class="widget-subheading opacity-10">
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            Domicilio:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                </div>
-                                                <div class="divider"></div>
-                                                <div class="widget-subheading opacity-10">
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            Domicilio:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                </div>
-                                                <div class="divider"></div>
-                                                <div class="widget-subheading opacity-10">
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            Domicilio:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                </div>
-                                                <div class="divider"></div>
-                                                <div class="widget-subheading opacity-10">
-                                                    <span class="pr-2">
-                                                        <b class="text-dark">
-                                                            Domicilio:
-                                                        </b> 
-                                                        Manuel de Jesus morales Sanchez
-                                                    </span>
-                                                </div>
-                                                <div class="divider"></div>
-
-                                        </li>
-                                    </ul>
-                                    <ul class="nav flex-column">
+                                    <div class="card-body">
+                                        <p class="text-muted" id="ContactoCot">
+                                            <b class="text-dark">
+                                                Contacto:
+                                            </b> 
+                                            Manuel de Jesus Morales Sanchez.
+                                        </p>
+                                        <p class="text-muted" id="DomicilioCot">
+                                            <b class="text-dark">
+                                                Domicilio:
+                                            </b> 
+                                            Av. Insurgentes 245 Col. Nogales.
+                                        </p>
+                                        <p class="text-muted" id="CPCot">
+                                            <b class="text-dark">
+                                                Código Postal:
+                                            </b> 
+                                            49000.
+                                        </p>
+                                        <p class="text-muted" id="CiudadCot">
+                                            <b class="text-dark">
+                                                Ciudad:
+                                            </b> 
+                                            Ciudad Guzman.
+                                        </p>
+                                        <p class="text-muted" id="TelefonoCot">
+                                            <b class="text-dark">
+                                                Teléfono:
+                                            </b> 
+                                            3411621032.
+                                        </p>
+                                        <p class="text-muted" id="EmailCot">
+                                            <b class="text-dark">
+                                                Email:
+                                            </b> 
+                                            manueldjmsanchez@gmail.com
+                                        </p>
+                                    </div>
+                                   
+                                    <!-- <ul class="nav flex-column">
                                         <li class="nav-item-btn text-center pt-4 pb-3 nav-item">
                                             <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success btnCotizacion" id="btn_nuevo_0">
                                                 Crear Cotización
                                             </button>
-                                            <!-- <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info btnGuardarGD" style="display: none;">
+                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info btnGuardarGD" style="display: none;">
                                                 Guardar
-                                            </button> -->
+                                            </button>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </div>
                             </div>
                         </div>
@@ -331,26 +287,73 @@
                             <div class="card-header-tab card-header">
                                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                                     <i class="header-icon pe-7s-id mr-3 icon-gradient bg-happy-itmeo"> </i>
-                                    Contacto a Cotizar
+                                    Datos de Cotización
                                 </div>
                             </div>
-                            <div id="div_contactos" class="card-body">
-                                <table id="table_contactos" class="table table-hover table-bordered table-striped dataTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Apellidos</th>
-                                            <th>Compañia</th>
-                                            <th>RFC</th>
-                                            <th>Email</th>
-                                            <th>Teléfono</th>
-                                            <th>Seleccionar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    </tbody>
-                                </table>
+                            <div class="card-body">
+                                <!-- ===================================== INICIA EL PRIMER RENGLON =========================================== -->
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <div class="position-relative form-group">
+                                        <label for="exampleEmail11" class="">Vigencia</label>
+                                        <input type="text" class="form-control" name="daterange">
+                                    </div>
+                                </div>
+                                <div class="col-md-8">           
+                                    <div class="position-relative form-group"> 
+                                        <label for="exampleSelect" class="">Tiempo de Entrega</label>
+                                        <select id="TiempoEntrega" class="form-control">
+                                        </select>  
+                                    </div>   
+                                </div>  
+                            </div>
+                            <!-- ===================================== TERMINA EL PRIMER RENGLON =========================================== -->
+                            <!-- ===================================== INICIA EL SEGUNDO RENGLON =========================================== -->
+                            <div class="form-row">
+                                <div class="col-md-12">           
+                                    <div class="position-relative form-group"> 
+                                        <label for="exampleSelect" class="">Términos de Pago </label>
+                                        <select id="TerminosPago" class="form-control">
+                                        </select>  
+                                    </div>   
+                                </div>  
+                            </div>
+                            <!-- ===================================== TERMINA EL SEGUNDO RENGLON =========================================== -->
+                            <!-- ===================================== INICIA EL TERCER RENGLON =========================================== -->
+                            <div class="form-row">
+                                <div class="col-md-7">           
+                                    <div class="position-relative form-group"> 
+                                        <label for="exampleSelect" class="">Lugar de Servicio </label>
+                                        <select id="LugarServicio" class="form-control">
+                                        </select>  
+                                    </div>   
+                                </div>  
+                                <div class="col-md-5">           
+                                    <div class="position-relative form-group"> 
+                                        <label for="exampleSelect" class="">Modalidad </label>
+                                        <select id="Modalidad" class="form-control">
+                                        </select>  
+                                    </div>   
+                                </div>  
+                            </div>
+                            <!-- ===================================== TERMINA EL TERCER RENGLON =========================================== -->
+                            <!-- ===================================== INICIA EL CUARTO RENGLON =========================================== -->
+                            <div class="form-row">
+                                <div class="col-md-4">           
+                                    <div class="position-relative form-group"> 
+                                        <label for="exampleSelect" class="">Precios </label>
+                                        <select id="Precios" class="form-control">
+                                        </select>  
+                                    </div>   
+                                </div>  
+                                <div class="col-md-4">           
+                                    <div class="position-relative form-group"> 
+                                        <label for="exampleSelect" class="">Referencia </label>
+                                        <textarea rows=1 name="Observaciones" id="Referencia" class="form-control"></textarea>
+                                    </div>   
+                                </div>  
+                            </div>
+                            <!-- ===================================== TERMINA EL CUARTO RENGLON =========================================== -->
                             </div><!-- /.card-body -->
                         </div>
                     </div>
@@ -369,8 +372,8 @@
                             </button>
                         </div>
                     </div>
-                    <div id="div_articulos" class="card-body">
-                        <table id="table_articulos" class="table table-hover table-bordered table-striped dataTable">
+                    <div id="div_articulos" class="card-body" ng-controller="TablaCtrl">
+                        <!-- <table id="table_articulos" class="table table-hover table-bordered table-striped dataTable">
                             <thead>
                                 <tr>
                                     <th>N° de Artículo (SKU)</th>
@@ -384,7 +387,62 @@
                             <tbody>
 
                             </tbody>
-                        </table>
+                        </table> -->
+                        <!--  -->
+                        <!-- <div class="container" ng-controller="TablaCtrl"> -->
+                            <!-- <div class="panel panel-default"> -->
+                                <!-- <div class="panel-body"> -->
+                                    <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Partida</th>
+                                            <th>SKU</th>
+                                            <th>Descripción</th>
+                                            <th>Marca</th>
+                                            <th>Modelo</th>
+                                            <th>Descripción del Servicio</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in lista">
+                                            <td style="cursor: not-allowed;">
+                                                {{$index + 1}}
+                                            </td>
+                                            <td editable-td row="{{$index}}" field="nombres">
+                                                {{item.sku}}
+                                            </td>
+                                            <td editable-td row="{{$index}}" field="apellidos">
+                                                {{item.descripcion}}
+                                            </td>
+                                            <td editable-td row="{{$index}}" field="email">
+                                                {{item.marca}}
+                                            </td>
+                                            <td editable-td row="{{$index}}" field="email">
+                                                {{item.modelo}}
+                                            </td>
+                                            <td editable-td row="{{$index}}" field="email">
+                                                {{item.descripcion_servicio}}
+                                            </td>
+                                            <td>
+                                                <span class="pe-7s-trash icon-gradient bg-love-kiss" style="cursor: pointer;" ng-click='eliminar($index)' />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default" ng-click='agregar()'>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default" ng-click='recuperarValores()'>Recuperar Valores</button>
+                                    </div>
+                                    <br>
+                                    <br>
+                                    <!-- <div id='JSON' /> -->
+                                <!-- </div> -->
+                            <!-- </div> -->
+                        <!-- </div> -->
+                        <!--  -->
                     </div><!-- /.card-body -->
                 </div>
                 <!-- =============================================================================================== -->
