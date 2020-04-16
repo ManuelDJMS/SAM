@@ -4,12 +4,13 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-<!-- <link rel="stylesheet" href="dist/css/base.css">
-<link rel="stylesheet" href="dist/css/base1.css"> -->
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
+<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="assets/scripts/angular.min.js"></script>
+<!-- <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js'></script> -->
+
 <script src="dist/js/cotizacion.js"></script>
-<!-- <script src="dist/js/tablacot.js"></script> -->
+
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">

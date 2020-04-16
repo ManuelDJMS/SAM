@@ -24,7 +24,6 @@
         <!-- ====================== MENSAJES DE GUARDADO ======================================== -->
         <link rel="stylesheet" href="./assets/scripts/sweetalert2.min.css"/>
         <script src="./assets/scripts/sweetalert2.min.js"></script>
-        <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js'></script><script  src="./script.js"></script>
         <!-- ====================================================================================== -->
     </head>
   
