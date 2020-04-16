@@ -3,14 +3,13 @@
      include_once("validates.php");
      include_once("banner.php");
 ?>
-<!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
+<!--=============================== SCRIPTS DE ACCIONES ================================ -->
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
-<script src="assets/scripts/angular.min.js"></script>
-<!-- <script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js'></script> -->
-
+<!-- <script src="plugins/datatables/1.js"></script> -->
+<!-- <script src="assets/scripts/angular.min.js"></script> -->
 <script src="dist/js/cotizacion.js"></script>
-
+<!-- =================================================================================== -->
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -50,6 +49,7 @@
             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                 <div class="row" id="EditarDirecciones">
                     <div class="col-md-12 col-lg-6 col-xl-4">
+                        <!-- ==================== PRIMEROS DARTOS DEL CONTACTO ================================== -->
                         <div class="mb-3 card">
                             <div class="card-header-tab card-header">
                                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
@@ -117,6 +117,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ==================================================================================== -->
                     </div>
                     <!-- ============================ CONSULTA DE CONTACTOS A COTIZAR ========================= -->
                     <div class="col-md-12 col-lg-6 col-xl-8">
@@ -205,7 +206,7 @@
                         </table>
                     </div>
                 </div>   -->
-                <!--  -->
+                <!-- ============================= DATOS COMPLETOS DEL CLIENTE A COTIZAR ============================ -->
                 <div class="row" id="EditarDirecciones">
                     <div class="col-md-12 col-lg-6 col-xl-4">
                         <div class="mb-3 card">
@@ -268,21 +269,21 @@
                                         </p>
                                     </div>
                                    
-                                    <!-- <ul class="nav flex-column">
+                                    <ul class="nav flex-column">
                                         <li class="nav-item-btn text-center pt-4 pb-3 nav-item">
-                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success btnCotizacion" id="btn_nuevo_0">
+                                            <!-- <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success btnCotizacion" id="btn_nuevo_0">
                                                 Crear Cotización
-                                            </button>
-                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info btnGuardarGD" style="display: none;">
+                                            </button> -->
+                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info" id="addRow">
                                                 Guardar
                                             </button>
                                         </li>
-                                    </ul> -->
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- ============================ CONSULTA DE CONTACTOS A COTIZAR ========================= -->
+                    <!-- ============================ DATOS GENERALES DE LA COTIZACION ========================= -->
                     <div class="col-md-12 col-lg-6 col-xl-8">
                         <div class="mb-3 card">
                             <div class="card-header-tab card-header">
@@ -340,7 +341,7 @@
                             <!-- ===================================== TERMINA EL TERCER RENGLON =========================================== -->
                             <!-- ===================================== INICIA EL CUARTO RENGLON =========================================== -->
                             <div class="form-row">
-                                <div class="col-md-4">           
+                                <div class="col-md-3">           
                                     <div class="position-relative form-group"> 
                                         <label for="exampleSelect" class="">Precios </label>
                                         <select id="Precios" class="form-control">
@@ -350,16 +351,26 @@
                                 <div class="col-md-4">           
                                     <div class="position-relative form-group"> 
                                         <label for="exampleSelect" class="">Referencia </label>
-                                        <textarea rows=1 name="Observaciones" id="Referencia" class="form-control"></textarea>
+                                        <textarea rows=2 name="Observaciones" id="Referencia" class="form-control"></textarea>
+                                    </div>   
+                                </div>  
+                                <div class="col-md-5">           
+                                    <div class="position-relative form-group"> 
+                                        <label for="exampleSelect" class="">Observaciones </label>
+                                        <textarea rows=2 id="Observaciones" class="form-control">*La cotización fué realizada en base a la información recibida. Cualquier diferencia entre su solicitud y esta cotización contactar a Ventas*
+                                        </textarea>
                                     </div>   
                                 </div>  
                             </div>
                             <!-- ===================================== TERMINA EL CUARTO RENGLON =========================================== -->
+                            <button type="button" class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
+                            <button type="button" class="mb-2 mr-2 btn-pill btn-transition btn btn-outline-danger float-right btnCancelar">Cancelar</button>
                             </div><!-- /.card-body -->
                         </div>
                     </div>
                     <!-- ======================================================================================================== -->
                 </div>
+                <!-- ================================================================================================ -->
                 <!-- ============================ CONSULTA DE CATALOGOS DE ARTICULOS ========================= -->
                 <div class="mb-3 card">
                     <div class="card-header-tab card-header">
@@ -373,8 +384,8 @@
                             </button>
                         </div>
                     </div>
-                    <div id="div_articulos" class="card-body" ng-controller="TablaCtrl">
-                        <!-- <table id="table_articulos" class="table table-hover table-bordered table-striped dataTable">
+                    <div id="div_articulosCot">
+                        <table id="hola" class="display table table-hover table-bordered table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>N° de Artículo (SKU)</th>
@@ -382,68 +393,14 @@
                                     <th>Marca</th>
                                     <th>Modelo</th>
                                     <th>Descripción del Servicio</th>
-                                    <th>Elegir</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
 
                             </tbody>
-                        </table> -->
-                        <!--  -->
-                        <!-- <div class="container" ng-controller="TablaCtrl"> -->
-                            <!-- <div class="panel panel-default"> -->
-                                <!-- <div class="panel-body"> -->
-                                    <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Partida</th>
-                                            <th>SKU</th>
-                                            <th>Descripción</th>
-                                            <th>Marca</th>
-                                            <th>Modelo</th>
-                                            <th>Descripción del Servicio</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in lista">
-                                            <td style="cursor: not-allowed;">
-                                                {{$index + 1}}
-                                            </td>
-                                            <td editable-td row="{{$index}}" field="nombres">
-                                                {{item.sku}}
-                                            </td>
-                                            <td editable-td row="{{$index}}" field="apellidos">
-                                                {{item.descripcion}}
-                                            </td>
-                                            <td editable-td row="{{$index}}" field="email">
-                                                {{item.marca}}
-                                            </td>
-                                            <td editable-td row="{{$index}}" field="email">
-                                                {{item.modelo}}
-                                            </td>
-                                            <td editable-td row="{{$index}}" field="email">
-                                                {{item.descripcion_servicio}}
-                                            </td>
-                                            <td>
-                                                <span class="pe-7s-trash icon-gradient bg-love-kiss" style="cursor: pointer;" ng-click='eliminar($index)' />
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                    </table>
-                                    <div class="btn-group">
-                                        <button class="btn btn-default" ng-click='agregar()'>
-                                            <span class="glyphicon glyphicon-plus"></span>
-                                        </button>
-                                        <button type="button" class="btn btn-default" ng-click='recuperarValores()'>Recuperar Valores</button>
-                                    </div>
-                                    <br>
-                                    <br>
-                                    <!-- <div id='JSON' /> -->
-                                <!-- </div> -->
-                            <!-- </div> -->
-                        <!-- </div> -->
-                        <!--  -->
+                      
+                        </table>
                     </div><!-- /.card-body -->
                 </div>
                 <!-- =============================================================================================== -->

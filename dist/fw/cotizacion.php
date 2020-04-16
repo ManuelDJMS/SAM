@@ -400,6 +400,31 @@
         $con->cerrar();
 	}
 	//========================================
+    // ======== OBTENER ARTICULOS COT =============
+	elseif($opc == 'obtener_articulosCot'){
+        $id = $_POST['id'];
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT EquipId, ItemNumber, EquipmentName, Mfr, Model, ServiceDescription FROM SetupEquipment where EquipId= $id";
+        $con->ejecutaQuery($strQuery);
+        if($con->getNum()>0){
+            $arrDatos = $con->getListaObjectos();
+            foreach ($arrDatos as $objDato) {
+                foreach ($objDato as $key => $value){
+                    if(is_string($value)){
+                        $objDato->$key = utf8_encode($value);
+                    }
+                }
+                $arrRespuesta[] = $objDato;
+            }
+            echo json_encode($arrRespuesta);
+        }
+        else{
+            echo json_encode(false);
+        }
+        $con->cerrar();
+	}
+	//========================================
 	elseif($opc=="obtener_contacto"){
         $id = $_POST['id'];
         $con = new Conexion();
