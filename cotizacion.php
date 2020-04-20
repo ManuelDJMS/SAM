@@ -6,8 +6,6 @@
 <!--=============================== SCRIPTS DE ACCIONES ================================ -->
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
-<!-- <script src="plugins/datatables/1.js"></script> -->
-<!-- <script src="assets/scripts/angular.min.js"></script> -->
 <script src="dist/js/cotizacion.js"></script>
 <!-- =================================================================================== -->
 <div class="app-main__outer">
@@ -64,8 +62,7 @@
                                             <div class="menu-header-image opacity-2" style="background-image: url('assets/images/dropdown-header/city2.jpg');"></div>
                                             <div class="menu-header-content">
                                                 <div>
-                                                    <h5 class="menu-header-title" id="NombreContacto">
-                                                        <!-- Manuel de Jesús Morales Sánchez -->
+                                                    <h5 class="menu-header-title Nombre" id="NombreContacto_No">
                                                     </h5>
                                                 </div>
                                             </div>
@@ -78,15 +75,12 @@
                                                     <h5>
                                                         <span class="pr-2">
                                                             <b class="text-info" id="EmpresaContacto">
-                                                                <!-- 12 -->
                                                             </b> 
                                                         </span>
                                                     </h5>
                                                     <h5 class="widget-heading opacity-4" id="EmailContacto">
-                                                        <!-- correo -->
                                                     </h5>
                                                     <h5 class="widget-heading opacity-4" id="TelefonoContacto">
-                                                        <!-- telefono -->
                                                     </h5>
                                                 </div>
                                             </div>
@@ -129,7 +123,7 @@
                                 </div>
                             </div>
                             <div id="div_contactos" class="card-body">
-                                <table id="table_contactos" class="table table-hover table-bordered table-striped dataTable">
+                                <table style="width: 100%;" id="table_contactos" class="table table-hover table-bordered table-striped dataTable">
                                     <thead>
                                         <tr>
                                             <th>Nombre</th>
@@ -164,7 +158,7 @@
                         </div>
                     </div>
                     <div id="div_articulos" class="card-body">
-                        <table id="table_articulos" class="table table-hover table-bordered table-striped dataTable">
+                        <table style="width: 100%;" id="table_articulos" class="table table-hover table-bordered table-striped dataTable">
                             <thead>
                                 <tr>
                                     <th>N° de Artículo (SKU)</th>
@@ -224,48 +218,48 @@
                                             <div class="menu-header-content">
                                                 <div>
                                                     <h5 class="menu-header-title" id="EmpresaContactoCot">
-                                                        Manuel de Jesús Morales Sánchez
+                                                        <!-- Manuel de Jesús Morales Sánchez -->
                                                     </h5>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body" id="InformacionContacto">
                                         <p class="text-muted" id="ContactoCot">
-                                            <b class="text-dark">
+                                            <b class="text-dark" id="ContactoB" value="hola"> 
                                                 Contacto:
                                             </b> 
-                                            Manuel de Jesus Morales Sanchez.
+                                            <!-- Manuel de Jesus Morales Sanchez. -->
                                         </p>
                                         <p class="text-muted" id="DomicilioCot">
                                             <b class="text-dark">
                                                 Domicilio:
                                             </b> 
-                                            Av. Insurgentes 245 Col. Nogales.
+                                            <!-- Av. Insurgentes 245 Col. Nogales. -->
                                         </p>
                                         <p class="text-muted" id="CPCot">
                                             <b class="text-dark">
                                                 Código Postal:
                                             </b> 
-                                            49000.
+                                            <!-- 49000. -->
                                         </p>
                                         <p class="text-muted" id="CiudadCot">
                                             <b class="text-dark">
                                                 Ciudad:
                                             </b> 
-                                            Ciudad Guzman.
+                                            <!-- Ciudad Guzman. -->
                                         </p>
                                         <p class="text-muted" id="TelefonoCot">
                                             <b class="text-dark">
                                                 Teléfono:
                                             </b> 
-                                            3411621032.
+                                            <!-- 3411621032. -->
                                         </p>
                                         <p class="text-muted" id="EmailCot">
                                             <b class="text-dark">
                                                 Email:
                                             </b> 
-                                            manueldjmsanchez@gmail.com
+                                            <!-- manueldjmsanchez@gmail.com -->
                                         </p>
                                     </div>
                                    
@@ -274,7 +268,7 @@
                                             <!-- <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success btnCotizacion" id="btn_nuevo_0">
                                                 Crear Cotización
                                             </button> -->
-                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info" id="addRow">
+                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info" id="Prueba">
                                                 Guardar
                                             </button>
                                         </li>
@@ -384,15 +378,20 @@
                             </button>
                         </div>
                     </div>
-                    <div id="div_articulosCot">
-                        <table id="hola" class="display table table-hover table-bordered table-striped" style="width:100%">
+                    <div id="div_articulosCot" class="card-body">
+                        <table style="width: 100%;" id="articulosCot" class="display table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>N° de Artículo (SKU)</th>
+                                    <th>Partida</th>
+                                    <th>SKU</th>
                                     <th>Descripción</th>
                                     <th>Marca</th>
                                     <th>Modelo</th>
-                                    <th>Descripción del Servicio</th>
+                                    <th>Cantidad</th>
+                                    <th>Observaciones</th>
+                                    <th>N° Inventario</th>
+                                    <th>N° Serie</th>
+                                    <th>Observaciones del Servicio</th>
                                     <th></th>
                                 </tr>
                             </thead>

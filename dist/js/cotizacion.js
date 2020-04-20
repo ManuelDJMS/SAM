@@ -1,37 +1,52 @@
-var html = '';
+var counter = 1;
+
 $(document).ready(function(){
     obtener_contactos();
-    //  =====================================================================================================
+
+
+    //  ============================= OBTENER ARTICULOS =====================================================
     $('html').on('click', '#ObtenerArticulos', function(){
         obtener_articulos();
     });
-    // ======================== EVENTO DE EDITAR EN LA TABLA DE EMPRESAS ====================================
+    // ======================== EVENTO DE EDITAR EN LA TABLA DE CONTACTOS ===================================
     $('html').on('click', '.btnContacto', function(){
         var id = $(this).attr('id').split('_')[1];
         $('.btnCotizacion').attr('id',$(this).attr('id'));
         obtener_contacto(id);
     });
+    // ====================== EVENTO PARA PASAR A SEGUNDA VENTANA CON CONTACTO ==============================
     $('html').on('click', '.btnCotizacion', function(){
-      $("#tab-1").show();
-      $("#tab-1").get(0).click();
-      obtener_lugarServicio();
-      obtener_tiempoEntrega();
-      obtener_terminosPago();
-      obtener_modalidad();
-      obtener_precios();
+      var cont=$('.Nombre').attr('id').split('_')[1]
+      if ( cont === "No" ){
+        alerta_error("Oops...","No ha seleccionado ningún cliente");
+      }
+      else{
+        $("#tab-1").show();
+        $("#tab-1").get(0).click();
+        obtener_lugarServicio();
+        obtener_tiempoEntrega();
+        obtener_terminosPago();
+        obtener_modalidad();
+        obtener_precios();
+        var id = $(this).attr('id').split('_')[1];
+        obtener_contactoPlus(id);
+      }
     });
     //=======================================================================================================
     // ======================== EVENTO PARA SELECCIONAR ARTICULOS ===========================================
     $('html').on('click', '.btnArticulos', function(){
         // ================ SE ASIGNA ID A EDITAR ===============================================
         var id = $(this).attr('id').split('_')[1];
+        obtener_articulosCot(id);
     });
-    var table = $('#hola').DataTable({
-        columnDefs: [{
-            orderable: false,
-            targets: [1,2,3]
-        }]
-    });
+    //=======================================================================================================
+    // var table = $('#hola').DataTable({
+    //     columnDefs: [{
+    //         orderable: false,
+    //         targets: [1,2,3]
+    //     }]
+    // });
+   
    
       // $('#button').click( function() {
       //     var data = table.$('input, select').serialize();
@@ -44,14 +59,37 @@ $(document).ready(function(){
 
       // var t = $('#hola').DataTable();
       // var counter = 1;
-   
-    $('#addRow').on( 'click', function () {
-      // html += '<tr>';
-      // html += '<td>' + $.trim('data[i].Nombre') + '</td>';
-      // html += '</tr>';
-      // $('#hola tbody').html(html);
-      obtener_articulosCot(150);
-    } );
+      var table = $('#articulosCot').DataTable();
+
+      $("#Prueba").click(function() {
+        var data = table.row( $('#articulosCot').parents('tr') ).data();
+        alert( data[0] +"'s salary is: "+ data[ 5 ] );
+      });
+// })
+// })
+
+      //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
+      
+      $('#articulosCot tbody').on( 'click', 'tr', function () {
+          if ( $(this).hasClass('selected') ) {
+              $(this).removeClass('selected');
+          }
+          else {
+              table.$('tr.selected').removeClass('selected');
+              $(this).addClass('selected');
+          }
+      } );
+      //=====================================================================================================
+      //========================= ELIMINAR UN ROW DE LA TABLA DE COTIZACION =================================
+      $('html').on('click', '.btnEliminar', function () {
+          table.row('.selected').remove().draw( false );
+      } );
+      //=====================================================================================================
+      //========================= ELIMINAR UN ROW DE LA TABLA DE COTIZACION =================================
+      $('html').on('click', '.btnCancelar', function () {
+        location.reload();
+      } );
+      //=====================================================================================================
   });
   // ============================== METODO PÁRA OBTENER LUGAR CONDICION =====================================
   function obtener_lugarServicio(){
@@ -144,17 +182,57 @@ $(document).ready(function(){
       }, 'json');
   }
   // ========================================================================================================
-  // ============================== METODO PÁRA OBTENER UN REGISTRO PARA EDITAR =============================
+  // ============================== METODO PÁRA OBTENER UN CONTACTO PARA EDITAR =============================
   function obtener_contacto(id){
     var opc = "obtener_contacto";
     $('.preloader').show();
     $.post("dist/fw/cotizacion.php",{'opc':opc, 'id':id},function(data){
         if(data){
           // limpia_formulario()
-          $('#NombreContacto').text(data.Nombre + " " + data.Apellidos);
+          $('.Nombre').text(data.Nombre + " " + data.Apellidos);
+          $('.Nombre').attr('id', 'NombreContacto_' + data.Nombre);
           $('#EmpresaContacto').text(data.RazonSocial);
           $('#EmailContacto').text(data.Email);
           $('#TelefonoContacto').text(data.Tel);
+        }
+        else
+        {
+          alerta_error("Error", "Error al recibir los datos");
+        }
+        $('.preloader').hide();
+    },'json');
+  }
+  // ========================================================================================================
+  // ============================== METODO PÁRA OBTENER UN CONTACTO +++++++++++ =============================
+  function obtener_contactoPlus(id){
+    var opc = "obtener_contactoPlus";
+    $('.preloader').show();
+    $.post("dist/fw/cotizacion.php",{'opc':opc, 'id':id},function(data){
+        if(data){
+          $('#InformacionContacto').html("");
+          var html = "";
+          html += '<p class="text-muted" id="ContactoCot">';
+          html += '<b class="text-dark">Contacto:</b>';
+          html += data.Nombre + " " + data.Apellidos;
+          html += '</p>';
+          html += '<p class="text-muted" id="DomicilioCot">';
+          html += '<b class="text-dark">Domicilio:</b>';
+          html += data.Domicilio;
+          html += '</p>';
+          html += '<p class="text-muted" id="CPCot">';
+          html += '<b class="text-dark">Código Postal:</b>';
+          html += data.CP;
+          html += '</p>';
+          html += '<p class="text-muted" id="CiudadCot"><b class="text-dark">Ciudad:</b>';
+          html += data.Ciudad;
+          html += '</p>';
+          html += '<p class="text-muted" id="TelefonoCot"><b class="text-dark">Teléfono:</b>';
+          html += data.Tel;
+          html += '</p>';
+          html += '<p class="text-muted" id="EmailCot"><b class="text-dark">Email:</b>';
+          html += data.Email;
+          html += '</p>';
+          $('#InformacionContacto').html(html);
         }
         else
         {
@@ -199,32 +277,24 @@ $(document).ready(function(){
   // ================================== CODIGO PARA MANDAR LOS ARTICULOS A COTIZAR ==========================
   function obtener_articulosCot(id){
       var opc = "obtener_articulosCot";
-      // $('.preloader').show();
-      regenerar_articulosCot();
       $.post("dist/fw/cotizacion.php",{opc:opc, 'id':id},function(data){
           if(data){
-              // var html = '';
-              for (var i = 0; i < data.length; i++){
-                  html += '<tr>';
-                  html += '<td>' + $.trim(data[i].ItemNumber) + '</td>';
-                  html += '<td>' + $.trim(data[i].EquipmentName) + '</td>';
-                  html += '<td>' + $.trim(data[i].Mfr) + '</td>';
-                  html += '<td>' + $.trim(data[i].Model) + '</td>';
-                  html += '<td>' + $.trim(data[i].ServiceDescription) + '</td>';
-                  html += '<td class="btnEliminar" id="edit_'+data[i].EquipId+'"><span class="font-icon-wrapper lnr-select" ></span></td>';
-                  html += '</tr>';                        
-              }
-              $('#hola tbody').html(html);
-              // $('#table_contactos').DataTable({
-              //     "paging": true,
-              //     "lengthChange": true,
-              //     "searching": true,
-              //     "ordering": true,
-              //     "info": true,
-              //     "autoWidth": true
-              // });
+              var t = $('#articulosCot').DataTable();
+              t.row.add( [
+                counter,
+                data.ItemNumber,
+                data.EquipmentName,
+                data.Mfr,
+                data.Model,
+                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=2>',
+                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=20>',
+                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=15>',
+                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=15>',
+                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=20>',
+                '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="edit_'+data.EquipId+'"></button>'
+            ] ).draw( true );
+            counter++;
           }
-          // $('.preloader').hide();
       },'json');
   }
   // ==================== CODIGO PARA OBTENER LOS ARTICULOS A COTIZAR DE LA EMPRESA SELECCIONADA=====================
@@ -262,7 +332,7 @@ $(document).ready(function(){
   function regenerar_contactos(){
       $('#div_contactos').html("");
       var html = "";
-      html += '<table id="table_contactos" class="table table-hover table-bordered table-striped dataTable">';
+      html += '<table style="width: 100%;" id="table_contactos" class="table table-hover table-bordered table-striped dataTable">';
       html += '<thead>';
       html += '<tr>';
       html += '<th>Nombre</th>';
@@ -279,31 +349,11 @@ $(document).ready(function(){
       html += '</table>';
       $('#div_contactos').html(html);
   }
-  // ============================== CODIGO PARA REGENERAR LA TABLA DE CONTACTOS ==========================================================================
-  function regenerar_articulosCot(){
-      $('#div_articulosCot').html("");
-      var html = "";
-      html += '<table id="hola" class="table table-hover table-bordered table-striped display">';
-      html += '<thead>';
-      html += '<tr>';
-      html += '<th>SKU</th>';
-      html += '<th>Descripcion</th>';
-      html += '<th>Marca</th>';
-      html += '<th>Modelo</th>';
-      html += '<th>Descripción del Servicio</th>';
-      html += '<th></th>';
-      html += '</tr>';
-      html += '</thead>';
-      html += '<tbody>';
-      html += '</tbody>';
-      html += '</table>';
-      $('#div_articulosCot').html(html);
-  }
   // ============================== CODIGO PARA REGENERAR LA TABLA DE ARTICULOS ==========================================================================
   function regenerar_tabla_articulos(){
       $('#div_articulos').html("");
       var html = "";
-      html += '<table id="table_articulos" class="table table-hover table-bordered table-striped dataTable">';
+      html += '<table style="width: 100%;" id="table_articulos" class="table table-hover table-bordered table-striped dataTable">';
       html += '<thead>';
       html += '<tr>';
       html += '<th>N° de Artículo</th>';

@@ -407,21 +407,13 @@
         $con->conectar();
         $strQuery = "SELECT EquipId, ItemNumber, EquipmentName, Mfr, Model, ServiceDescription FROM SetupEquipment where EquipId= $id";
         $con->ejecutaQuery($strQuery);
-        if($con->getNum()>0){
-            $arrDatos = $con->getListaObjectos();
-            foreach ($arrDatos as $objDato) {
-                foreach ($objDato as $key => $value){
-                    if(is_string($value)){
-                        $objDato->$key = utf8_encode($value);
-                    }
-                }
-                $arrRespuesta[] = $objDato;
+        $obj = $con->getObjeto();
+        foreach ($obj as $key => $value) {
+            if(is_string($value)){
+                $obj->$key = utf8_encode($value);    
             }
-            echo json_encode($arrRespuesta);
         }
-        else{
-            echo json_encode(false);
-        }
+        echo json_encode($obj);
         $con->cerrar();
 	}
 	//========================================
@@ -431,6 +423,24 @@
         $con->conectar();
         $strQuery = "SELECT Nombre, Apellidos, RazonSocial, Email, Tel FROM ContactosAcomodados INNER JOIN EmpresasOrdenadas 
         ON ContactosAcomodados.ClaveEmpresa=EmpresasOrdenadas.ClaveEmpresa WHERE ClaveContacto = $id";
+        $con->ejecutaQuery($strQuery);
+        $obj = $con->getObjeto();
+        foreach ($obj as $key => $value) {
+            if(is_string($value)){
+                $obj->$key = utf8_encode($value);    
+            }
+        }
+        echo json_encode($obj);
+        $con->cerrar();
+    }
+	//========================================
+	elseif($opc=="obtener_contactoPlus"){
+        $id = $_POST['id'];
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT Nombre, Apellidos, RazonSocial, Email, Tel, Ciudad, CP, Domicilio FROM ContactosAcomodados INNER JOIN EmpresasOrdenadas 
+              ON ContactosAcomodados.ClaveEmpresa=EmpresasOrdenadas.ClaveEmpresa INNER JOIN DireccionesAcomodadas on EmpresasOrdenadas.ClaveEmpresa=DireccionesAcomodadas.ClaveEmpresa 
+              WHERE Facturacion=1 and ClaveContacto =$id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
