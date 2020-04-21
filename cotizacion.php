@@ -7,6 +7,7 @@
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="dist/js/cotizacion.js"></script>
+<script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1567487539/jquery.tabledit.js"></script>
 <!-- =================================================================================== -->
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -378,11 +379,11 @@
                             </button>
                         </div>
                     </div>
+                    
                     <div id="div_articulosCot" class="card-body">
                         <table style="width: 100%;" id="articulosCot" class="display table table-hover table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>Partida</th>
                                     <th>SKU</th>
                                     <th>Descripción</th>
                                     <th>Marca</th>
@@ -400,7 +401,73 @@
                             </tbody>
                       
                         </table>
-                    </div><!-- /.card-body -->
+                    </div>
+                    <!-- OPCION DOS -->
+                    <!-- <div class="container mt-100">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-block">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-bordered display" id="articulosCot">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="display: none;">#</th>
+                                                        <th>First</th>
+                                                        <th>Last</th>
+                                                        <th>About</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row" style="display: none;">1</th>
+                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
+                                                            <span class="tabledit-span">Sam</span>
+                                                            <input class="tabledit-input form-control input-sm" type="text" name="First Name" value="Mark" style="display: none;" disabled="">
+                                                        </td>
+                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
+                                                            <span class="tabledit-span" style="">Motto</span>
+                                                            <input class="tabledit-input form-control input-sm fill" type="text" name="Last Name" value="Otto" style="display: none;" disabled="">
+                                                        </td>
+                                                        <td class="tabledit-view-mode">
+                                                            <span class="tabledit-span">Android Developer</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" style="display: none;">2</th>
+                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
+                                                            <span class="tabledit-span">Mark</span>
+                                                            <input class="tabledit-input form-control input-sm" type="text" name="First Name" value="Jacob" style="display: none;" disabled="">
+                                                        </td>
+                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
+                                                            <span class="tabledit-span">Henry</span>
+                                                            <input class="tabledit-input form-control input-sm" type="text" name="Last Name" value="Thorntonkk" style="display: none;" disabled="">
+                                                        </td>
+                                                        <td class="tabledit-view-mode">
+                                                            <span class="tabledit-span">Java Developer</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th scope="row" style="display: none;">3</th>
+                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
+                                                            <span class="tabledit-span">Larry</span>
+                                                            <input class="tabledit-input form-control input-sm" type="text" name="First Name" value="Larry" style="display: none;" disabled="">
+                                                        </td>
+                                                        <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">Pingor</span>
+                                                            <input class="tabledit-input form-control input-sm" type="text" name="Last Name" value="the Bird" style="display: none;" disabled="">
+                                                        </td>
+                                                        <td class="tabledit-view-mode"><span class="tabledit-span">Hybris Developer</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    <!--  -->
                 </div>
                 <!-- =============================================================================================== -->
                 <!--  -->

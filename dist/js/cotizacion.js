@@ -1,5 +1,5 @@
 var counter = 1;
-
+var articulos=[];
 $(document).ready(function(){
     obtener_contactos();
 
@@ -37,7 +37,32 @@ $(document).ready(function(){
     $('html').on('click', '.btnArticulos', function(){
         // ================ SE ASIGNA ID A EDITAR ===============================================
         var id = $(this).attr('id').split('_')[1];
-        obtener_articulosCot(id);
+        // alert(articulos.length);
+        if (articulos.length==0){
+          alert("entro");
+          articulos.push(id);
+        }
+        // for( var i=0; i<(articulos.length); i++ )
+        // {
+        //   alert(id);
+        //   alert(articulos[i]);
+        //   if(articulos[i]!=id)
+        //   {
+        //     articulos.push(id);
+        //     obtener_articulosCot(id);
+        //     break;
+        //   }
+        // }
+    });
+    $('html').on('click', '.btnGuardar', function(){
+      var obj = new Object();
+      obj.accion = $(this).attr("id").split('_')[1];
+      obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
+      // alert("hola");
+      // alert(obj.accion);
+
+        // ================ SE ASIGNA ID A EDITAR ===============================================
+        guardar_detalle(obj);
     });
     //=======================================================================================================
     // var table = $('#hola').DataTable({
@@ -60,14 +85,6 @@ $(document).ready(function(){
       // var t = $('#hola').DataTable();
       // var counter = 1;
       var table = $('#articulosCot').DataTable();
-
-      $("#Prueba").click(function() {
-        var data = table.row( $('#articulosCot').parents('tr') ).data();
-        alert( data[0] +"'s salary is: "+ data[ 5 ] );
-      });
-// })
-// })
-
       //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
       
       $('#articulosCot tbody').on( 'click', 'tr', function () {
@@ -281,7 +298,7 @@ $(document).ready(function(){
           if(data){
               var t = $('#articulosCot').DataTable();
               t.row.add( [
-                counter,
+                // counter,
                 data.ItemNumber,
                 data.EquipmentName,
                 data.Mfr,
@@ -445,4 +462,20 @@ $(document).ready(function(){
       text: texto
       // footer: '<a href>Why do I have this issue?</a>'
     })
+  }
+
+
+  function guardar_detalle(obj){
+    var opc = "guardar_cot";
+    
+    for (var i = 0; i < 2; i++) {
+      $.post("dist/fw/cotizacion.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
+        if(data){
+            alerta("¡Guardado!", "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'", "success");
+        }else{
+            alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
+        }
+    },'json');
+   }
+    
   }
