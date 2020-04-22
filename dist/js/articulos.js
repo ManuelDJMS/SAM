@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $('.btnEditarG').hide();
     $('.btnAgregar').hide();
-    $('.divServicios').hide();
+    $('.serAgregados').hide();
     // $('#Empresa').hide();
     // limpia_formulario();
     obtener_laboratorio();
@@ -26,12 +26,13 @@ $(document).ready(function(){
       //==================== SE MUESTRAN Y OCULTAN CIERTOS BOTONES =============================
       $('.btnEditarG').show();
       $('.btnGuardar').hide();
-      $('.divServicios').show();
+      $('.btnAgregar').show();
+      $('.serAgregados').show();
       //=======================================================================================
       // ================ SE ASIGNA ID A EDITAR ===============================================
-      var id = $(this).attr('id').split('_')[1];
+      var EquipId = $(this).attr('id').split('_')[1];
       $('.btnEditarG').attr('id',$(this).attr('id'));
-      obtener_registro(id);
+      obtener_registro(EquipId);
   });
   //========================================================================
     // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
@@ -116,9 +117,27 @@ $(document).ready(function(){
           $("#tab-0").get(0).click();
           // ================ SE ASIGNA ID A EDITAR ===============================================
           var id = $(this).attr('id').split('_')[1];
-          agregar_servicio(id);
+          obtener_servicio(id);
       });
 //========================================================================
+ // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
+	  $('html').on('click', '.btnAgregar', function(){
+    //============= EN ESTE METODO SE CREA UN OBJETO CON TODOS LOS DATOS DEL FORMULARIO =======================================  
+     var obj = new Object()
+       obj.IdServicio = $.trim($('#idServicio').text());
+       obj.IdEquipo = $.trim($('#EquipId').text());
+       obj.Precio = $.trim($('#Precio').val());
+      //  // ============= SE VALIDA SI CIERTOS CAMPOS ESTAN LLENOS =======================
+          if(obj.IdServicio != 0)
+          { 
+               agregar_servicio(obj);
+              }
+            else
+              {
+                alerta_error("INFORMACIÓN FALTANTE","Seleccionar un Servicio");
+              }       
+    });
+  // =======================================================================
 });
 
 // =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS===================
@@ -176,14 +195,13 @@ function regenerar_tabla(){
 }
 // =========================================================================
 
-// =========== FUNCIONES DE OBTENER ARTICULO================================
+// =========== FUNCIONES DE REGISTRAR ARTICULO==============================
 function registrar_articulo(obj){
   if (obj.IdServicio != '0'){
     var opc = "registrar_articulo_servicio";
   }else{
     var opc = "registrar_articulo";
   }
-  alert(opc);
   $.post("dist/fw/articulos.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
 		if(data){
       alerta("¡Guardado!", "Artículo registrado, ¿Desea seguir en agregando artículos", "success");
@@ -193,7 +211,19 @@ function registrar_articulo(obj){
   }, 'json');
 }
 // =========================================================================
-// CARGAR COMBO DE LABORATORIO-----------------------
+// =========== FUNCIONES DE AGREGAR SERVICIO A ARTICULO=====================
+function agregar_servicio(obj){
+    var opc = "agregar_servicio";
+  $.post("dist/fw/articulos.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
+		if(data){
+      alerta("¡Guardado!", "Servicio Agregado, ¿Desea seguir en editando este artículo?", "success");
+    }else{
+      alerta_error("¡Error!","Error al guardar los datos");
+  }
+  }, 'json');
+}
+// =========================================================================
+// CARGAR COMBO DE LABORATORIO==============================================
 function obtener_laboratorio(){
     var opc = "obtener_laboratorio";
     $('#idUnidadNegocio').html('');
@@ -203,14 +233,15 @@ function obtener_laboratorio(){
         }
     },'json');
   }
-  //---------------------------------------------------------
-// ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
+// =========================================================================
+// ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ===
   function obtener_registro(id){
     var opc = "obtener_registro";
     $('.line-scale-pulse-out').show();
     $.post("dist/fw/articulos.php",{'opc':opc, 'id':id},function(data){
         if(data){
           limpia_formulario()
+          $('#EquipId').text(data.EquipId);
           $('#itemNumber').val(data.ItemNumber);
           $('#Nombre').val(data.EquipmentName);
           $('#Marca').val(data.Mfr);
@@ -235,9 +266,10 @@ function obtener_laboratorio(){
             $('#check3').val(1);
             $("#check3").attr('checked',true);
           }
+          obtener_serviciosAgregados(id);
         }
         else
-        {
+        {;
           alerta_error("Error", "Error al recibir los datos");
         }
         $('.line-scale-pulse-out').hide();
@@ -266,8 +298,54 @@ function obtener_laboratorio(){
     $('#Notas').val("");
     $("#exampleCustomCheckbox1").removeAttr("checked");
   }
-// ============================================================================================
-// =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS===================
+// ==========================================================================
+// =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS=====================
+function obtener_serviciosAgregados(id){
+  var opc = "obtener_serviciosAgregados";
+  $('.line-scale-pulse-out').show();
+  regenerar_tablaServiciosAgregados();
+  $.post("dist/fw/articulos.php",{'opc':opc, 'id':id},function(data){
+      if(data){
+          var html = '';
+          for (var i = 0; i < data.length; i++){
+            html += '<tr class="edita_error" id="error_' + $.trim(data[i].EquiId) + '">';
+            html += '<td>' + $.trim(data[i].NoCatalogo) + '</td>';
+            html += '<td>' + $.trim(data[i].Servicio) + '</td>';
+            html += '<td>' + $.trim(data[i].Precio) + '</td>';
+            html += '</tr>';                   
+          }
+          $('#tablaServiciosAgregados tbody').html(html);
+          $('#tablaServiciosAgregados').DataTable({
+              "paging": true,
+              "lengthChange": true,
+              "searching": true,
+              "ordering": true,
+              "info": true,
+              "autoWidth": true
+          });
+      }
+      $('.line-scale-pulse-out').hide();
+  },'json');
+}
+ 
+function regenerar_tablaServiciosAgregados(){
+  $('#div_registros3').html("");
+  var html = "";
+  html += '<table id="tablaServiciosAgregados" class="table table-bordered table-striped dataTable">';
+  html += '<thead>';
+  html += '<tr>';
+  html += '<th>No. Catálogo</th>';
+  html += '<th>Servicio</th>';
+  html += '<th>Precio</th>';
+  html += '</tr>';
+  html += '</thead>';
+  html += '<tbody>';
+  html += '</tbody>';
+  html += '</table>';
+  $('#div_registros3').html(html);
+}
+// =========================================================================
+// =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS====================
 function obtener_servicios(){
   var opc = "obtener_servicios";
   $('.line-scale-pulse-out').show();
@@ -315,9 +393,10 @@ function regenerar_tablaServicios(){
   $('#div_registros2').html(html);
 }
 // =========================================================================
-// ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
-function agregar_servicio(id){
-  var opc = "agregar_servicio";
+
+// ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ===
+function obtener_servicio(id){
+  var opc = "obtener_servicio";
   $('.line-scale-pulse-out').show();
   $.post("dist/fw/articulos.php",{'opc':opc, 'id':id},function(data){
       if(data){
@@ -329,7 +408,6 @@ function agregar_servicio(id){
         $('#Comentarios').val(data.Comentarios);
         $('#PrecioBase').val(data.PrecioBase);
         $('#idServicio').text(data.IdServicio);
-        var idSer = data.IdServicio;
       }
       else
       {
@@ -338,32 +416,21 @@ function agregar_servicio(id){
       $('.line-scale-pulse-out').hide();
   },'json');
 }
-// function limpia_formulario(){
-//   $('#itemNumber').val("");
-//   $('#Nombre').val("");
-//   $('#Marca').val("");
-//   $('#Modelo').val("");
-//   $('#Serie').val("");
-//   $('#Exactitud').val("");
-//   $('#Rango').val("");
-//   $('#DiasCalibracion').val("");
-//   $('#PesoAproximado').val("");
-//   $('#Intervalo').val("");
-//   $('#Ciclo').val("");
-//   $('#Lab').val("");
-//   $('#Descripcion').val("");
-//   $('#Metodo').val("");
-//   $('#Estandarizacion').val("");
-//   $('#Acreditacion').val("");
-//   $('#Acreditacion').val("");
-//   $('#Relacion').val("");
-//   $('#Especificaciones').val("");
-//   $('#Notas').val("");
-//   $("#exampleCustomCheckbox1").removeAttr("checked");
-// }
-// ============================================================================================
-// =========== ALERTAS================================
-    function alerta(titulo, mensaje, icono){
+function limpia_formularioArticulo(){
+  $('#NoCatalogo').val("");
+  $('#Servicio').val("");
+  $('#Unidad').val("");
+  $('#Observaciones').val("");
+  $('#Comentarios').val("");
+  $('#PrecioBase').val("");
+  $('#Precio').val("");
+  $('#idServicio').text("");
+}
+// ==========================================================================
+
+
+// =========== ALERTAS=======================================================
+function alerta(titulo, mensaje, icono){
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
           confirmButton: 'btn btn-success',
@@ -390,8 +457,8 @@ function agregar_servicio(id){
         }
       })
   }
-  
-  function alerta_error(titulo, texto){
+
+function alerta_error(titulo, texto){
     Swal.fire({
       icon: 'error',
       title: titulo,
@@ -399,4 +466,4 @@ function agregar_servicio(id){
       // footer: '<a href>Why do I have this issue?</a>'
     })
   }
-  // ==================================================
+  // ========================================================================
