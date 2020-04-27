@@ -1,9 +1,8 @@
 var counter = 1;
+var subtotal=0;
 var articulos=[];
 $(document).ready(function(){
     obtener_contactos();
-
-
     //  ============================= OBTENER ARTICULOS =====================================================
     $('html').on('click', '#ObtenerArticulos', function(){
         obtener_articulos();
@@ -34,56 +33,105 @@ $(document).ready(function(){
     });
     //=======================================================================================================
     // ======================== EVENTO PARA SELECCIONAR ARTICULOS ===========================================
-    $('html').on('click', '.btnArticulos', function(){
-        // ================ SE ASIGNA ID A EDITAR ===============================================
-        var id = $(this).attr('id').split('_')[1];
-        // alert(articulos.length);
+  $('#Enter').keypress(function(event){
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+    if(keycode == '13'){
+        // alert('You pressed a "enter" key in textbox');  
+        // var lugar= $(this).val().split(' ')[0];
+        // var articulo= $(this).val().split(' ')[1];
+        // var articulo=
+        var id = $(this).val();
+        var repetido=false;
         if (articulos.length==0){
-          alert("entro");
           articulos.push(id);
+          obtener_articulosCot(id);
         }
-        // for( var i=0; i<(articulos.length); i++ )
-        // {
-        //   alert(id);
-        //   alert(articulos[i]);
-        //   if(articulos[i]!=id)
-        //   {
-        //     articulos.push(id);
-        //     obtener_articulosCot(id);
-        //     break;
-        //   }
-        // }
+        //  CICLO PARA VER SI HAY REPETIDOS
+        for( var i=0; i<(articulos.length); i++ )
+        {
+         if (articulos[i]==id)
+         {
+           repetido=true;
+           break;
+         }
+        }
+        //SI NO ESTA EN EL ARREGLO LO AGREGA
+        if(repetido!=true)
+        {
+          articulos.push(id);
+          obtener_articulosCot(id);
+        }
+    }
+    event.stopPropagation();
+});
+    $('html').on('click', '.btnArticulos', function(){
+        var id = $(this).attr('id').split('_')[1];
+        var repetido=false;
+        if (articulos.length==0){
+          articulos.push(id);
+          obtener_articulosCot(id);
+        }
+        //  CICLO PARA VER SI HAY REPETIDOS
+        for( var i=0; i<(articulos.length); i++ )
+        {
+         if (articulos[i]==id)
+         {
+           repetido=true;
+           break;
+         }
+        }
+        //SI NO ESTA EN EL ARREGLO LO AGREGA
+        if(repetido!=true)
+        {
+          articulos.push(id);
+          obtener_articulosCot(id);
+        }
     });
-    $('html').on('click', '.btnGuardar', function(){
-      var obj = new Object();
-      obj.accion = $(this).attr("id").split('_')[1];
-      obj.ClaveEmpresa = $(this).attr("id").split('_')[2];
-      // alert("hola");
-      // alert(obj.accion);
 
-        // ================ SE ASIGNA ID A EDITAR ===============================================
+    $('html').on('click', '.btnGuardar', function(){
+      //OBTENER EL Subtotal
+      for (var i=0; i< (articulos.length); i++)
+      {
+        subtotal=parseFloat(subtotal+$('#precio_'+articulos[i]).val());
+      }
+      //GUARDAR EL DETALLE
+      for (var i=0; i< (articulos.length); i++)
+      {
+        var obj = new Object();
+        // alert("hola");
+        //::::::::Encabezado de la cotizacion:::::::
+        obj.idContacto=1;
+        obj.idLugarServicio = $("#LugarServicio option:selected").val();
+        obj.idModalidad = $("#Modalidad option:selected").val();
+        obj.idTiempoEntrega = $("#TiempoEntrega option:selected").val();
+        obj.idTerminosPago = $("#TerminosPago option:selected").val();
+        obj.idPrecios = $("#Precios option:selected").val();
+        obj.Referencia=$("#Referencia").val();
+        obj.FechaDesde=$("#Vigencia").val().split('-')[0];
+        obj.FechaHasta=$("#Vigencia").val().split('-')[1];
+        obj.ObservacionesCot=$("#ObservacionesCot").val();
+        obj.Subtotal=subtotal;
+        var iva=parseFloat((subtotal*16)/100);
+        obj.Iva=iva;
+        var total=(iva+subtotal);
+        obj.Total=total;
+        //::::::::::::Detalle de la cotizacion :::::::::
+        
+        obj.Partida=counter;
+        obj.Cantidad=$('#cantidad_'+articulos[i]).val();
+        obj.Observaciones=$('#observaciones_'+articulos[i]).val();
+        obj.Id=$('#id_'+articulos[i]).val();
+        obj.Serie=$('#serie_'+articulos[i]).val();
+        obj.ObServicio=$('#observicio_'+articulos[i]).val();
+        obj.EquipId=articulos[i];
+        obj.accion = $(this).attr("id").split('_')[1];
         guardar_detalle(obj);
+        counter++;
+      }
+
+        
     });
     //=======================================================================================================
-    // var table = $('#hola').DataTable({
-    //     columnDefs: [{
-    //         orderable: false,
-    //         targets: [1,2,3]
-    //     }]
-    // });
-   
-   
-      // $('#button').click( function() {
-      //     var data = table.$('input, select').serialize();
-      //     alert(
-      //         "The following data would have been submitted to the server: \n\n"+
-      //         data.substr( 0, 120 )+'...'
-      //     );
-      //     return false;
-      // } );
-
-      // var t = $('#hola').DataTable();
-      // var counter = 1;
       var table = $('#articulosCot').DataTable();
       //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
       
@@ -120,9 +168,8 @@ $(document).ready(function(){
                       $('<option></option>').val(data[i].idLugarServicio).html(data[i].Descripcion)
                   );                       
               }
-              mySelect.append(
-                $('<option></option>').val("1").html("")
-            );  
+              $("#LugarServicio option[value='1']").attr("selected", true);
+            // );  
           }
       }, 'json');
   }
@@ -138,9 +185,7 @@ $(document).ready(function(){
                       $('<option></option>').val(data[i].idTiempoEntrega).html(data[i].Descripcion)
                   );                       
               }
-              mySelect.append(
-                $('<option></option>').val("2").html("")
-            );  
+              $("#TiempoEntrega option[value='2']").attr("selected", true); 
           }
       }, 'json');
   }
@@ -156,9 +201,7 @@ $(document).ready(function(){
                       $('<option></option>').val(data[i].idTerminoPago).html(data[i].Descripcion)
                   );                       
               }
-              mySelect.append(
-                $('<option></option>').val("1").html("")
-            );  
+              $("#TerminosPago option[value='2']").attr("selected", true);
           }
       }, 'json');
   }
@@ -174,9 +217,7 @@ $(document).ready(function(){
                       $('<option></option>').val(data[i].idModalidad).html(data[i].Descripcion)
                   );                       
               }
-              mySelect.append(
-                $('<option></option>').val("1").html("")
-            );  
+              $("#Modalidad option[value='1']").attr("selected", true);
           }
       }, 'json');
   }
@@ -189,12 +230,10 @@ $(document).ready(function(){
               var mySelect = $('#Precios');
               for (var i = 0; i < data.length; i++){
                   mySelect.append(
-                      $('<option></option>').val(data[i].idPrecio).html(data[i].Descripcion)
+                      $('<option></option>').val(data[i].idPrecios).html(data[i].Descripcion)
                   );                       
               }
-              mySelect.append(
-                $('<option></option>').val("1").html("")
-            );  
+              $("#Precios option[value='1']").attr("selected", true); 
           }
       }, 'json');
   }
@@ -303,14 +342,15 @@ $(document).ready(function(){
                 data.EquipmentName,
                 data.Mfr,
                 data.Model,
-                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=2>',
-                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=20>',
-                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=15>',
-                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=15>',
-                '<input type="text" id="row-15-age" name="row-15-age" style="border: 0; background-color:transparent;" size=20>',
+                '<input type="text" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1">',
+                '<input type="text" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-">',
+                '<input type="text" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-">',
+                '<input type="text" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-">',
+                '<input type="text" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-">',
+                '<input type="text" id="precio_'+data.Price+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="edit_'+data.EquipId+'"></button>'
             ] ).draw( true );
-            counter++;
+            subtotal=subtotal+data.Price;
           }
       },'json');
   }
@@ -463,12 +503,8 @@ $(document).ready(function(){
       // footer: '<a href>Why do I have this issue?</a>'
     })
   }
-
-
   function guardar_detalle(obj){
     var opc = "guardar_cot";
-    
-    for (var i = 0; i < 2; i++) {
       $.post("dist/fw/cotizacion.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
         if(data){
             alerta("¡Guardado!", "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'", "success");
@@ -476,6 +512,5 @@ $(document).ready(function(){
             alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
         }
     },'json');
-   }
-    
   }
+ 

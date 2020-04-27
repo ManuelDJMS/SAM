@@ -293,7 +293,7 @@
                                 <div class="col-md-4">
                                     <div class="position-relative form-group">
                                         <label for="exampleEmail11" class="">Vigencia</label>
-                                        <input type="text" class="form-control" name="daterange">
+                                        <input type="text" class="form-control" name="daterange" id="Vigencia">
                                     </div>
                                 </div>
                                 <div class="col-md-8">           
@@ -346,13 +346,13 @@
                                 <div class="col-md-4">           
                                     <div class="position-relative form-group"> 
                                         <label for="exampleSelect" class="">Referencia </label>
-                                        <textarea rows=2 name="Observaciones" id="Referencia" class="form-control"></textarea>
+                                        <textarea rows=2 id="Referencia" class="form-control"></textarea>
                                     </div>   
                                 </div>  
                                 <div class="col-md-5">           
                                     <div class="position-relative form-group"> 
                                         <label for="exampleSelect" class="">Observaciones </label>
-                                        <textarea rows=2 id="Observaciones" class="form-control">*La cotización fué realizada en base a la información recibida. Cualquier diferencia entre su solicitud y esta cotización contactar a Ventas*
+                                        <textarea rows=2 id="ObservacionesCot" class="form-control">*La cotización fué realizada en base a la información recibida. Cualquier diferencia entre su solicitud y esta cotización contactar a Ventas*
                                         </textarea>
                                     </div>   
                                 </div>  
@@ -374,9 +374,10 @@
                             Catálogo de Artículos
                         </div>
                         <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-                            <button type="button" class="btn-icon btn-icon-only btn btn-link" id="ObtenerArticulos">
+                            <!-- <button type="button" class="btn-icon btn-icon-only btn btn-link" id="ObtenerArticulos">
                                 <i class="pe-7s-timer btn-icon-wrapper"></i>
-                            </button>
+                            </button> -->
+                            <input id="Enter" class="form-control" placeholder="Ingresa SKU, OV, ACCESS">
                         </div>
                     </div>
                     
@@ -393,6 +394,7 @@
                                     <th>N° Inventario</th>
                                     <th>N° Serie</th>
                                     <th>Observaciones del Servicio</th>
+                                    <th>Precio</th>
                                     <th></th>
                                 </tr>
                             </thead>

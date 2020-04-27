@@ -12,20 +12,29 @@
     // ======== GUARDAR EMPRESAS =============
     elseif ($opc == 'guardar_cot') 
     {
-		$obj = $_POST['obj'];
+        $obj = $_POST['obj'];
         $datos = json_decode($obj); 
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
         $con->conectar();
         // ========================== COSIGO PARA GUARDAR  ========================================
+        
         if($datos->accion == 'nuevo')
         {
+            $strQuery = "if exists(select idUsuario, idContacto, Referencia, Total from Cotizaciones where idUsuario=".$_SESSION['iduser']." and idContacto=".$datos->idContacto." and Referencia='
+            ".$datos->Referencia."' and Total=".$datos->Total.") begin UPDATE Cotizaciones set Referencia='".$datos->Referencia."' where NumCot=1; end else begin INSERT INTO Cotizaciones 
+            (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
+            FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (".$_SESSION['iduser'].",".$datos->idContacto.",".$datos->idLugarServicio.",
+            ".$datos->idModalidad.",".$datos->idTiempoEntrega.",".$datos->idTerminosPago.",".$datos->idPrecios.",'".$datos->Referencia."','2020-01-01','2020-01-01','".$datos->ObservacionesCot."',".$datos->Subtotal.",".$datos->Iva.",".$datos->Total.");
+            end;";
             // ---------------------------------------- CODIGO PARA GUARDAR LAS EMPRESAS NUEVAS ----------------------------------------------------------------------
             
-            $strQuery = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,
-            Observaciones, ObservacionesServicios) VALUES (2,150,1,1,1,'hola','hola2','ob1','ob2')";
+            $strQuery2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,
+            Observaciones, ObservacionesServicios) VALUES ((Select MAX(NumCot) from Cotizaciones),".$datos->EquipId.",".$datos->Partida.",".$datos->Cantidad.",1,'".$datos->Id."','".$datos->Serie."'
+            ,'".$datos->Observaciones."','".$datos->ObServicio."')";
             //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-            $res = $con->ejecutaSQLTransac($strQuery);
+            $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
+            // $res = $con->ejecutaSQLTransac($strQuery2);
         }
         else{
             if($datos->Tipo=='')
@@ -282,7 +291,8 @@
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT EquipId, ItemNumber, EquipmentName, Mfr, Model, ServiceDescription FROM SetupEquipment where EquipId= $id";
+        $strQuery = "SELECT SetupEquipment.EquipId, ItemNumber, EquipmentName, Mfr, Model, ServiceDescription, Price FROM SetupEquipment INNER JOIN SetupEquipmentServiceMapping ON 
+                     SetupEquipment.EquipId=SetupEquipmentServiceMapping.EquipId where SetupEquipment.EquipId= $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
