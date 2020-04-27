@@ -4,7 +4,7 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-<link rel="stylesheet" href="dist/css/base.css">
+<!-- <link rel="stylesheet" href="dist/css/base.css"> -->
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
 
@@ -48,6 +48,7 @@
                                     <div class="form-row">
                                         <div class="col-md-4">
                                             <div class="position-relative form-group">
+                                                <label for="exampleEmail11" class="" id="EquipId">EquipId</label>
                                                 <label for="exampleEmail11" class="">Num. de Artículo</label>
                                                     <input type="text" class="form-control" id="itemNumber" name="itemNumber" required/>
                                             </div>
@@ -224,42 +225,69 @@
                         <div data-parent="#accordion" id="collapseOne4" class="collapse">
                             <div class="card-body">
                                 <div class="row">  
-                                    <div class="col-md-6">
-                                        <div id="accordion" class="accordion-wrapper mb-3">
-                                            <div class="card">
-                                                <button type="button" data-toggle="collapse" data-target="#collapseOne5" aria-expanded="true" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block">
-                                                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                                        <i class="header-icon pe-7s-tools icon-gradient bg-amy-crisp"> </i>
-                                                                    Servicios Disponibles
-                                                    </div>
-                                                </button>
-                                                <div data-parent="#accordion" id="collapseOne5" class="collapse">
-                                                    <div class="card-body">
-                                                        <div class="main-card mb-8 card">    
-                                                            <div class="main-card mb-6 card">
-                                                                <div class="card-body">
-                                                                    <div id="div_registros2" class="box-body">
-                                                                        <table id="tablaServicios" class="table table-bordered table-striped dataTable">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th>No. Catálogo</th>
-                                                                                    <th>Servicio</th>
-                                                                                    <th>Precio</th>
-                                                                                    <th>Agregar</th>                                                            
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
+                                    <div class="col-md-6"> 
+                                        <div class="main-card mb-8 card">
+                                            <!-- <div class="card-body"> -->
+                                                <div id="accordion" class="accordion-wrapper mb-3">
+                                                    <div class="card">
+                                                        <div id="headingOne" class="card-header">
+                                                            <button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block" id ="serDisponibles">
+                                                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                                                    <i class="header-icon pe-7s-tools icon-gradient bg-amy-crisp"> </i>
+                                                                                Servicios Disponibles
+                                                                </div>
+                                                            </button>
+                                                        </div>
+                                                        <div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse show">
+                                                            <div class="card-body">
+                                                                <div id="div_registros2" class="box-body">
+                                                                    <table id="tablaServicios" class="table table-bordered table-striped dataTable">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>No. Catálogo</th>
+                                                                                <th>Servicio</th>
+                                                                                <th>Precio</th>
+                                                                                <th>Agregar</th>                                                            
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>   
-                                                </div>                                  
-                                            </div>
-                                        </div>  
-                                    </div>    
+                                                    </div>
+                                                    <div class="card serAgregados">
+                                                        <div id="headingTwo" class="b-radius-0 card-header">
+                                                            <button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block">
+                                                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                                                                    <i class="header-icon pe-7s-tools icon-gradient bg-amy-crisp"> </i>
+                                                                                    Servicios Agregados
+                                                                </div>
+                                                            </button>
+                                                        </div>
+                                                        <div data-parent="#accordion" id="collapseOne2" class="collapse">
+                                                            <div class="card-body">
+                                                                <div id="div_registros3" class="box-body">
+                                                                    <table id="tablaServiciosAgregados" class="table table-bordered table-striped dataTable">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>No. Catálogo</th>
+                                                                                <th>Servicio</th>
+                                                                                <th>Precio</th>                                                                                                                                  
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <!-- </div> -->
+                                        </div>
+                                    </div> 
                                     <div class="col-md-6"> 
                                         <div class="main-card mb-8 card">
                                             <div class="card-header-tab card-header">
@@ -326,9 +354,9 @@
                                             </div>
                                         </div>
                                     </div>     
-                                </div>       
+                                </div>     
                             </div>
-                        </div>   
+                        </div>                       
                     </div>
                
                 <button type="button" class="mt-2 btn btn-primary btnGuardar float-right"  id="btn_nuevo_0">Guardar</button>

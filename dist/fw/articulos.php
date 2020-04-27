@@ -34,6 +34,31 @@ ini_set('display_errors', '0');
         $con->cerrar();
     }
 
+    elseif($opc == 'obtener_serviciosAgregados'){
+        $id = $_POST['id'];
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT * FROM Articulos A
+        INNER JOIN [RelacionServ-Articulos] R ON  A.EquipId = R.idArticulo
+        INNER JOIN [Catalogo-Servicios] C ON R.idServicio = C.IdServicio WHERE EquipId = $id";
+        $con->ejecutaQuery($strQuery);
+        if($con->getNum()>0){
+            $arrDatos = $con->getListaObjectos();
+            foreach ($arrDatos as $objDato) {
+                foreach ($objDato as $key => $value){
+                    if(is_string($value)){
+                        $objDato->$key = utf8_encode($value);
+                    }
+                }
+                $arrRespuesta[] = $objDato;
+            }
+            echo json_encode($arrRespuesta);
+        }
+        else{
+            echo json_encode(false);
+        }
+        $con->cerrar();
+    }
     elseif($opc=="obtener_registro"){
         $id = $_POST['id'];
         $con = new Conexion();
@@ -116,7 +141,7 @@ ini_set('display_errors', '0');
         $con->cerrar();
     }
 
-    elseif($opc=="agregar_servicio"){
+    elseif($opc=="obtener_servicio"){
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
@@ -129,6 +154,20 @@ ini_set('display_errors', '0');
             }
         }
         echo json_encode($obj);
+    }
+    elseif($opc=="agregar_servicio"){
+        $obj = $_POST['obj'];
+        $datos = json_decode($obj); 
+        foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
+        $con = new Conexion();
+        $con->conectar();
+      
+           $strQuery = "INSERT INTO [RelacionServ-Articulos] (idServicio, idArticulo,Precio)
+                         VALUES ('".$datos->IdServicio."', '".$datos->IdEquipo."','".$datos->Precio."')";
+        
+        $res = $con->ejecutaQuery($strQuery);
+        $con->cerrar();
+        echo json_encode($res);
     }
 
    
