@@ -3,11 +3,26 @@
     error_reporting(E_ALL);
     ini_set('display_errors', '0');
 	require_once "classes/Conexion.php";
-	 $opc = $_POST['opc'];
+     $opc = $_POST['opc'];
+     $cadena="INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,
+                Observaciones, ObservacionesServicios) VALUES";
     if ($opc == '' || $opc == 'undefined' || $opc == null) 
     {
 	    echo json_encode(false);
 	    die();
+    }
+    elseif ($opc=='guardar_cadena')
+    {
+        $obj = $_POST['obj'];
+        $datos = json_decode($obj); 
+        foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
+        // $con = new Conexion();
+        // $con->conectar();
+        // ========================== COSIGO PARA GUARDAR  ========================================
+            $cadena="INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,
+            Observaciones, ObservacionesServicios) VALUES";
+            $cadena=$cadena."((Select MAX(NumCot) from Cotizaciones),".$datos->EquipId.",".$datos->Partida.",".$datos->Cantidad.",1,'".$datos->Id."','".$datos->Serie."'
+            ,'".$datos->Observaciones."','".$datos->ObServicio."');";
     }
     // ======== GUARDAR EMPRESAS =============
     elseif ($opc == 'guardar_cot') 
@@ -18,23 +33,18 @@
         $con = new Conexion();
         $con->conectar();
         // ========================== COSIGO PARA GUARDAR  ========================================
-        
         if($datos->accion == 'nuevo')
         {
-            $strQuery = "if exists(select idUsuario, idContacto, Referencia, Total from Cotizaciones where idUsuario=".$_SESSION['iduser']." and idContacto=".$datos->idContacto." and Referencia='
-            ".$datos->Referencia."' and Total=".$datos->Total.") begin UPDATE Cotizaciones set Referencia='".$datos->Referencia."' where NumCot=1; end else begin INSERT INTO Cotizaciones 
-            (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
-            FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (".$_SESSION['iduser'].",".$datos->idContacto.",".$datos->idLugarServicio.",
-            ".$datos->idModalidad.",".$datos->idTiempoEntrega.",".$datos->idTerminosPago.",".$datos->idPrecios.",'".$datos->Referencia."','2020-01-01','2020-01-01','".$datos->ObservacionesCot."',".$datos->Subtotal.",".$datos->Iva.",".$datos->Total.");
-            end;";
+           
+            // $strQuery = "INSERT INTO Cotizaciones 
+            // (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
+            // FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (".$_SESSION['iduser'].",".$datos->idContacto.",".$datos->idLugarServicio.",
+            // ".$datos->idModalidad.",".$datos->idTiempoEntrega.",".$datos->idTerminosPago.",".$datos->idPrecios.",'".$datos->Referencia."','2020-01-01','2020-01-01','".$datos->ObservacionesCot."',".$datos->Subtotal.",".$datos->Iva.",".$datos->Total.")";
             // ---------------------------------------- CODIGO PARA GUARDAR LAS EMPRESAS NUEVAS ----------------------------------------------------------------------
-            
-            $strQuery2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,
-            Observaciones, ObservacionesServicios) VALUES ((Select MAX(NumCot) from Cotizaciones),".$datos->EquipId.",".$datos->Partida.",".$datos->Cantidad.",1,'".$datos->Id."','".$datos->Serie."'
-            ,'".$datos->Observaciones."','".$datos->ObServicio."')";
-            //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-            $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
-            // $res = $con->ejecutaSQLTransac($strQuery2);
+            $strQuery2 = $datos->Partidas;
+            //--------------------------------------------------------------------------------------------------------------------------------------------------------
+            // $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
+            $res = $con->ejecutaSQLTransac($strQuery2);
         }
         else{
             if($datos->Tipo=='')
