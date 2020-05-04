@@ -1,6 +1,12 @@
 var counter = 1;
 var subtotal=0;
 var articulos=[];
+var cantidades=[];
+var observacionearticulos=[];
+var ids=[];
+var series=[];
+var observacionesservicios=[];
+var precios=[];
 $(document).ready(function(){
     obtener_contactos();
     //  ============================= OBTENER ARTICULOS =====================================================
@@ -36,20 +42,21 @@ $(document).ready(function(){
     $('#Enter').keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13'){
-          // alert('You pressed a "enter" key in textbox');  
-          // var lugar= $(this).val().split(' ')[0];
-          // var articulo= $(this).val().split(' ')[1];
-          // var articulo=
           var id = $(this).val();
           var repetido=false;
           if (articulos.length==0){
             articulos.push(id);
+            cantidades.push(1);
+            observacionearticulos.push("-");
+            ids.push("-");
+            series.push("-");
+            observacionesservicios.push("-");
             obtener_articulosCot(id);
           }
           //  CICLO PARA VER SI HAY REPETIDOS
           for( var i=0; i<(articulos.length); i++ )
           {
-          if (articulos[i]==id)
+          if (articulos[i].split('_')[0]==id)
           {
             repetido=true;
             break;
@@ -59,6 +66,11 @@ $(document).ready(function(){
           if(repetido!=true)
           {
             articulos.push(id);
+            cantidades.push(1);
+            observacionearticulos.push("-");
+            ids.push("-");
+            series.push("-");
+            observacionesservicios.push("-");
             obtener_articulosCot(id);
           }
       }
@@ -66,15 +78,16 @@ $(document).ready(function(){
     });
     $('html').on('click', '.btnArticulos', function(){
         var id = $(this).attr('id').split('_')[1];
+        var idArreglo=String($(this).attr('id').split('_')[1])+"_01_1-_2-_3-_4-_50";
         var repetido=false;
         if (articulos.length==0){
-          articulos.push(id);
+          articulos.push(idArreglo);
           obtener_articulosCot(id);
         }
         //  CICLO PARA VER SI HAY REPETIDOS
         for( var i=0; i<(articulos.length); i++ )
         {
-         if (articulos[i]==id)
+         if (articulos[i].split('_')[0]==id)
          {
            repetido=true;
            break;
@@ -83,9 +96,15 @@ $(document).ready(function(){
         //SI NO ESTA EN EL ARREGLO LO AGREGA
         if(repetido!=true)
         {
-          articulos.push(id);
+          articulos.push(idArreglo);
           obtener_articulosCot(id);
         }
+    });
+    $('html').on('click', '#Prueba', function(){
+      alert(String(articulos[0]));
+      articulos[0].split('_')[6]="hola";
+      alert(String(articulos[0]));
+
     });
     $('html').on('click', '.btnGuardar', function(){
       //OBTENER EL Subtotal
@@ -147,6 +166,7 @@ $(document).ready(function(){
         obj.accion = $(this).attr("id").split('_')[1];
         guardar_detalle(obj);
     });
+
     //=======================================================================================================
       var table = $('#articulosCot').DataTable();
       //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
@@ -358,15 +378,18 @@ $(document).ready(function(){
                 data.EquipmentName,
                 data.Mfr,
                 data.Model,
-                '<input type="text" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1">',
-                '<input type="text" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-">',
-                '<input type="text" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-">',
-                '<input type="text" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-">',
-                '<input type="text" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-">',
-                '<input type="text" id="precio_'+data.Price+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'">',
+                '<input type="text" class="cargar" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-">',
+                '<input type="text" class="cargar" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-">',
+                '<input type="text" class="cargar" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-">',
+                '<input type="text" class="cargar" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-">',
+                '<input type="text" class="cargar" id="precio_'+data.Price+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="edit_'+data.EquipId+'"></button>'
             ] ).draw( true );
             subtotal=subtotal+data.Price;
+            // var pos=articulos.indexOf(data.EquipId+"_01_1-_2-_3-_4-_50");
+            // articulos[pos]=articulos[pos].substring(0,articulos[pos].indexOf("_5")+2)+data.Price;
+            precios.push(data.Price);
           }
       },'json');
   }
@@ -528,4 +551,16 @@ $(document).ready(function(){
             alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
         }
     },'json');
+  }
+  function arregloCantidad(id) {
+    // var x = document.getElementById("cantidad_1");
+    // x.value = x.value.toUpperCase();
+    //:::: SE SACA LA POCISION DEL ID CANTIDAD ::::
+    var pos=articulos.indexOf(String(id));
+    
+    // alert($('').attr('id').split('_')[1]);
+    // cantidades[pos]=$(this).val();
+    // alert(cantidades[pos]);
+   
+    
   }
