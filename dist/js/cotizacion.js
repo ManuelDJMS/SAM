@@ -114,29 +114,30 @@ $(document).ready(function(){
       }
       var obj=new Object();
       var partidas="";
-      for (var i=0; i< (articulos.length); i++)
-      {
-        if ((articulos.length) == 1){
-          partidas="((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
-          "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"')";
-        }
-        else{
-          if (i==(articulos.length-1))
-          {
-            partidas=partidas+"((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
-            "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"');";
+      // for (var i=0; i< (articulos.length); i++)
+      // {
+      //   if ((articulos.length) == 1){
+      //     partidas="((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
+      //     "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"')";
+      //   }
+      //   else{
+      //     if (i==(articulos.length-1))
+      //     {
+      //       partidas=partidas+"((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
+      //       "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"');";
   
-          }
-          else
-          {
-            partidas=partidas+"((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
-            "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"'),";
-          }
-        }
+      //     }
+      //     else
+      //     {
+      //       partidas=partidas+"((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
+      //       "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"'),";
+      //     }
+      //   }
        
-      }
-        obj.Partidas="INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,Observaciones, ObservacionesServicios) VALUES "+partidas;
-        alert(obj.Partidas);
+      // }
+      //   obj.Partidas="INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,Observaciones, ObservacionesServicios) VALUES "+partidas;
+//////////////////////////////////////////////////////////////////
+        // alert(obj.Partidas);
          //::::::::::::Detalle de la cotizacion :::::::::
         // devolver aqui
        
@@ -148,23 +149,23 @@ $(document).ready(function(){
         // obj.ObServicio=$('#observicio_'+articulos[i]).val();
         // obj.EquipId=articulos[i];
         // obj.accion = $(this).attr("id").split('_')[1];
-        // obj.idContacto=1;
-        // obj.idLugarServicio = $("#LugarServicio option:selected").val();
-        // obj.idModalidad = $("#Modalidad option:selected").val();
-        // obj.idTiempoEntrega = $("#TiempoEntrega option:selected").val();
-        // obj.idTerminosPago = $("#TerminosPago option:selected").val();
-        // obj.idPrecios = $("#Precios option:selected").val();
-        // obj.Referencia=$("#Referencia").val();
-        // obj.FechaDesde=$("#Vigencia").val().split('-')[0];
-        // obj.FechaHasta=$("#Vigencia").val().split('-')[1];
-        // obj.ObservacionesCot=$("#ObservacionesCot").val();
-        // obj.Subtotal=subtotal;
-        // var iva=parseFloat((subtotal*16)/100);
-        // obj.Iva=iva;
-        // var total=(iva+subtotal);
-        // obj.Total=total;
+        obj.idContacto=1;
+        obj.idLugarServicio = $("#LugarServicio option:selected").val();
+        obj.idModalidad = $("#Modalidad option:selected").val();
+        obj.idTiempoEntrega = $("#TiempoEntrega option:selected").val();
+        obj.idTerminosPago = $("#TerminosPago option:selected").val();
+        obj.idPrecios = $("#Precios option:selected").val();
+        obj.Referencia=$("#Referencia").val();
+        obj.FechaDesde=$("#Vigencia").val().split('-')[0];
+        obj.FechaHasta=$("#Vigencia").val().split('-')[1];
+        obj.ObservacionesCot=$("#ObservacionesCot").val();
+        obj.Subtotal=subtotal;
+        var iva=parseFloat((subtotal*16)/100);
+        obj.Iva=iva;
+        var total=(iva+subtotal);
+        obj.Total=total;
         obj.accion = $(this).attr("id").split('_')[1];
-        guardar_detalle(obj);
+        guardar_detalle(obj, articulos, cantidades, observacionearticulos, ids, series, observacionesservicios, precios);
     });
 
     //=======================================================================================================
@@ -379,11 +380,11 @@ $(document).ready(function(){
                 data.Mfr,
                 data.Model,
                 '<input type="text" class="cargar" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-">',
-                '<input type="text" class="cargar" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-">',
-                '<input type="text" class="cargar" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-">',
-                '<input type="text" class="cargar" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-">',
-                '<input type="text" class="cargar" id="precio_'+data.Price+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'">',
+                '<input type="text" class="cargar" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="precio_'+data.Price+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="edit_'+data.EquipId+'"></button>'
             ] ).draw( true );
             subtotal=subtotal+data.Price;
@@ -542,25 +543,43 @@ $(document).ready(function(){
       // footer: '<a href>Why do I have this issue?</a>'
     })
   }
-  function guardar_detalle(obj){
+  function guardar_detalle(obj, articulosg, cantidadesg, observacionesg, idsg, seriesg, observiciog, preciosg){
     var opc = "guardar_cot";
-      $.post("dist/fw/cotizacion.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
+      $.post("dist/fw/cotizacion.php",{'opc':opc, 'obj':JSON.stringify(obj), 'articulos':articulosg, 'cantidades':cantidadesg,'observaciones':observacionesg, 'ids':idsg, 'series':seriesg, 'observicio':observiciog, 'precios':preciosg},function(data){
         if(data){
-            alerta("¡Guardado!", "La empresa se guardó correctamentexzccxzczxzcxxzc, ¿desea seguir en 'Empresas'", "success");
+            alerta("¡Guardado!", "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'", "success");
         }else{
             alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
         }
     },'json');
   }
   function arregloCantidad(id) {
-    // var x = document.getElementById("cantidad_1");
-    // x.value = x.value.toUpperCase();
-    //:::: SE SACA LA POCISION DEL ID CANTIDAD ::::
     var pos=articulos.indexOf(String(id));
+    cantidades[pos]=$('#cantidad_'+id).val();
     
-    // alert($('').attr('id').split('_')[1]);
-    // cantidades[pos]=$(this).val();
-    // alert(cantidades[pos]);
-   
+  }
+  function arregloObservaciones(id) {
+    var pos=articulos.indexOf(String(id));
+    observacionearticulos[pos]=$('#observaciones_'+id).val();
+    
+  }
+  function arregloIds(id) {
+    var pos=articulos.indexOf(String(id));
+    ids[pos]=$('#id_'+id).val();
+    
+  }
+  function arregloSerie(id) {
+    var pos=articulos.indexOf(String(id));
+    series[pos]=$('#serie_'+id).val();
+    
+  }
+  function arregloObservicio(id) {
+    var pos=articulos.indexOf(String(id));
+    observacionesservicios[pos]=$('#observicio_'+id).val();
+    
+  }
+  function arregloPrecios(id) {
+    var pos=articulos.indexOf(String(id));
+    precios[pos]=$('#precio_'+id).val();
     
   }

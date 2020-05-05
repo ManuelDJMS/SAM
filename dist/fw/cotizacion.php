@@ -4,30 +4,16 @@
     ini_set('display_errors', '0');
 	require_once "classes/Conexion.php";
      $opc = $_POST['opc'];
-     $cadena="INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,
-                Observaciones, ObservacionesServicios) VALUES";
     if ($opc == '' || $opc == 'undefined' || $opc == null) 
     {
 	    echo json_encode(false);
 	    die();
     }
-    elseif ($opc=='guardar_cadena')
-    {
-        $obj = $_POST['obj'];
-        $datos = json_decode($obj); 
-        foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
-        // $con = new Conexion();
-        // $con->conectar();
-        // ========================== COSIGO PARA GUARDAR  ========================================
-            $cadena="INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,
-            Observaciones, ObservacionesServicios) VALUES";
-            $cadena=$cadena."((Select MAX(NumCot) from Cotizaciones),".$datos->EquipId.",".$datos->Partida.",".$datos->Cantidad.",1,'".$datos->Id."','".$datos->Serie."'
-            ,'".$datos->Observaciones."','".$datos->ObServicio."');";
-    }
     // ======== GUARDAR EMPRESAS =============
     elseif ($opc == 'guardar_cot') 
     {
         $obj = $_POST['obj'];
+        // $obj1 = $_POST['articulos'];
         $datos = json_decode($obj); 
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
@@ -35,16 +21,46 @@
         // ========================== COSIGO PARA GUARDAR  ========================================
         if($datos->accion == 'nuevo')
         {
-           
-            // $strQuery = "INSERT INTO Cotizaciones 
-            // (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
-            // FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (".$_SESSION['iduser'].",".$datos->idContacto.",".$datos->idLugarServicio.",
-            // ".$datos->idModalidad.",".$datos->idTiempoEntrega.",".$datos->idTerminosPago.",".$datos->idPrecios.",'".$datos->Referencia."','2020-01-01','2020-01-01','".$datos->ObservacionesCot."',".$datos->Subtotal.",".$datos->Iva.",".$datos->Total.")";
-            // ---------------------------------------- CODIGO PARA GUARDAR LAS EMPRESAS NUEVAS ----------------------------------------------------------------------
-            $strQuery2 = $datos->Partidas;
-            //--------------------------------------------------------------------------------------------------------------------------------------------------------
-            // $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
-            $res = $con->ejecutaSQLTransac($strQuery2);
+            //::::::::::::::SE OPTIENEN LAS PARTIDAS (ARREGLOS DE CADA CAMPO):::::::::::::::::::
+            $articulos = $_POST['articulos'];
+            $observaciones = $_POST['observaciones'];
+            $cantidades = $_POST['cantidades'];
+            $ids = $_POST['ids'];
+            $series = $_POST['series'];
+            $observicio = $_POST['observicio'];
+            $precios = $_POST['precios'];
+            //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            //++++++++++++++++++++++++++++++++++ SE CREA EL ENCABEZADO DE LA COTIZACION ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            $strQuery="INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
+                        FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (".$_SESSION['iduser'].",".$datos->idContacto.",".$datos->idLugarServicio.",
+                        ".$datos->idModalidad.",".$datos->idTiempoEntrega.",".$datos->idTerminosPago.",".$datos->idPrecios.",'".$datos->Referencia."','2020-01-01','2020-01-01',
+                        '".$datos->ObservacionesCot."',".$datos->Subtotal.",".$datos->Iva.",".$datos->Total.")";
+            //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            //------------------------- SE CREA LA CADENA CON LOS REGISTROS (PARTIDAS DE COTIZACION)---------------------------------------------------------------------------
+            for ($i=0; $i< count($articulos); $i++)
+            {
+                if ((count($articulos)) == 1)
+                {
+                    $strQuery2="((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",1,".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."')";
+                }
+                else
+                {
+                    if ($i==(count($articulos)-1))
+                    {
+                        $strQuery2=$strQuery2."((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",".($i+1).",".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."');";
+            
+                    }
+                    else
+                    {
+                        $strQuery2=$strQuery2."((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",".($i+1).",".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."'),";
+                    }
+                }
+            
+            } 
+            $strQuery2= "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,Observaciones, ObservacionesServicios) VALUES ".$strQuery2;
+            // $res = $con->ejecutaSQLTransac($strQuery2);
+            $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
+            // ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
         }
         else{
             if($datos->Tipo=='')
