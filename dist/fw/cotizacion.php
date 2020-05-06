@@ -21,7 +21,6 @@
         // ========================== COSIGO PARA GUARDAR  ========================================
         if($datos->accion == 'nuevo')
         {
-            //::::::::::::::SE OPTIENEN LAS PARTIDAS (ARREGLOS DE CADA CAMPO):::::::::::::::::::
             $articulos = $_POST['articulos'];
             $observaciones = $_POST['observaciones'];
             $cantidades = $_POST['cantidades'];
@@ -29,37 +28,63 @@
             $series = $_POST['series'];
             $observicio = $_POST['observicio'];
             $precios = $_POST['precios'];
-            //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-            //++++++++++++++++++++++++++++++++++ SE CREA EL ENCABEZADO DE LA COTIZACION ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            $strQuery="INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
-                        FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (".$_SESSION['iduser'].",".$datos->idContacto.",".$datos->idLugarServicio.",
-                        ".$datos->idModalidad.",".$datos->idTiempoEntrega.",".$datos->idTerminosPago.",".$datos->idPrecios.",'".$datos->Referencia."','2020-01-01','2020-01-01',
-                        '".$datos->ObservacionesCot."',".$datos->Subtotal.",".$datos->Iva.",".$datos->Total.")";
-            //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            //------------------------- SE CREA LA CADENA CON LOS REGISTROS (PARTIDAS DE COTIZACION)---------------------------------------------------------------------------
-            for ($i=0; $i< count($articulos); $i++)
-            {
-                if ((count($articulos)) == 1)
-                {
-                    $strQuery2="((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",1,".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."')";
-                }
-                else
-                {
-                    if ($i==(count($articulos)-1))
-                    {
-                        $strQuery2=$strQuery2."((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",".($i+1).",".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."');";
             
-                    }
-                    else
-                    {
-                        $strQuery2=$strQuery2."((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",".($i+1).",".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."'),";
-                    }
-                }
+            $sql1 = "INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
+                       FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $params1 = array($_SESSION['iduser'],$datos->idContacto,$datos->idLugarServicio,$datos->idModalidad,$datos->idTiempoEntrega,$datos->idTerminosPago,$datos->idPrecios,$datos->Referencia,'2020-01-01','2020-01-01',$datos->ObservacionesCot,$datos->Subtotal,$datos->Iva,$datos->Total);
+            // $stmt1 = sqlsrv_query( $conn, $sql1, $params1 );
+
+            /* Preparar y ejecutar la segunda sentencia. */
+
+            $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES (?,?,?,?,?,?,?,?,?),(?,?,?,?,?,?,?,?,?);";
+                     for ($i=0; $i< count($articulos); $i++)
+                     {
+                        // $params2 = array(1,$articulos[$i],($i+1),$cantidades[$i],$ids[$i],$series[$i],$observaciones[$i],$observicio[$i]);
+                        $params2 = array(1,652,1,1,1,"asd","asd","asd","dsa",1,42,1,1,1,"asd","asd","asd","dsa");
+                        // $stmt2 = sqlsrv_query( $conn, $sql2, $params2 );
+                     }
+
+            $res = $con->ejecutaSQLTransacCot($sql1,$sql2, $params1, $params2);
+           
+            //::::::::::::::SE OPTIENEN LAS PARTIDAS (ARREGLOS DE CADA CAMPO):::::::::::::::::::
+            // $articulos = $_POST['articulos'];
+            // $observaciones = $_POST['observaciones'];
+            // $cantidades = $_POST['cantidades'];
+            // $ids = $_POST['ids'];
+            // $series = $_POST['series'];
+            // $observicio = $_POST['observicio'];
+            // $precios = $_POST['precios'];
+            // //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            // //++++++++++++++++++++++++++++++++++ SE CREA EL ENCABEZADO DE LA COTIZACION ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // $strQuery="INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
+            //             FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (".$_SESSION['iduser'].",".$datos->idContacto.",".$datos->idLugarServicio.",
+            //             ".$datos->idModalidad.",".$datos->idTiempoEntrega.",".$datos->idTerminosPago.",".$datos->idPrecios.",'".$datos->Referencia."','2020-01-01','2020-01-01',
+            //             '".$datos->ObservacionesCot."',".$datos->Subtotal.",".$datos->Iva.",".$datos->Total.")";
+            // //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // //------------------------- SE CREA LA CADENA CON LOS REGISTROS (PARTIDAS DE COTIZACION)---------------------------------------------------------------------------
+            // for ($i=0; $i< count($articulos); $i++)
+            // {
+            //     if ((count($articulos)) == 1)
+            //     {
+            //         $strQuery2="((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",1,".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."')";
+            //     }
+            //     else
+            //     {
+            //         if ($i==(count($articulos)-1))
+            //         {
+            //             $strQuery2=$strQuery2."((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",".($i+1).",".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."');";
             
-            } 
-            $strQuery2= "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,Observaciones, ObservacionesServicios) VALUES ".$strQuery2;
-            // $res = $con->ejecutaSQLTransac($strQuery2);
-            $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
+            //         }
+            //         else
+            //         {
+            //             $strQuery2=$strQuery2."((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",".($i+1).",".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."'),";
+            //         }
+            //     }
+            
+            // } 
+            // $strQuery2= "INSERT INTO DetalleCotizaciones VALUES ".$strQuery2;
+            // // $res = $con->ejecutaSQLTransac($strQuery2);
+            // $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
             // ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
         }
         else{
