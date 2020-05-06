@@ -13,7 +13,6 @@
     elseif ($opc == 'guardar_cot') 
     {
         $obj = $_POST['obj'];
-        // $obj1 = $_POST['articulos'];
         $datos = json_decode($obj); 
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
@@ -32,17 +31,17 @@
             $sql1 = "INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
                        FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $params1 = array($_SESSION['iduser'],$datos->idContacto,$datos->idLugarServicio,$datos->idModalidad,$datos->idTiempoEntrega,$datos->idTerminosPago,$datos->idPrecios,$datos->Referencia,'2020-01-01','2020-01-01',$datos->ObservacionesCot,$datos->Subtotal,$datos->Iva,$datos->Total);
-            // $stmt1 = sqlsrv_query( $conn, $sql1, $params1 );
-
-            /* Preparar y ejecutar la segunda sentencia. */
-
-            $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES (?,?,?,?,?,?,?,?,?),(?,?,?,?,?,?,?,?,?);";
-                     for ($i=0; $i< count($articulos); $i++)
-                     {
-                        // $params2 = array(1,$articulos[$i],($i+1),$cantidades[$i],$ids[$i],$series[$i],$observaciones[$i],$observicio[$i]);
-                        $params2 = array(1,652,1,1,1,"asd","asd","asd","dsa",1,42,1,1,1,"asd","asd","asd","dsa");
-                        // $stmt2 = sqlsrv_query( $conn, $sql2, $params2 );
-                     }
+         
+            // $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES (?,?,?,?,?,?,?,?,?),(?,?,?,?,?,?,?,?,?);";
+            $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES ((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?)";
+            // $params2 = array();   
+            // for ($i=0; $i< count($articulos); $i++)
+            //          {
+                $productId = '(Select MAX(NumCot) from Cotizaciones)';
+                        $params2 = array(intval($articulos[0]),1,intval($cantidades[0]),1,$ids[0],$series[0],$observaciones[0],$observicio[0]);
+                        // $params2 = array(1,652,1,1,1,"asd","asd","asd","dsa",1,42,1,1,1,"asd","asd","asd","dsa");
+                        // $params2 = array(1,652,1,1,1,"asd","asd","asd","dsa",1,42,1,1,1,"asd","asd","asd","dsa");
+                    //  }
 
             $res = $con->ejecutaSQLTransacCot($sql1,$sql2, $params1, $params2);
            
