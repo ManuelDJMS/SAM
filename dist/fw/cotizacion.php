@@ -3,13 +3,13 @@
     error_reporting(E_ALL);
     ini_set('display_errors', '0');
 	require_once "classes/Conexion.php";
-     $opc = $_POST['opc'];
+    $opc = $_POST['opc'];
     if ($opc == '' || $opc == 'undefined' || $opc == null) 
     {
 	    echo json_encode(false);
 	    die();
     }
-    // ======== GUARDAR EMPRESAS =============
+    // *************************************************************** CODIGO PARA GUARDAR LA COTIZACION ***********************************************************************************************
     elseif ($opc == 'guardar_cot') 
     {
         $obj = $_POST['obj'];
@@ -20,6 +20,7 @@
         // ========================== COSIGO PARA GUARDAR  ========================================
         if($datos->accion == 'nuevo')
         {
+            //:::::::::::::::: SE OPTIENEN LOS ARREGLOS CON DATOS DE LA COT ::::::::::::::::::::::
             $articulos = $_POST['articulos'];
             $observaciones = $_POST['observaciones'];
             $cantidades = $_POST['cantidades'];
@@ -27,63 +28,41 @@
             $series = $_POST['series'];
             $observicio = $_POST['observicio'];
             $precios = $_POST['precios'];
-            
+            //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+            //-------------------------- SE ALAMCENA LA CADENA QUE GUARDA EL ENCABEZADO DE LA COT JUNTO CON LOS PARAMETROS-----------------------------------------------------
             $sql1 = "INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
                        FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $params1 = array($_SESSION['iduser'],$datos->idContacto,$datos->idLugarServicio,$datos->idModalidad,$datos->idTiempoEntrega,$datos->idTerminosPago,$datos->idPrecios,$datos->Referencia,'2020-01-01','2020-01-01',$datos->ObservacionesCot,$datos->Subtotal,$datos->Iva,$datos->Total);
-         
-            // $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES (?,?,?,?,?,?,?,?,?),(?,?,?,?,?,?,?,?,?);";
-            $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES ((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?)";
-            // $params2 = array();   
-            // for ($i=0; $i< count($articulos); $i++)
-            //          {
-                $productId = '(Select MAX(NumCot) from Cotizaciones)';
-                        $params2 = array(intval($articulos[0]),1,intval($cantidades[0]),1,$ids[0],$series[0],$observaciones[0],$observicio[0]);
-                        // $params2 = array(1,652,1,1,1,"asd","asd","asd","dsa",1,42,1,1,1,"asd","asd","asd","dsa");
-                        // $params2 = array(1,652,1,1,1,"asd","asd","asd","dsa",1,42,1,1,1,"asd","asd","asd","dsa");
-                    //  }
+            //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            //,,,,,,, ARREGLO PARA LOS PARAMETROS DE LAS PARTIDAS ,,,,,,,,,,
+            $params2 = array(); 
+            //,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+            //#################### CICLO PARA OBTENER EL NUMERO DE PARAMETROS A INSERTAR ##############################################
+            for ($i=0; $i< count($articulos); $i++)
+            {
+                    if ($i==(count($articulos)-1))
+                    {
+                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?);";
+            
+                    }
+                    else
+                    {
+                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?),";
+                    }
+                array_push($params2, intval($articulos[$i]),1,intval($cantidades[$i]),1,$ids[$i],$series[$i],$observaciones[$i],$observicio[$i]);
+                
+            } 
+            //########################################################################################################################
+            if ((count($articulos)) == 1)
+            {
+                $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES ((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?)";
+            }
+            else
+            {
+                $sql2= "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES ".$sql2;
 
+            }
             $res = $con->ejecutaSQLTransacCot($sql1,$sql2, $params1, $params2);
-           
-            //::::::::::::::SE OPTIENEN LAS PARTIDAS (ARREGLOS DE CADA CAMPO):::::::::::::::::::
-            // $articulos = $_POST['articulos'];
-            // $observaciones = $_POST['observaciones'];
-            // $cantidades = $_POST['cantidades'];
-            // $ids = $_POST['ids'];
-            // $series = $_POST['series'];
-            // $observicio = $_POST['observicio'];
-            // $precios = $_POST['precios'];
-            // //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-            // //++++++++++++++++++++++++++++++++++ SE CREA EL ENCABEZADO DE LA COTIZACION ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            // $strQuery="INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
-            //             FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (".$_SESSION['iduser'].",".$datos->idContacto.",".$datos->idLugarServicio.",
-            //             ".$datos->idModalidad.",".$datos->idTiempoEntrega.",".$datos->idTerminosPago.",".$datos->idPrecios.",'".$datos->Referencia."','2020-01-01','2020-01-01',
-            //             '".$datos->ObservacionesCot."',".$datos->Subtotal.",".$datos->Iva.",".$datos->Total.")";
-            // //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-            // //------------------------- SE CREA LA CADENA CON LOS REGISTROS (PARTIDAS DE COTIZACION)---------------------------------------------------------------------------
-            // for ($i=0; $i< count($articulos); $i++)
-            // {
-            //     if ((count($articulos)) == 1)
-            //     {
-            //         $strQuery2="((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",1,".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."')";
-            //     }
-            //     else
-            //     {
-            //         if ($i==(count($articulos)-1))
-            //         {
-            //             $strQuery2=$strQuery2."((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",".($i+1).",".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."');";
-            
-            //         }
-            //         else
-            //         {
-            //             $strQuery2=$strQuery2."((Select MAX(NumCot) from Cotizaciones),".$articulos[$i].",".($i+1).",".$cantidades[$i].",1,'".$ids[$i]."','".$series[$i]."','".$observaciones[$i]."','".$observicio[$i]."'),";
-            //         }
-            //     }
-            
-            // } 
-            // $strQuery2= "INSERT INTO DetalleCotizaciones VALUES ".$strQuery2;
-            // // $res = $con->ejecutaSQLTransac($strQuery2);
-            // $res = $con->ejecutaSQLTransacEmpresas($strQuery, $strQuery2);
             // ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 
         }
         else{
