@@ -6,8 +6,10 @@
 <!--=============================== SCRIPTS DE ACCIONES ================================ -->
 <script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables/responsive.bootstrap4.min.js"></script>
 <script src="dist/js/cotizacion.js"></script>
-<script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1567487539/jquery.tabledit.js"></script>
+<!-- <script type="text/javascript" src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1567487539/jquery.tabledit.js"></script> -->
 <!-- =================================================================================== -->
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -37,13 +39,12 @@
                     <span>Información Específica</span>
                 </a>
             </li>
-            <!-- <li class="nav-item">
+            <li class="nav-item">
                 <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
-                    <span>Información Específica</span>
+                    <span>Historial General de Cotizaciones</span>
                 </a>
-            </li> -->
+            </li>
         </ul>
-        <!-- <div class="divider"></div> -->
         <div class="tab-content">
             <div class="tab-pane tabs-animation fade show active" id="tab-content-0" role="tabpanel">
                 <div class="row" id="EditarDirecciones">
@@ -180,27 +181,6 @@
             </div><!-- TERMINA EL DIV tab-pane tabs-animation fade show active QUE CONTIENE LOS DOS TABS -->
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
-                <!-- <div class="main-card mb-3 card">
-                    <div id="div_registros" class="card-body">
-                        <table id="table_registros" class="table table-hover table-bordered table-striped dataTable">
-                            <thead>
-                                <tr>
-                                    <th>Clave Empresa</th>
-                                    <th>Razón Social</th>
-                                    <th>RFC</th>
-                                    <th>Crédito</th>
-                                    <th>N° Proveedor</th>
-                                    <th>Clave de AdminPaq</th>
-                                    <th>Observaciones de la empresa</th>
-                                    <th>Editar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>   -->
                 <!-- ============================= DATOS COMPLETOS DEL CLIENTE A COTIZAR ============================ -->
                 <div class="row" id="EditarDirecciones">
                     <div class="col-md-12 col-lg-6 col-xl-4">
@@ -374,9 +354,6 @@
                             Catálogo de Artículos
                         </div>
                         <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-                            <!-- <button type="button" class="btn-icon btn-icon-only btn btn-link" id="ObtenerArticulos">
-                                <i class="pe-7s-timer btn-icon-wrapper"></i>
-                            </button> -->
                             <input id="Enter" class="form-control" placeholder="Ingresa SKU, OV, ACCESS">
                         </div>
                     </div>
@@ -404,76 +381,91 @@
                       
                         </table>
                     </div>
-                    <!-- OPCION DOS -->
-                    <!-- <div class="container mt-100">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card">
-                                    <div class="card-block">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-bordered display" id="articulosCot">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="display: none;">#</th>
-                                                        <th>First</th>
-                                                        <th>Last</th>
-                                                        <th>About</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <th scope="row" style="display: none;">1</th>
-                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
-                                                            <span class="tabledit-span">Sam</span>
-                                                            <input class="tabledit-input form-control input-sm" type="text" name="First Name" value="Mark" style="display: none;" disabled="">
-                                                        </td>
-                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
-                                                            <span class="tabledit-span" style="">Motto</span>
-                                                            <input class="tabledit-input form-control input-sm fill" type="text" name="Last Name" value="Otto" style="display: none;" disabled="">
-                                                        </td>
-                                                        <td class="tabledit-view-mode">
-                                                            <span class="tabledit-span">Android Developer</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" style="display: none;">2</th>
-                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
-                                                            <span class="tabledit-span">Mark</span>
-                                                            <input class="tabledit-input form-control input-sm" type="text" name="First Name" value="Jacob" style="display: none;" disabled="">
-                                                        </td>
-                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
-                                                            <span class="tabledit-span">Henry</span>
-                                                            <input class="tabledit-input form-control input-sm" type="text" name="Last Name" value="Thorntonkk" style="display: none;" disabled="">
-                                                        </td>
-                                                        <td class="tabledit-view-mode">
-                                                            <span class="tabledit-span">Java Developer</span>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row" style="display: none;">3</th>
-                                                        <td class="tabledit-view-mode" style="cursor: pointer;">
-                                                            <span class="tabledit-span">Larry</span>
-                                                            <input class="tabledit-input form-control input-sm" type="text" name="First Name" value="Larry" style="display: none;" disabled="">
-                                                        </td>
-                                                        <td class="tabledit-view-mode" style="cursor: pointer;"><span class="tabledit-span">Pingor</span>
-                                                            <input class="tabledit-input form-control input-sm" type="text" name="Last Name" value="the Bird" style="display: none;" disabled="">
-                                                        </td>
-                                                        <td class="tabledit-view-mode"><span class="tabledit-span">Hybris Developer</span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <!--  -->
                 </div>
                 <!-- =============================================================================================== -->
                 <!--  -->
             </div>  
+            <!-- ================================== INICIA LA COTIZACION GENERAL DE ACCES DE LAS COTIZACIONES =================================================== -->
+            <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+                <div class="mb-3 card">
+                    <div class="card-header-tab card-header">
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                            <i class="header-icon pe-7s-id mr-3 icon-gradient bg-happy-itmeo"> </i>
+                            Seleccionar Años
+                        </div>
+                        <div class="btn-actions-pane-right">
+                            <form class="form-inline">
+                                <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                    <label for="exampleEmail22" class="mr-sm-2">De</label>
+                                    <select id="De" class="form-control">
+                                        <option>2019</option>
+                                        <option>2018</option>
+                                        <option>2017</option>
+                                        <option>2016</option>
+                                        <option>2015</option>
+                                        <option>2014</option>
+                                        <option>2013</option>
+                                        <option>2012</option>
+                                        <option>2011</option>
+                                        <option>2010</option>
+                                        <option>2009</option>
+                                        <option>2008</option>
+                                        <option>2007</option>
+                                    </select> 
+                                </div>
+                                <div class="mb-2 mr-sm-2 mb-sm-0 position-relative form-group">
+                                    <label for="examplePassword22" class="mr-sm-2">A</label>
+                                    <select id="A" class="form-control">
+                                        <option>2019</option>
+                                        <option>2018</option>
+                                        <option>2017</option>
+                                        <option>2016</option>
+                                        <option>2015</option>
+                                        <option>2014</option>
+                                        <option>2013</option>
+                                        <option>2012</option>
+                                        <option>2011</option>
+                                        <option>2010</option>
+                                        <option>2009</option>
+                                        <option>2008</option>
+                                        <option>2007</option>
+                                    </select> 
+                                </div>
+                                <button type="button" class="btn-hover-shine btn btn-shadow btn-success" id="CargarCot">Cargar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-card mb-3 card">
+                    <div id="div_historialcots" class="card-body">
+                        <table id="table_historialcots" class="table table-hover table-bordered table-striped dataTable" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>NumCot</th>
+                                    <th>Clave Empresa</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Ser-Catálogo</th>
+                                    <th>Partida</th>
+                                    <th>Tipo</th>
+                                    <th>Marca</th>
+                                    <th>Modelo</th>
+                                    <th>Alcance</th>
+                                    <th>Id</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio Unitario</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>  
+            </div>  
+
+            <!-- ================================== TERMINA LA COTIZACION GENERAL DE ACCES DE LAS COTIZACIONES =================================================== -->
             <!-- ===================================AQUI TERMINA EL CODIGO DE LAS COSULTAS ====================================================================== -->
         </div><!-- AQUI TERMINA EL DIV DEL TAB -->
     </div>

@@ -93,55 +93,47 @@
         echo json_encode($res);
         
     }
-    // =======================================  CODIGO PARA GUARADAR LAS DIRECCIONES ===========================================================================
-    elseif ($opc == 'guardar_direccion') {
+    // ======================================
+    // *************************************************************** CODIGO PARA GUARDAR ARTICICULOS ACCESS ***********************************************************************************************
+    elseif ($opc == 'guardar_articulosAccess') 
+    {
         $obj = $_POST['obj'];
         $datos = json_decode($obj); 
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
         $con->conectar();
-        // ========================== COSIGO PARA GUARDAR  ========================================
-        if($datos->accion == 'nuevo'){
-            $strQuery="if exists(SELECT Compania, ClaveEmpresa, Domicilio, Ciudad from DireccionesAcomodadas WHERE Compania='".$datos->Direccion."' and
-            Domicilio='".$datos->Direccion."' and Ciudad='".$datos->Ciudad."') begin UPDATE DireccionesAcomodadas
-            SET Facturacion=1 WHERE Compania='".$datos->Compania."' and Domicilio='".$datos->Direccion."' and Ciudad='".$datos->Ciudad."'; end else begin INSERT INTO DireccionesAcomodadas 
-            (idUsuario, Compania, ClaveEmpresa, Domicilio, Ciudad, Estado, CP, Pais, Facturacion, Consignacion, Envio, Referencias) VALUES 
-            (".$_SESSION['iduser'].",'".$datos->Compania."',".$datos->ClaveEmpresa.",'".$datos->Direccion."','".$datos->Ciudad."','".$datos->Estado."','".$datos->CP."',
-            '".$datos->Pais."',1,0,0,'".$datos->Referencias."') end;";
-            
-            //-----------------------------------------------------------------------------------------------------------------------------------------------------------
-            // $res = $con->ejecutaSQLTransac($strQuery);
-        }
-        // =========================================================================================================================================================
-        // ========================= CODIGO PARA EDITAr ==========================================
-        else{
-            if($datos->Tipo=='')
-            {
-                $razon=$datos->Compania;
-            }
-            else
-            {
-                $razon=$datos->Compania.", ".$datos->Tipo;
-            }
-            $strQuery = "UPDATE DireccionesAcomodadas SET 
-            Compania = '".$razon."',
-            FechaModificacion = getdate(),
-            Domicilio = '".$datos->Direccion."',
-            Ciudad = '".$datos->Ciudad."',
-            Estado = '".$datos->Estado."',
-            CP = '".$datos->CP."',
-            Facturacion = ".$datos->Facturacion.",
-            Consignacion = ".$datos->Consig.",
-            Envio = ".$datos->Envio.",
-            Referencias = '".$datos->Referencias."'
-            WHERE idDireccion = '".$datos->idDireccion."'";
-           
-        }
+
+        $strQuery = "INSERT INTO CatalogoServiciosLogistica (NoCatalogo, cve, DescripcionServicio, Referencia, Unidad, PrecioBase, Observaciones)
+                         VALUES ('".$datos->NoCatalogo."',".$_SESSION['iduser'].",'".$datos->Descripcion."',' ".$datos->Referencia."','".$datos->Unidad."','".$datos->Precio."','".$datos->Observaciones."')";
+        
+        $strQuery="if exists(select ItemNumber from [EquiposLocales] where ItemNumber='".$datos->ItemNumber."') 
+                    begin 
+                        if exists(select ItemNumber from [EquiposLocales] where ItemNumber='A-DWY-QDCGII-100' and PuntosdeCalibracion='10 wePusdsdntos (-5, -6, -7, -8, -9, -10, -11, -12) en el Intervalo de -12…0 psi. Puntos a solicitud del Cliente.') 
+             begin 
+                update EquiposLocales set PuntosdeCalibracion=4426 where NumCot=4426
+             end
+             else
+              begin
+              
+                INSERT INTO [SAM].[dbo].[EquiposLocales] (ItemNumber, NombreEquipo, Modelo, Exactitud, Marca, NoCatalogo, Trazabilidad, NormasdeReferencia, Acreditamiento, MetododeCalibracion,Alcance, PuntosdeCalibracion) 
+                 (SELECT CONCAT(('A-'),SUBSTRING(UPPER(Marca),0,4),'-Q',Modelo,'/',(select isnull(Max(CAST((SUBSTRING(ItemNumber,CHARINDEX('/',ItemNumber)+1,10))+1 AS int )),1) from EquiposLocales where SUBSTRING(ItemNumber,0,CHARINDEX('/',ItemNumber))='A-DWY-QDCGII-100')) as ItemNumber, Tipo, Modelo, ClaseDeExactitud, Marca,  [Serv-Catalogo], Trazabilidad,
+                  NormasdeReferencia, Acreditamiento, MetododeCalibracion, Servs.Alcance, Cots.Alcance 
+                  from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] Cots INNER JOIN [METASINF-2020].[dbo].[Catalogo-Calibracion-Laboratorios] Servs on 
+                  Cots.[Serv-Catalogo]=Servs.NoCatalogo where year(Fecha)=2018 and NumCot=4426 and [Partida No]=2)
+              end
+        end
+        else
+                begin
+                 INSERT INTO [SAM].[dbo].[EquiposLocales] (ItemNumber, NombreEquipo, Modelo, Exactitud, Marca, NoCatalogo, Trazabilidad, NormasdeReferencia, Acreditamiento, MetododeCalibracion,Alcance, PuntosdeCalibracion) 
+                 (SELECT CONCAT(('A-'),SUBSTRING(UPPER(Marca),0,4),'-Q',Modelo) as ItemNumber, Tipo, Modelo, ClaseDeExactitud, Marca,  [Serv-Catalogo], Trazabilidad,
+                  NormasdeReferencia, Acreditamiento, MetododeCalibracion, Servs.Alcance, Cots.Alcance 
+                  from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] Cots INNER JOIN [METASINF-2020].[dbo].[Catalogo-Calibracion-Laboratorios] Servs on 
+                  Cots.[Serv-Catalogo]=Servs.NoCatalogo where year(Fecha)=2018 and NumCot=4426 and [Partida No]=1)	
+                end";
         $res = $con->ejecutaSQLTransac($strQuery);
         $con->cerrar();
         echo json_encode($res);
     }
-    // ======================================
     // ======== OPTENER LUGARSERVICIO =============
     elseif ($opc == 'obtener_lugarServicio')
     {
@@ -315,6 +307,34 @@
         $con->cerrar();
 	}
 	//========================================
+    // ======== OBTENER HISTORIAL COTS =============
+	elseif($opc == 'obtener_historialcots'){
+
+        $con = new Conexion();
+        $con->conectarAccess();
+        $de = $_POST['de'];
+        $a = $_POST['a']+1;
+        $strQuery = "SELECT TOP (10) NumCot, Cvempresa, Cliente, SUBSTRING(CONVERT(VARCHAR,Fecha),0,12) as Fecha, [Serv-Catalogo] AS ServCatalogo, [Partida No] AS PartidaNo, Tipo, Marca, Modelo, Alcance, ID, Cant, [Punitario-cot] as 
+        Precio FROM [UNION-COTIZACIONES] WHERE Fecha between '".$de."-01-01' and '".$a."-12-31'";
+        $con->ejecutaQuery($strQuery);
+        if($con->getNum()>0){
+            $arrDatos = $con->getListaObjectos();
+            foreach ($arrDatos as $objDato) {
+                foreach ($objDato as $key => $value){
+                    if(is_string($value)){
+                        $objDato->$key = utf8_encode($value);
+                    }
+                }
+                $arrRespuesta[] = $objDato;
+            }
+            echo json_encode($arrRespuesta);
+        }
+        else{
+            echo json_encode(false);
+        }
+        $con->cerrar();
+	}
+	//========================================
     // ======== OBTENER ARTICULOS COT =============
 	elseif($opc == 'obtener_articulosCot'){
         $id = $_POST['id'];
@@ -322,6 +342,23 @@
         $con->conectar();
         $strQuery = "SELECT SetupEquipment.EquipId, ItemNumber, EquipmentName, Mfr, Model, ServiceDescription, Price FROM SetupEquipment INNER JOIN SetupEquipmentServiceMapping ON 
                      SetupEquipment.EquipId=SetupEquipmentServiceMapping.EquipId where SetupEquipment.EquipId= $id";
+        $con->ejecutaQuery($strQuery);
+        $obj = $con->getObjeto();
+        foreach ($obj as $key => $value) {
+            if(is_string($value)){
+                $obj->$key = utf8_encode($value);    
+            }
+        }
+        echo json_encode($obj);
+        $con->cerrar();
+	}
+	//========================================
+    // ======== OBTENER ARTICULOS COT ACCESS =============
+	elseif($opc == 'obtener_articulosCotAccess'){
+        $id = $_POST['id'];
+        $con = new Conexion();
+        $con->conectarAccess();
+        $strQuery = "SELECT CONCAT('A-'),SUBSTRING(UPPER(Marca),0,4),'-Q',Modelo) as ItemNumber, Tipo, Marca, Modelo, Cant, ID, [Punitario-Cot] from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] where SetupEquipment.EquipId= $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {

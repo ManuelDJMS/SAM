@@ -1,5 +1,5 @@
 <?php
-class Conexion {
+  class Conexion {
     var $objMysql;
     var $connectionInfo;
     var $res;
@@ -25,6 +25,36 @@ class Conexion {
         $user = "sa";
         $password = "Met99011578a";
         $dataBase = "SAM";
+
+        $this->serverName = $serverName;
+        $this->user = $user;
+        $this->password = $password;
+        $this->dataBase = $dataBase;
+        $this->connectionInfo = array("Database" => $this->dataBase, "UID" => $this->user, "PWD" => $this->password);
+        $this->conn = sqlsrv_connect($this->serverName, $this->connectionInfo);
+
+        if ($this->conn) {
+            return $this->conn;
+        } else {
+            echo "Conexión no se pudo establecer.<br />";
+            die(print_r(sqlsrv_errors(), true));
+        }
+      }
+    }
+    function conectarAccess() {
+      if($this->motor == "mysql"){
+        $this->objMysql = new mysqli("localhost", 'usuario', 'contraseña', 'nombre_bd');      
+        if (mysqli_connect_errno()) {
+            die("Falló la conexión: ".mysqli_connect_error());
+        }else{
+          return $this->objMysql;
+        }
+      }
+      else{
+        $serverName = "IRONMAN2";
+        $user = "sa";
+        $password = "Met99011578a";
+        $dataBase = "HistorialCotizacionesMetAs";
 
         $this->serverName = $serverName;
         $this->user = $user;
@@ -85,7 +115,6 @@ class Conexion {
         }
         $this->res = sqlsrv_query($this->conn, $query, array(), array( "Scrollable" => 'static' ));
         if ($this->res === false) {
-            // die(print_r(sqlsrv_errors(), true));
             return false;
         } else {
             return true;

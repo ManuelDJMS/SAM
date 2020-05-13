@@ -7,6 +7,7 @@ var ids=[];
 var series=[];
 var observacionesservicios=[];
 var precios=[];
+//[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGO QUE FUNCIONA AL CARGAR EL DOCUMENTO ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 $(document).ready(function(){
     obtener_contactos();
     //  ============================= OBTENER ARTICULOS =====================================================
@@ -38,7 +39,7 @@ $(document).ready(function(){
       }
     });
     //=======================================================================================================
-    // ======================== EVENTO PARA SELECCIONAR ARTICULOS ===========================================
+    // ===================== EVENTO PARA SELECCIONAR ARTICULOS (POR ENTER) ==================================
     $('#Enter').keypress(function(event){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13'){
@@ -76,80 +77,101 @@ $(document).ready(function(){
       }
       event.stopPropagation();
     });
+    //=======================================================================================================
+    // ===================== EVENTO PARA SELECCIONAR ARTICULOS (POR SELECT) =================================
     $('html').on('click', '.btnArticulos', function(){
         var id = $(this).attr('id').split('_')[1];
-        var idArreglo=String($(this).attr('id').split('_')[1])+"_01_1-_2-_3-_4-_50";
         var repetido=false;
         if (articulos.length==0){
-          articulos.push(idArreglo);
+          articulos.push(id);
+          cantidades.push(1);
+          observacionearticulos.push("-");
+          ids.push("-");
+          series.push("-");
+          observacionesservicios.push("-");
           obtener_articulosCot(id);
         }
         //  CICLO PARA VER SI HAY REPETIDOS
         for( var i=0; i<(articulos.length); i++ )
         {
-         if (articulos[i].split('_')[0]==id)
-         {
-           repetido=true;
-           break;
-         }
+        if (articulos[i].split('_')[0]==id)
+        {
+          repetido=true;
+          break;
+        }
         }
         //SI NO ESTA EN EL ARREGLO LO AGREGA
         if(repetido!=true)
         {
-          articulos.push(idArreglo);
+          articulos.push(id);
+          cantidades.push(1);
+          observacionearticulos.push("-");
+          ids.push("-");
+          series.push("-");
+          observacionesservicios.push("-");
           obtener_articulosCot(id);
         }
     });
+    //=======================================================================================================
+    $('html').on('click', '.btnHCot', function(){
+      // var ItemNumber=("A-"+$(this).attr('id').split('_')[3].substring(0,3)+"-Q"+$(this).attr('id').split('_')[4].substring(0,3)).toUpperCase();
+
+      
+      var obj=new Object();
+      obj.ItemNumber=("A-"+$(this).attr('id').split('_')[3].substring(0,3)+"-Q"+$(this).attr('id').split('_')[4].substring(0,3)).toUpperCase();
+      obj.NumCot=$(this).attr('id').split('_')[1];
+      obj.Partida=$(this).attr('id').split('_')[2];
+      guardar_articulosAccess(obj);
+      // var id= $(this).attr('id').split('_')[1];
+      // var repetido=false;
+      // if (articulos.length==0){
+      //   articulos.push(id);
+      //   cantidades.push(1);
+      //   observacionearticulos.push("-");
+      //   ids.push("-");
+      //   series.push("-");
+      //   observacionesservicios.push("-");
+      //   obtener_articulosCot(id);
+      // }
+      // //  CICLO PARA VER SI HAY REPETIDOS
+      // for( var i=0; i<(articulos.length); i++ )
+      // {
+      // if (articulos[i].split('_')[0]==id)
+      // {
+      //   repetido=true;
+      //   break;
+      // }
+      // }
+      // //SI NO ESTA EN EL ARREGLO LO AGREGA
+      // if(repetido!=true)
+      // {
+      //   articulos.push(id);
+      //   cantidades.push(1);
+      //   observacionearticulos.push("-");
+      //   ids.push("-");
+      //   series.push("-");
+      //   observacionesservicios.push("-");
+      //   obtener_articulosCot(id);
+      // }
+
+
+    });
+    //=======================================================================================================
     $('html').on('click', '#Prueba', function(){
       alert(String(articulos[0]));
       articulos[0].split('_')[6]="hola";
       alert(String(articulos[0]));
-
     });
+    // ======================= EVENTO PARA MANDAR EL POST Y GUARDAR LA COT ==================================
     $('html').on('click', '.btnGuardar', function(){
       //OBTENER EL Subtotal
       for (var i=0; i< (articulos.length); i++)
       {
         subtotal=parseFloat(subtotal+$('#precio_'+articulos[i]).val());
       }
-      var obj=new Object();
-      var partidas="";
-      // for (var i=0; i< (articulos.length); i++)
-      // {
-      //   if ((articulos.length) == 1){
-      //     partidas="((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
-      //     "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"')";
-      //   }
-      //   else{
-      //     if (i==(articulos.length-1))
-      //     {
-      //       partidas=partidas+"((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
-      //       "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"');";
-  
-      //     }
-      //     else
-      //     {
-      //       partidas=partidas+"((Select MAX(NumCot) from Cotizaciones),"+articulos[i]+ ","+ String(counter) +","+$('#cantidad_'+articulos[i]).val()+",1,'"+$('#id_'+articulos[i]).val()+
-      //       "','"+$('#serie_'+articulos[i]).val()+"','"+$('#observaciones_'+articulos[i]).val()+"','"+$('#observicio_'+articulos[i]).val()+"'),";
-      //     }
-      //   }
-       
-      // }
-      //   obj.Partidas="INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal, identificadorInventarioCliente, Serie,Observaciones, ObservacionesServicios) VALUES "+partidas;
-//////////////////////////////////////////////////////////////////
-        // alert(obj.Partidas);
-         //::::::::::::Detalle de la cotizacion :::::::::
-        // devolver aqui
-       
-        // obj.Partida=counter;
-        // obj.Cantidad=$('#cantidad_'+articulos[i]).val();
-        // obj.Observaciones=$('#observaciones_'+articulos[i]).val();
-        // obj.Id=$('#id_'+articulos[i]).val();
-        // obj.Serie=$('#serie_'+articulos[i]).val();
-        // obj.ObServicio=$('#observicio_'+articulos[i]).val();
-        // obj.EquipId=articulos[i];
-        // obj.accion = $(this).attr("id").split('_')[1];
-        obj.idContacto=1;
+        var obj=new Object();
+        obj.idContacto= $('.btnCotizacion').attr('id').split('_')[1];
+        alert(obj.idContacto);
         obj.idLugarServicio = $("#LugarServicio option:selected").val();
         obj.idModalidad = $("#Modalidad option:selected").val();
         obj.idTiempoEntrega = $("#TiempoEntrega option:selected").val();
@@ -167,32 +189,49 @@ $(document).ready(function(){
         obj.accion = $(this).attr("id").split('_')[1];
         guardar_detalle(obj, articulos, cantidades, observacionearticulos, ids, series, observacionesservicios, precios);
     });
-
     //=======================================================================================================
-      var table = $('#articulosCot').DataTable();
-      //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
-      
-      $('#articulosCot tbody').on( 'click', 'tr', function () {
-          if ( $(this).hasClass('selected') ) {
-              $(this).removeClass('selected');
-          }
-          else {
-              table.$('tr.selected').removeClass('selected');
-              $(this).addClass('selected');
-          }
-      } );
-      //=====================================================================================================
-      //========================= ELIMINAR UN ROW DE LA TABLA DE COTIZACION =================================
-      $('html').on('click', '.btnEliminar', function () {
-          table.row('.selected').remove().draw( false );
-      } );
-      //=====================================================================================================
-      //========================= ELIMINAR UN ROW DE LA TABLA DE COTIZACION =================================
-      $('html').on('click', '.btnCancelar', function () {
-        location.reload();
-      } );
-      //=====================================================================================================
+    //=======================================================================================================
+    var table = $('#articulosCot').DataTable();
+    //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
+    $('#articulosCot tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+    } );
+    //=====================================================================================================
+    //========================= ELIMINAR UN ROW DE LA TABLA DE COTIZACION =================================
+    $('html').on('click', '.btnEliminar', function () {
+        table.row('.selected').remove().draw( false );
+        eliminarItem($(this).attr("id").split('_')[1])
+    } );
+    //=====================================================================================================
+    //========================= CANCELAR LA COTIZACION =================================
+    $('html').on('click', '.btnCancelar', function () {
+      location.reload();
+    } );
+    //=====================================================================================================
+    //========================= CANCELAR LA COTIZACION =================================
+    $('html').on('click', '#CargarCot', function () {
+      var de=$("#De").val();
+      // alert(de);
+     
+      var a=$("#A").val();
+      // alert(a);
+      if (de > a ){
+        alerta_error("Error de fechas", "Selecciona de menor a mayor los años");
+      }
+      else{
+        obtener_historialcots(de, a);
+      }
+      // obtener_historialcots();
+    } );
+    //=====================================================================================================
   });
+  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ METODOS PARA OBTENER DATOS PARA LOS FORMULARIOS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
   // ============================== METODO PÁRA OBTENER LUGAR CONDICION =====================================
   function obtener_lugarServicio(){
       var opc = 'obtener_lugarServicio';
@@ -367,9 +406,77 @@ $(document).ready(function(){
           $('.preloader').hide();
       },'json');
   }
+  // =============================== CODIGO PARA OBTENER EL HISTORIAL DE COTIZACIONES ============================
+  function obtener_historialcots(de, a){
+      var opc = "obtener_historialcots";
+      $('.preloader').show();
+      // regenerar_historialcots();
+      $.post("dist/fw/cotizacion.php",{'opc':opc, 'de':de, 'a':a},function(data){
+          if(data){
+              var html = '';
+              for (var i = 0; i < data.length; i++){
+                  html += '<tr>';
+                  html += '<td>' + $.trim(data[i].NumCot) + '</td>';
+                  html += '<td>' + $.trim(data[i].Cvempresa) + '</td>';
+                  html += '<td>' + $.trim(data[i].Cliente) + '</td>';
+                  html += '<td>' + $.trim(data[i].Fecha) + '</td>';
+                  html += '<td>' + $.trim(data[i].ServCatalogo) + '</td>';
+                  html += '<td>' + $.trim(data[i].PartidaNo) + '</td>';
+                  html += '<td>' + $.trim(data[i].Tipo) + '</td>';
+                  html += '<td>' + $.trim(data[i].Marca) + '</td>';
+                  html += '<td>' + $.trim(data[i].Modelo) + '</td>';
+                  html += '<td>' + $.trim(data[i].Alacance) + '</td>';
+                  html += '<td>' + $.trim(data[i].ID) + '</td>';
+                  html += '<td>' + $.trim(data[i].Cant) + '</td>';
+                  html += '<td>' + $.trim(data[i].Precio) + '</td>';
+                  html += '<td class="btnHCot" id="edit_'+data[i].NumCot+'_'+data[i].PartidaNo+'_'+data[i].Marca+'_'+data[i].Modelo+'"><span class="font-icon-wrapper lnr-select" ></span></td>';
+                  html += '</tr>';                        
+              }
+              $('#table_historialcots tbody').html(html);
+              $('#table_historialcots').DataTable({
+                  "paging": true,
+                  "lengthChange": true,
+                  "searching": true,
+                  "ordering": true,
+                  "info": true,
+                  "autoWidth": true,
+                  "scrollX": true
+              });
+          }
+          $('.preloader').hide();
+      },'json');
+  }
   // ================================== CODIGO PARA MANDAR LOS ARTICULOS A COTIZAR ==========================
   function obtener_articulosCot(id){
       var opc = "obtener_articulosCot";
+      $.post("dist/fw/cotizacion.php",{opc:opc, 'id':id},function(data){
+          if(data){
+              var t = $('#articulosCot').DataTable();
+              t.row.add( [
+                // counter,
+                data.ItemNumber,
+                data.EquipmentName,
+                data.Mfr,
+                data.Model,
+                '<input type="text" class="cargar" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="precio_'+data.Price+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
+                '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="edit_'+data.EquipId+'"></button>'
+            ] ).draw( true );
+            subtotal=subtotal+data.Price;
+            // var pos=articulos.indexOf(data.EquipId+"_01_1-_2-_3-_4-_50");
+            // articulos[pos]=articulos[pos].substring(0,articulos[pos].indexOf("_5")+2)+data.Price;
+            precios.push(data.Price);
+          }
+      },'json');
+  }
+  // ================================== CODIGO PARA MANDAR LOS ARTICULOS A COTIZAR ACCEESS ==========================
+  function obtener_articulosCotAccess(id){
+      var opc = "obtener_articulosCotAccess";
+      crear_articulosLocales();
       $.post("dist/fw/cotizacion.php",{opc:opc, 'id':id},function(data){
           if(data){
               var t = $('#articulosCot').DataTable();
@@ -425,6 +532,7 @@ $(document).ready(function(){
           $('.preloader').hide();
       },'json');
   }
+  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGOS PARA REGENERAR TABLAS O FORMULARIOS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
   // ============================== CODIGO PARA REGENERAR LA TABLA DE CONTACTOS ==========================================================================
   function regenerar_contactos(){
       $('#div_contactos').html("");
@@ -466,6 +574,34 @@ $(document).ready(function(){
       html += '</table>';
       $('#div_articulos').html(html);
   }
+  // ============================== CODIGO PARA REGENERAR LA TABLA DE  HISTORIAL DE COTIZACIONES ==========================================================================
+  function regenerar_tabla_articulos(){
+      $('#div_historialcots').html("");
+      var html = "";
+      html += '<table id="table_historialcots" class="table table-hover table-bordered table-striped dataTable" style="width:100%">';
+      html += '<thead>';
+      html += '<tr>';
+      html += '<th>NumCot</th>';
+      html += '<th>Clave Empresa</th>';
+      html += '<th>Cliente</th>';
+      html += '<th>Fecha</th>';
+      html += '<th>Ser-Catálogo</th>';
+      html += '<th>Partida</th>';
+      html += '<th>Tipo</th>';
+      html += '<th>Marca</th>';
+      html += '<th>Modelo</th>';
+      html += '<th>Alcance</th>';
+      html += '<th>Id</th>';
+      html += '<th>Cantidad</th>';
+      html += '<th>Precio Unitario</th>';
+      html += '<th></th>';
+      html += '</tr>';
+      html += '</thead>';
+      html += '<tbody>';
+      html += '</tbody>';
+      html += '</table>';
+      $('#div_historialcots').html(html);
+  }
   
   function limpia_formulario_contactos(){
       $("#NombreContacto").text("");
@@ -473,6 +609,7 @@ $(document).ready(function(){
       $("#EmailContacto").text("");
       $("#TelefonoContacto").text("");
   }
+  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ EVENTOS PARA CREAR ALERTAS EN EL SISTEMA ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
   function alerta(titulo, mensaje, icono){
   const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
@@ -543,6 +680,8 @@ $(document).ready(function(){
       // footer: '<a href>Why do I have this issue?</a>'
     })
   }
+  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGO PARA GUARDAR COTS, PARTIDAS, ETC..... ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  // ============================== CODIGO PARA GUARDAR LA COTIZACION Y SUS PARTIDAS ==========================================================================
   function guardar_detalle(obj, articulosg, cantidadesg, observacionesg, idsg, seriesg, observiciog, preciosg){
     var opc = "guardar_cot";
       $.post("dist/fw/cotizacion.php",{'opc':opc, 'obj':JSON.stringify(obj), 'articulos':articulosg, 'cantidades':cantidadesg,'observaciones':observacionesg, 'ids':idsg, 'series':seriesg, 'observicio':observiciog, 'precios':preciosg},function(data){
@@ -553,6 +692,19 @@ $(document).ready(function(){
         }
     },'json');
   }
+  // ============================== CODIGO PARA GUARDAR ARTICULOS DE ACCESS A SAM ==========================================================================
+  function guardar_articulosAccess(obj){
+    var opc = "guardar_articulosAccess";
+    $.post("dist/fw/cotizacion.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
+      if(data){
+        // alert()
+          alerta("¡Guardado!", "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'", "success");
+      }else{
+          alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
+      }
+  },'json');
+  }
+  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ GENERAR LOS ARREGLOS PARA LAS PARTIDAS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
   function arregloCantidad(id) {
     var pos=articulos.indexOf(String(id));
     cantidades[pos]=$('#cantidad_'+id).val();
@@ -582,4 +734,18 @@ $(document).ready(function(){
     var pos=articulos.indexOf(String(id));
     precios[pos]=$('#precio_'+id).val();
     
+  }
+  //=================================== CODIGO PARA ELIMINAR ITEM DE LOS ARREGLOS ==========================================
+  function eliminarItem (item) {
+    articulos.indexOf( item );
+    if ( i !== -1 ) {
+        articulos.splice( i, 1 );
+        cantidades.splice( i, 1 );
+        observacionearticulos.splice( i, 1 );
+        ids.splice( i, 1 );
+        series.splice( i, 1 );
+        observacionesservicios.splice( i, 1 );
+        precios.splice( i, 1 );
+        
+    }
   }
