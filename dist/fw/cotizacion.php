@@ -102,35 +102,35 @@
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
         $con->conectar();
-
-        $strQuery = "INSERT INTO CatalogoServiciosLogistica (NoCatalogo, cve, DescripcionServicio, Referencia, Unidad, PrecioBase, Observaciones)
-                         VALUES ('".$datos->NoCatalogo."',".$_SESSION['iduser'].",'".$datos->Descripcion."',' ".$datos->Referencia."','".$datos->Unidad."','".$datos->Precio."','".$datos->Observaciones."')";
         
         $strQuery="if exists(select ItemNumber from [EquiposLocales] where ItemNumber='".$datos->ItemNumber."') 
                     begin 
-                        if exists(select ItemNumber from [EquiposLocales] where ItemNumber='A-DWY-QDCGII-100' and PuntosdeCalibracion='10 wePusdsdntos (-5, -6, -7, -8, -9, -10, -11, -12) en el Intervalo de -12…0 psi. Puntos a solicitud del Cliente.') 
-             begin 
-                update EquiposLocales set PuntosdeCalibracion=4426 where NumCot=4426
-             end
-             else
-              begin
-              
-                INSERT INTO [SAM].[dbo].[EquiposLocales] (ItemNumber, NombreEquipo, Modelo, Exactitud, Marca, NoCatalogo, Trazabilidad, NormasdeReferencia, Acreditamiento, MetododeCalibracion,Alcance, PuntosdeCalibracion) 
-                 (SELECT CONCAT(('A-'),SUBSTRING(UPPER(Marca),0,4),'-Q',Modelo,'/',(select isnull(Max(CAST((SUBSTRING(ItemNumber,CHARINDEX('/',ItemNumber)+1,10))+1 AS int )),1) from EquiposLocales where SUBSTRING(ItemNumber,0,CHARINDEX('/',ItemNumber))='A-DWY-QDCGII-100')) as ItemNumber, Tipo, Modelo, ClaseDeExactitud, Marca,  [Serv-Catalogo], Trazabilidad,
-                  NormasdeReferencia, Acreditamiento, MetododeCalibracion, Servs.Alcance, Cots.Alcance 
-                  from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] Cots INNER JOIN [METASINF-2020].[dbo].[Catalogo-Calibracion-Laboratorios] Servs on 
-                  Cots.[Serv-Catalogo]=Servs.NoCatalogo where year(Fecha)=2018 and NumCot=4426 and [Partida No]=2)
-              end
-        end
-        else
-                begin
-                 INSERT INTO [SAM].[dbo].[EquiposLocales] (ItemNumber, NombreEquipo, Modelo, Exactitud, Marca, NoCatalogo, Trazabilidad, NormasdeReferencia, Acreditamiento, MetododeCalibracion,Alcance, PuntosdeCalibracion) 
-                 (SELECT CONCAT(('A-'),SUBSTRING(UPPER(Marca),0,4),'-Q',Modelo) as ItemNumber, Tipo, Modelo, ClaseDeExactitud, Marca,  [Serv-Catalogo], Trazabilidad,
-                  NormasdeReferencia, Acreditamiento, MetododeCalibracion, Servs.Alcance, Cots.Alcance 
-                  from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] Cots INNER JOIN [METASINF-2020].[dbo].[Catalogo-Calibracion-Laboratorios] Servs on 
-                  Cots.[Serv-Catalogo]=Servs.NoCatalogo where year(Fecha)=2018 and NumCot=4426 and [Partida No]=1)	
-                end";
-        $res = $con->ejecutaSQLTransac($strQuery);
+                        if exists(select ItemNumber from [EquiposLocales] where ItemNumber='".$datos->ItemNumber."' and 
+                        PuntosdeCalibracion=(select Alcance from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] WHERE Numcot=".$datos->NumCot." and [Partida No]=".$datos->Partida." and year(Fecha)=".$datos->Fecha.")) 
+                            begin 
+                                update EquiposLocales set NumCot=".$datos->NumCot." where NumCot=".$datos->NumCot."
+                            end
+                        else
+                            begin
+                                INSERT INTO [SAM2].[dbo].[EquiposLocales] (ItemNumber, NombreEquipo, Modelo, Exactitud, Marca, NoCatalogo, Trazabilidad, NormasdeReferencia, Acreditamiento, 
+                                MetododeCalibracion,Alcance, PuntosdeCalibracion, Precio) (SELECT CONCAT(('A-'),SUBSTRING(UPPER(Marca),0,4),'-Q',Modelo,'/',
+                                (select isnull(Max(CAST((SUBSTRING(ItemNumber,CHARINDEX('/',ItemNumber)+1,10))+1 AS int )),1) from EquiposLocales where 
+                                SUBSTRING(ItemNumber,0,CHARINDEX('/',ItemNumber))='".$datos->ItemNumber."')) as ItemNumber, Tipo, Modelo, ClaseDeExactitud, Marca, [Serv-Catalogo], Trazabilidad,
+                                NormasdeReferencia, Acreditamiento, MetododeCalibracion, Servs.Alcance, Cots.Alcance, [Punitario-cot] 
+                                from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] Cots INNER JOIN [METASINF-2020].[dbo].[Catalogo-Calibracion-Laboratorios] Servs on 
+                                Cots.[Serv-Catalogo]=Servs.NoCatalogo where year(Fecha)=".$datos->Fecha." and NumCot=".$datos->NumCot." and [Partida No]=".$datos->Partida.")
+                            end
+                        end
+                    else
+                        begin
+                            INSERT INTO [SAM2].[dbo].[EquiposLocales] (ItemNumber, NombreEquipo, Modelo, Exactitud, Marca, NoCatalogo, Trazabilidad, NormasdeReferencia, Acreditamiento, 
+                            MetododeCalibracion,Alcance, PuntosdeCalibracion, Precio) (SELECT CONCAT(('A-'),SUBSTRING(UPPER(Marca),0,4),'-Q',Modelo) as ItemNumber, Tipo, Modelo, ClaseDeExactitud, Marca,  [Serv-Catalogo], Trazabilidad,
+                            NormasdeReferencia, Acreditamiento, MetododeCalibracion, Servs.Alcance, Cots.Alcance, [Punitario-cot] 
+                            from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] Cots INNER JOIN [METASINF-2020].[dbo].[Catalogo-Calibracion-Laboratorios] Servs on 
+                            Cots.[Serv-Catalogo]=Servs.NoCatalogo where year(Fecha)=".$datos->Fecha." and NumCot=".$datos->NumCot." and [Partida No]=".$datos->Partida.")	
+                        end";
+       
+        $res = $con->ejecutaQuery($strQuery);
         $con->cerrar();
         echo json_encode($res);
     }
@@ -357,8 +357,9 @@
 	elseif($opc == 'obtener_articulosCotAccess'){
         $id = $_POST['id'];
         $con = new Conexion();
-        $con->conectarAccess();
-        $strQuery = "SELECT CONCAT('A-'),SUBSTRING(UPPER(Marca),0,4),'-Q',Modelo) as ItemNumber, Tipo, Marca, Modelo, Cant, ID, [Punitario-Cot] from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] where SetupEquipment.EquipId= $id";
+        $con->conectar();
+        $strQuery = "SELECT TOP 1 idEquipo, ItemNumber, NombreEquipo, Marca, Modelo, CONCAT(MetododeCalibracion, ' ', PuntosdeCalibracion) as MetododeCalibracion, Precio FROM 
+        EquiposLocales WHERE ItemNumber='".$id."'";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {

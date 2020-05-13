@@ -118,10 +118,12 @@ $(document).ready(function(){
 
       
       var obj=new Object();
-      obj.ItemNumber=("A-"+$(this).attr('id').split('_')[3].substring(0,3)+"-Q"+$(this).attr('id').split('_')[4].substring(0,3)).toUpperCase();
-      obj.NumCot=$(this).attr('id').split('_')[1];
-      obj.Partida=$(this).attr('id').split('_')[2];
+      obj.ItemNumber=("A-"+$(this).attr('id').split('_')[2].substring(0,3)+"-Q"+$(this).attr('id').split('_')[3]).toUpperCase();
+      obj.NumCot=$(this).attr('id').split('_')[0];
+      obj.Partida=$(this).attr('id').split('_')[1];
+      obj.Fecha=$(this).attr('id').split('_')[4];
       guardar_articulosAccess(obj);
+      obtener_articulosCotAccess(obj.ItemNumber);
       // var id= $(this).attr('id').split('_')[1];
       // var repetido=false;
       // if (articulos.length==0){
@@ -410,7 +412,7 @@ $(document).ready(function(){
   function obtener_historialcots(de, a){
       var opc = "obtener_historialcots";
       $('.preloader').show();
-      // regenerar_historialcots();
+      regenerar_historialcots();
       $.post("dist/fw/cotizacion.php",{'opc':opc, 'de':de, 'a':a},function(data){
           if(data){
               var html = '';
@@ -429,7 +431,7 @@ $(document).ready(function(){
                   html += '<td>' + $.trim(data[i].ID) + '</td>';
                   html += '<td>' + $.trim(data[i].Cant) + '</td>';
                   html += '<td>' + $.trim(data[i].Precio) + '</td>';
-                  html += '<td class="btnHCot" id="edit_'+data[i].NumCot+'_'+data[i].PartidaNo+'_'+data[i].Marca+'_'+data[i].Modelo+'"><span class="font-icon-wrapper lnr-select" ></span></td>';
+                  html += '<td class="btnHCot" id="'+data[i].NumCot+'_'+data[i].PartidaNo+'_'+data[i].Marca+'_'+data[i].Modelo+'_'+data[i].Fecha.substring(0,4)+'"><span class="font-icon-wrapper lnr-select" ></span></td>';
                   html += '</tr>';                        
               }
               $('#table_historialcots tbody').html(html);
@@ -463,7 +465,7 @@ $(document).ready(function(){
                 '<input type="text" class="cargar" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.EquipId+')">',
                 '<input type="text" class="cargar" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.EquipId+')">',
                 '<input type="text" class="cargar" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="precio_'+data.Price+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
+                '<input type="text" class="cargar" id="precio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="edit_'+data.EquipId+'"></button>'
             ] ).draw( true );
             subtotal=subtotal+data.Price;
@@ -476,28 +478,27 @@ $(document).ready(function(){
   // ================================== CODIGO PARA MANDAR LOS ARTICULOS A COTIZAR ACCEESS ==========================
   function obtener_articulosCotAccess(id){
       var opc = "obtener_articulosCotAccess";
-      crear_articulosLocales();
       $.post("dist/fw/cotizacion.php",{opc:opc, 'id':id},function(data){
           if(data){
               var t = $('#articulosCot').DataTable();
               t.row.add( [
                 // counter,
                 data.ItemNumber,
-                data.EquipmentName,
-                data.Mfr,
-                data.Model,
-                '<input type="text" class="cargar" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="precio_'+data.Price+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
-                '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="edit_'+data.EquipId+'"></button>'
+                data.NombreEquipo,
+                data.Marca,
+                data.Modelo,
+                '<input type="text" class="cargar" id="cantidad_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="observaciones_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="id_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="serie_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="observicio_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="precio_'+data.Precio+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPrecios('+data.idEquipo+')">',
+                '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="edit_'+data.idEquipo+'"></button>'
             ] ).draw( true );
-            subtotal=subtotal+data.Price;
+            subtotal=subtotal+data.Precio;
             // var pos=articulos.indexOf(data.EquipId+"_01_1-_2-_3-_4-_50");
             // articulos[pos]=articulos[pos].substring(0,articulos[pos].indexOf("_5")+2)+data.Price;
-            precios.push(data.Price);
+            precios.push(data.Precio);
           }
       },'json');
   }
@@ -575,7 +576,7 @@ $(document).ready(function(){
       $('#div_articulos').html(html);
   }
   // ============================== CODIGO PARA REGENERAR LA TABLA DE  HISTORIAL DE COTIZACIONES ==========================================================================
-  function regenerar_tabla_articulos(){
+  function regenerar_historialcots(){
       $('#div_historialcots').html("");
       var html = "";
       html += '<table id="table_historialcots" class="table table-hover table-bordered table-striped dataTable" style="width:100%">';
@@ -698,9 +699,9 @@ $(document).ready(function(){
     $.post("dist/fw/cotizacion.php",{'opc':opc, 'obj':JSON.stringify(obj)},function(data){
       if(data){
         // alert()
-          alerta("¡Guardado!", "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'", "success");
+          // alerta("¡Guardado!", "La empresa se guardó correctamente, ¿desea seguir en 'Empresas'", "success");
       }else{
-          alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
+          // alerta_error("¡Error!","Error al guardar los datos o la empresa ya esta registrada");
       }
   },'json');
   }

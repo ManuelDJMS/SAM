@@ -24,7 +24,7 @@
         $serverName = "IRONMAN2";
         $user = "sa";
         $password = "Met99011578a";
-        $dataBase = "SAM";
+        $dataBase = "SAM2";
 
         $this->serverName = $serverName;
         $this->user = $user;
