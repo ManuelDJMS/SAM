@@ -28,6 +28,7 @@
             $series = $_POST['series'];
             $observicio = $_POST['observicio'];
             $precios = $_POST['precios'];
+            $origen = $_POST['origen'];
             //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             //-------------------------- SE ALAMCENA LA CADENA QUE GUARDA EL ENCABEZADO DE LA COT JUNTO CON LOS PARAMETROS-----------------------------------------------------
             $sql1 = "INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
@@ -42,24 +43,24 @@
             {
                     if ($i==(count($articulos)-1))
                     {
-                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?);";
+                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?,?,?);";
             
                     }
                     else
                     {
-                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?),";
+                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?,?,?),";
                     }
-                array_push($params2, intval($articulos[$i]),1,intval($cantidades[$i]),1,$ids[$i],$series[$i],$observaciones[$i],$observicio[$i]);
+                array_push($params2, intval($articulos[$i]),1,intval($cantidades[$i]),1,$ids[$i],$series[$i],$observaciones[$i],$observicio[$i], $precios[$i], $origen[$i]);
                 
             } 
             //########################################################################################################################
             if ((count($articulos)) == 1)
             {
-                $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES ((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?)";
+                $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios, PrecioUnitario, Origen) VALUES ((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?,?,?)";
             }
             else
             {
-                $sql2= "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES ".$sql2;
+                $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios, PrecioUnitario, Origen) VALUES ".$sql2;
 
             }
             $res = $con->ejecutaSQLTransacCot($sql1,$sql2, $params1, $params2);
