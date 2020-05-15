@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include("conexion.php");?>
+include("dist/fw/Classes/conexion.php");?>
 <!doctype html>
     <html lang="en">
         <head>

@@ -1,7 +1,7 @@
 
 <?php 
     session_start();
-    include_once("conexion.php");
+    include("dist/fw/Classes/conexion.php");
     // header('Content-Type: text/html; charset=UTF-8');
 ?>
 <!doctype html>
