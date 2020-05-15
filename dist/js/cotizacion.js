@@ -11,9 +11,15 @@ var origenes=[];
 //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGO QUE FUNCIONA AL CARGAR EL DOCUMENTO ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 $(document).ready(function(){
     obtener_contactos();
+    // ======================================================================================================
     //  ============================= OBTENER ARTICULOS =====================================================
     $('html').on('click', '#ObtenerArticulos', function(){
+      if( $('#Origen_Catalogos').prop('checked') ) {
         obtener_articulos();
+      }
+      else{
+        obtener_articulosLocales();
+      }
     });
     // ======================== EVENTO DE EDITAR EN LA TABLA DE CONTACTOS ===================================
     $('html').on('click', '.btnContacto', function(){
@@ -93,8 +99,13 @@ $(document).ready(function(){
           ids.push("-");
           series.push("-");
           observacionesservicios.push("-");
-          origenes.push("LIMS");
-          obtener_articulosCot(id.split('_')[1]);
+          origenes.push(id.split('_')[0]);
+          if (id.split('_')[0]=="LIMS"){
+            obtener_articulosCot(id.split('_')[1]);
+          }
+          else{
+            obtener_articulosCotLocales(id.split('_')[1]);
+          }
         }
         //  CICLO PARA VER SI HAY REPETIDOS
         for( var i=0; i<(articulos.length); i++ )
@@ -114,8 +125,13 @@ $(document).ready(function(){
           ids.push("-");
           series.push("-");
           observacionesservicios.push("-");
-          origenes.push("LIMS");
-          obtener_articulosCot(id.split('_')[1]);
+          origenes.push(id.split('_')[0]);
+          if (id.split('_')[0]=="LIMS"){
+            obtener_articulosCot(id.split('_')[1]);
+          }
+          else{
+            obtener_articulosCotLocales(id.split('_')[1]);
+          }
         }
     });
     //=======================================================================================================
@@ -166,6 +182,7 @@ $(document).ready(function(){
           alerta_error("Error", "No hay ninguna partida en esta cotización")
         }
         else{
+          alert(cantidades[0]);
           guardar_detalle(obj, articulos, cantidades, observacionearticulos, ids, series, observacionesservicios, precios, origenes);
         }
     });
@@ -380,7 +397,8 @@ $(document).ready(function(){
                   "searching": true,
                   "ordering": true,
                   "info": true,
-                  "autoWidth": true
+                  "autoWidth": true,
+                  "scrollX": true
               });
           }
           $('.preloader').hide();
@@ -450,6 +468,30 @@ $(document).ready(function(){
           }
       },'json');
   }
+  // ================================== CODIGO PARA MANDAR LOS ARTICULOS A COTIZAR LOCALES ==========================
+  function obtener_articulosCotLocales(id){
+      var opc = "obtener_articulosCotLocales";
+      $.post("dist/fw/cotizacion.php",{opc:opc, 'id':id},function(data){
+          if(data){
+              var t = $('#articulosCot').DataTable();
+              t.row.add( [
+                data.ItemNumber,
+                data.NombreEquipo,
+                data.Marca,
+                data.Modelo,
+                '<input type="text" class="cargar" id="cantidadA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="observacionesA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="idA_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="serieA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="observicioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="precioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPrecios('+data.idEquipo+')">',
+                '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="ACCESS_'+data.idEquipo+'"></button>'
+            ] ).draw( true );
+            subtotal=subtotal+data.Precio;
+            precios.push(data.Precio);
+          }
+      },'json');
+  }
   // ================================== CODIGO PARA MANDAR LOS ARTICULOS A COTIZAR ACCEESS ==========================
   function obtener_articulosCotAccess(id){
       var opc = "obtener_articulosCotAccess";
@@ -471,12 +513,12 @@ $(document).ready(function(){
                 data.NombreEquipo,
                 data.Marca,
                 data.Modelo,
-                '<input type="text" class="cargar" id="cantidad_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="observaciones_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="id_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="serie_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="observicio_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="precio_'+data.Precio+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPrecios('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="cantidadA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="observacionesA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="idA_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="serieA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="observicioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.idEquipo+')">',
+                '<input type="text" class="cargar" id="precioA_'+data.Precio+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPrecios('+data.idEquipo+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="ACCESS_'+data.idEquipo+'"></button>'
             ] ).draw( true );
             subtotal=subtotal+data.Precio;
@@ -552,7 +594,40 @@ $(document).ready(function(){
                   "searching": true,
                   "ordering": true,
                   "info": true,
-                  "autoWidth": true
+                  "autoWidth": true,
+                  "scrollX": true
+              });
+          }
+          $('.preloader').hide();
+      },'json');
+  }
+  // ============================= CODIGO PARA OBTENER LOS ARTICULOS DE SAM A COTIZAR================================
+  function obtener_articulosLocales(){
+      var opc = "obtener_articulosLocales";
+      $('.preloader').show();
+      regenerar_tabla_articulos();
+      $.post("dist/fw/cotizacion.php",{opc:opc},function(data){
+          if(data){
+              var html = '';
+              for (var i = 0; i < data.length; i++){
+                  html += '<tr>';
+                  html += '<td>' + $.trim(data[i].ItemNumber) + '</td>';
+                  html += '<td>' + $.trim(data[i].NombreEquipo) + '</td>';
+                  html += '<td>' + $.trim(data[i].Marca) + '</td>';
+                  html += '<td>' + $.trim(data[i].Modelo) + '</td>';
+                  html += '<td>' + $.trim(data[i].Metodo) + '</td>';
+                  html += '<td class="btnArticulos" id="ACCESS_'+data[i].idEquipo+'"><span class="font-icon-wrapper lnr-select" ></span></td>';
+                  html += '</tr>';                        
+              }
+              $('#table_articulos tbody').html(html);
+              $('#table_articulos').DataTable({
+                  "paging": true,
+                  "lengthChange": true,
+                  "searching": true,
+                  "ordering": true,
+                  "info": true,
+                  "autoWidth": true,
+                  "scrollX": true
               });
           }
           $('.preloader').hide();
@@ -732,9 +807,13 @@ $(document).ready(function(){
   }
   //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ GENERAR LOS ARREGLOS PARA LAS PARTIDAS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
   function arregloCantidad(id) {
-    var pos=articulos.indexOf(String(id));
+    var idBuscar="LIMS_"+id;
+    alert(idBuscar);
+// dsaflkjhasldkfhlasdhflasdhflasdflasd copiar este codigo dos veces para accces y para lims
+    var pos=articulos.indexOf(idBuscar);
+    alert(pos);
     cantidades[pos]=$('#cantidad_'+id).val();
-    
+    alert(cantidades[pos]);
   }
   function arregloObservaciones(id) {
     var pos=articulos.indexOf(String(id));
@@ -764,6 +843,7 @@ $(document).ready(function(){
   //=================================== CODIGO PARA ELIMINAR ITEM DE LOS ARREGLOS ==========================================
   function eliminarItem (item) {
     var i=articulos.indexOf( item );
+    alert(i);
     if ( i !== -1 ) {
         articulos.splice( i, 1 );
         cantidades.splice( i, 1 );

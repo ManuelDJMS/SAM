@@ -154,6 +154,7 @@
                             Catálogo de Artículos
                         </div>
                         <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
+                            <input type="checkbox" checked data-toggle="toggle" data-on="LIMS" data-off="ACCESS" data-onstyle="success" data-offstyle="info" data-size="small" id="Origen_Catalogos" value="1">
                             <button type="button" class="btn-icon btn-icon-only btn btn-link" id="ObtenerArticulos">
                                 <i class="pe-7s-timer btn-icon-wrapper"></i>
                             </button>
@@ -326,7 +327,7 @@
                                 <div class="col-md-4">           
                                     <div class="position-relative form-group"> 
                                         <label for="exampleSelect" class="">Referencia </label>
-                                        <textarea rows=2 id="Referencia" class="form-control"></textarea>
+                                        <textarea rows=2 id="Referencia" class="form-control" onblur=arregloCantidad("LIMS_209")></textarea>
                                     </div>   
                                 </div>  
                                 <div class="col-md-5">           

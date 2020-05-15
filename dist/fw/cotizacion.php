@@ -308,6 +308,30 @@
         $con->cerrar();
 	}
 	//========================================
+    // ======== OBTENER ARTICULOS SAM =============
+	elseif($opc == 'obtener_articulosLocales'){
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT idEquipo, ItemNumber, NombreEquipo, Marca, Modelo, CONCAT(MetododeCalibracion, ' PUNTOS: ', Alcance) as Metodo FROM EquiposLocales";
+        $con->ejecutaQuery($strQuery);
+        if($con->getNum()>0){
+            $arrDatos = $con->getListaObjectos();
+            foreach ($arrDatos as $objDato) {
+                foreach ($objDato as $key => $value){
+                    if(is_string($value)){
+                        $objDato->$key = utf8_encode($value);
+                    }
+                }
+                $arrRespuesta[] = $objDato;
+            }
+            echo json_encode($arrRespuesta);
+        }
+        else{
+            echo json_encode(false);
+        }
+        $con->cerrar();
+	}
+	//========================================
     // ======== OBTENER HISTORIAL COTS =============
 	elseif($opc == 'obtener_historialcots'){
 
@@ -343,6 +367,24 @@
         $con->conectar();
         $strQuery = "SELECT SetupEquipment.EquipId, ItemNumber, EquipmentName, Mfr, Model, ServiceDescription, Price FROM SetupEquipment INNER JOIN SetupEquipmentServiceMapping ON 
                      SetupEquipment.EquipId=SetupEquipmentServiceMapping.EquipId where SetupEquipment.EquipId= $id";
+        $con->ejecutaQuery($strQuery);
+        $obj = $con->getObjeto();
+        foreach ($obj as $key => $value) {
+            if(is_string($value)){
+                $obj->$key = utf8_encode($value);    
+            }
+        }
+        echo json_encode($obj);
+        $con->cerrar();
+	}
+	//========================================
+    // ======== OBTENER ARTICULOS COT =============
+	elseif($opc == 'obtener_articulosCotLocales'){
+        $id = $_POST['id'];
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT idEquipo, ItemNumber, NombreEquipo, Marca, Modelo, CONCAT(MetododeCalibracion, ' ', PuntosdeCalibracion) as MetododeCalibracion, Precio FROM
+                    EquiposLocales WHERE idEquipo= $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
