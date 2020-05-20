@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="./assets/scripts/sweetalert2.min.css"/>
         <script src="./assets/scripts/sweetalert2.min.js"></script>
         <!-- ====================================================================================== -->
+        <link rel="shortcut icon" type="image/png" href="dist/img/interfaz.ico"/>
     </head>
   
     <body ng-cloak ng-app="TablaDemo">

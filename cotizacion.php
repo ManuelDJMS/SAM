@@ -14,6 +14,7 @@
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">
+            <button class="mb-2 mr-2 btn-pill btn btn-dashed btn-outline-link float-right start-tour">Tutorial</button>
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
                     <div class="page-title-icon">
@@ -25,7 +26,6 @@
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>   
         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+                <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2" data-step="7" data-intro="Si no encuentras ningún artículo en los catálogos de LIMS o SAM pueder ver el historial de cotizaciones de ACCESS" data-scrollTo='tooltip' data-position='left'>
                     <span>Historial General de Cotizaciones</span>
                 </a>
             </li>
@@ -102,12 +102,9 @@
                                     </ul>
                                     <ul class="nav flex-column">
                                         <li class="nav-item-btn text-center pt-4 pb-3 nav-item">
-                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success btnCotizacion" id="btn_nuevo_0">
+                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success btnCotizacion" id="btn_nuevo_0" data-step="4" data-intro="Presiona el botón para pasar a los términos de la cotización" data-scrollTo='tooltip' data-position='left'>
                                                 Crear Cotización
                                             </button>
-                                            <!-- <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info btnGuardarGD" style="display: none;">
-                                                Guardar
-                                            </button> -->
                                         </li>
                                     </ul>
                                 </div>
@@ -117,7 +114,7 @@
                     </div>
                     <!-- ============================ CONSULTA DE CONTACTOS A COTIZAR ========================= -->
                     <div class="col-md-12 col-lg-6 col-xl-8">
-                        <div class="mb-3 card">
+                        <div class="mb-3 card" data-step="1" data-intro="Selecciona un cliente!">
                             <div class="card-header-tab card-header">
                                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                                     <i class="header-icon pe-7s-id mr-3 icon-gradient bg-happy-itmeo"> </i>
@@ -148,7 +145,7 @@
                 </div>
                 <!-- ============================ CONSULTA DE CATALOGOS DE ARTICULOS ========================= -->
                 <div class="mb-3 card">
-                    <div class="card-header-tab card-header">
+                    <div class="card-header-tab card-header" data-step="2" data-intro="Selecciona la base de datos de la cual se obtendrán los catálogos" data-scrollTo='tooltip' data-position='left'>
                         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                             <i class="header-icon pe-7s-cart mr-3 icon-gradient bg-happy-itmeo"> </i>
                             Catálogo de Artículos
@@ -160,8 +157,8 @@
                             </button>
                         </div>
                     </div>
-                    <div id="div_articulos" class="card-body">
-                        <table style="width: 100%;" id="table_articulos" class="table table-hover table-bordered table-striped dataTable">
+                    <div id="div_articulos" class="card-body" data-step="3" data-intro="Selecciona los artículos a cotizar" data-scrollTo='tooltip' data-position='left'>
+                        <table style="width: 100%;" id="table_articulos" class="table table-hover table-bordered table-striped dataTable" >
                             <thead>
                                 <tr>
                                     <th>N° de Artículo (SKU)</th>
@@ -261,7 +258,7 @@
                     </div>
                     <!-- ============================ DATOS GENERALES DE LA COTIZACION ========================= -->
                     <div class="col-md-12 col-lg-6 col-xl-8">
-                        <div class="mb-3 card">
+                        <div class="mb-3 card" data-step="5" data-intro="Selecciona las condiciones que llevará la cotización" data-scrollTo='tooltip' data-position='left'>
                             <div class="card-header-tab card-header">
                                 <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                                     <i class="header-icon pe-7s-id mr-3 icon-gradient bg-happy-itmeo"> </i>
@@ -327,7 +324,7 @@
                                 <div class="col-md-4">           
                                     <div class="position-relative form-group"> 
                                         <label for="exampleSelect" class="">Referencia </label>
-                                        <textarea rows=2 id="Referencia" class="form-control" onblur=arregloCantidad("LIMS_209")></textarea>
+                                        <textarea rows=2 id="Referencia" class="form-control"></textarea>
                                     </div>   
                                 </div>  
                                 <div class="col-md-5">           
@@ -339,7 +336,7 @@
                                 </div>  
                             </div>
                             <!-- ===================================== TERMINA EL CUARTO RENGLON =========================================== -->
-                            <button type="button" class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success float-right btnGuardar" id="btn_nuevo_0">Guardar</button> 
+                            <button type="button" class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success float-right btnGuardar" id="btn_nuevo_0" >Guardar</button> 
                             <button type="button" class="mb-2 mr-2 btn-pill btn-transition btn btn-outline-danger float-right btnCancelar">Cancelar</button>
                             </div><!-- /.card-body -->
                         </div>
@@ -355,7 +352,7 @@
                             Catálogo de Artículos
                         </div>
                         <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-                            <input id="Enter" class="form-control" placeholder="Ingresa SKU, OV, ACCESS">
+                            <input id="Enter" class="form-control" placeholder="Ingresa SKU, OV, ACCESS" data-step="6" data-intro="Si sabes el SKU de algún artículo puedes ingresarlo y automaticamente se agrega a las partidas de la cotización" data-scrollTo='tooltip' data-position='left'>
                         </div>
                     </div>
                     
@@ -389,7 +386,7 @@
             <!-- ================================== INICIA LA COTIZACION GENERAL DE ACCES DE LAS COTIZACIONES =================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
                 <div class="mb-3 card">
-                    <div class="card-header-tab card-header">
+                    <div class="card-header-tab card-header" data-step="8" data-intro="Selecciona un rango de años" data-scrollTo='tooltip' data-position='left'>
                         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                             <i class="header-icon pe-7s-id mr-3 icon-gradient bg-happy-itmeo"> </i>
                             Seleccionar Años
@@ -438,7 +435,7 @@
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
-                    <div id="div_historialcots" class="card-body">
+                    <div id="div_historialcots" class="card-body" data-step="9" data-intro="Al igual que en la tablas anteriores selecciona los artículos que desees cotizar" data-scrollTo='tooltip' data-position='left'>
                         <table id="table_historialcots" class="table table-hover table-bordered table-striped dataTable" style="width:100%">
                             <thead>
                                 <tr>

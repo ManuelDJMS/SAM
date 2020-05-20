@@ -188,7 +188,10 @@ $(document).ready(function(){
     });
     //=======================================================================================================
     //=======================================================================================================
-    var table = $('#articulosCot').DataTable();
+    // var table = $('#articulosCot').DataTable();
+    var table = $('#articulosCot').DataTable({
+      "ordering": false,
+  });
     //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
     $('#articulosCot tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
@@ -455,12 +458,12 @@ $(document).ready(function(){
                 data.EquipmentName,
                 data.Mfr,
                 data.Model,
-                '<input type="text" class="cargar" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.EquipId+')">',
-                '<input type="text" class="cargar" id="precio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
+                '<input type="text" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.EquipId+')">',
+                '<input type="text" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.EquipId+')">',
+                '<input type="text" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.EquipId+')">',
+                '<input type="text" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.EquipId+')">',
+                '<input type="text" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.EquipId+')">',
+                '<input type="text" id="precio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="LIMS_'+data.EquipId+'"></button>'
             ] ).draw( true );
             subtotal=subtotal+data.Price;
@@ -479,12 +482,12 @@ $(document).ready(function(){
                 data.NombreEquipo,
                 data.Marca,
                 data.Modelo,
-                '<input type="text" class="cargar" id="cantidadA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="observacionesA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="idA_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="serieA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="observicioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="precioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPrecios('+data.idEquipo+')">',
+                '<input type="text" id="cantidadA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidadA('+data.idEquipo+')">',
+                '<input type="text" id="observacionesA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservacionesA('+data.idEquipo+')">',
+                '<input type="text" id="idA_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIdsA('+data.idEquipo+')">',
+                '<input type="text" id="serieA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerieA('+data.idEquipo+')">',
+                '<input type="text" id="observicioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicioA('+data.idEquipo+')">',
+                '<input type="text" id="precioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPreciosA('+data.idEquipo+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="ACCESS_'+data.idEquipo+'"></button>'
             ] ).draw( true );
             subtotal=subtotal+data.Precio;
@@ -506,19 +509,19 @@ $(document).ready(function(){
               ids.push("-");
               series.push("-");
               observacionesservicios.push("-");
-              origenes.push("Access");
+              origenes.push("ACCESS");
               var t = $('#articulosCot').DataTable();
               t.row.add( [
                 data.ItemNumber,
                 data.NombreEquipo,
                 data.Marca,
                 data.Modelo,
-                '<input type="text" class="cargar" id="cantidadA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="observacionesA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="idA_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="serieA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="observicioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="precioA_'+data.Precio+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPrecios('+data.idEquipo+')">',
+                '<input type="text" id="cantidadA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidadA('+data.idEquipo+')">',
+                '<input type="text" id="observacionesA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservacionesA('+data.idEquipo+')">',
+                '<input type="text" id="idA_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIdsA('+data.idEquipo+')">',
+                '<input type="text" id="serieA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerieA('+data.idEquipo+')">',
+                '<input type="text" id="observicioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicioA('+data.idEquipo+')">',
+                '<input type="text" id="precioA_'+data.Precio+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPreciosA('+data.idEquipo+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="ACCESS_'+data.idEquipo+'"></button>'
             ] ).draw( true );
             subtotal=subtotal+data.Precio;
@@ -527,7 +530,7 @@ $(document).ready(function(){
             //  CICLO PARA VER SI HAY REPETIDOS
             for( var i=0; i<(articulos.length); i++ )
             {
-            if (articulos[i]==id)
+            if (articulos[i]==("ACCESS_"+id))
             {
               repetido=true;
               break;
@@ -549,12 +552,12 @@ $(document).ready(function(){
                 data.NombreEquipo,
                 data.Marca,
                 data.Modelo,
-                '<input type="text" class="cargar" id="cantidad_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="observaciones_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="id_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="serie_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="observicio_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.idEquipo+')">',
-                '<input type="text" class="cargar" id="precio_'+data.Precio+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPrecios('+data.idEquipo+')">',
+                '<input type="text" id="cantidad_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidadA('+data.idEquipo+')">',
+                '<input type="text" id="observaciones_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservacionesA('+data.idEquipo+')">',
+                '<input type="text" id="id_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIdsA('+data.idEquipo+')">',
+                '<input type="text" id="serie_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerieA('+data.idEquipo+')">',
+                '<input type="text" id="observicio_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicioA('+data.idEquipo+')">',
+                '<input type="text" id="precio_'+data.Precio+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPreciosA('+data.idEquipo+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="ACCESS_'+data.idEquipo+'"></button>'
             ] ).draw( true );
             subtotal=subtotal+data.Precio;
@@ -624,7 +627,7 @@ $(document).ready(function(){
                   "paging": true,
                   "lengthChange": true,
                   "searching": true,
-                  "ordering": true,
+                  "ordering": false,
                   "info": true,
                   "autoWidth": true,
                   "scrollX": true
@@ -808,36 +811,69 @@ $(document).ready(function(){
   //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ GENERAR LOS ARREGLOS PARA LAS PARTIDAS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
   function arregloCantidad(id) {
     var idBuscar="LIMS_"+id;
-    alert(idBuscar);
-// dsaflkjhasldkfhlasdhflasdhflasdflasd copiar este codigo dos veces para accces y para lims
     var pos=articulos.indexOf(idBuscar);
-    alert(pos);
     cantidades[pos]=$('#cantidad_'+id).val();
-    alert(cantidades[pos]);
   }
   function arregloObservaciones(id) {
-    var pos=articulos.indexOf(String(id));
+    var idBuscar="LIMS_"+id;
+    var pos=articulos.indexOf(idBuscar);
     observacionearticulos[pos]=$('#observaciones_'+id).val();
     
   }
   function arregloIds(id) {
-    var pos=articulos.indexOf(String(id));
+    var idBuscar="LIMS_"+id;
+    var pos=articulos.indexOf(idBuscar);
     ids[pos]=$('#id_'+id).val();
     
   }
   function arregloSerie(id) {
-    var pos=articulos.indexOf(String(id));
+    var idBuscar="LIMS_"+id;
+    var pos=articulos.indexOf(idBuscar);
     series[pos]=$('#serie_'+id).val();
-    
   }
   function arregloObservicio(id) {
-    var pos=articulos.indexOf(String(id));
+    var idBuscar="LIMS_"+id;
+    var pos=articulos.indexOf(idBuscar);
     observacionesservicios[pos]=$('#observicio_'+id).val();
-    
   }
   function arregloPrecios(id) {
-    var pos=articulos.indexOf(String(id));
+    var idBuscar="LIMS_"+id;
+    var pos=articulos.indexOf(idBuscar);
     precios[pos]=$('#precio_'+id).val();
+    
+  }
+  //METODOS PARA LOS CAMPOS DE ACCCESS
+  function arregloCantidadA(id) {
+    var idBuscar="ACCESS_"+id;
+    var pos=articulos.indexOf(idBuscar);
+    cantidades[pos]=$('#cantidadA_'+id).val();
+  }
+  function arregloObservacionesA(id) {
+    var idBuscar="ACCESS_"+id;
+    var pos=articulos.indexOf(idBuscar);
+    observacionearticulos[pos]=$('#observacionesA_'+id).val();
+    
+  }
+  function arregloIdsA(id) {
+    var idBuscar="ACCESS_"+id;
+    var pos=articulos.indexOf(idBuscar);
+    ids[pos]=$('#idA_'+id).val();
+    
+  }
+  function arregloSerieA(id) {
+    var idBuscar="ACCESS_"+id;
+    var pos=articulos.indexOf(idBuscar);
+    series[pos]=$('#serieA_'+id).val();
+  }
+  function arregloObservicioA(id) {
+    var idBuscar="ACCESS_"+id;
+    var pos=articulos.indexOf(idBuscar);
+    observacionesservicios[pos]=$('#observicioA_'+id).val();
+  }
+  function arregloPreciosA(id) {
+    var idBuscar="ACCESS_"+id;
+    var pos=articulos.indexOf(idBuscar);
+    precios[pos]=$('#precioA_'+id).val();
     
   }
   //=================================== CODIGO PARA ELIMINAR ITEM DE LOS ARREGLOS ==========================================
