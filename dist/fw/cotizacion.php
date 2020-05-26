@@ -414,6 +414,42 @@
         $con->cerrar();
 	}
 	//========================================
+    // ======== OBTENER COTIZACVIONES SAM =============
+	elseif($opc == 'obtener_articulosCotSAM'){
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "select distinct *from(	
+            SELECT idContacto, DetalleCotizaciones.NumCot, PartidaNo, ItemNumber, NombreEquipo as Equipo, Marca, Modelo, 
+                    identificadorInventarioCliente AS ID, Serie, CONCAT(MetododeCalibracion, ' ', PuntosdeCalibracion) as MetododeCalibracion, 
+                    DetalleCotizaciones.Observaciones, ObservacionesServicios, Cantidad, PrecioUnitario FROM 
+                    DetalleCotizaciones INNER JOIN EquiposLocales ON DetalleCotizaciones.EquipId=EquiposLocales.IdEquipo 
+                    INNER JOIN Cotizaciones ON DetalleCotizaciones.NumCot=Cotizaciones.NumCot WHERE Origen='ACCESS'
+                    union
+            SELECT idContacto, DetalleCotizaciones.NumCot, PartidaNo, ItemNumber, EquipmentName as Equipo, Mfr as Marca, Model as Modelo, 
+                    identificadorInventarioCliente AS ID, Serie, CalibrationMethod as MetododeCalibracion, 
+                    DetalleCotizaciones.Observaciones, ObservacionesServicios, Cantidad, PrecioUnitario FROM 
+                    DetalleCotizaciones INNER JOIN SetupEquipment on DetalleCotizaciones.EquipId=SetupEquipment.EquipId 
+                    INNER JOIN Cotizaciones ON DetalleCotizaciones.NumCot=Cotizaciones.NumCot WHERE Origen='LIMS'
+            )x WHERE idContacto=4 order by NumCot ";
+        $con->ejecutaQuery($strQuery);
+        if($con->getNum()>0){
+            $arrDatos = $con->getListaObjectos();
+            foreach ($arrDatos as $objDato) {
+                foreach ($objDato as $key => $value){
+                    if(is_string($value)){
+                        $objDato->$key = utf8_encode($value);
+                    }
+                }
+                $arrRespuesta[] = $objDato;
+            }
+            echo json_encode($arrRespuesta);
+        }
+        else{
+            echo json_encode(false);
+        }
+        $con->cerrar();
+	}
+	//========================================
 	elseif($opc=="obtener_contacto"){
         $id = $_POST['id'];
         $con = new Conexion();

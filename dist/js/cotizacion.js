@@ -191,6 +191,7 @@ $(document).ready(function(){
     // var table = $('#articulosCot').DataTable();
     var table = $('#articulosCot').DataTable({
       "ordering": false,
+      "scrollX":true,
   });
     //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
     $('#articulosCot tbody').on( 'click', 'tr', function () {
@@ -228,6 +229,14 @@ $(document).ready(function(){
         obtener_historialcots(de, a);
       }
       // obtener_historialcots();
+    } );
+    //=====================================================================================================
+    //========================= CANCELAR LA COTIZACION =================================
+    $('html').on('click', '#CotSAM', function () {
+      $("#tab-3").show();
+      $("#tab-3").get(0).click();
+      var id = $('.btnCotizacion').attr('id').split('_')[1];
+      obtener_articulosCotSAM();
     } );
     //=====================================================================================================
   });
@@ -636,6 +645,47 @@ $(document).ready(function(){
           $('.preloader').hide();
       },'json');
   }
+  // ============================= CODIGO PARA OBTENER LAS COTIZACIONES DE SAM ================================
+  function obtener_articulosCotSAM(){
+      var opc = "obtener_articulosCotSAM";
+      $('.preloader').show();
+      regenerar_historialSAM();
+      $.post("dist/fw/cotizacion.php",{opc:opc},function(data){
+          if(data){
+              var html = '';
+              for (var i = 0; i < data.length; i++){
+                  html += '<tr>';
+                  html += '<td>' + $.trim(data[i].NumCot) + '</td>';
+                  html += '<td>' + $.trim(data[i].PartidaNo) + '</td>';
+                  html += '<td>' + $.trim(data[i].ItemNumber) + '</td>';
+                  html += '<td>' + $.trim(data[i].Equipo) + '</td>';
+                  html += '<td>' + $.trim(data[i].Marca) + '</td>';
+                  html += '<td>' + $.trim(data[i].Modelo) + '</td>';
+                  html += '<td>' + $.trim(data[i].ID) + '</td>';
+                  html += '<td>' + $.trim(data[i].Serie) + '</td>';
+                  html += '<td>' + $.trim(data[i].MetododeCalibracion) + '</td>';
+                  html += '<td>' + $.trim(data[i].Observaciones) + '</td>';
+                  html += '<td>' + $.trim(data[i].ObservacionesServicios) + '</td>';
+                  html += '<td>' + $.trim(data[i].Cantidad) + '</td>';
+                  html += '<td>' + $.trim(data[i].PrecioUnitario) + '</td>';
+                  html += '<td class="btnArticulos" id="ACCESS_'+data[i].NumCot+'"><span class="font-icon-wrapper lnr-select" ></span></td>';
+                  html += '</tr>';                        
+              }
+              $('#table_SAM tbody').html(html);
+              $('#table_SAM').DataTable({
+                  "paging": true,
+                  "lengthChange": true,
+                  "searching": true,
+                  "ordering": true,
+                  "info": true,
+                  "autoWidth": true,
+                  "scrollX": true,
+                  "responsive": true
+              });
+          }
+          $('.preloader').hide();
+      },'json');
+  }
   //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGOS PARA REGENERAR TABLAS O FORMULARIOS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
   // ============================== CODIGO PARA REGENERAR LA TABLA DE CONTACTOS ==========================================================================
   function regenerar_contactos(){
@@ -705,6 +755,34 @@ $(document).ready(function(){
       html += '</tbody>';
       html += '</table>';
       $('#div_historialcots').html(html);
+  }
+  // ============================== CODIGO PARA REGENERAR LA TABLA DE  HISTORIAL DE  HISTORIAL COTIZACIONES SAM==========================================================================
+  function regenerar_historialSAM(){
+      $('#div_historialSAM').html("");
+      var html = "";
+      html += '<table id="table_SAM" class="table table-hover table-bordered table-striped display nowrap">';
+      html += '<thead>';
+      html += '<tr>';
+      html += '<th>NumCot</th>';
+      html += '<th>Partida</th>';
+      html += '<th>ItemNumber</th>';
+      html += '<th>Equipo</th>';
+      html += '<th>Marca</th>';
+      html += '<th>Modelo</th>';
+      html += '<th>ID</th>';
+      html += '<th>Serie</th>';
+      html += '<th>Descripcion del Servicio</th>';
+      html += '<th>Observaciones</th>';
+      html += '<th>Observacion del Servicio</th>';
+      html += '<th>Cantidad</th>';
+      html += '<th>Precio Unitario</th>';
+      html += '<th></th>';
+      html += '</tr>';
+      html += '</thead>';
+      html += '<tbody>';
+      html += '</tbody>';
+      html += '</table>';
+      $('#div_historialSAM').html(html);
   }
   
   function limpia_formulario_contactos(){
