@@ -2,6 +2,26 @@ $(document).ready(function(){
     $('.btnEditarG').hide();
     limpia_formulario();
     obtener_registros();
+    $(window).resize(function() {
+      if(this.resizeTO) clearTimeout(this.resizeTO);
+      this.resizeTO = setTimeout(function() {
+         $(this).trigger('resizeEnd');
+      }, 500);
+   });
+   $(window).bind("resizeEnd", function() {
+    var table = $('#table_registros').DataTable();
+        table.destroy();
+        $('#table_registros').DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "scrollX":true
+      });
+    
+   });
     // =======================================================================
     // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
       $('html').on('click', '.btnGuardar', function(){
@@ -120,8 +140,7 @@ $(document).ready(function(){
                   "searching": true,
                   "ordering": true,
                   "info": true,
-                  "autoWidth": true,
-                  "scrollX":true
+                  "autoWidth": true
               });
           }
           $('.line-scale-pulse-out').hide();
