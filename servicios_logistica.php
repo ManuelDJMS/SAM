@@ -4,9 +4,11 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-<link rel="stylesheet" href="dist/css/base.css">
-<script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
+<link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap41.min.css">
+<!-- <script src="plugins/datatables/jquery.dataTablesN.min.js"></script> -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap41.min.js"></script> 
+<!-- <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>  -->
 
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -100,7 +102,7 @@
                 <div  class="main-card mb-3 card">
                     <div id="div_registros" class="card-body">
                         <!-- <table id="example" class="table table-bordered table-striped"> -->
-                        <table id="table_registros" class="table table-bordered table-striped dataTable">
+                        <table id="table_registros" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                             <tr>
                                 <th>N° Catálogo</th>

@@ -20,7 +20,8 @@
         <!-- ================= ESTILO DE LA PAGINA ======================== -->
         <link href="./main.8d288f825d8dffbbe55e.css" rel="stylesheet">
         <link href="dist/css/loader.css" rel="stylesheet">
-        <script src="plugins/jQuery/jquery-3.3.1.js"></script> 
+        <!-- <script src="plugins/jQuery/jquery-3.3.1.js"></script>  -->
+        <script src="plugins/jQuery/jQuery-3.5.1.js"></script> 
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
         <!-- ====================== MENSAJES DE GUARDADO ======================================== -->
         <link rel="stylesheet" href="./assets/scripts/sweetalert2.min.css"/>

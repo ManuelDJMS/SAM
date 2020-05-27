@@ -120,7 +120,8 @@ $(document).ready(function(){
                   "searching": true,
                   "ordering": true,
                   "info": true,
-                  "autoWidth": true
+                  "autoWidth": true,
+                  "scrollX":true
               });
           }
           $('.line-scale-pulse-out').hide();
@@ -130,7 +131,7 @@ $(document).ready(function(){
   function regenerar_tabla(){
       $('#div_registros').html("");
       var html = "";
-      html += '<table id="table_registros" class="table table-bordered table-striped dataTable">';
+      html += '<table id="table_registros" class="table table-striped table-bordered" style="width:100%">';
       html += '<thead>';
       html += '<tr>';
       html += '<th>N° Catalogo</th>';
