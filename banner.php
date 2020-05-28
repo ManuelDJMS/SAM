@@ -127,7 +127,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-note2"></i>
                                     Servicios
@@ -147,7 +147,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-map-marker"></i>
@@ -217,7 +217,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                            <!-- <li>
                                 <a href="#">
                                     <i class="metismenu-icon lnr-screen"></i>
                                     Equipos y Patrones
@@ -243,7 +243,7 @@
                                         </a>
                                     </li>
                                 </ul>                             
-                            </li>
+                            </li> -->
                             <li>
                                 <a href="#">
                                     <i class="metismenu-icon lnr-license"></i>

@@ -4,9 +4,9 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-<!-- <link rel="stylesheet" href="dist/css/base.css"> -->
-<script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap4.min.css">
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
 
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -392,6 +392,14 @@
         </div>    
     </div>
 </div>
-
+<div class="preloader" style="display: none;">
+    <span class="loader"></span>
+    <div class="loader2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
 <script src="dist/js/articulos.js"></script>
         <?php include_once("footer.php");?>

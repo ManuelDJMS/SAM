@@ -143,7 +143,7 @@ $(document).ready(function(){
 // =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS===================
 function obtener_registros(){
   var opc = "obtener_registros";
-  $('.line-scale-pulse-out').show();
+  $('.preloader').show();
   regenerar_tabla();
   $.post("dist/fw/articulos.php",{opc:opc},function(data){
       if(data){
@@ -169,7 +169,7 @@ function obtener_registros(){
               "autoWidth": true
           });
       }
-      $('.line-scale-pulse-out').hide();
+      $('.preloader').hide();
   },'json');
 }
  
@@ -302,7 +302,7 @@ function obtener_laboratorio(){
 // =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS=====================
 function obtener_serviciosAgregados(id){
   var opc = "obtener_serviciosAgregados";
-  $('.line-scale-pulse-out').show();
+  $('.preloader').show();
   regenerar_tablaServiciosAgregados();
   $.post("dist/fw/articulos.php",{'opc':opc, 'id':id},function(data){
       if(data){
@@ -324,7 +324,7 @@ function obtener_serviciosAgregados(id){
               "autoWidth": true
           });
       }
-      $('.line-scale-pulse-out').hide();
+      $('.preloader').hide();
   },'json');
 }
  

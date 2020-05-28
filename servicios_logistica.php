@@ -4,11 +4,9 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-<link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap41.min.css">
-<!-- <script src="plugins/datatables/jquery.dataTablesN.min.js"></script> -->
+<link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap4.min.css">
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap41.min.js"></script> 
-<!-- <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>  -->
+<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
 
 <div class="app-main__outer">
     <div class="app-main__inner">
