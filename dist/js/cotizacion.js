@@ -11,6 +11,27 @@ var origenes=[];
 //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGO QUE FUNCIONA AL CARGAR EL DOCUMENTO ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
 $(document).ready(function(){
     obtener_contactos();
+    //=============================== EVENTO AL CAMBIAR EL TAMAÑO DEL NAVEGADOR =============================
+    $(window).resize(function() {
+      if(this.resizeTO) clearTimeout(this.resizeTO);
+      this.resizeTO = setTimeout(function() {
+         $(this).trigger('resizeEnd');
+      }, 500);
+   });
+    $(window).bind("resizeEnd", function() {
+      var table = $('#table_SAM').DataTable();
+          table.destroy();
+          $('#table_SAM').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": true,
+            "scrollX":true
+        }); 
+    });
+    // ======================================================================================================
     // ======================================================================================================
     //  ============================= OBTENER ARTICULOS =====================================================
     $('html').on('click', '#ObtenerArticulos', function(){
@@ -679,8 +700,6 @@ $(document).ready(function(){
                   "ordering": true,
                   "info": true,
                   "autoWidth": true,
-                  "scrollX": true,
-                  "responsive": true
               });
           }
           $('.preloader').hide();
@@ -760,7 +779,7 @@ $(document).ready(function(){
   function regenerar_historialSAM(){
       $('#div_historialSAM').html("");
       var html = "";
-      html += '<table id="table_SAM" class="table table-hover table-bordered table-striped display nowrap">';
+      html += '<table id="table_SAM" class="table table-hover table-bordered table-striped">';
       html += '<thead>';
       html += '<tr>';
       html += '<th>NumCot</th>';

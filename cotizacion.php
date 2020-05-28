@@ -467,7 +467,7 @@
             </div>  
             <!-- ================================== INICIA EL HISTORIAL DE COTIZACIONES SAM =================================================== -->
             <div class="tab-pane tabs-animation fade show" id="tab-content-3" role="tabpanel">
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-md-6 col-lg-6">
                         <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
                             <div class="widget-chat-wrapper-outer">
@@ -518,9 +518,9 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <!-- ==================================================== TABLA QUE CONTIENE EL HISTORIAL DE COTIZACIONES DE CONTACTOS SAM ?================================================================== -->
-                <!-- <div class="mb-3 card">
+                <div class="mb-3 card">
                     <div class="card-header-tab card-header" data-step="2" data-intro="Selecciona la base de datos de la cual se obtendrán los catálogos" data-scrollTo='tooltip' data-position='left'>
                         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                             <i class="header-icon pe-7s-cart mr-3 icon-gradient bg-happy-itmeo"> </i>
@@ -528,7 +528,7 @@
                         </div>
                     </div>
                     <div id="div_historialSAM" class="card-body">
-                        <table style="width: 100%;" id="table_HistorialSAM" class="table table-hover table-bordered table-striped dataTable" >
+                        <table style="width: 100%;" id="table_HistorialSAM" class="table table-hover table-bordered table-striped" >
                             <thead>
                                 <tr>
                                     <th>NumCot</th>
@@ -552,7 +552,7 @@
                             </tbody>
                         </table>
                     </div>
-                </div> -->
+                </div>
                 <!-- =============================================================================================== -->
             </div>  
             <!-- ================================== TERMINA LA COTIZACION GENERAL DE ACCES DE LAS COTIZACIONES =================================================== -->
