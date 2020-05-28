@@ -4,11 +4,12 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-<link rel="stylesheet" href="dist/css/base.css">
-<link rel="stylesheet" href="dist/css/base1.css">
-<script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
+<!--=============================== SCRIPTS DE ACCIONES ================================ -->
+<link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap4.min.css">
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
 <script src="dist/js/empresas.js"></script>
+<!-- =================================================================================== -->
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -704,7 +705,7 @@
                                 </div>
                             </div>
                             <div id="div_registros_direcciones" class="card-body">
-                                <table id="table_direcciones" class="table table-hover table-bordered table-striped dataTable">
+                                <table id="table_direcciones" class="table table-hover table-bordered table-striped dataTable" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Compañia</th>
@@ -732,7 +733,7 @@
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div class="main-card mb-3 card">
                     <div id="div_registros" class="card-body">
-                        <table id="table_registros" class="table table-hover table-bordered table-striped dataTable">
+                        <table id="table_registros" class="table table-hover table-bordered table-striped dataTable" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Clave Empresa</th>
@@ -756,7 +757,7 @@
         </div><!-- AQUI TERMINA EL DIV DEL TAB -->
     </div>
 </div>
-<div class="preloader">
+<div class="preloader" style="display: none;">
     <span class="loader"></span>
     <div class="loader2">
         <span></span>

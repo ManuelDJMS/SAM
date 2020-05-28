@@ -109,7 +109,7 @@ function guardar_usuario(obj){
 // ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
 function obtener_usuario(id){
   var opc = "obtener_usuario";
-  $('.line-scale-pulse-out').show();
+  $('preloader').show();
   $.post("dist/fw/usuarios.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_formulario()
@@ -137,13 +137,13 @@ function obtener_usuario(id){
       {
         alerta_error("Error", "Error al recibir los datos");
       }
-      $('.line-scale-pulse-out').hide();
+      $('preloader').hide();
   },'json');
 }
 // ============================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
-    $('.line-scale-pulse-out').show();
+    $('preloader').show();
     regenerar_tabla();
     $.post("dist/fw/usuarios.php",{opc:opc},function(data){
         if(data){
@@ -168,14 +168,14 @@ function obtener_registros(){
                 "autoWidth": true
             });
         }
-        $('.line-scale-pulse-out').hide();
+        $('preloader').hide();
     },'json');
 }
     
 function regenerar_tabla(){
   $('#div_registros').html("");
   var html = "";
-  html += '<table id="example3" class="table table-bordered table-striped dataTable">';
+  html += '<table id="example3" class="table table-bordered table-striped dataTable style="width: 100%;"">';
   html += '<thead>';
   html += '<tr>';
   html += '<th>Clave</th>';

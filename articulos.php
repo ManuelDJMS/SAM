@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap4.min.css">
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
+<script src="dist/js/articulos.js"></script>
 
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -369,7 +370,7 @@
                 <div  class="main-card mb-3 card">
                     <div class="card-body"><h5 class="card-title">Lista de Artículos</h5> 
                         <div id="div_registros" class="box-body">
-                            <table id="tablaArticulos" class="table table-bordered table-striped dataTable">
+                            <table id="tablaArticulos" class="table table-bordered table-striped dataTable" style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th>Num. Artículo</th>
@@ -401,5 +402,4 @@
         <span></span>
     </div>
 </div>
-<script src="dist/js/articulos.js"></script>
-        <?php include_once("footer.php");?>
+<?php include_once("footer.php");?>

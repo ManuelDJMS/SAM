@@ -135,5 +135,14 @@
         </div>
     </div>
 </div>
+<div class="preloader" style="display: none;">
+    <span class="loader"></span>
+    <div class="loader2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
     <script src="dist/js/servicios_logistica.js"></script>
     <?php include_once("footer.php");?>

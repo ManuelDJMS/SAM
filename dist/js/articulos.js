@@ -2,13 +2,9 @@ $(document).ready(function(){
     $('.btnEditarG').hide();
     $('.btnAgregar').hide();
     $('.serAgregados').hide();
-    // $('#Empresa').hide();
-    // limpia_formulario();
     obtener_laboratorio();
-    // obtener_articulos();
     obtener_registros();
     obtener_servicios();
-    // obtener_equipamiento();
     $('html').on('click','#check3',function(){
         if($(this).val() == 1){
           $(this).val(0);
@@ -176,7 +172,7 @@ function obtener_registros(){
 function regenerar_tabla(){
   $('#div_registros').html("");
   var html = "";
-  html += '<table id="tablaArticulos" class="table table-bordered table-striped dataTable">';
+  html += '<table id="tablaArticulos" class="table table-bordered table-striped dataTable" style="width: 100%;">';
   html += '<thead>';
   html += '<tr>';
   html += '<th>Num. Artículo</th>';

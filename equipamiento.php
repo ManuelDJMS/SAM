@@ -4,9 +4,9 @@
      include_once("banner.php");
 ?>
 <!-- SE PONE EN COMENTARIOS PARA UN MEJOR DISEÑO -->
-<link rel="stylesheet" href="dist/css/base.css">
-<script src="plugins/datatables/jquery.dataTablesN.min.js"></script>
-<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap4.min.css">
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
 
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -220,7 +220,7 @@
                 <div  class="main-card mb-3 card">
                     <div class="card-body"><h5 class="card-title" >Lista de Artículos</h5> 
                         <div id="div_registros3" class="box-body">
-                            <table id="example3" class="table table-bordered table-striped dataTable">
+                            <table id="example3" class="table table-bordered table-striped dataTable style="width: 100%;">
                                 <thead>
                                 <tr>
                                     <th>Razon Social</th>
@@ -244,6 +244,14 @@
         </div>    
     </div>
 </div>
-
+<div class="preloader" style="display: none;">
+    <span class="loader"></span>
+    <div class="loader2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
 <script src="dist/js/equipamiento.js"></script>
         <?php include_once("footer.php");?>

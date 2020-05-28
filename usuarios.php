@@ -127,39 +127,37 @@
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div  class="main-card mb-3 card">
-                <div id="div_registros" class="card-body">
-                  <!-- <table id="example" class="table table-bordered table-striped"> -->
-                  <table id="example3" class="table table-bordered table-striped dataTable">
-                    <thead>
-                      <tr>
-                        <th>Clave</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Depto</th>
-                        <th>Email</th>
-                        <th>Seleccionar</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                    <div id="div_registros" class="card-body">
+                        <table id="example3" class="table table-bordered table-striped dataTable" style="width: 100%;">
+                            <thead>
+                            <tr>
+                                <th>Clave</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Depto</th>
+                                <th>Email</th>
+                                <th>Seleccionar</th>
+                            </tr>
+                            </thead>
+                            <tbody>
 
-                    </tbody>
-                  </table>
-                </div><!-- /.box-body -->
-            </div>  
-               <!-- Codigo para la animacion de cargado -->
-               <div class="loader-wrapper d-flex justify-content-center align-items-center">
-                                            <div class="loader">
-                                                <div class="line-scale-pulse-out">
-                                                    <!--cada div es una linea de la animacion-->
-                                                    <div></div>
-                                                    <div></div> 
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-                                         </div>
-        </div><!-- AQUI TERMINA EL DIV DEL TAB -->
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div>  
+            </div><!-- AQUI TERMINA EL DIV DEL TAB 1-->
+        </div>
     </div>
+</div>
+
+<div class="preloader" style="display: none;">
+    <span class="loader"></span>
+    <div class="loader2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
     <script src="dist/js/usuarios.js"></script>
     <?php include_once("footer.php");?>

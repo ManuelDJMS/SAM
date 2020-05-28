@@ -96,7 +96,7 @@ $(document).ready(function(){
   // ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
   function obtener_registro(id){
     var opc = "obtener_registro";
-    $('.line-scale-pulse-out').show();
+    $('.preloader').show();
     $.post("dist/fw/servicios_logistica.php",{'opc':opc, 'id':id},function(data){
         if(data){
           limpia_formulario()
@@ -111,13 +111,13 @@ $(document).ready(function(){
         {
           alerta_error("Error", "Error al recibir los datos");
         }
-        $('.line-scale-pulse-out').hide();
+        $('.preloader').hide();
     },'json');
   }
   // ============================================================================================
   function obtener_registros(){
       var opc = "obtener_registros";
-      $('.line-scale-pulse-out').show();
+      $('.preloader').show();
       regenerar_tabla();
       $.post("dist/fw/servicios_logistica.php",{opc:opc},function(data){
           if(data){
@@ -143,7 +143,7 @@ $(document).ready(function(){
                   "autoWidth": true
               });
           }
-          $('.line-scale-pulse-out').hide();
+          $('.preloader').hide();
       },'json');
   }
       

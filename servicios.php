@@ -111,8 +111,7 @@
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div  class="main-card mb-3 card">
                 <div id="div_registros" class="card-body">
-                  <!-- <table id="example" class="table table-bordered table-striped"> -->
-                  <table id="example3" class="table table-bordered table-striped dataTable">
+                  <table id="example3" class="table table-bordered table-striped dataTable" style="width: 100%;">
                     <thead>
                       <tr>
                         <th>No. Catálogo</th>
@@ -130,20 +129,16 @@
                   </table>
                 </div><!-- /.box-body -->
             </div>  
-               <!-- Codigo para la animacion de cargado -->
-               <div class="loader-wrapper d-flex justify-content-center align-items-center">
-                                            <div class="loader">
-                                                <div class="line-scale-pulse-out">
-                                                    <!--cada div es una linea de la animacion-->
-                                                    <div></div>
-                                                    <div></div> 
-                                                    <div></div>
-                                                    <div></div>
-                                                    <div></div>
-                                                </div>
-                                            </div>
-                                         </div>
         </div><!-- AQUI TERMINA EL DIV DEL TAB -->
     </div>
+    <div class="preloader" style="display: none;">
+    <span class="loader"></span>
+    <div class="loader2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
     <script src="dist/js/serviciosN.js"></script>
     <?php include_once("footer.php");?>

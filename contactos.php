@@ -3,9 +3,11 @@
     include_once("validates.php");
     include_once("banner.php");
 ?>
+<!--=============================== SCRIPTS DE ACCIONES ================================ -->
 <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap4.min.css">
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script> 
+<!-- =================================================================================== -->
 <div class="app-main__outer">
     <div class="app-main__inner">
         <div class="app-page-title">
@@ -124,7 +126,7 @@
                         </div>
                         <div data-parent="#accordion" id="collapseOne3" class="collapse">
                             <div id="div_empresas" class="card-body">
-                                <table id="table_empresas" class="table table-hover table-bordered table-striped dataTable">
+                                <table id="table_empresas" class="table table-hover table-bordered table-striped dataTable" style="width: 100%;">
                                     <thead>
                                         <tr>
                                             <th>Clave Empresa</th>
@@ -150,7 +152,7 @@
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div class="main-card mb-3 card">
                     <div id="div_contactos" class="card-body">
-                        <table id="table_contactos" class="table table-bordered table-striped dataTable">
+                        <table id="table_contactos" class="table table-bordered table-striped dataTable" style="width: 100%;">
                             <thead>
                                 <tr>
                                     <th>Clave Contacto</th>
@@ -178,6 +180,14 @@
         </div>
     </div>
 </div>
+<div class="preloader" style="display: none;">
+    <span class="loader"></span>
+    <div class="loader2">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
 <script src="dist/js/contactos.js"></script>
-<!-- <div class="spinner-border-sm" style="display:flex;">Cargando</div> -->
 <?php include_once("footer.php");?>
