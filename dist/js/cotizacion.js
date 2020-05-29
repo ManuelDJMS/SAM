@@ -17,10 +17,10 @@ $(document).ready(function(){
       this.resizeTO = setTimeout(function() {
          $(this).trigger('resizeEnd');
       }, 500);
-   });
+    });
     $(window).bind("resizeEnd", function() {
-      var table = $('#table_SAM').DataTable();
-          table.destroy();
+      var tableSAM = $('#table_SAM').DataTable();
+          tableSAM.destroy();
           $('#table_SAM').DataTable({
             "paging": true,
             "lengthChange": true,
@@ -30,8 +30,13 @@ $(document).ready(function(){
             "autoWidth": true,
             "scrollX":true
         }); 
+      var tableArtCot = $('#articulosCot').DataTable();
+          tableArtCot.destroy();
+          $('#articulosCot').DataTable({
+            "ordering": false,
+            "scrollX":true
+        }); 
     });
-    // ======================================================================================================
     // ======================================================================================================
     //  ============================= OBTENER ARTICULOS =====================================================
     $('html').on('click', '#ObtenerArticulos', function(){
@@ -181,7 +186,7 @@ $(document).ready(function(){
         obj.idContacto= $('.btnCotizacion').attr('id').split('_')[1];
         obj.idLugarServicio = $("#LugarServicio option:selected").val();
         obj.idModalidad = $("#Modalidad option:selected").val();
-        obj.idTiempoEntrega = $("#TiempoEntrega option:selected").val();
+        // obj.idTiempoEntrega = $("#TiempoEntrega option:selected").val();
         obj.idTerminosPago = $("#TerminosPago option:selected").val();
         obj.idPrecios = $("#Precios option:selected").val();
         obj.Referencia=$("#Referencia").val();
@@ -212,7 +217,7 @@ $(document).ready(function(){
     // var table = $('#articulosCot').DataTable();
     var table = $('#articulosCot').DataTable({
       "ordering": false,
-      "scrollX":true,
+      // "scrollX":true,
   });
     //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
     $('#articulosCot tbody').on( 'click', 'tr', function () {
@@ -371,30 +376,12 @@ $(document).ready(function(){
     $('.preloader').show();
     $.post("dist/fw/cotizacion.php",{'opc':opc, 'id':id},function(data){
         if(data){
-          $('#InformacionContacto').html("");
-          var html = "";
-          html += '<p class="text-muted" id="ContactoCot">';
-          html += '<b class="text-dark">Contacto:</b>';
-          html += data.Nombre + " " + data.Apellidos;
-          html += '</p>';
-          html += '<p class="text-muted" id="DomicilioCot">';
-          html += '<b class="text-dark">Domicilio:</b>';
-          html += data.Domicilio;
-          html += '</p>';
-          html += '<p class="text-muted" id="CPCot">';
-          html += '<b class="text-dark">Código Postal:</b>';
-          html += data.CP;
-          html += '</p>';
-          html += '<p class="text-muted" id="CiudadCot"><b class="text-dark">Ciudad:</b>';
-          html += data.Ciudad;
-          html += '</p>';
-          html += '<p class="text-muted" id="TelefonoCot"><b class="text-dark">Teléfono:</b>';
-          html += data.Tel;
-          html += '</p>';
-          html += '<p class="text-muted" id="EmailCot"><b class="text-dark">Email:</b>';
-          html += data.Email;
-          html += '</p>';
-          $('#InformacionContacto').html(html);
+          $('#EmpresaCot').text(data.RazonSocial);
+          $('#ContactoCot').text(data.Nombre + " " + data.Apellidos);
+          $('#CpCot').text(data.CP);
+          $('#DomicilioCot').text(data.Domicilio);
+          $('#EmailCot').text(data.Email);
+          $('#TelefonoCot').text(data.Tel);
         }
         else
         {

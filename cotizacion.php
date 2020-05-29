@@ -183,176 +183,196 @@
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <!-- ============================= DATOS COMPLETOS DEL CLIENTE A COTIZAR ============================ -->
-                <div class="row" id="EditarDirecciones">
-                    <div class="col-md-12 col-lg-6 col-xl-4">
-                        <div class="mb-3 card">
-                            <div class="card-header-tab card-header">
-                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                    <i class="header-icon pe-7s-user icon-gradient bg-happy-itmeo"> </i>
-                                    Información del Cliente
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-line-primary profile-responsive card-border mb-3 card">
-                                    <div class="dropdown-menu-header">
-                                        <div class="dropdown-menu-header-inner bg-info">
-                                            <div class="menu-header-image opacity-2" style="background-image: url('assets/images/dropdown-header/city2.jpg');"></div>
-                                            <div class="menu-header-content">
-                                                <div>
-                                                    <h5 class="menu-header-title" id="EmpresaContactoCot">
-                                                        <!-- Manuel de Jesús Morales Sánchez -->
-                                                    </h5>
-                                                </div>
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card">
+                            <div class="widget-chat-wrapper-outer">
+                                <div class="widget-chart-content">
+                                    <div class="widget-numbers opacity-5 fsize-1 mb-0 w-100">Empresa</div>
+                                    <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
+                                        <div class="widget-chart-flex align-items-center">
+                                            <div id="EmpresaCot">
+                                                <!-- Asociación Mexicana De La Industria Del Concreto Premezclado, A.C. -->
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card-body" id="InformacionContacto">
-                                        <p class="text-muted" id="ContactoCot">
-                                            <b class="text-dark" id="ContactoB" value="hola"> 
-                                                Contacto:
-                                            </b> 
-                                            <!-- Manuel de Jesus Morales Sanchez. -->
-                                        </p>
-                                        <p class="text-muted" id="DomicilioCot">
-                                            <b class="text-dark">
-                                                Domicilio:
-                                            </b> 
-                                            <!-- Av. Insurgentes 245 Col. Nogales. -->
-                                        </p>
-                                        <p class="text-muted" id="CPCot">
-                                            <b class="text-dark">
-                                                Código Postal:
-                                            </b> 
-                                            <!-- 49000. -->
-                                        </p>
-                                        <p class="text-muted" id="CiudadCot">
-                                            <b class="text-dark">
-                                                Ciudad:
-                                            </b> 
-                                            <!-- Ciudad Guzman. -->
-                                        </p>
-                                        <p class="text-muted" id="TelefonoCot">
-                                            <b class="text-dark">
-                                                Teléfono:
-                                            </b> 
-                                            <!-- 3411621032. -->
-                                        </p>
-                                        <p class="text-muted" id="EmailCot">
-                                            <b class="text-dark">
-                                                Email:
-                                            </b> 
-                                            <!-- manueldjmsanchez@gmail.com -->
-                                        </p>
-                                    </div>
-                                   
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item-btn text-center pt-4 pb-3 nav-item">
-                                            <!-- <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success btnCotizacion" id="btn_nuevo_0">
-                                                Crear Cotización
-                                            </button> -->
-                                            <button class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-info" id="Prueba">
-                                                Guardar
-                                            </button>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- ============================ DATOS GENERALES DE LA COTIZACION ========================= -->
-                    <div class="col-md-12 col-lg-6 col-xl-8">
-                        <div class="mb-3 card" data-step="5" data-intro="Selecciona las condiciones que llevará la cotización" data-scrollTo='tooltip' data-position='left'>
-                            <div class="card-header-tab card-header">
-                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
-                                    <i class="header-icon pe-7s-id mr-3 icon-gradient bg-happy-itmeo"> </i>
-                                    Datos de Cotización
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <!-- ===================================== INICIA EL PRIMER RENGLON =========================================== -->
-                            <div class="form-row">
-                                <div class="col-md-4">
-                                    <div class="position-relative form-group">
-                                        <label for="exampleEmail11" class="">Vigencia</label>
-                                        <input type="text" class="form-control" name="daterange" id="Vigencia">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
+                            <div class="widget-chat-wrapper-outer">
+                                <div class="widget-chart-content">
+                                    <div class="widget-numbers opacity-5 fsize-1 mb-0 w-100">Contacto</div>
+                                    <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
+                                        <div class="widget-chart-flex align-items-center">
+                                            <div id="ContactoCot">
+                                                <!-- Manuel de Jesus Miorales Sanchez -->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-8">           
-                                    <div class="position-relative form-group"> 
-                                        <label for="exampleSelect" class="">Tiempo de Entrega</label>
-                                        <select id="TiempoEntrega" class="form-control">
-                                        </select>  
-                                    </div>   
-                                </div>  
                             </div>
-                            <!-- ===================================== TERMINA EL PRIMER RENGLON =========================================== -->
-                            <!-- ===================================== INICIA EL SEGUNDO RENGLON =========================================== -->
-                            <div class="form-row">
-                                <div class="col-md-12">           
-                                    <div class="position-relative form-group"> 
-                                        <label for="exampleSelect" class="">Términos de Pago </label>
-                                        <select id="TerminosPago" class="form-control">
-                                        </select>  
-                                    </div>   
-                                </div>  
-                            </div>
-                            <!-- ===================================== TERMINA EL SEGUNDO RENGLON =========================================== -->
-                            <!-- ===================================== INICIA EL TERCER RENGLON =========================================== -->
-                            <div class="form-row">
-                                <div class="col-md-7">           
-                                    <div class="position-relative form-group"> 
-                                        <label for="exampleSelect" class="">Lugar de Servicio </label>
-                                        <select id="LugarServicio" class="form-control">
-                                        </select>  
-                                    </div>   
-                                </div>  
-                                <div class="col-md-5">           
-                                    <div class="position-relative form-group"> 
-                                        <label for="exampleSelect" class="">Modalidad </label>
-                                        <select id="Modalidad" class="form-control">
-                                        </select>  
-                                    </div>   
-                                </div>  
-                            </div>
-                            <!-- ===================================== TERMINA EL TERCER RENGLON =========================================== -->
-                            <!-- ===================================== INICIA EL CUARTO RENGLON =========================================== -->
-                            <div class="form-row">
-                                <div class="col-md-3">           
-                                    <div class="position-relative form-group"> 
-                                        <label for="exampleSelect" class="">Precios </label>
-                                        <select id="Precios" class="form-control">
-                                        </select>  
-                                    </div>   
-                                </div>  
-                                <div class="col-md-4">           
-                                    <div class="position-relative form-group"> 
-                                        <label for="exampleSelect" class="">Referencia </label>
-                                        <textarea rows=2 id="Referencia" class="form-control"></textarea>
-                                    </div>   
-                                </div>  
-                                <div class="col-md-5">           
-                                    <div class="position-relative form-group"> 
-                                        <label for="exampleSelect" class="">Observaciones </label>
-                                        <textarea rows=2 id="ObservacionesCot" class="form-control">*La cotización fué realizada en base a la información recibida. Cualquier diferencia entre su solicitud y esta cotización contactar a Ventas*
-                                        </textarea>
-                                    </div>   
-                                </div>  
-                            </div>
-                            <!-- ===================================== TERMINA EL CUARTO RENGLON =========================================== -->
-                            <button type="button" class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success float-right btnGuardar" id="btn_nuevo_0" >Guardar</button> 
-                            <button type="button" class="mb-2 mr-2 btn-pill btn-transition btn btn-outline-danger float-right btnCancelar">Cancelar</button>
-                            </div><!-- /.card-body -->
                         </div>
                     </div>
-                    <!-- ======================================================================================================== -->
+                    <div class="col-md-6 col-lg-2">
+                        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card">
+                            <div class="widget-chat-wrapper-outer">
+                                <div class="widget-chart-content">
+                                    <div class="widget-numbers opacity-5 fsize-1 mb-0 w-100">Código Postal</div>
+                                    <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
+                                        <div class="widget-chart-flex align-items-center">
+                                            <div id="CpCot">
+                                                <!-- <small class="text-success pr-1">+</small> -->
+                                                <!-- 34 -->
+                                                <!-- <small class="opacity-5 pl-1">Cots</small> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- ================================================================================================ -->
+                <div class="row">
+                    <div class="col-md-6 col-lg-6">
+                        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card">
+                            <div class="widget-chat-wrapper-outer">
+                                <div class="widget-chart-content">
+                                    <div class="widget-numbers opacity-5 fsize-1 mb-0 w-100">Domicilio</div>
+                                    <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
+                                        <div class="widget-chart-flex align-items-center">
+                                            <div id="DomicilioCot">
+                                                <!-- Asociación Mexicana De La Industria Del Concreto Premezclado, A.C. -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
+                            <div class="widget-chat-wrapper-outer">
+                                <div class="widget-chart-content">
+                                    <div class="widget-numbers opacity-5 fsize-1 mb-0 w-100">Email</div>
+                                    <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
+                                        <div class="widget-chart-flex align-items-center">
+                                            <div id="EmailCot">
+                                                <!-- Manuel de Jesus Miorales Sanchez -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-2">
+                        <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-success border-success card">
+                            <div class="widget-chat-wrapper-outer">
+                                <div class="widget-chart-content">
+                                    <div class="widget-numbers opacity-5 fsize-1 mb-0 w-100">Teléfono</div>
+                                    <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
+                                        <div class="widget-chart-flex align-items-center">
+                                            <div id="TelefonoCot">
+                                                <!-- <small class="text-success pr-1">+</small>
+                                                34
+                                                <small class="opacity-5 pl-1">Cots</small> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================ DATOS GENERALES DE LA COTIZACION ========================= -->
+                <div class="mb-3 card" data-step="5" data-intro="Selecciona las condiciones que llevará la cotización" data-scrollTo='tooltip' data-position='left'>
+                    <div class="card-header-tab card-header">
+                        <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
+                            <i class="header-icon pe-7s-id mr-3 icon-gradient bg-happy-itmeo"> </i>
+                            Datos de Cotización
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- ===================================== INICIA EL PRIMER RENGLON =========================================== -->
+                        <div class="form-row">
+                            <div class="col-md-3">
+                                <div class="position-relative form-group">
+                                    <label for="exampleEmail11" class="">Vigencia</label>
+                                    <input type="text" class="form-control" name="daterange" id="Vigencia">
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6">           
+                                <div class="position-relative form-group"> 
+                                    <label for="exampleSelect" class="">Tiempo de Entrega</label>
+                                    <select id="TiempoEntrega" class="form-control">
+                                    </select>  
+                                </div>   
+                            </div>   -->
+                            <div class="col-md-4">           
+                                <div class="position-relative form-group"> 
+                                    <label for="exampleSelect" class="">Modalidad </label>
+                                    <select id="Modalidad" class="form-control">
+                                    </select>  
+                                </div>   
+                            </div>  
+                            <div class="col-md-5">           
+                                <div class="position-relative form-group"> 
+                                    <label for="exampleSelect" class="">Lugar de Servicio </label>
+                                    <select id="LugarServicio" class="form-control">
+                                    </select>  
+                                </div>   
+                            </div> 
+                        </div>
+                        <!-- ===================================== TERMINA EL PRIMER RENGLON =========================================== -->
+                        <!-- ===================================== INICIA EL SEGUNDO RENGLON =========================================== -->
+                        <div class="form-row">
+                            <div class="col-md-10">           
+                                <div class="position-relative form-group"> 
+                                    <label for="exampleSelect" class="">Términos de Pago </label>
+                                    <select id="TerminosPago" class="form-control">
+                                    </select>  
+                                </div>   
+                            </div>  
+                            <div class="col-md-2">           
+                                <div class="position-relative form-group"> 
+                                    <label for="exampleSelect" class="">Precios </label>
+                                    <select id="Precios" class="form-control">
+                                    </select>  
+                                </div>   
+                            </div>  
+                        </div>
+                        <!-- ===================================== TERMINA EL SEGUNDO RENGLON =========================================== -->
+                        <!-- ===================================== INICIA EL TERCER RENGLON =========================================== -->
+                        <div class="form-row">
+                            <div class="col-md-5">           
+                                <div class="position-relative form-group"> 
+                                    <label for="exampleSelect" class="">Referencia </label>
+                                    <input id="Referencia" class="form-control">
+                                </div>   
+                            </div> 
+                            <div class="col-md-7">           
+                                <div class="position-relative form-group"> 
+                                    <label for="exampleSelect" class="">Observaciones </label>
+                                    <textarea rows=1 id="ObservacionesCot" class="form-control">*La cotización fué realizada en base a la información recibida. Cualquier diferencia entre su solicitud y esta cotización contactar a Ventas*
+                                    </textarea>
+                                </div>  
+                            </div>  
+                        </div>
+                        <!-- ===================================== TERMINA EL TERCER RENGLON =========================================== -->
+                        <button type="button" class="mb-2 mr-2 btn-pill btn-hover-shine btn btn-success float-right btnGuardar" id="btn_nuevo_0" >Guardar</button> 
+                        <button type="button" class="mb-2 mr-2 btn-pill btn-transition btn btn-outline-danger float-right btnCancelar">Cancelar</button> 
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- ======================================================================================================== -->
                 <!-- ============================ CONSULTA DE CATALOGOS DE ARTICULOS ========================= -->
                 <div class="mb-3 card">
                     <div class="card-header-tab card-header">
                         <div class="card-header-title font-size-lg text-capitalize font-weight-normal">
                             <i class="header-icon pe-7s-cart mr-3 icon-gradient bg-happy-itmeo"> </i>
-                            Catálogo de Artículos
+                            Partidas
                         </div>
                         <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
                             <input id="Enter" class="form-control" placeholder="Ingresa SKU, OV, ACCESS" data-step="6" data-intro="Si sabes el SKU de algún artículo puedes ingresarlo y automaticamente se agrega a las partidas de la cotización" data-scrollTo='tooltip' data-position='left'>
@@ -383,8 +403,6 @@
                         </table>
                     </div>
                 </div>
-                <!-- =============================================================================================== -->
-                <!--  -->
             </div>  
             <!-- ================================== INICIA LA COTIZACION GENERAL DE ACCES DE LAS COTIZACIONES =================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">

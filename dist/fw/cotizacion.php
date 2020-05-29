@@ -31,9 +31,9 @@
             $origen = $_POST['origen'];
             //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             //-------------------------- SE ALAMCENA LA CADENA QUE GUARDA EL ENCABEZADO DE LA COT JUNTO CON LOS PARAMETROS-----------------------------------------------------
-            $sql1 = "INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
-                       FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $params1 = array($_SESSION['iduser'],$datos->idContacto,$datos->idLugarServicio,$datos->idModalidad,$datos->idTiempoEntrega,$datos->idTerminosPago,$datos->idPrecios,$datos->Referencia,'2020-01-01','2020-01-01',$datos->ObservacionesCot,$datos->Subtotal,$datos->Iva,$datos->Total);
+            $sql1 = "INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTerminoPago, idPrecios, Referencia, FechaDesde,
+                       FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $params1 = array($_SESSION['iduser'],$datos->idContacto,$datos->idLugarServicio,$datos->idModalidad,$datos->idTerminosPago,$datos->idPrecios,$datos->Referencia,'2020-01-01','2020-01-01',$datos->ObservacionesCot,$datos->Subtotal,$datos->Iva,$datos->Total);
             //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
             //,,,,,,, ARREGLO PARA LOS PARAMETROS DE LAS PARTIDAS ,,,,,,,,,,
             $params2 = array(); 
@@ -471,7 +471,7 @@
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT Nombre, Apellidos, RazonSocial, Email, Tel, Ciudad, CP, Domicilio FROM ContactosAcomodados INNER JOIN EmpresasOrdenadas 
+        $strQuery = "SELECT Nombre, Apellidos, RazonSocial, Email, Tel, RazonSocial, CP, Domicilio FROM ContactosAcomodados INNER JOIN EmpresasOrdenadas 
               ON ContactosAcomodados.ClaveEmpresa=EmpresasOrdenadas.ClaveEmpresa INNER JOIN DireccionesAcomodadas on EmpresasOrdenadas.ClaveEmpresa=DireccionesAcomodadas.ClaveEmpresa 
               WHERE Facturacion=1 and ClaveContacto =$id";
         $con->ejecutaQuery($strQuery);
