@@ -375,7 +375,7 @@
                             Partidas
                         </div>
                         <div class="btn-actions-pane-right text-capitalize actions-icon-btn">
-                            <input id="Enter" class="form-control" placeholder="Ingresa SKU, OV, ACCESS" data-step="6" data-intro="Si sabes el SKU de algún artículo puedes ingresarlo y automaticamente se agrega a las partidas de la cotización" data-scrollTo='tooltip' data-position='left'>
+                            <input id="Enter" class="form-control" placeholder="Ingresa SKU, OV, COT" data-step="6" data-intro="Si sabes el SKU de algún artículo puedes ingresarlo y automaticamente se agrega a las partidas de la cotización" data-scrollTo='tooltip' data-position='left'>
                         </div>
                     </div>
                     
@@ -493,8 +493,8 @@
                                     <div class="widget-title opacity-5 text-uppercase">Empresa</div>
                                     <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
                                         <div class="widget-chart-flex align-items-center">
-                                            <div>
-                                                Asociación Mexicana De La Industria Del Concreto Premezclado, A.C.
+                                            <div id="EmpresaCotH">
+                                                <!-- Asociación Mexicana De La Industria Del Concreto Premezclado, A.C. -->
                                             </div>
                                         </div>
                                     </div>
@@ -509,8 +509,8 @@
                                     <div class="widget-title opacity-5 text-uppercase">Contacto</div>
                                     <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
                                         <div class="widget-chart-flex align-items-center">
-                                            <div>
-                                                Manuel de Jesus Miorales Sanchez
+                                            <div id="ContactoCotH">
+                                                <!-- Manuel de Jesus Miorales Sanchez -->
                                             </div>
                                         </div>
                                     </div>
@@ -525,9 +525,9 @@
                                     <div class="widget-title opacity-5 text-uppercase">Cotizaciones</div>
                                     <div class="widget-numbers mt-2 fsize-1 mb-0 w-100">
                                         <div class="widget-chart-flex align-items-center">
-                                            <div>
+                                            <div id="CotizacionesCotH">
                                                 <small class="text-success pr-1">+</small>
-                                                34
+                                                <!-- 34 -->
                                                 <small class="opacity-5 pl-1">Cots</small>
                                             </div>
                                         </div>

@@ -1,5 +1,5 @@
 var counter = 1;
-var subtotal=0;
+var subtotal=0.0;
 var articulos=[];
 var cantidades=[];
 var observacionearticulos=[];
@@ -77,38 +77,42 @@ $(document).ready(function(){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13'){
           var id = $(this).val();
-          var repetido=false;
-          if (articulos.length==0){
-            articulos.push(id);
-            cantidades.push(1);
-            observacionearticulos.push("-");
-            ids.push("-");
-            series.push("-");
-            observacionesservicios.push("-");
-            origenes.push("LIMS");
-            obtener_articulosCot(id);
-          }
-          //  CICLO PARA VER SI HAY REPETIDOS
-          for( var i=0; i<(articulos.length); i++ )
-          {
-          if (articulos[i].split('_')[0]==id)
-          {
-            repetido=true;
-            break;
-          }
-          }
-          //SI NO ESTA EN EL ARREGLO LO AGREGA
-          if(repetido!=true)
-          {
-            articulos.push(id);
-            cantidades.push(1);
-            observacionearticulos.push("-");
-            ids.push("-");
-            series.push("-");
-            observacionesservicios.push("-");
-            origenes.push("LIMS");
-            obtener_articulosCot(id);
-          }
+          // // alert(id);
+          // var repetido=false;
+          // if (articulos.length==0){
+          //   // articulos.push(id);
+          //   cantidades.push(1);
+          //   observacionearticulos.push("-");
+          //   ids.push("-");
+          //   series.push("-");
+          //   observacionesservicios.push("-");
+          //   origenes.push("LIMS");
+          //   obtener_articulosCotLIMS(id);
+          // }
+          // //  CICLO PARA VER SI HAY REPETIDOS
+          // for( var i=0; i<(articulos.length); i++ )
+          // {
+            
+          //   // alert("articulos[i]");
+          //   if (articulos[i].split('_')[2]==id)
+          //   {
+          //     repetido=true;
+          //     break;
+          //   }
+          // }
+          // //SI NO ESTA EN EL ARREGLO LO AGREGA
+          // if(repetido!=true)
+          // {
+          //   // articulos.push(id);
+          //   cantidades.push(1);
+          //   observacionearticulos.push("-");
+          //   ids.push("-");
+          //   series.push("-");
+          //   observacionesservicios.push("-");
+          //   origenes.push("LIMS");
+            obtener_articulosCotLIMS(id);
+          // }
+
       }
       event.stopPropagation();
     });
@@ -126,6 +130,7 @@ $(document).ready(function(){
           series.push("-");
           observacionesservicios.push("-");
           origenes.push(id.split('_')[0]);
+          alert(id.split('_')[0]);
           if (id.split('_')[0]=="LIMS"){
             obtener_articulosCot(id.split('_')[1]);
           }
@@ -133,6 +138,7 @@ $(document).ready(function(){
             obtener_articulosCotLocales(id.split('_')[1]);
           }
         }
+        // alert(articulos[0]);
         //  CICLO PARA VER SI HAY REPETIDOS
         for( var i=0; i<(articulos.length); i++ )
         {
@@ -193,9 +199,11 @@ $(document).ready(function(){
         obj.FechaDesde=$("#Vigencia").val().split('-')[0];
         obj.FechaHasta=$("#Vigencia").val().split('-')[1];
         obj.ObservacionesCot=$("#ObservacionesCot").val();
-        obj.Subtotal=subtotal;
+        obj.Subtotal=parseFloat(subtotal);
+        alert(obj.subtotal);
         var iva=parseFloat((subtotal*16)/100);
         obj.Iva=iva;
+        alert(obj.Iva);
         var total=(iva+subtotal);
         obj.Total=total;
         obj.accion = $(this).attr("id").split('_')[1];
@@ -208,7 +216,7 @@ $(document).ready(function(){
           alerta_error("Error", "No hay ninguna partida en esta cotización")
         }
         else{
-          alert(cantidades[0]);
+          
           guardar_detalle(obj, articulos, cantidades, observacionearticulos, ids, series, observacionesservicios, precios, origenes);
         }
     });
@@ -259,10 +267,19 @@ $(document).ready(function(){
     //=====================================================================================================
     //========================= CANCELAR LA COTIZACION =================================
     $('html').on('click', '#CotSAM', function () {
-      $("#tab-3").show();
-      $("#tab-3").get(0).click();
-      var id = $('.btnCotizacion').attr('id').split('_')[1];
-      obtener_articulosCotSAM();
+      var cont=$('.Nombre').attr('id').split('_')[1]
+      if ( cont === "No" ){
+        alerta_error("Oops...","No ha seleccionado ningún cliente");
+      }
+      else
+      {
+        $("#tab-3").show();
+        $("#tab-3").get(0).click();
+        var id = $('.btnCotizacion').attr('id').split('_')[1];
+        obtener_articulosCotSAM(id);
+        obtener_contactoH(id);
+      }
+      
     } );
     //=====================================================================================================
   });
@@ -391,6 +408,24 @@ $(document).ready(function(){
     },'json');
   }
   // ========================================================================================================
+  // ============================ METODO PÁRA OBTENER UN CONTACTO EN EL HISTORIAL COT========================
+  function obtener_contactoH(id){
+    var opc = "obtener_contactoH";
+    $('.preloader').show();
+    $.post("dist/fw/cotizacion.php",{'opc':opc, 'id':id},function(data){
+        if(data){
+          $('#EmpresaCotH').text(data.RazonSocial);
+          $('#ContactoCotH').text(data.Nombre + " " + data.Apellidos);
+          $('#CotizacionesCotH').text(data.Cotizaciones);
+        }
+        else
+        {
+          alerta_error("Error", "Error al recibir los datos");
+        }
+        $('.preloader').hide();
+    },'json');
+  }
+  // ========================================================================================================
   // =============================== CODIGO PARA OBTENER LOS CONTACTOS A COTIZAR ============================
   function obtener_contactos(){
       var opc = "obtener_contactos";
@@ -483,8 +518,70 @@ $(document).ready(function(){
                 '<input type="text" id="precio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="LIMS_'+data.EquipId+'"></button>'
             ] ).draw( true );
-            subtotal=subtotal+data.Price;
+            subtotal=subtotal+parseFloat(data.Price);
             precios.push(data.Price);
+          }
+          else{
+            alerta_error("Error", "No existe el ItemNumber");
+          }
+      },'json');
+  }
+  function obtener_articulosCotLIMS(id){
+      var opc = "obtener_articulosCotLIMS";
+      $.post("dist/fw/cotizacion.php",{opc:opc, 'id':id},function(data){
+          if(data){
+              var t = $('#articulosCot').DataTable();
+              t.row.add( [
+                data.ItemNumber,
+                data.EquipmentName,
+                data.Mfr,
+                data.Model,
+                '<input type="text" id="cantidad_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.EquipId+')">',
+                '<input type="text" id="observaciones_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.EquipId+')">',
+                '<input type="text" id="id_'+ data.EquipId +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.EquipId+')">',
+                '<input type="text" id="serie_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.EquipId+')">',
+                '<input type="text" id="observicio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.EquipId+')">',
+                '<input type="text" id="precio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
+                '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="LIMS_'+data.EquipId+'"></button>'
+            ] ).draw( true );
+            subtotal=subtotal+parseFloat(data.Price);
+            precios.push(data.Price);
+            var idarreglo = "LIMS_"+data.EquipId+"_"+data.ItemNumber;
+            var repetido=false;
+            if (articulos.length==0){
+              articulos.push(idarreglo);
+              cantidades.push(1);
+              observacionearticulos.push("-");
+              ids.push("-");
+              series.push("-");
+              observacionesservicios.push("-");
+              origenes.push(idarreglo.split('_')[0]);
+            }
+            for( var i=0; i<(articulos.length); i++ )
+            {
+              
+              if (articulos[i]==idarreglo)
+              {
+                alert("esta repetido");
+                repetido=true;
+                break;
+              }
+            }
+            alert(repetido);
+            //SI NO ESTA EN EL ARREGLO LO AGREGA
+            if(repetido != true)
+            {
+              articulos.push(idarreglo);
+              cantidades.push(1);
+              observacionearticulos.push("-");
+              ids.push("-");
+              series.push("-");
+              observacionesservicios.push("-");
+              origenes.push(id.split('_')[0]);
+            }
+          }
+          else{
+            alerta_error("Error", "No existe el ItemNumber");
           }
       },'json');
   }
@@ -507,7 +604,8 @@ $(document).ready(function(){
                 '<input type="text" id="precioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPreciosA('+data.idEquipo+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="ACCESS_'+data.idEquipo+'"></button>'
             ] ).draw( true );
-            subtotal=subtotal+data.Precio;
+            // alert(parseFloat(data.precio));
+            subtotal=subtotal+parseFloat(data.Precio);
             precios.push(data.Precio);
           }
       },'json');
@@ -654,11 +752,11 @@ $(document).ready(function(){
       },'json');
   }
   // ============================= CODIGO PARA OBTENER LAS COTIZACIONES DE SAM ================================
-  function obtener_articulosCotSAM(){
+  function obtener_articulosCotSAM(id){
       var opc = "obtener_articulosCotSAM";
       $('.preloader').show();
       regenerar_historialSAM();
-      $.post("dist/fw/cotizacion.php",{opc:opc},function(data){
+      $.post("dist/fw/cotizacion.php",{opc:opc, id:id},function(data){
           if(data){
               var html = '';
               for (var i = 0; i < data.length; i++){
@@ -676,7 +774,7 @@ $(document).ready(function(){
                   html += '<td>' + $.trim(data[i].ObservacionesServicios) + '</td>';
                   html += '<td>' + $.trim(data[i].Cantidad) + '</td>';
                   html += '<td>' + $.trim(data[i].PrecioUnitario) + '</td>';
-                  html += '<td class="btnArticulos" id="ACCESS_'+data[i].NumCot+'"><span class="font-icon-wrapper lnr-select" ></span></td>';
+                  html += '<td class="btnArticulos" id="'+data[i].Origen+'_'+data[i].EquipId+'"><span class="font-icon-wrapper lnr-select" ></span></td>';
                   html += '</tr>';                        
               }
               $('#table_SAM tbody').html(html);
