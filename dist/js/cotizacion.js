@@ -1,3 +1,4 @@
+//#region "VARIABLES GLOBALES DEL SISTEMA"
 var counter = 1;
 var subtotal=0.0;
 var articulos=[];
@@ -8,7 +9,8 @@ var series=[];
 var observacionesservicios=[];
 var precios=[];
 var origenes=[];
-//[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGO QUE FUNCIONA AL CARGAR EL DOCUMENTO ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+//#endregion
+//#region "CODIGO QUE SE EJECUTA AL ABRIR EL DOCUMENTO HTML O FUNCIONALIDADES DE LOS ITEMS DEL DOCUMENTO"
 $(document).ready(function(){
     obtener_contactos();
     //=============================== EVENTO AL CAMBIAR EL TAMAÑO DEL NAVEGADOR =============================
@@ -77,10 +79,13 @@ $(document).ready(function(){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13'){
           var id = $(this).val();
-          if (id.substring(0,0)=="A"){
-            obtener_articulosCotAccess();
+          if (id.substring(0,1)=="A"){
+            obtener_articulosENTERSAM(id);
           }
-          obtener_articulosCotLIMS(id);
+          else{
+            obtener_articulosCotLIMS(id);
+          }
+         
       }
       event.stopPropagation();
     });
@@ -88,7 +93,6 @@ $(document).ready(function(){
     // ===================== EVENTO PARA SELECCIONAR ARTICULOS (POR SELECT) =================================
     $('html').on('click', '.btnArticulos', function(){
         var id = $(this).attr('id');
-        alert(id);
         var repetido=false;
         if (articulos.length==0){
           articulos.push(id);
@@ -250,7 +254,8 @@ $(document).ready(function(){
     } );
     //=====================================================================================================
   });
-  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ METODOS PARA OBTENER DATOS PARA LOS FORMULARIOS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  //#endregion
+//#region "METODOS PARA OBTENER DATOS DE LA BASE DE DATOS Y PONERLOS EN LOS FORMULARIOS"  
   // ============================== METODO PÁRA OBTENER LUGAR CONDICION =====================================
   function obtener_lugarServicio(){
       var opc = 'obtener_lugarServicio';
@@ -528,7 +533,64 @@ $(document).ready(function(){
               
               if (articulos[i]==idarreglo)
               {
-                alert("esta repetido");
+                repetido=true;
+                break;
+              }
+            }
+            alert(repetido);
+            //SI NO ESTA EN EL ARREGLO LO AGREGA
+            if(repetido != true)
+            {
+              articulos.push(idarreglo);
+              cantidades.push(1);
+              observacionearticulos.push("-");
+              ids.push("-");
+              series.push("-");
+              observacionesservicios.push("-");
+              origenes.push(id.split('_')[0]);
+            }
+          }
+          else{
+            alerta_error("Error", "No existe el ItemNumber");
+          }
+      },'json');
+  }
+  //================================================================== CODIGO PARA OBTENER ARTICULOS DE SAM PRESIONANDO ENTER =====================================================================
+  function obtener_articulosENTERSAM(id){
+      var opc = "obtener_articulosENTERSAM";
+      $.post("dist/fw/cotizacion.php",{opc:opc, 'id':id},function(data){
+          if(data){
+              var t = $('#articulosCot').DataTable();
+              t.row.add( [
+                data.ItemNumber,
+                data.NombreEquipo,
+                data.Marca,
+                data.Modelo,
+                '<input type="text" id="cantidad_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=2 value="1" onblur="arregloCantidad('+data.idEquipo+')">',
+                '<input type="text" id="observaciones_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservaciones('+data.idEquipo+')">',
+                '<input type="text" id="id_'+ data.idEquipo +'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloIds('+data.idEquipo+')">',
+                '<input type="text" id="serie_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=15 value="-" onblur="arregloSerie('+data.idEquipo+')">',
+                '<input type="text" id="observicio_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=20 value="-" onblur="arregloObservicio('+data.idEquipo+')">',
+                '<input type="text" id="precio_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPrecios('+data.idEquipo+')">',
+                '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="LIMS_'+data.idEquipo+'"></button>'
+            ] ).draw( true );
+            precios.push(data.Precio);
+            var idarreglo = "ACCESS_"+data.idEquipo+"_"+data.ItemNumber;
+            var repetido=false;
+            if (articulos.length==0){
+              articulos.push(idarreglo);
+              cantidades.push(1);
+              observacionearticulos.push("-");
+              ids.push("-");
+              series.push("-");
+              observacionesservicios.push("-");
+              origenes.push(idarreglo.split('_')[0]);
+            }
+            for( var i=0; i<(articulos.length); i++ )
+            {
+              
+              if (articulos[i]==idarreglo)
+              {
                 repetido=true;
                 break;
               }
@@ -754,7 +816,8 @@ $(document).ready(function(){
           $('.preloader').hide();
       },'json');
   }
-  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGOS PARA REGENERAR TABLAS O FORMULARIOS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  //#endregion
+//#region "METODOS PARA REGENERAR TABLAS O FORMULARIOS" 
   // ============================== CODIGO PARA REGENERAR LA TABLA DE CONTACTOS ==========================================================================
   function regenerar_contactos(){
       $('#div_contactos').html("");
@@ -859,6 +922,8 @@ $(document).ready(function(){
       $("#EmailContacto").text("");
       $("#TelefonoContacto").text("");
   }
+  //#endregion
+//#region "METODOS DE LAS DISTINTAS ALERTAS DEL SISTEMA"  
   //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ EVENTOS PARA CREAR ALERTAS EN EL SISTEMA ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
   function alerta(titulo, mensaje, icono){
   const swalWithBootstrapButtons = Swal.mixin({
@@ -930,7 +995,8 @@ $(document).ready(function(){
       // footer: '<a href>Why do I have this issue?</a>'
     })
   }
-  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ CODIGO PARA GUARDAR COTS, PARTIDAS, ETC..... ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  //#endregion
+//#region "CODIGO PARA GUARDAR COTS, PARTIDAS, ETC....."
   // ============================== CODIGO PARA GUARDAR LA COTIZACION Y SUS PARTIDAS ==========================================================================
   function guardar_detalle(obj, articulosg, cantidadesg, observacionesg, idsg, seriesg, observiciog, preciosg, origeng){
     var opc = "guardar_cot";
@@ -954,7 +1020,8 @@ $(document).ready(function(){
       }
   },'json');
   }
-  //[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[ GENERAR LOS ARREGLOS PARA LAS PARTIDAS ]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+  //#endregion
+//#region "METODOS DE LOS ARREGLOS PARA PODER GUARDAR LAS PARTIDAS"
   function arregloCantidad(id) {
     var idBuscar="LIMS_"+id;
     var pos=articulos.indexOf(idBuscar);
@@ -1022,7 +1089,8 @@ $(document).ready(function(){
     precios[pos]=$('#precioA_'+id).val();
     
   }
-  //=================================== CODIGO PARA ELIMINAR ITEM DE LOS ARREGLOS ==========================================
+  //#endregion
+//=================================== CODIGO PARA ELIMINAR ITEM DE LOS ARREGLOS ==========================================
   function eliminarItem (item) {
     var i=articulos.indexOf( item );
     alert(i);

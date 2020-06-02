@@ -412,6 +412,24 @@
         $con->cerrar();
 	}
 	//========================================
+    // ======== OBTENER ARTICULOS COT =============
+	elseif($opc == 'obtener_articulosENTERSAM'){
+        $id = $_POST['id'];
+        $con = new Conexion();
+        $con->conectar();
+        $strQuery = "SELECT idEquipo, ItemNumber, NombreEquipo, Marca, Modelo, CONCAT(MetododeCalibracion, ' ', PuntosdeCalibracion) as MetododeCalibracion, Precio FROM
+                    EquiposLocales WHERE ItemNumber='".$id."'";
+        $con->ejecutaQuery($strQuery);
+        $obj = $con->getObjeto();
+        foreach ($obj as $key => $value) {
+            if(is_string($value)){
+                $obj->$key = utf8_encode($value);    
+            }
+        }
+        echo json_encode($obj);
+        $con->cerrar();
+	}
+	//========================================
     // ======== OBTENER ARTICULOS COT ACCESS =============
 	elseif($opc == 'obtener_articulosCotAccess'){
         $id = $_POST['id'];
