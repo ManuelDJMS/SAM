@@ -77,42 +77,10 @@ $(document).ready(function(){
       var keycode = (event.keyCode ? event.keyCode : event.which);
       if(keycode == '13'){
           var id = $(this).val();
-          // // alert(id);
-          // var repetido=false;
-          // if (articulos.length==0){
-          //   // articulos.push(id);
-          //   cantidades.push(1);
-          //   observacionearticulos.push("-");
-          //   ids.push("-");
-          //   series.push("-");
-          //   observacionesservicios.push("-");
-          //   origenes.push("LIMS");
-          //   obtener_articulosCotLIMS(id);
-          // }
-          // //  CICLO PARA VER SI HAY REPETIDOS
-          // for( var i=0; i<(articulos.length); i++ )
-          // {
-            
-          //   // alert("articulos[i]");
-          //   if (articulos[i].split('_')[2]==id)
-          //   {
-          //     repetido=true;
-          //     break;
-          //   }
-          // }
-          // //SI NO ESTA EN EL ARREGLO LO AGREGA
-          // if(repetido!=true)
-          // {
-          //   // articulos.push(id);
-          //   cantidades.push(1);
-          //   observacionearticulos.push("-");
-          //   ids.push("-");
-          //   series.push("-");
-          //   observacionesservicios.push("-");
-          //   origenes.push("LIMS");
-            obtener_articulosCotLIMS(id);
-          // }
-
+          if (id.substring(0,0)=="A"){
+            obtener_articulosCotAccess();
+          }
+          obtener_articulosCotLIMS(id);
       }
       event.stopPropagation();
     });
@@ -138,7 +106,6 @@ $(document).ready(function(){
             obtener_articulosCotLocales(id.split('_')[1]);
           }
         }
-        // alert(articulos[0]);
         //  CICLO PARA VER SI HAY REPETIDOS
         for( var i=0; i<(articulos.length); i++ )
         {
@@ -184,10 +151,12 @@ $(document).ready(function(){
     // ======================= EVENTO PARA MANDAR EL POST Y GUARDAR LA COT ==================================
     $('html').on('click', '.btnGuardar', function(){
       //OBTENER EL Subtotal
-      for (var i=0; i< (articulos.length); i++)
-      {
-        subtotal=parseFloat(subtotal+$('#precio_'+articulos[i]).val());
-      }
+      
+        for (var i=0; i< (articulos.length); i++)
+        {
+          alert(parseFloat(precios[i]));
+          subtotal=parseFloat(subtotal) + (parseFloat(precios[i]));
+        }
         var obj=new Object();
         obj.idContacto= $('.btnCotizacion').attr('id').split('_')[1];
         obj.idLugarServicio = $("#LugarServicio option:selected").val();
@@ -199,11 +168,9 @@ $(document).ready(function(){
         obj.FechaDesde=$("#Vigencia").val().split('-')[0];
         obj.FechaHasta=$("#Vigencia").val().split('-')[1];
         obj.ObservacionesCot=$("#ObservacionesCot").val();
-        obj.Subtotal=parseFloat(subtotal);
-        alert(obj.subtotal);
+        obj.Subtotal=subtotal;
         var iva=parseFloat((subtotal*16)/100);
         obj.Iva=iva;
-        alert(obj.Iva);
         var total=(iva+subtotal);
         obj.Total=total;
         obj.accion = $(this).attr("id").split('_')[1];
@@ -518,7 +485,6 @@ $(document).ready(function(){
                 '<input type="text" id="precio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="LIMS_'+data.EquipId+'"></button>'
             ] ).draw( true );
-            subtotal=subtotal+parseFloat(data.Price);
             precios.push(data.Price);
           }
           else{
@@ -526,6 +492,7 @@ $(document).ready(function(){
           }
       },'json');
   }
+  //================================================================== CODIGO PARA OBTENER ARTICULOS 
   function obtener_articulosCotLIMS(id){
       var opc = "obtener_articulosCotLIMS";
       $.post("dist/fw/cotizacion.php",{opc:opc, 'id':id},function(data){
@@ -544,7 +511,6 @@ $(document).ready(function(){
                 '<input type="text" id="precio_'+data.EquipId+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Price+'" onblur="arregloPrecios('+data.EquipId+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="LIMS_'+data.EquipId+'"></button>'
             ] ).draw( true );
-            subtotal=subtotal+parseFloat(data.Price);
             precios.push(data.Price);
             var idarreglo = "LIMS_"+data.EquipId+"_"+data.ItemNumber;
             var repetido=false;
@@ -604,8 +570,6 @@ $(document).ready(function(){
                 '<input type="text" id="precioA_'+data.idEquipo+'" style="border: 0; background-color:transparent;" size=7 value="'+data.Precio+'" onblur="arregloPreciosA('+data.idEquipo+')">',
                 '<button class="btnEliminar font-icon-wrapper pe-7s-trash" id="ACCESS_'+data.idEquipo+'"></button>'
             ] ).draw( true );
-            // alert(parseFloat(data.precio));
-            subtotal=subtotal+parseFloat(data.Precio);
             precios.push(data.Precio);
           }
       },'json');
