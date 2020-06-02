@@ -193,11 +193,10 @@ $(document).ready(function(){
     });
     //=======================================================================================================
     //=======================================================================================================
-    // var table = $('#articulosCot').DataTable();
     var table = $('#articulosCot').DataTable({
       "ordering": false,
       // "scrollX":true,
-  });
+    });
     //======================= EVENTO PARA SELECCIONAR Y ELIMINAR UN ROW ===================================
     $('#articulosCot tbody').on( 'click', 'tr', function () {
         if ( $(this).hasClass('selected') ) {
@@ -215,7 +214,7 @@ $(document).ready(function(){
         eliminarItem($(this).attr("id"));
     } );
     //=====================================================================================================
-    //========================= CANCELAR LA COTIZACION =================================
+    //================================== CANCELAR LA COTIZACION ===========================================
     $('html').on('click', '.btnCancelar', function () {
       location.reload();
     } );
@@ -223,17 +222,13 @@ $(document).ready(function(){
     //========================= CANCELAR LA COTIZACION =================================
     $('html').on('click', '#CargarCot', function () {
       var de=$("#De").val();
-      // alert(de);
-     
       var a=$("#A").val();
-      // alert(a);
       if (de > a ){
         alerta_error("Error de fechas", "Selecciona de menor a mayor los años");
       }
       else{
         obtener_historialcots(de, a);
       }
-      // obtener_historialcots();
     } );
     //=====================================================================================================
     //========================= CANCELAR LA COTIZACION =================================
@@ -250,7 +245,6 @@ $(document).ready(function(){
         obtener_articulosCotSAM(id);
         obtener_contactoH(id);
       }
-      
     } );
     //=====================================================================================================
   });
@@ -262,14 +256,12 @@ $(document).ready(function(){
       $.post("dist/fw/cotizacion.php",{opc:opc}, function(data){
           if(data){
               var mySelect = $('#LugarServicio');
-              
               for (var i = 0; i < data.length; i++){
                   mySelect.append(
                       $('<option></option>').val(data[i].idLugarServicio).html(data[i].Descripcion)
                   );                       
               }
-              $("#LugarServicio option[value='1']").attr("selected", true);
-            // );  
+              $("#LugarServicio option[value='1']").attr("selected", true); 
           }
       }, 'json');
   }
@@ -431,7 +423,7 @@ $(document).ready(function(){
           $('.preloader').hide();
       },'json');
   }
-  // =============================== CODIGO PARA OBTENER EL HISTORIAL DE COTIZACIONES ============================
+  // ============================ CODIGO PARA OBTENER EL HISTORIAL DE COTIZACIONES ============================
   function obtener_historialcots(de, a){
       var opc = "obtener_historialcots";
       $('.preloader').show();
