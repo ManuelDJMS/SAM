@@ -103,7 +103,6 @@
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
         $con->conectar();
-        
         $strQuery="if exists(select ItemNumber from [EquiposLocales] where ItemNumber='".$datos->ItemNumber."') 
                     begin 
                         if exists(select ItemNumber from [EquiposLocales] where ItemNumber='".$datos->ItemNumber."' and 
@@ -130,7 +129,6 @@
                             from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] Cots INNER JOIN [METASINF-2020].[dbo].[Catalogo-Calibracion-Laboratorios] Servs on 
                             Cots.[Serv-Catalogo]=Servs.NoCatalogo where year(Fecha)=".$datos->Fecha." and NumCot=".$datos->NumCot." and [Partida No]=".$datos->Partida.")	
                         end";
-       
         $res = $con->ejecutaQuery($strQuery);
         $con->cerrar();
         echo json_encode($res);

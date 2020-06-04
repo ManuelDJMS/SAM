@@ -279,10 +279,19 @@
                                             </i>Nueva
                                         </a>
                                     </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-shuffle"></i>
+                                    Cotizador Transfer
+                                    <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                </a>
+                                <ul>
                                     <li>
-                                        <a href="components-accordions.html">
+                                        <a href="cotizacion_transfer.php">
                                             <i class="metismenu-icon">
-                                            </i>Consultar
+                                            </i>Nueva
                                         </a>
                                     </li>
                                 </ul>
