@@ -28,12 +28,11 @@
             $series = $_POST['series'];
             $observicio = $_POST['observicio'];
             $precios = $_POST['precios'];
-            $origen = $_POST['origen'];
             //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
             //-------------------------- SE ALAMCENA LA CADENA QUE GUARDA EL ENCABEZADO DE LA COT JUNTO CON LOS PARAMETROS-----------------------------------------------------
-            $sql1 = "INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTerminoPago, idPrecios, Referencia, FechaDesde,
-                       FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $params1 = array($_SESSION['iduser'],$datos->idContacto,$datos->idLugarServicio,$datos->idModalidad,$datos->idTerminosPago,$datos->idPrecios,$datos->Referencia,'2020-01-01','2020-01-01',$datos->ObservacionesCot,$datos->Subtotal,$datos->Iva,$datos->Total);
+            $sql1 = "INSERT INTO Cotizaciones (idUsuario,idContacto, idLugarServicio, idModalidad, idTiempoEntrega, idTerminoPago, idPrecios, Referencia, FechaDesde,
+                       FechaHasta, Observaciones, Subtotal, Iva, Total) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            $params1 = array($_SESSION['iduser'],$datos->idContacto,$datos->idLugarServicio,$datos->idModalidad,$datos->idTiempoEntrega,$datos->idTerminosPago,$datos->idPrecios,$datos->Referencia,'2020-01-01','2020-01-01',$datos->ObservacionesCot,$datos->Subtotal,$datos->Iva,$datos->Total);
             //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
             //,,,,,,, ARREGLO PARA LOS PARAMETROS DE LAS PARTIDAS ,,,,,,,,,,
             $params2 = array(); 
@@ -43,24 +42,24 @@
             {
                     if ($i==(count($articulos)-1))
                     {
-                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?,?,?);";
+                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?);";
             
                     }
                     else
                     {
-                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?,?,?),";
+                        $sql2=$sql2."((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?),";
                     }
-                array_push($params2, intval($articulos[$i]),1,intval($cantidades[$i]),1,$ids[$i],$series[$i],$observaciones[$i],$observicio[$i], $precios[$i], $origen[$i]);
+                array_push($params2, intval($articulos[$i]),1,intval($cantidades[$i]),1,$ids[$i],$series[$i],$observaciones[$i],$observicio[$i]);
                 
             } 
             //########################################################################################################################
             if ((count($articulos)) == 1)
             {
-                $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios, PrecioUnitario, Origen) VALUES ((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?,?,?)";
+                $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES ((Select MAX(NumCot) from Cotizaciones),?,?,?,?,?,?,?,?)";
             }
             else
             {
-                $sql2 = "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios, PrecioUnitario, Origen) VALUES ".$sql2;
+                $sql2= "INSERT INTO DetalleCotizaciones (NumCot,EquipId,PartidaNo,Cantidad,CantidadReal,identificadorInventarioCliente,Serie,Observaciones,ObservacionesServicios) VALUES ".$sql2;
 
             }
             $res = $con->ejecutaSQLTransacCot($sql1,$sql2, $params1, $params2);
@@ -103,6 +102,7 @@
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
         $con->conectar();
+        
         $strQuery="if exists(select ItemNumber from [EquiposLocales] where ItemNumber='".$datos->ItemNumber."') 
                     begin 
                         if exists(select ItemNumber from [EquiposLocales] where ItemNumber='".$datos->ItemNumber."' and 
@@ -129,6 +129,7 @@
                             from [HistorialCotizacionesMetAs].[dbo].[UNION-COTIZACIONES] Cots INNER JOIN [METASINF-2020].[dbo].[Catalogo-Calibracion-Laboratorios] Servs on 
                             Cots.[Serv-Catalogo]=Servs.NoCatalogo where year(Fecha)=".$datos->Fecha." and NumCot=".$datos->NumCot." and [Partida No]=".$datos->Partida.")	
                         end";
+       
         $res = $con->ejecutaQuery($strQuery);
         $con->cerrar();
         echo json_encode($res);
@@ -306,30 +307,6 @@
         $con->cerrar();
 	}
 	//========================================
-    // ======== OBTENER ARTICULOS SAM =============
-	elseif($opc == 'obtener_articulosLocales'){
-        $con = new Conexion();
-        $con->conectar();
-        $strQuery = "SELECT idEquipo, ItemNumber, NombreEquipo, Marca, Modelo, CONCAT(MetododeCalibracion, ' PUNTOS: ', Alcance) as Metodo FROM EquiposLocales";
-        $con->ejecutaQuery($strQuery);
-        if($con->getNum()>0){
-            $arrDatos = $con->getListaObjectos();
-            foreach ($arrDatos as $objDato) {
-                foreach ($objDato as $key => $value){
-                    if(is_string($value)){
-                        $objDato->$key = utf8_encode($value);
-                    }
-                }
-                $arrRespuesta[] = $objDato;
-            }
-            echo json_encode($arrRespuesta);
-        }
-        else{
-            echo json_encode(false);
-        }
-        $con->cerrar();
-	}
-	//========================================
     // ======== OBTENER HISTORIAL COTS =============
 	elseif($opc == 'obtener_historialcots'){
 
@@ -364,59 +341,7 @@
         $con = new Conexion();
         $con->conectar();
         $strQuery = "SELECT SetupEquipment.EquipId, ItemNumber, EquipmentName, Mfr, Model, ServiceDescription, Price FROM SetupEquipment INNER JOIN SetupEquipmentServiceMapping ON 
-                     SetupEquipment.EquipId=SetupEquipmentServiceMapping.EquipId where SetupEquipment.EquipId=$id";
-        $con->ejecutaQuery($strQuery);
-        $obj = $con->getObjeto();
-        foreach ($obj as $key => $value) {
-            if(is_string($value)){
-                $obj->$key = utf8_encode($value);    
-            }
-        }
-        echo json_encode($obj);
-        $con->cerrar();
-	}
-	elseif($opc == 'obtener_articulosCotLIMS'){
-        $id = $_POST['id'];
-        $con = new Conexion();
-        $con->conectar();
-        $strQuery = "SELECT SetupEquipment.EquipId, ItemNumber, EquipmentName, Mfr, Model, ServiceDescription, Price FROM SetupEquipment INNER JOIN SetupEquipmentServiceMapping ON 
-                     SetupEquipment.EquipId=SetupEquipmentServiceMapping.EquipId where ItemNumber='".$id."'";
-        $con->ejecutaQuery($strQuery);
-        $obj = $con->getObjeto();
-        foreach ($obj as $key => $value) {
-            if(is_string($value)){
-                $obj->$key = utf8_encode($value);    
-            }
-        }
-        echo json_encode($obj);
-        $con->cerrar();
-	}
-	//========================================
-    // ======== OBTENER ARTICULOS COT =============
-	elseif($opc == 'obtener_articulosCotLocales'){
-        $id = $_POST['id'];
-        $con = new Conexion();
-        $con->conectar();
-        $strQuery = "SELECT idEquipo, ItemNumber, NombreEquipo, Marca, Modelo, CONCAT(MetododeCalibracion, ' ', PuntosdeCalibracion) as MetododeCalibracion, Precio FROM
-                    EquiposLocales WHERE idEquipo= $id";
-        $con->ejecutaQuery($strQuery);
-        $obj = $con->getObjeto();
-        foreach ($obj as $key => $value) {
-            if(is_string($value)){
-                $obj->$key = utf8_encode($value);    
-            }
-        }
-        echo json_encode($obj);
-        $con->cerrar();
-	}
-	//========================================
-    // ======== OBTENER ARTICULOS COT =============
-	elseif($opc == 'obtener_articulosENTERSAM'){
-        $id = $_POST['id'];
-        $con = new Conexion();
-        $con->conectar();
-        $strQuery = "SELECT idEquipo, ItemNumber, NombreEquipo, Marca, Modelo, CONCAT(MetododeCalibracion, ' ', PuntosdeCalibracion) as MetododeCalibracion, Precio FROM
-                    EquiposLocales WHERE ItemNumber='".$id."'";
+                     SetupEquipment.EquipId=SetupEquipmentServiceMapping.EquipId where SetupEquipment.EquipId= $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {
@@ -446,43 +371,6 @@
         $con->cerrar();
 	}
 	//========================================
-    // ======== OBTENER COTIZACVIONES SAM =============
-	elseif($opc == 'obtener_articulosCotSAM'){
-        $id = $_POST['id'];
-        $con = new Conexion();
-        $con->conectar();
-        $strQuery = "select distinct *from(	
-            SELECT idContacto, DetalleCotizaciones.EquipId, DetalleCotizaciones.NumCot, PartidaNo, ItemNumber, NombreEquipo as Equipo, Marca, Modelo, 
-                    identificadorInventarioCliente AS ID, Serie, CONCAT(MetododeCalibracion, ' ', PuntosdeCalibracion) as MetododeCalibracion, 
-                    DetalleCotizaciones.Observaciones, ObservacionesServicios, Cantidad, PrecioUnitario, Origen FROM 
-                    DetalleCotizaciones INNER JOIN EquiposLocales ON DetalleCotizaciones.EquipId=EquiposLocales.IdEquipo 
-                    INNER JOIN Cotizaciones ON DetalleCotizaciones.NumCot=Cotizaciones.NumCot WHERE Origen='ACCESS'
-                    union
-            SELECT idContacto, DetalleCotizaciones.EquipId, DetalleCotizaciones.NumCot, PartidaNo, ItemNumber, EquipmentName as Equipo, Mfr as Marca, Model as Modelo, 
-                    identificadorInventarioCliente AS ID, Serie, CalibrationMethod as MetododeCalibracion, 
-                    DetalleCotizaciones.Observaciones, ObservacionesServicios, Cantidad, PrecioUnitario, Origen FROM 
-                    DetalleCotizaciones INNER JOIN SetupEquipment on DetalleCotizaciones.EquipId=SetupEquipment.EquipId 
-                    INNER JOIN Cotizaciones ON DetalleCotizaciones.NumCot=Cotizaciones.NumCot WHERE Origen='LIMS'
-            )x WHERE idContacto=".$id." order by NumCot ";
-        $con->ejecutaQuery($strQuery);
-        if($con->getNum()>0){
-            $arrDatos = $con->getListaObjectos();
-            foreach ($arrDatos as $objDato) {
-                foreach ($objDato as $key => $value){
-                    if(is_string($value)){
-                        $objDato->$key = utf8_encode($value);
-                    }
-                }
-                $arrRespuesta[] = $objDato;
-            }
-            echo json_encode($arrRespuesta);
-        }
-        else{
-            echo json_encode(false);
-        }
-        $con->cerrar();
-	}
-	//========================================
 	elseif($opc=="obtener_contacto"){
         $id = $_POST['id'];
         $con = new Conexion();
@@ -504,25 +392,7 @@
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT Nombre, Apellidos, RazonSocial, Email, Tel, RazonSocial, CP, Domicilio FROM ContactosAcomodados INNER JOIN EmpresasOrdenadas 
-              ON ContactosAcomodados.ClaveEmpresa=EmpresasOrdenadas.ClaveEmpresa INNER JOIN DireccionesAcomodadas on EmpresasOrdenadas.ClaveEmpresa=DireccionesAcomodadas.ClaveEmpresa 
-              WHERE Facturacion=1 and ClaveContacto =$id";
-        $con->ejecutaQuery($strQuery);
-        $obj = $con->getObjeto();
-        foreach ($obj as $key => $value) {
-            if(is_string($value)){
-                $obj->$key = utf8_encode($value);    
-            }
-        }
-        echo json_encode($obj);
-        $con->cerrar();
-    }
-	//========================================
-	elseif($opc=="obtener_contactoH"){
-        $id = $_POST['id'];
-        $con = new Conexion();
-        $con->conectar();
-        $strQuery = "SELECT Nombre, Apellidos, RazonSocial, (select count(*) from Cotizaciones WHERE idContacto=$id) as Cotizaciones FROM ContactosAcomodados INNER JOIN EmpresasOrdenadas 
+        $strQuery = "SELECT Nombre, Apellidos, RazonSocial, Email, Tel, Ciudad, CP, Domicilio FROM ContactosAcomodados INNER JOIN EmpresasOrdenadas 
               ON ContactosAcomodados.ClaveEmpresa=EmpresasOrdenadas.ClaveEmpresa INNER JOIN DireccionesAcomodadas on EmpresasOrdenadas.ClaveEmpresa=DireccionesAcomodadas.ClaveEmpresa 
               WHERE Facturacion=1 and ClaveContacto =$id";
         $con->ejecutaQuery($strQuery);

@@ -99,7 +99,7 @@ function guardar_servicio(obj){
 // ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
 function obtener_servicio(id){
   var opc = "obtener_servicio";
-  $('.preloader').show();
+  $('.line-scale-pulse-out').show();
   $.post("dist/fw/serviciosN.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_formulario()
@@ -118,13 +118,13 @@ function obtener_servicio(id){
       {
         alerta_error("Error", "Error al recibir los datos");
       }
-      $('.preloader').hide();
+      $('.line-scale-pulse-out').hide();
   },'json');
 }
 // ============================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
-    $('.preloader').show();
+    $('.line-scale-pulse-out').show();
     regenerar_tabla();
     $.post("dist/fw/serviciosN.php",{opc:opc},function(data){
         if(data){
@@ -150,7 +150,7 @@ function obtener_registros(){
                 "autoWidth": true
             });
         }
-        $('.preloader').hide();
+        $('.line-scale-pulse-out').hide();
     },'json');
 }
     

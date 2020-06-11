@@ -103,7 +103,7 @@ ini_set('display_errors', '0');
     elseif($opc == 'obtener_articulos'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT EquipId, EquipmentName, Mfr, Model FROM SetupEquipment";
+        $strQuery = "SELECT * FROM Articulos";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();

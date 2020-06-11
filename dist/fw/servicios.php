@@ -2,37 +2,37 @@
  session_start();
  error_reporting(E_ALL);
 ini_set('display_errors', '0');
+// 	include "config.php";
 	require_once "classes/Conexion.php";
 
 	 $opc = $_POST['opc'];
+	// $opc = "registrar_empresa";
 	if ($opc == '' || $opc == 'undefined' || $opc == null) {
 	    echo json_encode(false);
 	    die();
 	}
-	elseif ($opc == 'guardar_usuario') {
+	elseif ($opc == 'guardar_servicio') {
 		$obj = $_POST['obj'];
         $datos = json_decode($obj); 
         foreach ($datos as $key => $value)$datos->$key = utf8_decode($value);
         $con = new Conexion();
         $con->conectar();
         if($datos->accion == 'nuevo'){
-            $strQuery = "INSERT INTO Usuarios (Nombre,Apellidos,Email,Depto,Ext,password,Firma,Responsable,Metrologo,Auxiliar)
-                         VALUES ('".$datos->Nombre."', '".$datos->Apellidos."','".$datos->Email."','".$datos->Depto."','".$datos->Ext."'
-                         ,'".$datos->password."','".$datos->Firma."','".$datos->Responsable."','".$datos->Metrologo."','".$datos->Auxiliar."')";
+            $strQuery = "INSERT INTO EmpresasOrdenadas (cve,RazonSocial,RFC,Credito,ObservacionesEmpresa,Ventas,Cursos,Gestoria)
+                         VALUES (".$_SESSION['iduser'].",'".$datos->RazonSocial.", ".$datos->Tipo."','".$datos->RFC."','".$datos->Credito."','".$datos->Observaciones."','".$datos->CVentas."','".$datos->CCursos."'
+							 		           ,'".$datos->CGestoria."')";
         }
         else{
-            $strQuery = "UPDATE Usuarios SET 
-            Nombre = '".$datos->Nombre."',
-            Apellidos = '".$datos->Apellidos."',
-            Depto = '".$datos->Depto."',
-            Firma = '".$datos->Firma."',
-            Ext = '".$datos->Ext."',
-            password = '".$datos->password."',
-            Responsable = '".$datos->Responsable."',
-            Metrologo = '".$datos->Metrologo."',
-            Auxiliar = '".$datos->Auxiliar."',
-            FechaModificacion = getdate()
-            WHERE idUsuario = '".$datos->idUsuario."'";
+            $strQuery = "UPDATE EmpresasOrdenadas SET 
+            RazonSocial = '".$datos->RazonSocial.", ".$datos->Tipo."',
+            FechaModificacion = getdate(),
+            RFC = '".$datos->RFC."',
+            Credito = '".$datos->Credito."',
+            ObservacionesEmpresa = '".$datos->Observaciones."',
+            Ventas = '".$datos->CVentas."',
+            Cursos = '".$datos->CCursos."',
+            Gestoria = '".$datos->CGestoria."'
+         WHERE ClaveEmpresa = '".$datos->ClaveEmpresa."'";
          }
 
         $res = $con->ejecutaQuery($strQuery);
@@ -43,7 +43,7 @@ ini_set('display_errors', '0');
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM Usuarios";
+        $strQuery = "SELECT idCat, NoCatalogo, Instrumento, Alcance, ClaseDeExactitud, PuntosdeCalibracion, MetododeCalibracion, PatronesReferencia,PrecioBase FROM CatalogoServicios";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();
@@ -63,25 +63,11 @@ ini_set('display_errors', '0');
         $con->cerrar();
 	}
 	
-	elseif($opc=="obtener_usuario"){
+	elseif($opc=="obtener_registro"){
         $id = $_POST['id'];
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM Usuarios WHERE idUsuario = $id";
-        $con->ejecutaQuery($strQuery);
-        $obj = $con->getObjeto();
-        foreach ($obj as $key => $value) {
-            if(is_string($value)){
-                $obj->$key = utf8_encode($value);    
-            }
-        }
-        echo json_encode($obj);
-    }
-
-    elseif($opc=="obtener_cve"){
-        $con = new Conexion();
-        $con->conectar();
-        $strQuery = "SELECT TOP(1) cve from Usuarios order by cve desc";
+        $strQuery = "SELECT * FROM EmpresasOrdenadas WHERE ClaveEmpresa = $id";
         $con->ejecutaQuery($strQuery);
         $obj = $con->getObjeto();
         foreach ($obj as $key => $value) {

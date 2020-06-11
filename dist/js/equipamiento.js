@@ -62,7 +62,7 @@ $(document).ready(function(){
 // =========== FUNCIONES PARA OBTENER TODOS LOS ARTICULOS===================
 function obtener_articulos(){
     var opc = "obtener_articulos";
-    $('.preloader').show();
+    $('.line-scale-pulse-out').show();
     regenerar_tablaArticulos();
     $.post("dist/fw/equipamiento.php",{opc:opc},function(data){
         if(data){
@@ -85,14 +85,14 @@ function obtener_articulos(){
                 "autoWidth": true
             });
         }
-        $('.preloader').hide();
+        $('.line-scale-pulse-out').hide();
     },'json');
   }
 
 function regenerar_tablaArticulos(){                                                                                                                                           
   $('#div_registros2').html("");
   var html = "";
-  html += '<table id="example2" class="table table-bordered table-striped dataTable style="width: 100%;">';
+  html += '<table id="example2" class="table table-bordered table-striped dataTable">';
   html += '<thead>';
   html += '<tr>';
   html += '<th>Descripcion</th>';
@@ -111,7 +111,7 @@ function regenerar_tablaArticulos(){
 // =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS===================
 function obtener_registros(){
   var opc = "obtener_registros";
-  $('.preloader').show();
+  $('.line-scale-pulse-out').show();
   regenerar_tabla();
   $.post("dist/fw/equipamiento.php",{opc:opc},function(data){
       if(data){
@@ -135,7 +135,7 @@ function obtener_registros(){
           });
           
       }
-      $('.preloader').hide();
+      $('.line-scale-pulse-out').hide();
   },'json');
 }
  
@@ -161,7 +161,7 @@ function regenerar_tabla(){
 // =========== FUNCIONES SELECCIONAR EMPRESA Y CONTACTO=====================
 function obtener_empresa(id){
   var opc = "obtener_empresa";
-  $('.preloader').show();
+  $('.line-scale-pulse-out').show();
   $.post("dist/fw/equipamiento.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_formulario()
@@ -174,7 +174,7 @@ function obtener_empresa(id){
       {
         alerta_error("Error", "Error al recibir los datos");
       }
-      $('.preloader').hide();
+      $('.line-scale-pulse-out').hide();
   },'json');
 }
 // =========================================================================
@@ -200,7 +200,7 @@ function limpia_formularioArticulo(){
 function obtener_articulo(id){
   var opc = "obtener_articulo";
   var idArt = id;
-  $('.preloader').show();
+  $('.line-scale-pulse-out').show();
   $.post("dist/fw/equipamiento.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_formularioArticulo()
@@ -213,7 +213,7 @@ function obtener_articulo(id){
       {
         alerta_error("Error", "Error al recibir los datos");
       }
-      $('.preloader').hide();
+      $('.line-scale-pulse-out').hide();
   },'json');
 }
 // =========================================================================
@@ -258,7 +258,7 @@ function registrar_equipamiento(obj){
 // =========== FUNCIONES PARA OBTENER TODAS EL EQUIPAMIENTO===================
 function obtener_equipamiento(){
   var opc = "obtener_equipamiento";
-  $('.preloader').show();
+  $('.line-scale-pulse-out').show();
   regenerar_tabla();
   $.post("dist/fw/equipamiento.php",{opc:opc},function(data){
       if(data){
@@ -285,7 +285,7 @@ function obtener_equipamiento(){
               "autoWidth": true
           });
       }
-      $('.preloader').hide();
+      $('.line-scale-pulse-out').hide();
   },'json');
 }
  
