@@ -21,6 +21,7 @@
         }
       }
       else{
+        
         $serverName = "IRONMAN2";
         $user = "sa";
         $password = "Met99011578a";
@@ -55,6 +56,7 @@
         $user = "sa";
         $password = "Met99011578a";
         $dataBase = "HistorialCotizacionesMetAs";
+        // $dataBase = "InformacionGeneral";
 
         $this->serverName = $serverName;
         $this->user = $user;
