@@ -113,15 +113,15 @@
                                 <div class="position-relative form-group">
                                     <div>
                                         <div class="custom-radio custom-control custom-control-inline">
-                                            <input type="radio" id="anio2019" name="anio" class="custom-control-input" checked>
+                                            <input type="radio" id="2019" name="anio" class="custom-control-input" checked>
                                             <label class="custom-control-label" for="2019">2019</label>
                                         </div>
                                         <div class="custom-radio custom-control custom-control-inline">
-                                            <input type="radio" id="anio2018" name="anio" class="custom-control-input">
+                                            <input type="radio" id="2018" name="anio" class="custom-control-input">
                                             <label class="custom-control-label" for="2018">2018</label>
                                         </div>
                                         <div class="custom-radio custom-control custom-control-inline">
-                                            <input type="radio" id="anio2017" name="anio" class="custom-control-input">
+                                            <input type="radio" id="2017" name="anio" class="custom-control-input">
                                             <label class="custom-control-label" for="2017">2017</label>
                                         </div>
                                     </div>
@@ -165,16 +165,15 @@
                             Cotizaciones
                         </div>
                     </div>
-                    <div id="div_Cots" class="card-body">
-                        <table style="width: 100%;" id="table_Cots" class="table table-hover table-bordered table-striped dataTable">
+                    <div id="div_cotizaciones" class="card-body">
+                        <table style="width: 100%;" id="table_cotizaciones" class="table table-hover table-bordered table-striped dataTable">
                             <thead>
                                 <tr>
                                     <th>NumCot</th>
                                     <th>Empresa</th>
                                     <th>Fecha</th>
-                                    <th>Marca</th>
-                                    <th>Modelo</th>
-                                    <th>ID</th>
+                                    <th>Referencia</th>
+                                    <th>Elaboró</th>
                                     <th></th>
                                 </tr>
                             </thead>

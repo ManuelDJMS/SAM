@@ -25,7 +25,6 @@ ini_set('display_errors', '0');
             Nombre = '".$datos->Nombre."',
             Apellidos = '".$datos->Apellidos."',
             Depto = '".$datos->Depto."',
-            Firma = '".$datos->Firma."',
             Ext = '".$datos->Ext."',
             password = '".$datos->password."',
             Responsable = '".$datos->Responsable."',

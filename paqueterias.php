@@ -68,22 +68,22 @@
             <!-- ===================================AQUI EMPIEZA EL CODIGO DE LAS COSULTAS ====================================================================== -->
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div  class="main-card mb-3 card">
-                    <div id="div_registros" class="card-body">
-                        <table id="table_registros" class="table table-bordered table-striped dataTable">
-                            <thead>
-                            <tr>
-                                <th>id Paqueteria</th>
-                                <th>Descripción</th>
-                                <th>Notas</th>
-                                <th>Editar</th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                <div id="div_registros" class="card-body">
+                    <table id="table_registros" class="table table-bordered table-striped dataTable">
+                        <thead>
+                        <tr>
+                            <th>id Paqueteria</th>
+                            <th>Descripción</th>
+                            <th>Notas</th>
+                            <th>Editar</th>
+                        </tr>
+                        </thead>
+                    <tbody>
 
-                            </tbody>
-                        </table>
-                    </div><!-- /.box-body -->
-                </div>  
+                    </tbody>
+                  </table>
+                </div><!-- /.box-body -->
+            </div>  
             <!-- Codigo para la animacion de cargado -->
             <div class="loader-wrapper d-flex justify-content-center align-items-center">
                 <div class="loader">

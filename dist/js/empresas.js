@@ -550,7 +550,7 @@ function obtener_paqueterias(){
 // ============================== METODO PÁRA OBTENER UN REGISTRO PARA EDITAR =============================
 function obtener_registro(id){
   var opc = "obtener_registro";
-  $('.line-scale-pulse-out').show();
+  $('.preloader').show();
   $.post("dist/fw/empresas.php",{'opc':opc, 'id':id},function(data){
       if(data){
         limpia_formulario()
@@ -573,7 +573,7 @@ function obtener_registro(id){
       {
         alerta_error("Error", "Error al recibir los datos");
       }
-      $('.line-scale-pulse-out').hide();
+      $('.preloader').hide();
   },'json');
 }
 // ========================================================================================================
@@ -625,7 +625,7 @@ function obtener_direccion(id){
 // ========================================================================================================
 function obtener_registros(){
     var opc = "obtener_registros";
-    // $('.preloader').show();
+    $('.preloader').show();
     regenerar_tabla();
     $.post("dist/fw/empresas.php",{opc:opc},function(data){
         if(data){
@@ -652,13 +652,13 @@ function obtener_registros(){
                 "autoWidth": true
             });
         }
-        // $('.preloader').hide();
+        $('.preloader').hide();
     },'json');
 }
 // ==================== CODIGO PARA OBTENER LAS DIRECCIONES DE LA EMPRESA SELECCIONADA=====================
 function obtener_direcciones(id){
     var opc = "obtener_direcciones";
-    $('.line-scale-pulse-out').show();
+    $('.preloader').show();
     regenerar_tabla_direcciones();
     $.post("dist/fw/empresas.php",{opc:opc,'id':id},function(data){
         if(data){
@@ -682,14 +682,14 @@ function obtener_direcciones(id){
                 "autoWidth": true
             });
         }
-        $('.line-scale-pulse-out').hide();
+        $('.preloader').hide();
     },'json');
 }
 // ========================================================================================================
 function regenerar_tabla(){
     $('#div_registros').html("");
     var html = "";
-    html += '<table id="table_registros" class="table table-hover table-bordered table-striped dataTable">';
+    html += '<table id="table_registros" class="table table-hover table-bordered table-striped dataTable" style="width: 100%;">';
     html += '<thead>';
     html += '<tr>';
     html += '<th>Clave Empresa</th>';
@@ -710,7 +710,7 @@ function regenerar_tabla(){
 function regenerar_tabla_direcciones(){
     $('#div_registros_direcciones').html("");
     var html = "";
-    html += '<table id="table_direcciones" class="table table-hover table-bordered table-striped dataTable">';
+    html += '<table id="table_direcciones" class="table table-hover table-bordered table-striped dataTable " style="width: 100%;">';
     html += '<thead>';
     html += '<tr>';
     html += '<th>Compañia</th>';
@@ -813,7 +813,6 @@ function limpia_direcciones(){
       icon: 'error',
       title: titulo,
       text: texto
-      // footer: '<a href>Why do I have this issue?</a>'
     })
   }
   function alerta_success(titulo, texto){
@@ -821,6 +820,5 @@ function limpia_direcciones(){
       icon: 'success',
       title: titulo,
       text: texto
-      // footer: '<a href>Why do I have this issue?</a>'
     })
   }

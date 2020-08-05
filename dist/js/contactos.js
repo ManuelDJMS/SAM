@@ -160,7 +160,7 @@ function obtener_empresa(id){
 // ============================= METODO PARA OBTENER LOS CONTACTOS ====================================
 function obtener_contactos(){
     var opc = "obtener_contactos";
-    $('.line-scale-pulse-out').show();
+    $('.preloader').show();
     regenerar_tabla();
     $.post("dist/fw/contactos.php",{opc:opc},function(data){
         if(data){
@@ -190,7 +190,7 @@ function obtener_contactos(){
                 "autoWidth": true
             });
         }
-        $('.line-scale-pulse-out').hide();
+        $('.preloader').hide();
     },'json');
 }
 //=====================================================================================================
@@ -232,7 +232,7 @@ function obtener_empresas(){
 function regenerar_tabla(){
     $('#div_contactos').html("");
     var html = "";
-    html += '<table id="table_contactos" class="table table-hover table-bordered table-striped dataTable">';
+    html += '<table id="table_contactos" class="table table-hover table-bordered table-striped dataTable" style="width: 100%;">';
     html += '<thead>';
     html += '<tr>';
     html += '<th>Clave Contacto</th>';
@@ -258,7 +258,7 @@ function regenerar_tabla(){
 function regenerar_tabla_empresas(){
   $('#div_empresas').html("");
   var html = "";
-  html += '<table id="table_empresas" class="table table-hover table-bordered table-striped dataTable">';
+  html += '<table id="table_empresas" class="table table-hover table-bordered table-striped dataTable" style="width: 100%;">';
   html += '<thead>';
   html += '<tr>';
   html += '<th>Clave Empresa</th>';

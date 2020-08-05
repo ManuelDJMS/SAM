@@ -2,13 +2,9 @@ $(document).ready(function(){
     $('.btnEditarG').hide();
     $('.btnAgregar').hide();
     $('.serAgregados').hide();
-    // $('#Empresa').hide();
-    // limpia_formulario();
     obtener_laboratorio();
-    // obtener_articulos();
     obtener_registros();
     obtener_servicios();
-    // obtener_equipamiento();
     $('html').on('click','#check3',function(){
         if($(this).val() == 1){
           $(this).val(0);
@@ -143,7 +139,7 @@ $(document).ready(function(){
 // =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS===================
 function obtener_registros(){
   var opc = "obtener_registros";
-  $('.line-scale-pulse-out').show();
+  $('.preloader').show();
   regenerar_tabla();
   $.post("dist/fw/articulos.php",{opc:opc},function(data){
       if(data){
@@ -169,14 +165,14 @@ function obtener_registros(){
               "autoWidth": true
           });
       }
-      $('.line-scale-pulse-out').hide();
+      $('.preloader').hide();
   },'json');
 }
  
 function regenerar_tabla(){
   $('#div_registros').html("");
   var html = "";
-  html += '<table id="tablaArticulos" class="table table-bordered table-striped dataTable">';
+  html += '<table id="tablaArticulos" class="table table-bordered table-striped dataTable" style="width: 100%;">';
   html += '<thead>';
   html += '<tr>';
   html += '<th>Num. Artículo</th>';
@@ -302,7 +298,7 @@ function obtener_laboratorio(){
 // =========== FUNCIONES PARA OBTENER TODAS LAS EMPRESAS=====================
 function obtener_serviciosAgregados(id){
   var opc = "obtener_serviciosAgregados";
-  $('.line-scale-pulse-out').show();
+  $('.preloader').show();
   regenerar_tablaServiciosAgregados();
   $.post("dist/fw/articulos.php",{'opc':opc, 'id':id},function(data){
       if(data){
@@ -324,7 +320,7 @@ function obtener_serviciosAgregados(id){
               "autoWidth": true
           });
       }
-      $('.line-scale-pulse-out').hide();
+      $('.preloader').hide();
   },'json');
 }
  

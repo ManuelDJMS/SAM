@@ -14,7 +14,7 @@ ini_set('display_errors', '0');
 	elseif($opc == 'obtener_registros'){
         $con = new Conexion();
         $con->conectar();
-        $strQuery = "SELECT * FROM Articulos";
+        $strQuery = "SELECT * FROM SetupEquipment";
         $con->ejecutaQuery($strQuery);
         if($con->getNum()>0){
             $arrDatos = $con->getListaObjectos();

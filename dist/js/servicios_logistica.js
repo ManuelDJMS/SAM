@@ -2,6 +2,26 @@ $(document).ready(function(){
     $('.btnEditarG').hide();
     limpia_formulario();
     obtener_registros();
+    $(window).resize(function() {
+      if(this.resizeTO) clearTimeout(this.resizeTO);
+      this.resizeTO = setTimeout(function() {
+         $(this).trigger('resizeEnd');
+      }, 500);
+   });
+   $(window).bind("resizeEnd", function() {
+    var table = $('#table_registros').DataTable();
+        table.destroy();
+        $('#table_registros').DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "scrollX":true
+      });
+    
+   });
     // =======================================================================
     // ============= EVENTO DE EL BOTON GUARDAR (MANDAR POST)=================
       $('html').on('click', '.btnGuardar', function(){
@@ -76,7 +96,7 @@ $(document).ready(function(){
   // ========================= METODO PÁRA OBTENER UN REGISTRO PARA EDITAR ======================
   function obtener_registro(id){
     var opc = "obtener_registro";
-    $('.line-scale-pulse-out').show();
+    $('.preloader').show();
     $.post("dist/fw/servicios_logistica.php",{'opc':opc, 'id':id},function(data){
         if(data){
           limpia_formulario()
@@ -91,13 +111,13 @@ $(document).ready(function(){
         {
           alerta_error("Error", "Error al recibir los datos");
         }
-        $('.line-scale-pulse-out').hide();
+        $('.preloader').hide();
     },'json');
   }
   // ============================================================================================
   function obtener_registros(){
       var opc = "obtener_registros";
-      $('.line-scale-pulse-out').show();
+      $('.preloader').show();
       regenerar_tabla();
       $.post("dist/fw/servicios_logistica.php",{opc:opc},function(data){
           if(data){
@@ -123,14 +143,14 @@ $(document).ready(function(){
                   "autoWidth": true
               });
           }
-          $('.line-scale-pulse-out').hide();
+          $('.preloader').hide();
       },'json');
   }
       
   function regenerar_tabla(){
       $('#div_registros').html("");
       var html = "";
-      html += '<table id="table_registros" class="table table-bordered table-striped dataTable">';
+      html += '<table id="table_registros" class="table table-striped table-bordered" style="width:100%">';
       html += '<thead>';
       html += '<tr>';
       html += '<th>N° Catalogo</th>';
